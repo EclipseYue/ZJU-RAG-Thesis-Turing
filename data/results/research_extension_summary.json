@@ -1,0 +1,352 @@
+{
+  "config": {
+    "hotpot_samples": 80,
+    "wiki2_samples": 80,
+    "sweep_samples": 50,
+    "top_k": 5,
+    "threshold": 0.8,
+    "thresholds": [
+      0.7,
+      0.8,
+      0.9,
+      0.95
+    ]
+  },
+  "runtime_seconds": 399.66,
+  "datasets": {
+    "hotpotqa": {
+      "summary": {
+        "lexical": {
+          "n": 80,
+          "SupportAllHit@5": 23.75,
+          "SupportRecall@5": 50.62,
+          "AnswerPresence@5": 61.84,
+          "AvgLatencyMs": 55.2,
+          "AvgTokens": 15.3,
+          "AvgRetrievalCalls": 1,
+          "AvgRerankerCalls": 0,
+          "SupportAllHit@5_CI95": [
+            0.15,
+            0.3375
+          ],
+          "SupportRecall@5_CI95": [
+            0.4313,
+            0.5813
+          ],
+          "AnswerPresence@5_CI95": [
+            0.5,
+            0.7237
+          ]
+        },
+        "dense_only": {
+          "n": 80,
+          "SupportAllHit@5": 53.75,
+          "SupportRecall@5": 75.0,
+          "AnswerPresence@5": 67.11,
+          "AvgLatencyMs": 48.05,
+          "AvgTokens": 434.55,
+          "AvgRetrievalCalls": 1,
+          "AvgRerankerCalls": 0,
+          "SupportAllHit@5_CI95": [
+            0.4375,
+            0.65
+          ],
+          "SupportRecall@5_CI95": [
+            0.6875,
+            0.8125
+          ],
+          "AnswerPresence@5_CI95": [
+            0.5658,
+            0.7763
+          ]
+        },
+        "dense_rerank": {
+          "n": 80,
+          "SupportAllHit@5": 53.75,
+          "SupportRecall@5": 75.0,
+          "AnswerPresence@5": 67.11,
+          "AvgLatencyMs": 289.23,
+          "AvgTokens": 511.05,
+          "AvgRetrievalCalls": 1,
+          "AvgRerankerCalls": 1,
+          "SupportAllHit@5_CI95": [
+            0.4375,
+            0.65
+          ],
+          "SupportRecall@5_CI95": [
+            0.6875,
+            0.8125
+          ],
+          "AnswerPresence@5_CI95": [
+            0.5658,
+            0.7763
+          ]
+        },
+        "adaptive": {
+          "n": 80,
+          "SupportAllHit@5": 58.75,
+          "SupportRecall@5": 77.5,
+          "AnswerPresence@5": 72.37,
+          "AvgLatencyMs": 982.49,
+          "AvgTokens": 1039.25,
+          "AvgRetrievalCalls": 1.98,
+          "AvgRerankerCalls": 1.98,
+          "SupportAllHit@5_CI95": [
+            0.4875,
+            0.6875
+          ],
+          "SupportRecall@5_CI95": [
+            0.7125,
+            0.8313
+          ],
+          "AnswerPresence@5_CI95": [
+            0.6316,
+            0.8158
+          ]
+        },
+        "full_chain": {
+          "n": 80,
+          "SupportAllHit@5": 58.75,
+          "SupportRecall@5": 77.5,
+          "AnswerPresence@5": 72.37,
+          "AvgLatencyMs": 662.11,
+          "AvgTokens": 1039.25,
+          "AvgRetrievalCalls": 1.98,
+          "AvgRerankerCalls": 1.98,
+          "SupportAllHit@5_CI95": [
+            0.4875,
+            0.6875
+          ],
+          "SupportRecall@5_CI95": [
+            0.7125,
+            0.8313
+          ],
+          "AnswerPresence@5_CI95": [
+            0.6316,
+            0.8158
+          ]
+        }
+      },
+      "error_distribution": {
+        "partial_evidence": {
+          "count": 30,
+          "ratio_percent": 37.5
+        },
+        "other": {
+          "count": 47,
+          "ratio_percent": 58.75
+        },
+        "retrieval_miss": {
+          "count": 3,
+          "ratio_percent": 3.75
+        }
+      },
+      "significance": {
+        "adaptive_vs_dense_rerank_support_all": {
+          "delta": 0.05,
+          "ci95": [
+            0.0125,
+            0.1
+          ]
+        },
+        "full_chain_vs_dense_rerank_support_all": {
+          "delta": 0.05,
+          "ci95": [
+            0.0125,
+            0.1
+          ]
+        }
+      }
+    },
+    "2wikimultihopqa": {
+      "summary": {
+        "lexical": {
+          "n": 80,
+          "SupportAllHit@5": 13.75,
+          "SupportRecall@5": 31.25,
+          "AnswerPresence@5": 28.17,
+          "AvgLatencyMs": 35.49,
+          "AvgTokens": 11.9,
+          "AvgRetrievalCalls": 1,
+          "AvgRerankerCalls": 0,
+          "SupportAllHit@5_CI95": [
+            0.0625,
+            0.2125
+          ],
+          "SupportRecall@5_CI95": [
+            0.2375,
+            0.3875
+          ],
+          "AnswerPresence@5_CI95": [
+            0.1831,
+            0.3944
+          ]
+        },
+        "dense_only": {
+          "n": 80,
+          "SupportAllHit@5": 28.75,
+          "SupportRecall@5": 63.44,
+          "AnswerPresence@5": 52.11,
+          "AvgLatencyMs": 38.04,
+          "AvgTokens": 400.54,
+          "AvgRetrievalCalls": 1,
+          "AvgRerankerCalls": 0,
+          "SupportAllHit@5_CI95": [
+            0.1875,
+            0.3875
+          ],
+          "SupportRecall@5_CI95": [
+            0.5813,
+            0.6875
+          ],
+          "AnswerPresence@5_CI95": [
+            0.3944,
+            0.6479
+          ]
+        },
+        "dense_rerank": {
+          "n": 80,
+          "SupportAllHit@5": 28.75,
+          "SupportRecall@5": 63.44,
+          "AnswerPresence@5": 52.11,
+          "AvgLatencyMs": 318.97,
+          "AvgTokens": 460.04,
+          "AvgRetrievalCalls": 1,
+          "AvgRerankerCalls": 1,
+          "SupportAllHit@5_CI95": [
+            0.1875,
+            0.3875
+          ],
+          "SupportRecall@5_CI95": [
+            0.5813,
+            0.6875
+          ],
+          "AnswerPresence@5_CI95": [
+            0.3944,
+            0.6479
+          ]
+        },
+        "adaptive": {
+          "n": 80,
+          "SupportAllHit@5": 36.25,
+          "SupportRecall@5": 67.81,
+          "AnswerPresence@5": 60.56,
+          "AvgLatencyMs": 1099.03,
+          "AvgTokens": 953.48,
+          "AvgRetrievalCalls": 2,
+          "AvgRerankerCalls": 2,
+          "SupportAllHit@5_CI95": [
+            0.25,
+            0.4625
+          ],
+          "SupportRecall@5_CI95": [
+            0.6188,
+            0.7312
+          ],
+          "AnswerPresence@5_CI95": [
+            0.493,
+            0.7183
+          ]
+        },
+        "full_chain": {
+          "n": 80,
+          "SupportAllHit@5": 36.25,
+          "SupportRecall@5": 67.81,
+          "AnswerPresence@5": 60.56,
+          "AvgLatencyMs": 755.68,
+          "AvgTokens": 953.48,
+          "AvgRetrievalCalls": 2,
+          "AvgRerankerCalls": 2,
+          "SupportAllHit@5_CI95": [
+            0.25,
+            0.4625
+          ],
+          "SupportRecall@5_CI95": [
+            0.6188,
+            0.7312
+          ],
+          "AnswerPresence@5_CI95": [
+            0.493,
+            0.7183
+          ]
+        }
+      },
+      "error_distribution": {
+        "partial_evidence": {
+          "count": 51,
+          "ratio_percent": 63.75
+        },
+        "other": {
+          "count": 29,
+          "ratio_percent": 36.25
+        }
+      },
+      "significance": {
+        "adaptive_vs_dense_rerank_support_all": {
+          "delta": 0.075,
+          "ci95": [
+            0.025,
+            0.1375
+          ]
+        },
+        "full_chain_vs_dense_rerank_support_all": {
+          "delta": 0.075,
+          "ci95": [
+            0.025,
+            0.1375
+          ]
+        }
+      }
+    }
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0.7,
+      "SupportAllHit@5": 66.0,
+      "SupportRecall@5": 83.0,
+      "AvgLatencyMs": 1015.64,
+      "AvgTokens": 1033.14,
+      "AvgRetrievalCalls": 1.98,
+      "SupportAllHit@5_CI95": [
+        0.52,
+        0.8
+      ]
+    },
+    {
+      "threshold": 0.8,
+      "SupportAllHit@5": 66.0,
+      "SupportRecall@5": 83.0,
+      "AvgLatencyMs": 964.16,
+      "AvgTokens": 1033.14,
+      "AvgRetrievalCalls": 1.98,
+      "SupportAllHit@5_CI95": [
+        0.52,
+        0.8
+      ]
+    },
+    {
+      "threshold": 0.9,
+      "SupportAllHit@5": 66.0,
+      "SupportRecall@5": 83.0,
+      "AvgLatencyMs": 961.49,
+      "AvgTokens": 1033.14,
+      "AvgRetrievalCalls": 1.98,
+      "SupportAllHit@5_CI95": [
+        0.52,
+        0.8
+      ]
+    },
+    {
+      "threshold": 0.95,
+      "SupportAllHit@5": 66.0,
+      "SupportRecall@5": 83.0,
+      "AvgLatencyMs": 919.62,
+      "AvgTokens": 1033.14,
+      "AvgRetrievalCalls": 1.98,
+      "SupportAllHit@5_CI95": [
+        0.52,
+        0.8
+      ]
+    }
+  ]
+}

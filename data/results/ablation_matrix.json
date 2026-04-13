@@ -1,0 +1,38 @@
+[
+  {
+    "Config": "A Baseline",
+    "Hetero": "❌",
+    "Adaptive": "❌",
+    "CoVe": "❌",
+    "Avg_Tokens": 98,
+    "Avg_Latency_ms": 4839.2,
+    "No_Answer_Rate": "0%"
+  },
+  {
+    "Config": "B +Hetero",
+    "Hetero": "✅",
+    "Adaptive": "❌",
+    "CoVe": "❌",
+    "Avg_Tokens": 100,
+    "Avg_Latency_ms": 377.79,
+    "No_Answer_Rate": "0%"
+  },
+  {
+    "Config": "C +Adaptive",
+    "Hetero": "✅",
+    "Adaptive": "✅",
+    "CoVe": "❌",
+    "Avg_Tokens": 231,
+    "Avg_Latency_ms": 999.39,
+    "No_Answer_Rate": "0%"
+  },
+  {
+    "Config": "D +CoVe (Full)",
+    "Hetero": "✅",
+    "Adaptive": "✅",
+    "CoVe": "✅",
+    "Avg_Tokens": 231,
+    "Avg_Latency_ms": 336.09,
+    "No_Answer_Rate": "67%"
+  }
+]

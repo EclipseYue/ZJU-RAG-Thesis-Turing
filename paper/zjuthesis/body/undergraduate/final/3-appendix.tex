@@ -1,0 +1,58 @@
+{
+    \sectionnonum{附录}
+
+    \appendixsubsecmajornumbering
+
+    \subsection{核心超参数与系统配置 (Hyperparameters and Configurations)}
+
+    \begin{table}[!htbp]
+    \centering
+    \caption{RAG系统关键超参数与实验配置}
+    \label{tab:hyperparameters}
+    \small
+    \begin{tabularx}{\linewidth}{|l|c|X|}
+    \hline
+    \textbf{参数名称 (Parameter)} & \textbf{取值 (Value)} & \textbf{说明 (Description)} \\
+    \hline
+    Top-$k$ (Initial Retrieval) & 5 & 初次稠密检索召回的文档数量 \\
+    \hline
+    PRF Threshold ($\tau$) & 0.85 & 触发伪相关反馈（二次检索）的重排序得分阈值 \\
+    \hline
+    RRF $k$ (Smoothing) & 60 & 互惠排序融合算法中的平滑常数 \\
+    \hline
+    CoVe Threshold (Standard) & 0.50 & 验证模块判断声明成立的软置信度阈值 \\
+    \hline
+    CoVe Threshold (Strict) & 0.90 & 严格验证配置下的置信度阈值 \\
+    \hline
+    LLM Context Window & 2048 & 生成回答时使用的最大上下文词元数 \\
+    \hline
+    \end{tabularx}
+    \end{table}
+
+    \subsection{二次检索触发策略核心伪代码 (Pseudo-code for Adaptive PRF)}
+
+    \begin{algorithm}[!htbp]
+    \renewcommand{\algorithmicrequire}{\textbf{输入:}}
+    \renewcommand{\algorithmicensure}{\textbf{输出:}}
+    \caption{基于置信度的二次检索触发与融合策略}
+    \begin{algorithmic}[1]
+    \REQUIRE 查询 $q$，语料库 $\mathcal{D}$，初始召回数 $k$，置信度阈值 $\tau$
+    \ENSURE 最终合并后的证据列表 $R_{\text{final}}$
+    \STATE $R_{\text{init}} \leftarrow \text{DenseRetrieve}(q, \mathcal{D}, k)$
+    \STATE $R_{\text{scored}} \leftarrow \text{CrossEncoderRerank}(q, R_{\text{init}})$
+    \STATE $s_{\text{max}} \leftarrow \max_{d \in R_{\text{scored}}} \text{score}(d)$
+    \IF{$s_{\text{max}} < \tau$}
+        \STATE $d_{\text{top}} \leftarrow \text{argmax}_{d \in R_{\text{scored}}} \text{score}(d)$
+        \STATE $q_{\text{expand}} \leftarrow \text{ExtractKeywords}(d_{\text{top}}) \cup q$
+        \STATE $R_{\text{second}} \leftarrow \text{DenseRetrieve}(q_{\text{expand}}, \mathcal{D}, k)$
+        \STATE $R_{\text{final}} \leftarrow \text{ReciprocalRankFusion}(R_{\text{init}}, R_{\text{second}})$
+    \ELSE
+        \STATE $R_{\text{final}} \leftarrow R_{\text{scored}}$
+    \ENDIF
+    \RETURN $R_{\text{final}}$
+    \end{algorithmic}
+    \end{algorithm}
+
+    % End of appendix
+    \removeappendixsubsecmajornumbering
+}

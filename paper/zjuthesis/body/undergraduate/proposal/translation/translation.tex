@@ -1,0 +1,154 @@
+\cleardoublepage
+
+\chapter{外文翻译}
+\input{body/undergraduate/proposal/translation/trace_translation}
+\endinput
+
+\sectionnonum{摘要}
+大型预训练语言模型能够在其参数中存储大量事实性知识，并在下游任务微调后取得很强的效果。然而，这类模型对知识的访问与精确操控能力仍然有限，因此在知识密集型任务上的表现往往不如专门面向知识检索与利用的体系结构；同时，如何为模型的输出提供可追溯的证据来源，以及如何随着世界变化而更新模型的知识，仍然是未解决的研究问题。尽管带有可微分访问机制的外部非参数化记忆在抽取式任务上已有探索，但其在通用文本生成场景中的系统性研究仍然不足。
+
+本文提出一种通用的微调范式——检索增强生成（Retrieval-Augmented Generation, RAG），用于将预训练的参数化记忆与显式的非参数化记忆结合到同一生成模型中。我们构建的RAG模型以预训练的序列到序列（seq2seq）模型作为参数化记忆，以Wikipedia的稠密向量索引作为非参数化记忆，并通过预训练的神经检索器访问该索引。我们比较了两种RAG形式：一种在整个输出序列上共享同一组检索到的段落，另一种允许不同token使用不同段落。我们在多项知识密集型NLP任务上对RAG进行微调与评测，在三项开放域问答任务上达到新的最好结果，并超过仅靠参数化记忆的seq2seq模型与任务特化的“检索—抽取”系统。在知识密集型生成任务中，RAG生成的文本更加具体、多样且更符合事实。
+
+\section{引言}
+预训练神经语言模型已经被证明能够从数据中学习并内化大量知识，从而在不依赖外部记忆的情况下，充当一种参数化的隐式知识库。然而，这种“把知识压缩进参数”的方式也存在显著局限：模型难以在不再训练的情况下扩展或修正记忆；其预测过程难以直接解释；并且可能生成与事实不一致的“幻觉”内容。相比之下，将参数化记忆与非参数化（即基于检索）的外部记忆相结合的混合模型，能够使知识被直接编辑、扩展，并且检索到的证据可以被检查与解释，从而缓解上述问题。
+
+已有工作如REALM与ORQA将可微检索器与掩码语言模型结合，在开放域抽取式问答上取得了进展，但其主要关注的是抽取式任务。本文将“混合记忆”的思想扩展到NLP中最常用也最通用的序列到序列模型，并提出检索增强生成（RAG）作为一套通用的微调方案：RAG以预训练的seq2seq Transformer作为参数化记忆，以Wikipedia的稠密向量索引作为非参数化记忆，并通过预训练的神经检索器（Dense Passage Retriever，DPR）从索引中检索潜在文档，再由生成器（BART）在输入与潜在文档条件下生成输出。我们将检索到的文档视作潜变量，在训练时对其进行边缘化，并分别给出“整段共享文档”（RAG-Sequence）与“逐token选择文档”（RAG-Token）两种形式。
+
+与大量从零训练、为单一任务构建特定外部记忆结构的工作不同，本文研究的关键设定是：参数化与非参数化两个组件均为预训练，并预先加载了大量知识；同时，由于检索访问机制本身已预训练，模型在不依赖额外训练的情况下也具备一定的知识访问能力。实验结果表明，这种将检索与生成紧密结合的混合记忆模型，在知识密集型任务上具有显著优势：RAG在Natural Questions、WebQuestions与CuratedTrec上达到新的最好结果，并在MS-MARCO问答生成、Jeopardy问题生成与FEVER事实验证等任务上表现强劲；此外，通过替换非参数化索引，我们可以在不重新训练模型的情况下更新其世界知识。
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{rag_architecture.pdf}
+\caption{方法概览：将预训练检索器（查询编码器+文档索引）与预训练seq2seq生成器（BART）端到端结合。对查询$x$使用最大内积检索（MIPS）找到Top-$K$文档$z_i$，将$z$视为潜变量，并对不同检索文档条件下的生成概率进行边缘化。}
+\label{fig:rag_arch}
+\end{figure}
+
+\section{方法}
+RAG模型使用输入序列$x$检索文本段落$z$，并在生成目标序列$y$时将这些段落作为额外上下文。模型由两部分组成：（1）检索器$p_{\eta}(z\mid x)$，返回给定输入$x$时段落$z$的（Top-$K$截断）分布；（2）生成器$p_{\theta}(y_i\mid x, z, y_{1:i-1})$，在输入$x$、检索段落$z$以及历史生成token的条件下生成当前token。为端到端训练，我们将检索到的段落视作潜变量，并通过Top-$K$近似进行边缘化。
+
+\subsection{RAG-Sequence 与 RAG-Token}
+RAG-Sequence假设整个输出序列由同一段落负责，因此将段落作为单一潜变量进行边缘化：
+\begin{eqnarray*}
+p_{\text{RAG-Sequence}}(y\mid x)
+&\approx& \sum_{z\in \text{top-}k(p(\cdot\mid x))} p_{\eta}(z\mid x)\, p_{\theta}(y\mid x,z) \\
+&=& \sum_{z\in \text{top-}k(p(\cdot\mid x))} p_{\eta}(z\mid x)\prod_i p_{\theta}(y_i\mid x,z,y_{1:i-1}).
+\end{eqnarray*}
+RAG-Token允许每个token使用不同段落，因此逐token边缘化潜变量：
+\begin{eqnarray*}
+p_{\text{RAG-Token}}(y\mid x)
+&\approx& \prod_i \sum_{z\in \text{top-}k(p(\cdot\mid x))} p_{\eta}(z\mid x)\, p_{\theta}(y_i\mid x,z,y_{1:i-1}).
+\end{eqnarray*}
+当把分类标签视作长度为1的目标序列时，上述两种形式在序列分类任务上等价。
+
+\subsection{检索器：DPR}
+检索组件基于双编码器结构：文档编码器将段落$z$映射为稠密向量$\mathbf{d}(z)$，查询编码器将输入$x$映射为向量$\mathbf{q}(x)$，并以最大内积检索作为近似最近邻搜索：
+\[
+p_{\eta}(z\mid x)\propto \exp\left(\mathbf{d}(z)^{\top}\mathbf{q}(x)\right),\quad
+\mathbf{d}(z)=\mathrm{BERT}_d(z),\quad \mathbf{q}(x)=\mathrm{BERT}_q(x).
+\]
+Top-$k$检索可以表述为最大内积搜索（MIPS）问题，并可用近似方法在亚线性时间内求解。本文使用预训练的DPR初始化检索器并构建Wikipedia段落索引，该索引即为RAG的非参数化记忆。
+
+\subsection{生成器：BART}
+生成器可由任意编码器—解码器结构实现。本文选用BART-large作为预训练seq2seq模型，并通过简单拼接将输入$x$与检索段落$z$合并作为编码器输入，使生成过程在外部证据条件下进行。BART的参数被视为RAG的参数化记忆。
+
+\subsection{训练}
+给定训练样本对$(x_j, y_j)$，本文最小化负对数边缘似然$\sum_j -\log p(y_j\mid x_j)$，并使用Adam进行随机梯度优化。由于在训练中更新文档编码器会导致索引需要频繁重建，成本较高，本文固定文档编码器与索引，仅微调查询编码器与BART生成器。训练过程中不需要显式的“应检索哪篇文档”的监督信号。
+
+\subsection{解码}
+RAG-Token可被视作标准自回归生成器，其转移概率为
+\[
+p'_{\theta}(y_i\mid x,y_{1:i-1})=\sum_{z\in \text{top-}k(p(\cdot\mid x))} p_{\eta}(z\mid x)\,p_{\theta}(y_i\mid x,z,y_{1:i-1}),
+\]
+因此可直接用常规beam search解码。RAG-Sequence的序列概率不分解为标准的逐token形式，本文采用“逐文档beam search + 边缘化”的方式，并给出较彻底的解码与更快的近似解码策略。
+
+\section{实验}
+本文在多类知识密集任务上评估RAG。非参数化知识源统一使用Wikipedia（2018年12月dump），将文章切分为不重叠的100词段落，总计约2100万段落，并用FAISS构建最大内积检索索引。训练时每个输入检索Top-$k$段落，$k$在$\{5,10\}$中选择，测试时依据开发集调参。
+
+\subsection{开放域问答}
+开放域问答将问题与答案视为输入输出文本对$(x,y)$，直接最小化答案的负对数似然，并以Exact Match作为指标。本文与两类范式对比：一类为抽取式问答系统（从检索段落中抽取答案span），另一类为闭卷问答（不检索，仅依赖参数化记忆生成答案）。实验覆盖Natural Questions、TriviaQA、WebQuestions与CuratedTrec等常用数据集。
+
+\subsection{抽象式问答}
+为评估知识密集场景下的自由形式生成能力，本文使用MS-MARCO NLG任务：数据提供问题与人工标注的整句答案。实验不使用数据集中提供的gold passages，而把任务当作开放域抽象式问答，以检验RAG在没有显式证据提示时的检索与生成能力。
+
+\subsection{Jeopardy问题生成}
+本文进一步构造更具挑战性的开放域问题生成任务：给定实体（Jeopardy答案）生成对应的Jeopardy问题。该任务要求生成精准且可核验的事实陈述，适合检验模型的知识性生成质量。评测使用Q-BLEU-1，并辅以人工评价，从事实性与特异性两个维度进行成对比较。
+
+\subsection{事实验证}
+FEVER任务要求判断一个自然语言断言在Wikipedia上是否被支持、被反驳或信息不足。本文把标签映射为长度为1的输出序列进行训练，并强调不使用检索证据的中间监督，以贴近真实应用中缺乏检索监督信号的情况。
+
+\section{结果与分析}
+在开放域问答任务中，RAG在多项数据集上取得新的最好结果，并且展示出兼具“开放书本”检索范式的性能与“闭卷”生成范式的灵活性。与使用重排序器与抽取式阅读器的系统相比，RAG表明在一定条件下无需额外的重排序与抽取模块也能获得很强表现。此外，即使正确答案未被任何检索段落包含，RAG仍可能生成正确答案，这体现了参数化与非参数化记忆的互补：检索提供线索与上下文，参数化记忆补全缺失信息。
+
+\begin{table}[ht]
+\centering
+\caption{开放域问答测试集结果（EM/Acc.，数值与原论文一致）。TriviaQA包含两种评测设置：Open-Domain与TQA-Wiki。}
+\label{tab:qa_scores_cn}
+\small
+\setlength{\tabcolsep}{0.4em}
+\begin{tabular}{lccccc}
+\toprule
+模型 & NQ & TQA(Open) & TQA(Wiki) & WebQ & CTrec \\
+\midrule
+T5-11B & 34.5 & - & 50.1 & 37.4 & - \\
+T5-11B+SSM & 36.6 & - & 60.5 & 44.7 & - \\
+REALM & 40.4 & - & - & 40.7 & 46.8 \\
+DPR & 41.5 & 57.9 & - & 41.1 & 50.6 \\
+\midrule
+RAG-Token & 44.1 & 55.2 & 66.1 & 45.5 & 50.0 \\
+RAG-Sequence & 44.5 & 56.8 & 68.0 & 45.2 & 52.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+在MS-MARCO抽象式问答与Jeopardy问题生成中，RAG生成文本相较BART更具体、更符合事实，并表现出更高的多样性。实验还对检索机制做了消融：冻结检索器会降低多类任务表现，说明端到端学习检索有实质收益；同时，以BM25替代稠密检索在实体密集的FEVER上可能更占优，而在开放域问答等任务中稠密可微检索优势更明显，提示不同任务对检索信号存在差异。
+
+\begin{table}[ht]
+\centering
+\caption{生成与分类任务结果（数值与原论文一致）。Jeopardy使用BLEU-1（B-1）与Q-BLEU-1（QB-1）；MS-MARCO给出Rouge-L与BLEU-1；FEVER给出标签分类准确率。}
+\label{tab:gen_cls_scores_cn}
+\small
+\setlength{\tabcolsep}{0.35em}
+\begin{tabular}{lcccccc}
+\toprule
+模型 & B-1 & QB-1 & R-L & B-1 & FEVER-3 & FEVER-2 \\
+\midrule
+SotA & - & - & 49.8* & 49.9* & 76.8 & 92.2* \\
+BART & 15.1 & 19.7 & 38.2 & 41.6 & 64.0 & 81.1 \\
+RAG-Token & 17.3 & 22.2 & 40.1 & 41.5 & 72.5 & 89.5 \\
+RAG-Sequence & 14.7 & 21.4 & 40.8 & 44.2 & 72.5 & 89.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{rag_posterior_plot.pdf}
+\caption{RAG-Token在Jeopardy问题生成中的文档后验示例：对输入“Hemingway”，模型在生成不同token时对不同检索文档的后验概率会发生变化，表明生成过程能够从多篇证据中组合信息。}
+\label{fig:rag_posterior}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{rag_retrieval_plots.pdf}
+\caption{检索文档数量对性能的影响：增加检索文档数通常会改善开放域问答结果，但在不同RAG变体与任务上存在收益递减或峰值现象。}
+\label{fig:rag_retrieval_plots}
+\end{figure}
+
+本文还展示了非参数化索引“热替换”带来的知识更新能力：用不同时间点的Wikipedia构建索引，模型能随索引切换而改变对世界事实（如国家领导人）的回答，从而无需重新训练即可更新知识。
+
+\section{相关工作}
+过往研究已在多种任务中验证了检索对性能的提升，例如开放域问答、事实核查、长文本问答、对话与机器翻译等。本文的贡献在于将这些面向单任务的检索增强成功经验统一到一个可通用微调的生成式框架中，展示单一检索增强架构在多任务上的适用性与强性能。
+
+此外，通用预训练模型（如BART、T5）在不使用检索的情况下也能覆盖多种生成与判别任务，但其知识更新与可解释性受限。本文通过引入可学习的检索模块，扩展了统一架构可覆盖的任务空间。关于学习型检索，已有工作利用搜索、强化学习或潜变量方法优化检索模块以服务特定任务；本文则强调同一检索增强架构可在多类任务上通过微调达到强性能。
+
+\section{讨论}
+本文提出的RAG模型展示了参数化与非参数化记忆结合的优势：在知识密集任务上取得强结果，在生成任务上减少幻觉并提升事实性与特异性；同时，索引热替换提供了无需再训练的知识更新路径。未来可以探索两部分组件的联合预训练，从而在更大规模与更复杂任务上进一步提升检索与生成的协同效果，并更深入理解两类记忆在生成过程中的交互机理。
+
+\section{结论}
+本文提出检索增强生成（RAG）作为一种通用微调范式，将预训练seq2seq生成器的参数化记忆与可检索的外部非参数化记忆有机结合，通过把检索段落视作潜变量并在Top-$k$近似下进行边缘化，实现“检索—生成”端到端协同。实验结果表明，RAG在多项开放域问答与知识密集生成任务中取得强性能，并通过替换索引实现无需再训练的知识更新。后续工作可从联合预训练、更强检索与排序组件、以及更精细的证据使用与可验证机制等方向进一步提升其实用性与可信性。
+
+\section{更广泛影响}
+RAG通过更强的事实性支撑降低幻觉，并提供可检查的证据来源，因此在医疗、教育、科研辅助等场景具有潜在积极价值。然而，外部知识源（如Wikipedia）本身可能包含错误与偏见；同时，生成式模型仍可能被滥用于制造误导性内容、垃圾信息或钓鱼文本。因此，在部署此类系统时需要引入审计、过滤与对抗滥用的机制，并以负责任的方式评估与缓解风险。
+
+\section{致谢}
+作者感谢评审的建设性意见，并感谢Hugging Face在开源实现方面的支持与帮助，同时也感谢相关讨论与资助项目对研究工作的支持。

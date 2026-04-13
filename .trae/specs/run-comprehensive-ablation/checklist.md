@@ -1,0 +1,6 @@
+- [x] `run_real_evaluation.py` 中实现了 F1/EM 评价指标。
+- [x] `run_real_evaluation.py` 包含了 6 种控制组变体。
+- [x] 实验数据成功输出为 JSON 文件。
+- [x] 可视化脚本成功生成 2 张分析图表。
+- [x] LaTeX 论文正文更新了真实运行的 Case Study 与消融大表。
+- [x] PDF 编译成功且包含最新图表与表格。

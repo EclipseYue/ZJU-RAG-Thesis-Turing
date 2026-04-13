@@ -1,0 +1,326 @@
+{
+  "config": {
+    "hotpot_samples": 100,
+    "wiki2_samples": 100,
+    "top_k": 5
+  },
+  "results": {
+    "hotpotqa": {
+      "dataset": "hotpotqa",
+      "num_samples": 100,
+      "summary": [
+        {
+          "Variant": "naive_rag",
+          "F1": 7.96,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0571,
+            0.1026
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "dense_rerank",
+          "F1": 7.89,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0571,
+            0.103
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "ircot_lite",
+          "F1": 8.26,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0605,
+            0.1053
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "adaptive_prf",
+          "F1": 8.09,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0597,
+            0.1043
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "adaptive_cove",
+          "F1": 7.93,
+          "EM": 0,
+          "No_Answer_Rate": 1.0,
+          "F1_CI95": [
+            0.0571,
+            0.1018
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "adaptive_cove_strict",
+          "F1": 0.0,
+          "EM": 0,
+          "No_Answer_Rate": 100,
+          "F1_CI95": [
+            0.0,
+            0.0
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "cot_only",
+          "F1": 6.98,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0483,
+            0.0939
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "hetero_dense_rerank",
+          "F1": 7.37,
+          "EM": 2.0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0436,
+            0.1078
+          ],
+          "EM_CI95": [
+            0.0,
+            0.05
+          ]
+        },
+        {
+          "Variant": "hetero_adaptive_prf",
+          "F1": 6.06,
+          "EM": 1.0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0336,
+            0.0912
+          ],
+          "EM_CI95": [
+            0.0,
+            0.03
+          ]
+        },
+        {
+          "Variant": "hetero_adaptive_cove",
+          "F1": 6.06,
+          "EM": 1.0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0336,
+            0.0912
+          ],
+          "EM_CI95": [
+            0.0,
+            0.03
+          ]
+        }
+      ],
+      "cove_reject_analysis": {
+        "total": 200,
+        "rejected": 101,
+        "rejected_rate": 50.5,
+        "false_rejection": 101,
+        "false_rejection_rate": 50.5,
+        "unsafe_accept": 66,
+        "reason_buckets": {
+          "evidence_missing": 33,
+          "partial_support_reject": 67,
+          "low_verify_confidence": 1
+        }
+      }
+    },
+    "2wikimultihopqa": {
+      "dataset": "2wiki",
+      "num_samples": 100,
+      "summary": [
+        {
+          "Variant": "naive_rag",
+          "F1": 7.51,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0479,
+            0.1069
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "dense_rerank",
+          "F1": 8.16,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0504,
+            0.1171
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "ircot_lite",
+          "F1": 7.62,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0413,
+            0.1137
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "adaptive_prf",
+          "F1": 8.28,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0506,
+            0.1184
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "adaptive_cove",
+          "F1": 8.28,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0506,
+            0.1184
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "adaptive_cove_strict",
+          "F1": 0.0,
+          "EM": 0,
+          "No_Answer_Rate": 100,
+          "F1_CI95": [
+            0.0,
+            0.0
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "cot_only",
+          "F1": 11.44,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.084,
+            0.1458
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "hetero_dense_rerank",
+          "F1": 4.78,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0207,
+            0.0795
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "hetero_adaptive_prf",
+          "F1": 4.15,
+          "EM": 0,
+          "No_Answer_Rate": 0,
+          "F1_CI95": [
+            0.0174,
+            0.069
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "Variant": "hetero_adaptive_cove",
+          "F1": 4.15,
+          "EM": 0,
+          "No_Answer_Rate": 1.0,
+          "F1_CI95": [
+            0.0174,
+            0.069
+          ],
+          "EM_CI95": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "cove_reject_analysis": {
+        "total": 200,
+        "rejected": 100,
+        "rejected_rate": 50.0,
+        "false_rejection": 100,
+        "false_rejection_rate": 50.0,
+        "unsafe_accept": 76,
+        "reason_buckets": {
+          "evidence_missing": 44,
+          "partial_support_reject": 56
+        }
+      }
+    }
+  }
+}

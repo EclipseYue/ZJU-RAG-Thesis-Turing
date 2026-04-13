@@ -1,0 +1,156 @@
+[
+  {
+    "query": "What nationality was Oliver Reed's character in the film Royal Flash?",
+    "expected_answer": "Prussian",
+    "type": "bridge",
+    "chain_hierarchy": [
+      {
+        "id": 8,
+        "text": "Title: Lion of the Desert. Lion of the Desert is a 1981 Libyan historical action film starring Anthony Quinn as Libyan tribal leader Omar Mukhtar, a Bedouin leader fighting the \"Regio Esercito\" (Italian Royal Army) in the years leading up to World War II, and Oliver Reed as Italian General Rodolfo Graziani, who attempted to defeat Mukhtar.  It was directed by Moustapha Akkad and funded by the government under Colonel Muammar Gaddafi.  Released in May 1981, the film was liked by critics and audiences but performed poorly financially, bringing in just $1 million net worldwide.  .  The film was banned in Italy in 1982 and was only shown on pay TV in 2009.",
+        "source": "text",
+        "score": 0.01639344262295082,
+        "children": [
+          {
+            "id": 96,
+            "text": "Title: John Braddocke. Braddocke was a native of Shropshire, and received his education at St. Catharine's Hall, Cambridge, where he was elected to a fellowship (B.A. 1674, M.A. 1678).  On leaving the university about 1689, he became chaplain to Sir James Oxenden, 2nd Baronet, of Dean, near Canterbury, and chaplain to Dr. John Battely, rector of the neighbouring parish of Adisham.  In 1694 he was nominated by Archbishop Tenison to the perpetual curacy of Folkestone, and on 1 April 1698 he was presented to the vicarage of St. Stephen's, alias Hackington, near Canterbury.  On the promotion of Dr. Offspring Blackall, his contemporary at college and close friend, to the see of Exeter in 1707, Braddocke was made the bishop's chaplain, though he got nothing by the appointment except the title.  In 1709 he was collated by Archbishop Tenison to the mastership of Eastbridge hospital in Kent.  He died in his vicarage house on 14 August 1719, in his sixty-fourth year.",
+            "source": "text",
+            "score": 0.01639344262295082,
+            "children": [
+              {
+                "id": 118,
+                "text": "Title: Charles W. Bagnal. Lieutenant General Charles Wilson Bagnal (April 15, 1934 – June 30, 2015) was a United States Army officer.  He was commander of the United States Army Western Command (later United States Army Pacific), from 1985 to 1989.  Previously he was Deputy Commanding General for Training of the United States Army Training and Doctrine Command (TRADOC), Deputy Superintendent at the United States Military Academy (from 1977 to 1980), Commander of the 101st Airborne Division (1981-1983), Commander of the Officer Personnel Management Directorate for the United States Army Military Personnel Center, and Special Assistant to the Deputy Chief of Staff for Personnel.  He is an alumnus of the United States Military Academy, United States Army Command & General Staff College, Georgia Tech, the United States Army War College and McLenaghan High School in Florence, South Carolina (class of 1952).  He retired August 31, 1989, and later obtained his juris doctor from the University of South Carolina and practiced law.  He resided in Columbia with his wife Patsy.  Bagnal died on June 30, 2015 after a battle with leukemia.",
+                "source": "text",
+                "score": 0.016129032258064516,
+                "children": [
+                  {
+                    "id": 146,
+                    "text": "Title: Girls' Generation (song). Girls' Generation (Hangul: 소녀시대; RR: \"Sonyeo Sidae\") is a Korean song sung by several artists.  The song was originally sung by Lee Seung-chul in 1989, released on his self-titled album \"Lee Seung-chul: Part 2\" (Korean: 이승철 1집 Part 2).  It was covered by Maya in 2005 and girl group Girls' Generation in 2007, whose band name is derived from the song's.  also performed the song at Superstar K in 2009 and it was released on \"\" which contains songs by the first Superstar K Top 10.",
+                    "source": "text",
+                    "score": 0.016129032258064516,
+                    "children": [
+                      {
+                        "id": 114,
+                        "text": "Title: Frederick Kroesen. Frederick James Kroesen, Jr. (born February 11, 1923) is a United States Army four-star general and was the Commanding General of the Seventh United States Army and the commander of NATO Central Army Group from 1979 to 1983, and Commanding General, United States Army Forces Command from 1976 to 1978.  He also served as Vice Chief of Staff of the Army from 1978 to 1979.  He commanded troops in World War II, the Korean War, and the Vietnam War, enabling him to be one of the very small number who ever was entitled to wear the Combat Infantryman Badge with two Stars, denoting active combat in three wars.",
+                        "source": "text",
+                        "score": 0.015873015873015872,
+                        "children": [
+                          {
+                            "id": 112,
+                            "text": "Title: Operation Quicksilver (deception plan). Operation Quicksilver was a Second World War military deception.  Undertaken by the Allies in 1944, the operation threatened an invasion of France in the Pas de Calais region through the simulation of a large Field Army in South East England.  Quicksilver formed part of the Operation Fortitude deception, itself part of the strategic Operation Bodyguard plan.  The key element of Quicksilver was the creation in German minds that \"First United States Army Group\" (FUSAG) commanded by General George Patton supposedly would land in the Pas-de-Calais for the major invasion of Europe, after the landings in Normandy had lured the German defenders to that front.  (FUSAG was a genuine army group headquarters which later became Omar Bradley's 12th Army Group, but was given a fictitious role and many non-existent divisions for purposes of deception.)",
+                            "source": "text",
+                            "score": 0.015873015873015872,
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "query": "Pacific Mozart Ensemble performed which German composer's Der Lindberghflug in 2002?",
+    "expected_answer": "Kurt Julian Weill",
+    "type": "bridge",
+    "chain_hierarchy": [
+      {
+        "id": 28,
+        "text": "Title: Brothers of the Road. Brothers of the Road is the eighth studio album, and tenth album overall, by the rock group the Allman Brothers Band.  Released in 1981, it is the band's only album without drummer Jai Johanny Johanson and the last album to feature bassist David Goldflies and guitarist Dan Toler and the only album to feature drummer David Toler.  The song \"Straight from the Heart\" was the group's third, and to date last, Top 40 hit.",
+        "source": "text",
+        "score": 0.03252247488101534,
+        "children": [
+          {
+            "id": 164,
+            "text": "Title: Crazy Love (Michael Bublé album). Crazy Love is the sixth studio album (and fourth major label studio album) by Canadian vocalist Michael Bublé.  It was released through 143 Records and Reprise Records on October 9, 2009.  After only three days of sales, it opened atop the \"Billboard\" 200 chart with 132,000 copies, making it Bublé's second No. 1 album.  Spending the first full week at the top, the album increased in sales to 203,000 copies, staying again at the No. 1 spot on its second week.  In Australia, the album debuted at No. 1 on the ARIA Albums Chart and spent six non-consecutive weeks as No. 1.  It has since been certified five times Platinum.  In the United Kingdom, \"Crazy Love\" topped the album charts.",
+            "source": "text",
+            "score": 0.01639344262295082,
+            "children": [
+              {
+                "id": 181,
+                "text": "Title: 2009–10 Biathlon World Cup – Pursuit Women. The 2009–10 Biathlon World Cup – Pursuit Women started on December 13, 2009 in Hochfilzen and finished on March 20, 2010 in Oslo.  Defending titlist is Kati Wilhelm of Germany.",
+                "source": "text",
+                "score": 0.016129032258064516,
+                "children": [
+                  {
+                    "id": 74,
+                    "text": "Title: Vaisakhi List. Vaisakhi List (Punjabi: ਵਿਸਾਖੀ ਲਿਸਟ ) is a 2016 Punjabi film directed by Smeep Kang and starring Jimmy Shergill, Shruti Sodhi and Sunil Grover as the main cast and the film was released on 22 April 2016.",
+                    "source": "text",
+                    "score": 0.015873015873015872,
+                    "children": [
+                      {
+                        "id": 124,
+                        "text": "Title: Lyman Post. Lyman Post (1863 – 30 November 1933) was an American publisher and editor who spent much of his life working to develop the American paper production industry.  He was born in 1863 in Staten Island.  His father, Jacob Post, owned clipper ships.  Lyman Post worked as a reporter for both The New York Press and the New York Sun.  He was involved in the founding of the American Paper and Pulp Association.  He was the publisher of the \"Paper Mill and Wood Pulp News\", a trade journal about the paper industry that he founded in 1878.  He used the pen name \"Derb\" for some of his editorial writing.",
+                        "source": "text",
+                        "score": 0.015873015873015872,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "query": "Who released the song \"With or Without You\" first, Jai McDowall or U2?",
+    "expected_answer": "U2",
+    "type": "bridge",
+    "chain_hierarchy": [
+      {
+        "id": 164,
+        "text": "Title: Crazy Love (Michael Bublé album). Crazy Love is the sixth studio album (and fourth major label studio album) by Canadian vocalist Michael Bublé.  It was released through 143 Records and Reprise Records on October 9, 2009.  After only three days of sales, it opened atop the \"Billboard\" 200 chart with 132,000 copies, making it Bublé's second No. 1 album.  Spending the first full week at the top, the album increased in sales to 203,000 copies, staying again at the No. 1 spot on its second week.  In Australia, the album debuted at No. 1 on the ARIA Albums Chart and spent six non-consecutive weeks as No. 1.  It has since been certified five times Platinum.  In the United Kingdom, \"Crazy Love\" topped the album charts.",
+        "source": "text",
+        "score": 0.01639344262295082,
+        "children": [
+          {
+            "id": 72,
+            "text": "Title: Bhaji in Problem. Bhaji in Problem (Punjabi: ਭਾਜੀ ਇਨ ਪ੍ਰਾਬਲਮ ) is a 2013 Indian Punjabi-language comedy film directed by Smeep Kang, who had earlier directed films like \"Carry on Jatta\" and \"Lucky Di Unlucky Story\", both of which featured Gippy Grewal in the lead role.  Grewal also appears in this film, along with an ensemble cast including Ragini Khanna, Gurpreet Ghuggi, B.N. Sharma, Karamjit Anmol, Japji Khaira, Khushboo Grewal and Misha Bajwa amongst others.  The film is produced by Ashvini Yardi, and Bollywood actor Akshay Kumar who also appears in the film shortly, enacting as a lookalike of himself.",
+            "source": "text",
+            "score": 0.01639344262295082,
+            "children": [
+              {
+                "id": 95,
+                "text": "Title: Bill Dudman. Dudman was educated at King's College, Taunton; the University of Hull and Lincoln Theological College.  After three years in the Royal Navy he was ordained Deacon in 1952; and Priest in 1953.  After curacies at Shiregreen,Wombwell and Frodingham he was Industrial Chaplain to the Bishop of Lincoln from 1957 to 1971.  He was Fourth Canon Residentiary of Lincoln Cathedral from 1971; and its Treasurer from 1975.",
+                "source": "text",
+                "score": 0.016129032258064516,
+                "children": [
+                  {
+                    "id": 198,
+                    "text": "Title: Gasherbrum III. Gasherbrum III (Urdu: گاشر برم -3‎ ; ), surveyed as K3a, is a summit in the Gasherbrum massif of the Baltoro Muztagh, a subrange of the Karakoram on the border between Xinjiang, China and Gilgit-Baltistan, Pakistan.  It is situated between Gasherbrum II and IV.",
+                    "source": "text",
+                    "score": 0.016129032258064516,
+                    "children": [
+                      {
+                        "id": 139,
+                        "text": "Title: Rag Sefid oil field. The Rag Sefid oil field is an oil field located in Khuzestan Province, approximately 6 km in nearest distance from the Persian Gulf, southwest Iran.  It was discovered in 1964 and developed by National Iranian Oil Company and began production in 1966.  The total proven reserves of the Rag Sefid oil field are around 14,5 billion barrels, and production is centered on 180000 oilbbl/d .  The field is owned by state-owned National Iranian Oil Company (NIOC) and operated by National Iranian South Oil Company (NISOC).",
+                        "source": "text",
+                        "score": 0.015873015873015872,
+                        "children": [
+                          {
+                            "id": 114,
+                            "text": "Title: Frederick Kroesen. Frederick James Kroesen, Jr. (born February 11, 1923) is a United States Army four-star general and was the Commanding General of the Seventh United States Army and the commander of NATO Central Army Group from 1979 to 1983, and Commanding General, United States Army Forces Command from 1976 to 1978.  He also served as Vice Chief of Staff of the Army from 1978 to 1979.  He commanded troops in World War II, the Korean War, and the Vietnam War, enabling him to be one of the very small number who ever was entitled to wear the Combat Infantryman Badge with two Stars, denoting active combat in three wars.",
+                            "source": "text",
+                            "score": 0.015873015873015872,
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

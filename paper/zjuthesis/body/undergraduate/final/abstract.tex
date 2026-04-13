@@ -1,0 +1,17 @@
+\cleardoublepage{}
+\begin{center}
+    \bfseries \zihao{3} 摘~要
+\end{center}
+
+针对传统检索增强生成（Retrieval-Augmented Generation, RAG）模型在应对复杂多跳问答任务时面临的线索碎片化与生成端易产生幻觉等问题，本文实现并分析了一种基于置信度重检与后验验证的鲁棒RAG框架。该框架将RAG视为一个兼顾正确率、成本与安全性的序列决策过程，重点围绕两个关键机制展开：基于重排序置信度的伪相关反馈策略（Confidence-based Pseudo-Relevance Feedback），以及基于Chain-of-Verification (CoVe) 的验证约束生成（Verification-constrained Generation）。
+
+首先，在多源数据入库阶段，系统采用序列化对齐策略，将表格与图谱片段转化为统一格式进行检索。其次，在检索决策阶段，系统以重排序得分作为置信度指标，采用启发式阈值控制二次检索的触发，从而在多跳证据覆盖率与计算延迟之间取得平衡。最后，在生成阶段之后，系统执行事实核对验证；当发现生成声明与底层证据存在冲突或知识缺失时，系统将触发安全的“无答案”（No-Answer）拒答机制。需要指出的是，当前系统在CoVe验证失败后仅作拒答处理，尚未实现自动回写检索的闭环；同时，自适应检索仍基于启发式规则而非深度学习策略。本文详细分析了这些机制在多跳数据集上的表现及其带来的误差与局限。
+
+\cleardoublepage{}
+\begin{center}
+    \bfseries \zihao{3} Abstract
+\end{center}
+
+To address the challenges of evidence fragmentation and generation hallucination in traditional Retrieval-Augmented Generation (RAG) models, this thesis implements and analyzes a robust RAG framework based on confidence-aware re-retrieval and post-hoc verification. By formulating RAG as a sequential decision process that balances accuracy, cost, and safety, the framework focuses on two core mechanisms: confidence-based Pseudo-Relevance Feedback (PRF) and Verification-constrained Generation based on Chain-of-Verification (CoVe).
+
+First, in the data ingestion phase, the system employs a serialization alignment strategy to unify tables and knowledge graph snippets for retrieval. Second, in the retrieval decision phase, the system uses reranking scores as a confidence metric and adopts a heuristic threshold to trigger secondary retrieval, thereby striking a balance between multi-hop evidence coverage and computational latency. Finally, in the generation phase, the system performs fact-checking verification; when conflicts or knowledge gaps are detected between the generated claims and the underlying evidence, the system triggers a safe "No-Answer" rejection mechanism. It is important to note that the current system only rejects the answer upon CoVe failure and has not yet achieved a full feedback loop for iterative retrieval; additionally, the adaptive retrieval relies on heuristic rules rather than deep learning strategies. This thesis provides a detailed analysis of the performance, errors, and limitations of these mechanisms on multi-hop datasets.

@@ -1,0 +1,134 @@
+{
+  "iterations": [
+    {
+      "id": 1,
+      "timestamp": "2026-03-14 03:00:03",
+      "description": "Extended Benchmark V2 (Ambiguity)",
+      "metrics": {
+        "mrr_retrieval": 0.615649308456326,
+        "mrr_final": 0.5620171957671958,
+        "ndcg_retrieval": 0.8570789934215159,
+        "ndcg_final": 0.8153979770274263
+      }
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-03-14 03:07:04",
+      "description": "Iteration V3: Complex Queries (Negation)",
+      "metrics": {
+        "mrr_retrieval": 0.5012889095031952,
+        "mrr_final": 0.47067924139352707,
+        "ndcg_retrieval": 0.7329641016982413,
+        "ndcg_final": 0.6451369863027421
+      }
+    },
+    {
+      "id": 3,
+      "timestamp": "2026-03-14 03:19:29",
+      "description": "Iteration V4: Scalability & Broad Topics",
+      "metrics": {
+        "mrr_retrieval": 0.44511724691001014,
+        "mrr_final": 0.4936193783068783,
+        "ndcg_retrieval": 0.6315635013274076,
+        "ndcg_final": 0.6488209987550099
+      }
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-03-14 03:23:01",
+      "description": "Iteration V5: Constraint & No-Answer Safety",
+      "metrics": {
+        "mrr_retrieval": 0.3951534503508188,
+        "mrr_final": 0.40949215797430083,
+        "ndcg_retrieval": 0.5644602521682094,
+        "ndcg_final": 0.538187265210934
+      }
+    },
+    {
+      "id": 5,
+      "timestamp": "2026-03-14 03:23:37",
+      "description": "Iteration V5: Constraint & No-Answer Safety",
+      "metrics": {
+        "mrr_retrieval": 0.4305407430117182,
+        "mrr_final": 0.36826672335600913,
+        "ndcg_retrieval": 0.5741140786801046,
+        "ndcg_final": 0.49401209092185316
+      }
+    },
+    {
+      "id": 6,
+      "timestamp": "2026-03-16 17:22:46",
+      "description": "V6: Real Model Integration & Performance Validation",
+      "metrics": {
+        "mrr_retrieval": 0.5575765306122449,
+        "mrr_final": 0.42505437023294157,
+        "ndcg_retrieval": 0.7679106602896145,
+        "ndcg_final": 0.6543908767721319
+      },
+      "comparison": {
+        "mrr_improvement": 17.605965698794915,
+        "ndcg_improvement": 41.28630207960634,
+        "time_overhead": 214898.70903674277
+      },
+      "correlation": {
+        "pearson": 0.0,
+        "spearman": 0.0
+      }
+    },
+    {
+      "id": 7,
+      "timestamp": "2026-04-08 23:53:58",
+      "description": "Iteration V5: Constraint & No-Answer Safety",
+      "metrics": {
+        "mrr_retrieval": 0.40787237564023276,
+        "mrr_final": 0.3715575396825397,
+        "ndcg_retrieval": 0.5578928684258637,
+        "ndcg_final": 0.5431319293116943
+      }
+    },
+    {
+      "id": 8,
+      "timestamp": "2026-04-09 14:01:46",
+      "description": "Phase 1: Multi-hop Reasoning & Active Retrieval Baseline",
+      "metrics": {
+        "mrr_final": 0.418937908496732,
+        "ndcg_final": 0.5847195312434585,
+        "p50_latency": 0.00038433074951171875,
+        "p95_latency": 0.0014691352844238281,
+        "avg_tokens": 169.64705882352942
+      }
+    }
+  ],
+  "plan": [
+    {
+      "phase": "Phase 1",
+      "task": "Baseline Vector Retrieval",
+      "status": "Completed",
+      "date": "2024-03-14"
+    },
+    {
+      "phase": "Phase 2",
+      "task": "Integrate BGE Reranker",
+      "status": "Completed",
+      "date": "2024-03-14"
+    },
+    {
+      "phase": "Phase 3",
+      "task": "Implement PRF & RRF",
+      "status": "Completed",
+      "date": "2024-03-14"
+    },
+    {
+      "phase": "Phase 4",
+      "task": "Robustness Testing (Ambiguity)",
+      "status": "In Progress",
+      "date": "2024-03-14"
+    },
+    {
+      "phase": "Phase 5",
+      "task": "Real-world Deployment",
+      "status": "Planned",
+      "date": "TBD"
+    }
+  ]
+}
