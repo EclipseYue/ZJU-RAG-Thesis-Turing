@@ -13,7 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from rererank_v1.dataset_loader import HF_DATASETS_AVAILABLE, load_multihop_sample
 from rererank_v1.paths import data_dir, results_dir
-from rererank_v1.rag_pipeline import RAGPipeline, heuristic_generate_answer
+from rererank_v1.rag_pipeline import RAGPipeline
+from rererank_v1.llm_generator import llm_generate_answer, heuristic_generate_answer
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -117,7 +118,7 @@ def evaluate_query(
         results = rag.search(query_item["query"], top_k=top_k, active_retrieval=config["adaptive"])
         chain = []
 
-    generated_answer = heuristic_generate_answer(query_item["query"], results)
+    generated_answer = llm_generate_answer(query_item["query"], results)
     verification = None
     final_answer = generated_answer
     no_answer = False
