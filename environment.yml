@@ -1,0 +1,24 @@
+name: zju-rag-thesis
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy>=1.24
+  - scipy>=1.11
+  - scikit-learn>=1.3
+  - flask>=3.0
+  - pytorch>=2.5
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - pip:
+      - sentence-transformers>=2.2.2
+      - datasets>=2.18.0
+      - transformers>=4.40.0
+      - accelerate>=0.30.0
+      - matplotlib>=3.8.0
+      - seaborn>=0.13.0

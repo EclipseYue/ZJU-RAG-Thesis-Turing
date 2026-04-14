@@ -22,10 +22,14 @@ This project implements an advanced Retrieval-Augmented Generation (RAG) pipelin
 
 ## 🛠️ Installation
 
-Ensure you have Python 3.8+ installed.
+推荐直接使用仓库内的 `conda` 环境定义，避免系统 Python 只读或 CUDA 依赖不一致。
 
-1.  Clone the repository (if applicable) or navigate to the project directory.
-2.  Install the required dependencies:
+```bash
+conda env create -f environment.yml
+conda activate zju-rag-thesis
+```
+
+如果你只想沿用已有环境，也可以手动安装：
 
 ```bash
 pip install -r requirements.txt
@@ -43,6 +47,26 @@ Run the main script to see the pipeline in action with sample data:
 
 ```bash
 python rag_pipeline.py
+```
+
+### Real Benchmark Experiments
+
+以下脚本会将结果落盘到 `data/results/`，并同步更新 `data/research_history.json`：
+
+```bash
+# 小规模真实基准消融
+python experiments/run_all.py --dataset hotpotqa --samples 100 --device cuda
+
+# 扩展规模跑批（适合 RTX 3060 12GB）
+python experiments/run_large_scale.py --dataset hotpotqa --samples 500 --device cuda
+python experiments/run_large_scale.py --dataset 2wiki --samples 300 --device cuda
+```
+
+如果当前环境没有 GPU 直通，可先做 CPU 或 Mock 验证：
+
+```bash
+python experiments/run_all.py --dataset hotpotqa --samples 20 --device cpu
+python experiments/run_all.py --dataset hotpotqa --samples 20 --mock
 ```
 
 ## 📁 Project Layout
@@ -116,6 +140,12 @@ The `RAGPipeline` class accepts several parameters during initialization:
 *   `embedding_model_name`: Hugging Face model ID for embeddings (default: `all-MiniLM-L6-v2`).
 *   `reranker_model_name`: Hugging Face model ID for reranker (default: `BAAI/bge-reranker-base`).
 *   `device`: Computation device (`'cpu'`, `'cuda'`, `'mps'`, or `None` for auto-detection).
+
+### GPU Notes
+
+- 推荐硬件：`RTX 3060 12GB` 或更高。
+- 若 `nvidia-smi` 可用但 Python 中 `torch.cuda.is_available()` 为 `False`，优先检查宿主机驱动、容器 GPU 直通与当前 `conda` 环境。
+- 若在 IDE 沙箱中无法看到 NVIDIA 驱动，实验脚本仍可在 `cpu` 或 `--mock` 下完成流程验证，但最终论文跑数应在宿主机 GPU 环境完成。
 
 ## 🧩 Architecture Flow
 

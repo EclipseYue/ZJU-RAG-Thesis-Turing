@@ -349,7 +349,7 @@ V6      0.409   0.521   真实模型验证成功
 
 **硬件环境：**
 - CPU: Intel Core i7-12700H
-- GPU: NVIDIA RTX 3060 6GB
+- GPU: NVIDIA RTX 3060 12GB
 - 内存: 32GB DDR4
 - 存储: 1TB NVMe SSD
 
@@ -365,6 +365,7 @@ V6      0.409   0.521   真实模型验证成功
 - 重排序模型: BAAI/bge-reranker-base
 - 最大序列长度: 512 tokens
 - 批处理大小: 8 documents
+- 可扩展实验规模: 100 / 300 / 500 benchmark queries
 
 #### 附录C：使用指南
 
