@@ -1,0 +1,17 @@
+{
+  "RejectionRate": 100.0,
+  "Details": [
+    {
+      "query": "In what country is Valea Seac\u0103 River?",
+      "true_answer": "Romania",
+      "hallucinated": "Valea Seac\u0103 River is related to Paris, France.",
+      "cove_status": "REJECTED"
+    },
+    {
+      "query": "In what country is Valea Ple\u0219ii River?",
+      "true_answer": "Romania",
+      "hallucinated": "Valea Ple\u0219ii River is related to Paris, France.",
+      "cove_status": "REJECTED"
+    }
+  ]
+}

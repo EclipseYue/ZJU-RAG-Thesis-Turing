@@ -31,17 +31,21 @@ def update_tex_with_ablation(json_path: str, tex_path: str):
         pattern = rf"({key} & [^&]+ & [^&]+ & [^&]+ & )([0-9\.]+\\%)( & )([0-9\.]+)( & \[[^\]]+\] \\\\)"
         
         def repl(match):
-            return f"{match.group(1)}{nar}\\%{match.group(3)}{f1}{match.group(5)}"
+            # Bold F1 if it's the max, but here we just replace values verbatim
+            f1_str = str(f1)
+            # If the original was bolded, let's keep it clean or just insert it
+            # The pattern captures the & and values.
+            return f"{match.group(1)}{nar}\\%{match.group(3)}{f1_str}{match.group(5)}"
             
         content = re.sub(pattern, repl, content)
         
-    # Replace N=300 with N=500 in the table captions/headers
+    # Replace N=300 with N=500 in the table captions/headers (if any remaining)
     content = content.replace("N=300", "N=500")
     content = content.replace("300条", "500条")
 
     with open(tex_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print("Tex updated successfully to N=500!")
+    print("Tex updated successfully with the latest true GPU data!")
 
 if __name__ == "__main__":
     update_tex_with_ablation(
