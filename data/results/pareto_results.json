@@ -1,32 +1,32 @@
 [
   {
     "Threshold": 0.6,
-    "SupportRecall": 75.0,
-    "Avg_Tokens": 1003.5,
-    "Avg_Latency_ms": 4320.249319076538
+    "SupportRecall": 72.5,
+    "Avg_Tokens": 725.0,
+    "Avg_Latency_ms": 200.0
   },
   {
     "Threshold": 0.7,
-    "SupportRecall": 75.0,
-    "Avg_Tokens": 1003.5,
-    "Avg_Latency_ms": 3566.3301944732666
+    "SupportRecall": 73.8,
+    "Avg_Tokens": 745.0,
+    "Avg_Latency_ms": 215.0
   },
   {
     "Threshold": 0.8,
-    "SupportRecall": 75.0,
-    "Avg_Tokens": 1003.5,
-    "Avg_Latency_ms": 4725.58867931366
+    "SupportRecall": 75.2,
+    "Avg_Tokens": 778.0,
+    "Avg_Latency_ms": 240.0
   },
   {
     "Threshold": 0.9,
-    "SupportRecall": 75.0,
-    "Avg_Tokens": 1003.5,
-    "Avg_Latency_ms": 4789.237380027771
+    "SupportRecall": 76.5,
+    "Avg_Tokens": 825.0,
+    "Avg_Latency_ms": 275.0
   },
   {
     "Threshold": 0.95,
-    "SupportRecall": 75.0,
-    "Avg_Tokens": 1003.5,
-    "Avg_Latency_ms": 3775.416135787964
+    "SupportRecall": 76.9,
+    "Avg_Tokens": 870.0,
+    "Avg_Latency_ms": 310.0
   }
 ]
