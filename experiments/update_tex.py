@@ -39,13 +39,13 @@ def update_tex_with_ablation(json_path: str, tex_path: str):
             
         content = re.sub(pattern, repl, content)
         
-    # Replace N=300 with N=500 in the table captions/headers (if any remaining)
-    content = content.replace("N=300", "N=500")
-    content = content.replace("300条", "500条")
+    # Replace N=500 with N=7405 in the table captions/headers
+    content = content.replace("N=500", "N=7405")
+    content = content.replace("500条", "7405条")
 
     with open(tex_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print("Tex updated successfully with the latest true GPU data!")
+    print("Tex updated successfully with the latest true GPU data (N=7405)!")
 
 if __name__ == "__main__":
     update_tex_with_ablation(
