@@ -503,14 +503,19 @@ class RAGPipeline:
             "chain_str": chain_str
         }
 
-    def verify_answer(self, generated_answer: str, evidence_chain: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def verify_answer(
+        self,
+        generated_answer: str,
+        evidence_chain: List[Dict[str, Any]],
+        confidence_threshold: float = 0.5,
+    ) -> Dict[str, Any]:
         """
         Phase 4 feature: Chain-of-Verification (CoVe).
         Evaluates a generated answer against the retrieved evidence chain.
         Returns ACCEPTED or REJECTED (No-Answer).
         """
         logger.info(f"Phase 4: Running CoVe Verification on Answer: '{generated_answer}'")
-        verifier = CoVeVerifier(confidence_threshold=0.5) # Configurable threshold
+        verifier = CoVeVerifier(confidence_threshold=confidence_threshold)
         
         cove_result = verifier.evaluate_answer(generated_answer, evidence_chain)
         logger.info(f"CoVe Status: {cove_result['status']} | Reason: {cove_result['reason']}")

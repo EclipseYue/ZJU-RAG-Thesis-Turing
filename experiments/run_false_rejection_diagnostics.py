@@ -1,0 +1,167 @@
+import argparse
+import json
+import os
+import re
+import string
+import sys
+from collections import Counter
+from pathlib import Path
+from statistics import mean
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+
+from rererank_v1.cove_verifier import CoVeVerifier
+from rererank_v1.dataset_loader import load_multihop_sample
+from rererank_v1.paths import results_dir
+from rererank_v1.rag_pipeline import RAGPipeline, heuristic_generate_answer
+
+
+def normalize_answer(text: str) -> str:
+    def remove_articles(value: str) -> str:
+        return re.sub(r"\b(a|an|the)\b", " ", value)
+
+    def white_space_fix(value: str) -> str:
+        return " ".join(value.split())
+
+    def remove_punc(value: str) -> str:
+        exclude = set(string.punctuation)
+        return "".join(ch for ch in value if ch not in exclude)
+
+    return white_space_fix(remove_articles(remove_punc((text or "").lower())))
+
+
+def answer_present_in_results(answer: str, results) -> bool:
+    answer_norm = normalize_answer(answer)
+    if answer_norm in {"", "yes", "no", "noanswer"}:
+        return False
+    return any(answer_norm in normalize_answer(item.get("text", "")) for item in results)
+
+
+def summarize_variant(records):
+    return {
+        "samples": len(records),
+        "rejection_rate": round(mean(1.0 if item["rejected"] else 0.0 for item in records) * 100, 2),
+        "false_rejection_rate": round(mean(1.0 if item["false_rejection"] else 0.0 for item in records) * 100, 2),
+        "unsafe_accept_rate": round(mean(1.0 if item["unsafe_accept"] else 0.0 for item in records) * 100, 2),
+        "avg_confidence": round(mean(item["avg_confidence"] for item in records), 4),
+        "reason_buckets": dict(Counter(item["reason_bucket"] for item in records if item["reason_bucket"])),
+    }
+
+
+def diagnose_reason(gold_answer: str, results, verification):
+    if not results:
+        return "empty_retrieval"
+    if not answer_present_in_results(gold_answer, results):
+        return "evidence_missing"
+    if (verification or {}).get("avg_confidence", 0.0) < 0.35:
+        return "low_verify_confidence"
+    return "partial_support_reject"
+
+
+def run_variant(rag, query_item, top_k, prf_threshold, verifier_threshold):
+    search_res = rag.search_with_chain(query_item["query"], top_k=top_k, prf_threshold=prf_threshold)
+    results = search_res["results"]
+    chain = search_res["chain"]
+    draft = heuristic_generate_answer(query_item["query"], results)
+    verifier = CoVeVerifier(confidence_threshold=verifier_threshold)
+    verification = verifier.evaluate_answer(draft, chain)
+
+    rejected = verification.get("status") == "REJECTED"
+    false_rejection = rejected and normalize_answer(query_item["answer"]) != "noanswer"
+    reason_bucket = diagnose_reason(query_item["answer"], results, verification) if false_rejection else None
+    unsafe_accept = (not rejected) and not answer_present_in_results(query_item["answer"], results)
+
+    return {
+        "id": query_item["id"],
+        "query": query_item["query"],
+        "answer": query_item["answer"],
+        "draft_answer": draft,
+        "rejected": rejected,
+        "false_rejection": false_rejection,
+        "unsafe_accept": unsafe_accept,
+        "avg_confidence": round(float(verification.get("avg_confidence", 0.0)), 4),
+        "reason_bucket": reason_bucket,
+        "retrieved_titles": [item.get("metadata", {}).get("title", "") for item in results[:top_k]],
+        "verification": verification,
+    }
+
+
+def build_argparser():
+    parser = argparse.ArgumentParser(description="Run false-rejection diagnostics for CoVe variants.")
+    parser.add_argument("--config", default=None, help="Optional JSON config file.")
+    parser.add_argument("--dataset", default="hotpotqa", choices=["hotpotqa", "2wiki"], help="Dataset name.")
+    parser.add_argument("--split", default="validation", help="Dataset split.")
+    parser.add_argument("--samples", type=int, default=200, help="Number of evaluated samples.")
+    parser.add_argument("--top-k", type=int, default=5, help="Retrieval top-k.")
+    parser.add_argument("--prf-threshold", type=float, default=0.8, help="Adaptive retrieval threshold.")
+    parser.add_argument("--thresholds", nargs="+", type=float, default=[0.5, 0.7, 0.9], help="Verifier thresholds to compare.")
+    parser.add_argument("--hetero", action="store_true", help="Use heterogeneous corpus instead of text-only corpus.")
+    parser.add_argument("--device", default=None, help="Runtime device.")
+    parser.add_argument("--output-name", default="false_rejection_diagnostics.json", help="Output JSON filename.")
+    return parser
+
+
+def load_config(args):
+    if not args.config:
+        return vars(args)
+    with open(args.config, "r", encoding="utf-8") as f:
+        config = json.load(f)
+    merged = vars(args).copy()
+    merged.update(config)
+    return merged
+
+
+def main():
+    args = build_argparser().parse_args()
+    config = load_config(args)
+    os.environ["FORCE_MOCK"] = "0"
+
+    data = load_multihop_sample(
+        config["dataset"],
+        split=config["split"],
+        num_samples=int(config["samples"]),
+        use_hetero=bool(config.get("hetero", False)),
+    )
+    rag = RAGPipeline(device=config.get("device"), use_v6_reranker=True)
+    rag.add_evidence_units(data["corpus"])
+
+    variants = {}
+    for threshold in config["thresholds"]:
+        key = f"cove_t{threshold:.2f}"
+        records = [
+            run_variant(
+                rag,
+                query_item,
+                top_k=int(config["top_k"]),
+                prf_threshold=float(config["prf_threshold"]),
+                verifier_threshold=float(threshold),
+            )
+            for query_item in data["queries"]
+        ]
+        variants[key] = {
+            "threshold": threshold,
+            "summary": summarize_variant(records),
+            "records": records,
+        }
+
+    output = {
+        "config": {
+            "dataset": config["dataset"],
+            "split": config["split"],
+            "samples": config["samples"],
+            "top_k": config["top_k"],
+            "prf_threshold": config["prf_threshold"],
+            "hetero": config.get("hetero", False),
+            "thresholds": config["thresholds"],
+        },
+        "variants": variants,
+    }
+    out_path = results_dir() / config["output_name"]
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+    print(json.dumps({"saved_to": str(out_path), "variants": list(variants.keys())}, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

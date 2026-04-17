@@ -1,0 +1,10 @@
+{
+  "dataset": "hotpotqa",
+  "split": "validation",
+  "samples": 500,
+  "top_k": 5,
+  "prf_threshold": 0.8,
+  "bootstrap_samples": 1000,
+  "device": "cuda",
+  "output_name": "bucket_gain_study_hotpotqa.json"
+}

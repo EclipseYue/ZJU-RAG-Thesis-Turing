@@ -105,17 +105,24 @@ def evaluate_query(
     top_k: int,
 ) -> Dict[str, Any]:
     before = snapshot_stats(rag)
+    prf_threshold = float(config.get("prf_threshold", 0.8))
+    cove_threshold = float(config.get("cove_threshold", 0.5))
 
     if config["cove"]:
         search_output = rag.search_with_chain(
             query_item["query"],
             top_k=top_k,
-            prf_threshold=0.8 if config["adaptive"] else 1.1,
+            prf_threshold=prf_threshold if config["adaptive"] else 1.1,
         )
         results = search_output["results"]
         chain = search_output["chain"]
     else:
-        results = rag.search(query_item["query"], top_k=top_k, active_retrieval=config["adaptive"])
+        results = rag.search(
+            query_item["query"],
+            top_k=top_k,
+            active_retrieval=config["adaptive"],
+            prf_threshold=prf_threshold,
+        )
         chain = []
 
     generated_answer = llm_generate_answer(query_item["query"], results)
@@ -124,7 +131,11 @@ def evaluate_query(
     no_answer = False
 
     if config["cove"]:
-        verification = rag.verify_answer(generated_answer, chain)
+        verification = rag.verify_answer(
+            generated_answer,
+            chain,
+            confidence_threshold=cove_threshold,
+        )
         if verification.get("status") == "REJECTED":
             final_answer = "No-Answer"
             no_answer = True
@@ -255,6 +266,9 @@ def run_automated_ablation_with_tracking(
     force_mock: bool = False,
     device: str | None = None,
     output_name: str = "automated_ablation.json",
+    include_controls: bool = False,
+    adaptive_threshold: float = 0.8,
+    cove_threshold: float = 0.9,
 ) -> Dict[str, Any]:
     if not HF_DATASETS_AVAILABLE:
         raise ImportError("缺少 `datasets` 依赖，无法加载真实基准数据。")
@@ -275,11 +289,60 @@ def run_automated_ablation_with_tracking(
     text_bundle, hetero_bundle = load_corpora(dataset_name=dataset_name, split=split, num_samples=num_samples)
 
     configurations = [
-        {"name": "A_Baseline", "hetero": False, "adaptive": False, "cove": False},
-        {"name": "B_Hetero", "hetero": True, "adaptive": False, "cove": False},
-        {"name": "C_Adaptive", "hetero": True, "adaptive": True, "cove": False},
-        {"name": "D_CoVe_Full", "hetero": True, "adaptive": True, "cove": True},
+        {
+            "name": "A_Baseline",
+            "hetero": False,
+            "adaptive": False,
+            "cove": False,
+            "prf_threshold": adaptive_threshold,
+            "cove_threshold": cove_threshold,
+        },
     ]
+    if include_controls:
+        configurations.extend([
+            {
+                "name": "A2_Baseline_Adaptive",
+                "hetero": False,
+                "adaptive": True,
+                "cove": False,
+                "prf_threshold": adaptive_threshold,
+                "cove_threshold": cove_threshold,
+            },
+            {
+                "name": "A3_Baseline_CoVe",
+                "hetero": False,
+                "adaptive": False,
+                "cove": True,
+                "prf_threshold": adaptive_threshold,
+                "cove_threshold": cove_threshold,
+            },
+        ])
+    configurations.extend([
+        {
+            "name": "B_Hetero",
+            "hetero": True,
+            "adaptive": False,
+            "cove": False,
+            "prf_threshold": adaptive_threshold,
+            "cove_threshold": cove_threshold,
+        },
+        {
+            "name": "C_Adaptive",
+            "hetero": True,
+            "adaptive": True,
+            "cove": False,
+            "prf_threshold": adaptive_threshold,
+            "cove_threshold": cove_threshold,
+        },
+        {
+            "name": "D_CoVe_Full",
+            "hetero": True,
+            "adaptive": True,
+            "cove": True,
+            "prf_threshold": adaptive_threshold,
+            "cove_threshold": cove_threshold,
+        },
+    ])
 
     results_matrix: List[Dict[str, Any]] = []
     detailed_runs: List[Dict[str, Any]] = []
@@ -359,6 +422,7 @@ def run_automated_ablation_with_tracking(
 
 def build_argparser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run real benchmark ablation for the thesis RAG pipeline.")
+    parser.add_argument("--config", default=None, help="Optional JSON config file.")
     parser.add_argument("--dataset", default="hotpotqa", choices=["hotpotqa", "2wiki"], help="Benchmark dataset name.")
     parser.add_argument("--split", default="validation", help="Dataset split.")
     parser.add_argument("--samples", type=int, default=100, help="Number of sampled benchmark queries.")
@@ -367,20 +431,37 @@ def build_argparser() -> argparse.ArgumentParser:
     parser.add_argument("--output-name", default="automated_ablation.json", help="Matrix JSON filename under data/results.")
     parser.add_argument("--use-wandb", action="store_true", help="Enable Weights & Biases logging.")
     parser.add_argument("--mock", action="store_true", help="Force mock mode instead of real HF models.")
+    parser.add_argument("--include-controls", action="store_true", help="Add A2/A3 control groups to the ablation matrix.")
+    parser.add_argument("--adaptive-threshold", type=float, default=0.8, help="PRF threshold used by adaptive retrieval variants.")
+    parser.add_argument("--cove-threshold", type=float, default=0.9, help="Confidence threshold used by CoVe variants.")
     return parser
+
+
+def load_config(args: argparse.Namespace) -> Dict[str, Any]:
+    if not args.config:
+        return vars(args)
+    with open(args.config, "r", encoding="utf-8") as f:
+        config = json.load(f)
+    merged = vars(args).copy()
+    merged.update(config)
+    return merged
 
 
 def main() -> None:
     args = build_argparser().parse_args()
+    config = load_config(args)
     run_automated_ablation_with_tracking(
-        dataset_name=args.dataset,
-        split=args.split,
-        num_samples=args.samples,
-        top_k=args.top_k,
-        use_wandb=args.use_wandb,
-        force_mock=args.mock,
-        device=args.device,
-        output_name=args.output_name,
+        dataset_name=config["dataset"],
+        split=config["split"],
+        num_samples=int(config["samples"]),
+        top_k=int(config["top_k"]),
+        use_wandb=bool(config.get("use_wandb", False)),
+        force_mock=bool(config.get("mock", False)),
+        device=config.get("device"),
+        output_name=config["output_name"],
+        include_controls=bool(config.get("include_controls", False)),
+        adaptive_threshold=float(config["adaptive_threshold"]),
+        cove_threshold=float(config["cove_threshold"]),
     )
 
 

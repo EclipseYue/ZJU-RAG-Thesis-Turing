@@ -1,0 +1,11 @@
+{
+  "dataset": "hotpotqa",
+  "split": "validation",
+  "samples": 7405,
+  "top_k": 5,
+  "device": "cuda",
+  "output_name": "automated_ablation_with_controls.json",
+  "include_controls": true,
+  "adaptive_threshold": 0.8,
+  "cove_threshold": 0.9
+}

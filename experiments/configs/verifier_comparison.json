@@ -1,0 +1,15 @@
+{
+  "dataset": "hotpotqa",
+  "split": "validation",
+  "samples": 200,
+  "top_k": 5,
+  "prf_threshold": 0.8,
+  "device": "cuda",
+  "output_name": "verifier_comparison_hotpotqa.json",
+  "verifiers": [
+    { "name": "cove_soft", "mode": "cove", "threshold": 0.35 },
+    { "name": "cove_standard", "mode": "cove", "threshold": 0.5 },
+    { "name": "cove_strict", "mode": "cove", "threshold": 0.9 },
+    { "name": "overlap_soft", "mode": "overlap", "threshold": 0.35 }
+  ]
+}
