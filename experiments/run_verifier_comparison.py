@@ -93,6 +93,9 @@ def build_argparser():
     parser.add_argument("--prf-threshold", type=float, default=0.8, help="Adaptive retrieval threshold.")
     parser.add_argument("--device", default=None, help="Runtime device.")
     parser.add_argument("--output-name", default="verifier_comparison.json", help="Output JSON filename.")
+    parser.add_argument("--local-data-dir", default=None, help="Directory containing offline dataset JSON/JSONL files.")
+    parser.add_argument("--hf-cache-dir", default=None, help="Optional Hugging Face cache dir.")
+    parser.add_argument("--offline", action="store_true", help="Use local files / cache only and avoid network dataset fetches.")
     return parser
 
 
@@ -136,6 +139,9 @@ def main():
         split=config["split"],
         num_samples=int(config["samples"]),
         use_hetero=True,
+        local_data_dir=config.get("local_data_dir"),
+        hf_cache_dir=config.get("hf_cache_dir"),
+        offline=bool(config.get("offline", False)),
     )
     rag = RAGPipeline(device=config.get("device"), use_v6_reranker=True)
     rag.add_evidence_units(data["corpus"])

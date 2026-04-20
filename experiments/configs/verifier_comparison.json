@@ -5,6 +5,9 @@
   "top_k": 5,
   "prf_threshold": 0.8,
   "device": "cuda",
+  "local_data_dir": "data/datasets",
+  "hf_cache_dir": null,
+  "offline": true,
   "output_name": "verifier_comparison_hotpotqa.json",
   "verifiers": [
     { "name": "cove_soft", "mode": "cove", "threshold": 0.35 },

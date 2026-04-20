@@ -86,15 +86,38 @@ def mean(values: List[float]) -> float:
     return float(sum(values) / len(values)) if values else 0.0
 
 
-def load_corpora(dataset_name: str, split: str, num_samples: int) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+def load_corpora(
+    dataset_name: str,
+    split: str,
+    num_samples: int,
+    local_data_dir: str | None = None,
+    hf_cache_dir: str | None = None,
+    offline: bool = False,
+) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     logger.info(
         "Loading benchmark corpus: dataset=%s split=%s samples=%s",
         dataset_name,
         split,
         num_samples,
     )
-    text_bundle = load_multihop_sample(dataset_name, split=split, num_samples=num_samples, use_hetero=False)
-    hetero_bundle = load_multihop_sample(dataset_name, split=split, num_samples=num_samples, use_hetero=True)
+    text_bundle = load_multihop_sample(
+        dataset_name,
+        split=split,
+        num_samples=num_samples,
+        use_hetero=False,
+        local_data_dir=local_data_dir,
+        hf_cache_dir=hf_cache_dir,
+        offline=offline,
+    )
+    hetero_bundle = load_multihop_sample(
+        dataset_name,
+        split=split,
+        num_samples=num_samples,
+        use_hetero=True,
+        local_data_dir=local_data_dir,
+        hf_cache_dir=hf_cache_dir,
+        offline=offline,
+    )
     return text_bundle, hetero_bundle
 
 
@@ -269,6 +292,9 @@ def run_automated_ablation_with_tracking(
     include_controls: bool = False,
     adaptive_threshold: float = 0.8,
     cove_threshold: float = 0.9,
+    local_data_dir: str | None = None,
+    hf_cache_dir: str | None = None,
+    offline: bool = False,
 ) -> Dict[str, Any]:
     if not HF_DATASETS_AVAILABLE:
         raise ImportError("缺少 `datasets` 依赖，无法加载真实基准数据。")
@@ -286,7 +312,14 @@ def run_automated_ablation_with_tracking(
     os.environ["FORCE_MOCK"] = "1" if force_mock else "0"
     logger.info("Starting automated ablation: dataset=%s samples=%s mock=%s", dataset_name, num_samples, force_mock)
 
-    text_bundle, hetero_bundle = load_corpora(dataset_name=dataset_name, split=split, num_samples=num_samples)
+    text_bundle, hetero_bundle = load_corpora(
+        dataset_name=dataset_name,
+        split=split,
+        num_samples=num_samples,
+        local_data_dir=local_data_dir,
+        hf_cache_dir=hf_cache_dir,
+        offline=offline,
+    )
 
     configurations = [
         {
@@ -434,6 +467,9 @@ def build_argparser() -> argparse.ArgumentParser:
     parser.add_argument("--include-controls", action="store_true", help="Add A2/A3 control groups to the ablation matrix.")
     parser.add_argument("--adaptive-threshold", type=float, default=0.8, help="PRF threshold used by adaptive retrieval variants.")
     parser.add_argument("--cove-threshold", type=float, default=0.9, help="Confidence threshold used by CoVe variants.")
+    parser.add_argument("--local-data-dir", default=None, help="Directory containing offline dataset JSON/JSONL files.")
+    parser.add_argument("--hf-cache-dir", default=None, help="Optional Hugging Face cache dir for offline/local loads.")
+    parser.add_argument("--offline", action="store_true", help="Use local files / cache only and avoid network dataset fetches.")
     return parser
 
 
@@ -476,6 +512,9 @@ def main() -> None:
         include_controls=bool(config.get("include_controls", False)),
         adaptive_threshold=float(config["adaptive_threshold"]),
         cove_threshold=float(config["cove_threshold"]),
+        local_data_dir=config.get("local_data_dir"),
+        hf_cache_dir=config.get("hf_cache_dir"),
+        offline=bool(config.get("offline", False)),
     )
 
 

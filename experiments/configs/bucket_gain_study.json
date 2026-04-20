@@ -6,5 +6,8 @@
   "prf_threshold": 0.8,
   "bootstrap_samples": 1000,
   "device": "cuda",
-  "output_name": "bucket_gain_study_hotpotqa.json"
+  "output_name": "bucket_gain_study_hotpotqa.json",
+  "local_data_dir": "data/datasets",
+  "hf_cache_dir": null,
+  "offline": true
 }

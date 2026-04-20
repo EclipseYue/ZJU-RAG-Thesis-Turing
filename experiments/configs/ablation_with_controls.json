@@ -7,5 +7,8 @@
   "output_name": "automated_ablation_with_controls.json",
   "include_controls": true,
   "adaptive_threshold": 0.8,
-  "cove_threshold": 0.9
+  "cove_threshold": 0.9,
+  "local_data_dir": "data/datasets",
+  "hf_cache_dir": null,
+  "offline": true
 }

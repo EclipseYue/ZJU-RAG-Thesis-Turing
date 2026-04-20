@@ -25,3 +25,9 @@ python experiments/run_all.py --dataset hotpotqa --samples 20 --device cpu
 python experiments/run_all.py --dataset hotpotqa --samples 100 --device cuda
 python experiments/run_large_scale.py --dataset 2wiki --samples 300 --device cuda
 ```
+
+离线运行说明：
+
+- 远程服务器无法访问 `huggingface.co` 时，优先将数据集导出为 `json/jsonl` 放到 `data/datasets/`。
+- 具体目录结构见 [experiments/configs/README_offline.md](/Users/eclipse/code/RAG/Rererank_v1/experiments/configs/README_offline.md)。
+- 当前四个实验配置文件已经默认开启 `offline=true`，并优先读取 `data/datasets/`。
