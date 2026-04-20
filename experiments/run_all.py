@@ -12,7 +12,7 @@ from typing import Any, Dict, Iterable, List, Tuple
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from rererank_v1.dataset_loader import HF_DATASETS_AVAILABLE, load_multihop_sample
-from rererank_v1.paths import data_dir, results_dir
+from rererank_v1.paths import data_dir, repo_root, results_dir
 from rererank_v1.rag_pipeline import RAGPipeline
 from rererank_v1.llm_generator import llm_generate_answer, heuristic_generate_answer
 
@@ -440,7 +440,21 @@ def build_argparser() -> argparse.ArgumentParser:
 def load_config(args: argparse.Namespace) -> Dict[str, Any]:
     if not args.config:
         return vars(args)
-    with open(args.config, "r", encoding="utf-8") as f:
+
+    config_path = Path(args.config).expanduser()
+    candidate_paths = [config_path]
+    if config_path.is_absolute():
+        candidate_paths.append(repo_root() / "experiments" / "configs" / config_path.name)
+    else:
+        candidate_paths.append((repo_root() / config_path).resolve())
+        candidate_paths.append(repo_root() / "experiments" / "configs" / config_path.name)
+
+    resolved_path = next((path for path in candidate_paths if path.exists()), None)
+    if resolved_path is None:
+        searched = ", ".join(str(path) for path in candidate_paths)
+        raise FileNotFoundError(f"Could not find config file. Searched: {searched}")
+
+    with open(resolved_path, "r", encoding="utf-8") as f:
         config = json.load(f)
     merged = vars(args).copy()
     merged.update(config)

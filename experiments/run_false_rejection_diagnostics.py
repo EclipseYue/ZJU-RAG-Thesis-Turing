@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from rererank_v1.cove_verifier import CoVeVerifier
 from rererank_v1.dataset_loader import load_multihop_sample
-from rererank_v1.paths import results_dir
+from rererank_v1.paths import repo_root, results_dir
 from rererank_v1.rag_pipeline import RAGPipeline, heuristic_generate_answer
 
 
@@ -104,7 +104,21 @@ def build_argparser():
 def load_config(args):
     if not args.config:
         return vars(args)
-    with open(args.config, "r", encoding="utf-8") as f:
+
+    config_path = Path(args.config).expanduser()
+    candidate_paths = [config_path]
+    if config_path.is_absolute():
+        candidate_paths.append(repo_root() / "experiments" / "configs" / config_path.name)
+    else:
+        candidate_paths.append((repo_root() / config_path).resolve())
+        candidate_paths.append(repo_root() / "experiments" / "configs" / config_path.name)
+
+    resolved_path = next((path for path in candidate_paths if path.exists()), None)
+    if resolved_path is None:
+        searched = ", ".join(str(path) for path in candidate_paths)
+        raise FileNotFoundError(f"Could not find config file. Searched: {searched}")
+
+    with open(resolved_path, "r", encoding="utf-8") as f:
         config = json.load(f)
     merged = vars(args).copy()
     merged.update(config)
