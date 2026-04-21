@@ -1,0 +1,62 @@
+{
+  "config": {
+    "dataset": "hotpotqa",
+    "split": "validation",
+    "samples": 500,
+    "top_k": 5,
+    "prf_threshold": 0.8,
+    "bootstrap_samples": 1000
+  },
+  "overall": {
+    "dense_rerank": {
+      "n": 500,
+      "SupportAllHit@5": 41.2,
+      "SupportRecall@5": 67.6
+    },
+    "adaptive": {
+      "n": 500,
+      "SupportAllHit@5": 47.8,
+      "SupportRecall@5": 71.2
+    }
+  },
+  "bucket_stats": {
+    "bridge": {
+      "dense_rerank": {
+        "n": 404,
+        "SupportAllHit@5": 32.43,
+        "SupportRecall@5": 62.5
+      },
+      "adaptive": {
+        "n": 404,
+        "SupportAllHit@5": 40.35,
+        "SupportRecall@5": 66.83
+      },
+      "adaptive_minus_dense": {
+        "delta": 0.0792,
+        "ci95": [
+          0.0545,
+          0.1064
+        ]
+      }
+    },
+    "comparison": {
+      "dense_rerank": {
+        "n": 96,
+        "SupportAllHit@5": 78.12,
+        "SupportRecall@5": 89.06
+      },
+      "adaptive": {
+        "n": 96,
+        "SupportAllHit@5": 79.17,
+        "SupportRecall@5": 89.58
+      },
+      "adaptive_minus_dense": {
+        "delta": 0.0104,
+        "ci95": [
+          0.0,
+          0.0312
+        ]
+      }
+    }
+  }
+}
