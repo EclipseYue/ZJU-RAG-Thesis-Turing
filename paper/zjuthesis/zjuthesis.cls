@@ -51,6 +51,7 @@
 
 \PassOptionsToPackage{no-math}{fontspec}
 \PassOptionsToPackage{AutoFakeBold}{xeCJK}
+\PassOptionsToClass{fontset=fandol}{ctexrep}
 
 \usepackage{xifthen}
 

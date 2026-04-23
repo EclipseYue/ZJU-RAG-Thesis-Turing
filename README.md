@@ -51,38 +51,12 @@ python rag_pipeline.py
 
 ### Real Benchmark Experiments (API & Scale)
 
-我们已经完成了支持真实 LLM 接入、全量数据、帕累托曲线、长尾知识等 **顶会级别** 的实验脚本！
+实验入口、离线数据目录、真实 LLM 后端配置和论文联动说明，现统一维护在：
 
-**1. 准备环境 (在带有显卡的宿主机执行)**
-```bash
-conda env create -f environment.yml
-conda activate zju-rag-thesis
-# 或者使用我们已配好的隔离环境
-source /root/snap/ZJU-RAG-Thesis-Turing/venv/bin/activate
-```
+- [实验总指南](/Users/eclipse/code/RAG/Rererank_v1/docs/EXPERIMENT_MASTER_GUIDE.md)
+- [LLM API 配置说明](/Users/eclipse/code/RAG/Rererank_v1/docs/LLM_API_SETUP.md)
 
-**2. 接入真实大模型 API 测真实 F1 (强烈推荐)**
-如果你想使用真实的 LLM（如 Qwen2.5-7B, LLaMA-3）来计算最终生成的 Exact Match (EM) 和 F1，请设置环境变量。推荐注册 [SiliconFlow (硅基流动)](https://cloud.siliconflow.cn/) 获取免费 API Key：
-```bash
-export OPENAI_API_KEY="sk-你的真实KEY"
-export OPENAI_BASE_URL="https://api.siliconflow.cn/v1"
-
-# 跑全量数据集 
-python experiments/run_large_scale.py --dataset hotpotqa --samples 7500 --device cuda
-```
-
-**3. 顶会图表复现：帕累托前沿曲线 (Pareto Frontier)**
-自动扫动自适应阈值，绘制“Token成本 vs 召回覆盖率”的平滑权衡曲线：
-```bash
-python experiments/run_pareto.py --samples 500 --device cuda
-```
-结果会生成在 `paper/zjuthesis/figures/pareto_frontier.png`。
-
-**4. 长尾知识防幻觉测试 (PopQA)**
-测试 D模型 (CoVe) 在遇到大模型知识盲区（低频冷门实体）时，能否精准识别并 100% 拦截幻觉：
-```bash
-python experiments/run_popqa.py --samples 500 --device cuda
-```
+推荐直接阅读上述文档，而不是以本 README 中的旧命令为准。
 
 ## 📁 Project Layout
 

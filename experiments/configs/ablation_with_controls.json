@@ -8,6 +8,10 @@
   "include_controls": true,
   "adaptive_threshold": 0.8,
   "cove_threshold": 0.9,
+  "generator_backend": "auto",
+  "generator_model": "Qwen/Qwen2.5-7B-Instruct",
+  "verifier_backend": "heuristic",
+  "verifier_model": "moonshot-v1-8k",
   "local_data_dir": "data/datasets",
   "hf_cache_dir": null,
   "offline": true

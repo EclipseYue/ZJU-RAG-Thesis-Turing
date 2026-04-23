@@ -3,6 +3,8 @@ import json
 import logging
 from typing import List, Dict, Any, Optional
 
+from .llm_backends import build_openai_compat_client, resolve_openai_compat_config
+
 logger = logging.getLogger(__name__)
 
 # Fallback heuristic if API is not configured or fails
@@ -40,27 +42,39 @@ def heuristic_generate_answer(query: str, results) -> str:
     return candidates[0][1][:200]
 
 
-def llm_generate_answer(query: str, results: List[Dict[str, Any]], model: str = "Qwen/Qwen2.5-7B-Instruct") -> str:
+def llm_generate_answer(
+    query: str,
+    results: List[Dict[str, Any]],
+    model: str = "Qwen/Qwen2.5-7B-Instruct",
+    backend: str = "auto",
+    api_key: Optional[str] = None,
+    base_url: Optional[str] = None,
+) -> str:
     """
     Real LLM Generator using OpenAI-compatible API (e.g., DeepSeek, vLLM local LLaMA-3).
     Requires environment variables:
     - OPENAI_API_KEY
     - OPENAI_BASE_URL (Optional, defaults to DeepSeek if not provided)
     """
-    api_key = os.environ.get("OPENAI_API_KEY")
-    
-    # If no API key is provided, fallback to the fast heuristic generator
-    if not api_key:
-        return heuristic_generate_answer(query, results)
-        
-    try:
-        from openai import OpenAI
-    except ImportError:
-        logger.error("Please install openai package: pip install openai")
+    if backend == "heuristic":
         return heuristic_generate_answer(query, results)
 
-    base_url = os.environ.get("OPENAI_BASE_URL", "https://api.deepseek.com/v1")
-    client = OpenAI(api_key=api_key, base_url=base_url)
+    config = resolve_openai_compat_config(
+        model=model,
+        provider=backend,
+        api_key=api_key,
+        base_url=base_url,
+    )
+
+    if not config:
+        logger.info("LLM backend is not configured. Falling back to heuristic generator.")
+        return heuristic_generate_answer(query, results)
+
+    try:
+        client = build_openai_compat_client(config)
+    except RuntimeError as exc:
+        logger.error(str(exc))
+        return heuristic_generate_answer(query, results)
 
     # Build the context from retrieved evidence
     context_str = ""
@@ -83,7 +97,7 @@ def llm_generate_answer(query: str, results: List[Dict[str, Any]], model: str = 
 
     try:
         response = client.chat.completions.create(
-            model=model,
+            model=config.model,
             messages=[
                 {"role": "system", "content": "You are a precise, concise QA assistant."},
                 {"role": "user", "content": prompt}
@@ -99,5 +113,5 @@ def llm_generate_answer(query: str, results: List[Dict[str, Any]], model: str = 
             
         return answer
     except Exception as e:
-        logger.error(f"LLM API Call failed: {e}")
+        logger.error("LLM API call failed via provider=%s model=%s: %s", config.provider, config.model, e)
         return heuristic_generate_answer(query, results)

@@ -6,6 +6,8 @@
   "prf_threshold": 0.8,
   "hetero": true,
   "thresholds": [0.5, 0.7, 0.9],
+  "verifier_backend": "heuristic",
+  "verifier_model": "moonshot-v1-8k",
   "device": "cuda",
   "output_name": "false_rejection_diagnostics_hotpotqa.json",
   "local_data_dir": "data/datasets",

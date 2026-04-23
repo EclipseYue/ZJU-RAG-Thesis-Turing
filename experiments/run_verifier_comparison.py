@@ -16,6 +16,14 @@ from rererank_v1.paths import repo_root, results_dir
 from rererank_v1.rag_pipeline import RAGPipeline, heuristic_generate_answer
 
 
+def load_local_private_overrides():
+    local_override = repo_root() / "experiments" / "configs" / "local_api_overrides.json"
+    if not local_override.exists():
+        return {}
+    with open(local_override, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 def normalize_answer(text: str) -> str:
     def remove_articles(value: str) -> str:
         return re.sub(r"\b(a|an|the)\b", " ", value)
@@ -64,9 +72,15 @@ class OverlapVerifier:
         }
 
 
-def build_verifier(name, threshold):
+def build_verifier(name, threshold, config):
     if name == "cove":
-        return CoVeVerifier(confidence_threshold=threshold)
+        return CoVeVerifier(
+            confidence_threshold=threshold,
+            backend=config.get("verifier_backend", "heuristic") if not config.get("real_cove", False) else config.get("verifier_backend", "moonshot"),
+            model=config.get("verifier_model", "moonshot-v1-8k"),
+            api_key=config.get("verifier_api_key"),
+            base_url=config.get("verifier_base_url"),
+        )
     if name == "overlap":
         return OverlapVerifier(threshold=threshold)
     raise ValueError(f"Unknown verifier: {name}")
@@ -96,6 +110,11 @@ def build_argparser():
     parser.add_argument("--local-data-dir", default=None, help="Directory containing offline dataset JSON/JSONL files.")
     parser.add_argument("--hf-cache-dir", default=None, help="Optional Hugging Face cache dir.")
     parser.add_argument("--offline", action="store_true", help="Use local files / cache only and avoid network dataset fetches.")
+    parser.add_argument("--verifier-backend", default="heuristic", choices=["heuristic", "openai", "moonshot", "siliconflow"], help="Verification backend.")
+    parser.add_argument("--verifier-model", default="moonshot-v1-8k", help="Verification model name.")
+    parser.add_argument("--verifier-api-key", default=None, help="Optional explicit verifier API key.")
+    parser.add_argument("--verifier-base-url", default=None, help="Optional explicit verifier base URL.")
+    parser.add_argument("--real-cove", action="store_true", help="Force real LLM-based CoVe verification for cove_* variants.")
     return parser
 
 
@@ -110,6 +129,7 @@ def load_config(args):
     }
     merged = vars(args).copy()
     merged.update(defaults)
+    merged.update(load_local_private_overrides())
     if args.config:
         config_path = Path(args.config).expanduser()
         candidate_paths = [config_path]
@@ -133,6 +153,8 @@ def main():
     args = build_argparser().parse_args()
     config = load_config(args)
     os.environ["FORCE_MOCK"] = "0"
+    if config.get("real_cove", False) and config.get("verifier_backend", "heuristic") == "heuristic":
+        config["verifier_backend"] = "moonshot"
 
     data = load_multihop_sample(
         config["dataset"],
@@ -148,7 +170,7 @@ def main():
 
     variants = {}
     for verifier_cfg in config["verifiers"]:
-        verifier = build_verifier(verifier_cfg["mode"], float(verifier_cfg["threshold"]))
+        verifier = build_verifier(verifier_cfg["mode"], float(verifier_cfg["threshold"]), config)
         records = []
         for query_item in data["queries"]:
             search_res = rag.search_with_chain(
@@ -186,6 +208,9 @@ def main():
             "top_k": config["top_k"],
             "prf_threshold": config["prf_threshold"],
             "verifiers": config["verifiers"],
+            "real_cove": bool(config.get("real_cove", False)),
+            "verifier_backend": config.get("verifier_backend", "heuristic"),
+            "verifier_model": config.get("verifier_model", "moonshot-v1-8k"),
         },
         "variants": variants,
     }

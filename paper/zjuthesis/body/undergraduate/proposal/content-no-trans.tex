@@ -1,0 +1,21 @@
+\cleardoublepage
+
+\ifthenelse{\equal{\Type}{thesis}}
+{
+    % `thesis` content without translation
+    \inputbody{proposal/review/review}
+    \inputbody{proposal/proposal/proposal}
+    \inputbody{proposal/original/original}
+}
+{
+    \ifthenelse{\equal{\Type}{design}}
+    {
+        % `design` content without translation
+        \inputbody{proposal/proposal/proposal}
+        \inputbody{proposal/original/original}
+        \inputbody{proposal/midcheck/midcheck}
+    }
+    {
+        % Wrong Input
+    }
+}

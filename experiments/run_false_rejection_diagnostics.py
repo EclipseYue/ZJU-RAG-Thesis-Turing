@@ -16,6 +16,14 @@ from rererank_v1.paths import repo_root, results_dir
 from rererank_v1.rag_pipeline import RAGPipeline, heuristic_generate_answer
 
 
+def load_local_private_overrides():
+    local_override = repo_root() / "experiments" / "configs" / "local_api_overrides.json"
+    if not local_override.exists():
+        return {}
+    with open(local_override, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 def normalize_answer(text: str) -> str:
     def remove_articles(value: str) -> str:
         return re.sub(r"\b(a|an|the)\b", " ", value)
@@ -58,12 +66,18 @@ def diagnose_reason(gold_answer: str, results, verification):
     return "partial_support_reject"
 
 
-def run_variant(rag, query_item, top_k, prf_threshold, verifier_threshold):
+def run_variant(rag, query_item, top_k, prf_threshold, verifier_threshold, config):
     search_res = rag.search_with_chain(query_item["query"], top_k=top_k, prf_threshold=prf_threshold)
     results = search_res["results"]
     chain = search_res["chain"]
     draft = heuristic_generate_answer(query_item["query"], results)
-    verifier = CoVeVerifier(confidence_threshold=verifier_threshold)
+    verifier = CoVeVerifier(
+        confidence_threshold=verifier_threshold,
+        backend=config.get("verifier_backend", "heuristic") if not config.get("real_cove", False) else config.get("verifier_backend", "moonshot"),
+        model=config.get("verifier_model", "moonshot-v1-8k"),
+        api_key=config.get("verifier_api_key"),
+        base_url=config.get("verifier_base_url"),
+    )
     verification = verifier.evaluate_answer(draft, chain)
 
     rejected = verification.get("status") == "REJECTED"
@@ -101,12 +115,19 @@ def build_argparser():
     parser.add_argument("--local-data-dir", default=None, help="Directory containing offline dataset JSON/JSONL files.")
     parser.add_argument("--hf-cache-dir", default=None, help="Optional Hugging Face cache dir.")
     parser.add_argument("--offline", action="store_true", help="Use local files / cache only and avoid network dataset fetches.")
+    parser.add_argument("--verifier-backend", default="heuristic", choices=["heuristic", "openai", "moonshot", "siliconflow"], help="Verification backend.")
+    parser.add_argument("--verifier-model", default="moonshot-v1-8k", help="Verification model name.")
+    parser.add_argument("--verifier-api-key", default=None, help="Optional explicit verifier API key.")
+    parser.add_argument("--verifier-base-url", default=None, help="Optional explicit verifier base URL.")
+    parser.add_argument("--real-cove", action="store_true", help="Force real LLM-based CoVe verification.")
     return parser
 
 
 def load_config(args):
+    merged = vars(args).copy()
+    merged.update(load_local_private_overrides())
     if not args.config:
-        return vars(args)
+        return merged
 
     config_path = Path(args.config).expanduser()
     candidate_paths = [config_path]
@@ -123,7 +144,6 @@ def load_config(args):
 
     with open(resolved_path, "r", encoding="utf-8") as f:
         config = json.load(f)
-    merged = vars(args).copy()
     merged.update(config)
     return merged
 
@@ -132,6 +152,8 @@ def main():
     args = build_argparser().parse_args()
     config = load_config(args)
     os.environ["FORCE_MOCK"] = "0"
+    if config.get("real_cove", False) and config.get("verifier_backend", "heuristic") == "heuristic":
+        config["verifier_backend"] = "moonshot"
 
     data = load_multihop_sample(
         config["dataset"],
@@ -155,6 +177,7 @@ def main():
                 top_k=int(config["top_k"]),
                 prf_threshold=float(config["prf_threshold"]),
                 verifier_threshold=float(threshold),
+                config=config,
             )
             for query_item in data["queries"]
         ]
@@ -173,6 +196,9 @@ def main():
             "prf_threshold": config["prf_threshold"],
             "hetero": config.get("hetero", False),
             "thresholds": config["thresholds"],
+            "real_cove": bool(config.get("real_cove", False)),
+            "verifier_backend": config.get("verifier_backend", "heuristic"),
+            "verifier_model": config.get("verifier_model", "moonshot-v1-8k"),
         },
         "variants": variants,
     }

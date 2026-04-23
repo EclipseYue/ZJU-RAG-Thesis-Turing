@@ -1,0 +1,151 @@
+% Zhejiang University Graduation Thesis/Design Template
+% Author     : Zixuan Wang
+% Email      : zxwang42 [at] gmail.com
+% Update     : https://github.com/TheNetAdmin/zjuthesis/releases
+% Discussion : https://github.com/TheNetAdmin/zjuthesis/discussions
+% Documents  : https://thenetadmin.github.io/zjuthesis
+
+\documentclass[
+    PrintFilePath   = false,
+    TwoSide         = false,
+    TrueBlankPage   = false,
+    ClassNumber     = 按中国图书分类法，学位办网上可查,
+    Security        = 注明密级与保密期限,
+    StudentName     = 岳晟稼,
+    StudentID       = 3220105673,
+    AdvisorName     = 王总辉,
+    Grade           = 2022,
+    Major           = 计算机科学与技术（图灵班）,
+    Department      = 计算机科学与技术学院,
+    SubmitDate      = 递交日期,
+    MajorFormat     = cs,
+    Degree          = undergraduate,
+    Type            = thesis,
+    Period          = final,
+    BlindReview     = false,
+    Language        = chinese,
+    GradLevel       = master,
+    Topic           = 研究方向,
+    ColaboratorName = 合作导师,
+    ListOfContents  = true,
+    ListOfFigures   = true,
+    ListOfTables    = true,
+    ListOfAlgorithms= false,
+    Title           = 多源异构知识融合下的RAG复杂推理机制研究,
+    TitleEng        = Research on Complex Reasoning Mechanisms for RAG under Multi-source Heterogeneous Knowledge Fusion
+]{zjuthesis}
+
+\titletwolines{多源异构知识融合下的}{RAG复杂推理机制研究}
+\majortwolines{计算机科学与技术}{（图灵班）}
+
+\newcommand{\inputundergraduate}
+{
+    \ifthenelse{\equal{\Period}{final}}
+    {
+        \newcommand{\undergradcurrstage}{final}
+        \newrefsection
+
+        \coverstyle
+        \inputpage{final}{cover}
+
+        \prevstyle
+        \inputpage{final}{previous}
+        \inputpage{final}{toc}
+
+        \bodystyle
+        \inputpage{final}{cover-part}
+
+        \resetpagecounter{}
+        \inputbody{final/content}
+        \inputbody{final/post}
+
+        \poststyle
+        \inputpage{final}{post}
+
+        \renewcommand{\undergradcurrstage}{proposal}
+        \newrefsection
+
+        \coverstyle
+        \inputpage{proposal}{cover-part}
+        \inputpage{proposal}{cover}
+        \inputpage{proposal}{previous}
+
+        \bodystyle
+        \inputbody{proposal/content-no-trans}
+
+        \poststyle
+        \inputpage{proposal}{post}
+    }
+
+    \ifthenelse{\equal{\Period}{proposal}}
+    {
+        \newcommand{\undergradcurrstage}{proposal}
+
+        \coverstyle
+        \inputpage{proposal}{cover}
+
+        \inputpage{proposal}{previous}
+
+        \prevstyle
+        \inputpage{proposal}{toc}
+
+        \bodystyle
+        \inputbody{proposal/content-no-trans}
+
+        \poststyle
+        \inputpage{proposal}{post}
+    }
+
+    \ifthenelse{\equal{\Period}{paper}}
+    {
+        \newcommand{\undergradcurrstage}{paper}
+        \newrefsection
+
+        \coverstyle
+        \inputpage{final}{cover}
+
+        \prevstyle
+        \inputpage{final}{previous}
+        \inputpage{final}{toc}
+
+        \bodystyle
+        \inputpage{final}{cover-part}
+        \cleardoublepage
+
+        \inputbody{final/content}
+        \inputbody{final/post}
+
+        \poststyle
+        \inputpage{final}{post}
+    }
+}
+
+\newcommand{\inputgraduate}
+{
+    \coverstyle
+    \inputpage{cover}
+
+    \prevstyle
+    \inputpage{previous}
+    \inputpage{toc}
+
+    \bodystyle
+    \inputbody{content}
+
+    \poststyle
+    \inputbody{post}
+}
+
+\usepackage{pifont}
+\usepackage{bbding}
+
+\begin{document}
+
+\ifthenelse{\equal{\Degree}{undergraduate}}
+{
+    \inputundergraduate{}
+}
+{
+    \inputgraduate{}
+}
+\end{document}

@@ -508,6 +508,10 @@ class RAGPipeline:
         generated_answer: str,
         evidence_chain: List[Dict[str, Any]],
         confidence_threshold: float = 0.5,
+        backend: str = "heuristic",
+        model: str = "moonshot-v1-8k",
+        api_key: str | None = None,
+        base_url: str | None = None,
     ) -> Dict[str, Any]:
         """
         Phase 4 feature: Chain-of-Verification (CoVe).
@@ -515,7 +519,13 @@ class RAGPipeline:
         Returns ACCEPTED or REJECTED (No-Answer).
         """
         logger.info(f"Phase 4: Running CoVe Verification on Answer: '{generated_answer}'")
-        verifier = CoVeVerifier(confidence_threshold=confidence_threshold)
+        verifier = CoVeVerifier(
+            confidence_threshold=confidence_threshold,
+            backend=backend,
+            model=model,
+            api_key=api_key,
+            base_url=base_url,
+        )
         
         cove_result = verifier.evaluate_answer(generated_answer, evidence_chain)
         logger.info(f"CoVe Status: {cove_result['status']} | Reason: {cove_result['reason']}")

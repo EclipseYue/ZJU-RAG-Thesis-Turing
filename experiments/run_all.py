@@ -20,6 +20,14 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
+def load_local_private_overrides() -> Dict[str, Any]:
+    local_override = repo_root() / "experiments" / "configs" / "local_api_overrides.json"
+    if not local_override.exists():
+        return {}
+    with open(local_override, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 def normalize_answer(text: str) -> str:
     text = (text or "").strip().lower()
     text = re.sub(r"\b(a|an|the)\b", " ", text)
@@ -148,7 +156,14 @@ def evaluate_query(
         )
         chain = []
 
-    generated_answer = llm_generate_answer(query_item["query"], results)
+    generated_answer = llm_generate_answer(
+        query_item["query"],
+        results,
+        model=config.get("generator_model", "Qwen/Qwen2.5-7B-Instruct"),
+        backend=config.get("generator_backend", "auto"),
+        api_key=config.get("generator_api_key"),
+        base_url=config.get("generator_base_url"),
+    )
     verification = None
     final_answer = generated_answer
     no_answer = False
@@ -158,6 +173,10 @@ def evaluate_query(
             generated_answer,
             chain,
             confidence_threshold=cove_threshold,
+            backend=config.get("verifier_backend", "heuristic"),
+            model=config.get("verifier_model", "moonshot-v1-8k"),
+            api_key=config.get("verifier_api_key"),
+            base_url=config.get("verifier_base_url"),
         )
         if verification.get("status") == "REJECTED":
             final_answer = "No-Answer"
@@ -295,6 +314,14 @@ def run_automated_ablation_with_tracking(
     local_data_dir: str | None = None,
     hf_cache_dir: str | None = None,
     offline: bool = False,
+    generator_backend: str = "auto",
+    generator_model: str = "Qwen/Qwen2.5-7B-Instruct",
+    verifier_backend: str = "heuristic",
+    verifier_model: str = "moonshot-v1-8k",
+    generator_api_key: str | None = None,
+    generator_base_url: str | None = None,
+    verifier_api_key: str | None = None,
+    verifier_base_url: str | None = None,
 ) -> Dict[str, Any]:
     if not HF_DATASETS_AVAILABLE:
         raise ImportError("缺少 `datasets` 依赖，无法加载真实基准数据。")
@@ -329,6 +356,14 @@ def run_automated_ablation_with_tracking(
             "cove": False,
             "prf_threshold": adaptive_threshold,
             "cove_threshold": cove_threshold,
+            "generator_backend": generator_backend,
+            "generator_model": generator_model,
+            "generator_api_key": generator_api_key,
+            "generator_base_url": generator_base_url,
+            "verifier_backend": verifier_backend,
+            "verifier_model": verifier_model,
+            "verifier_api_key": verifier_api_key,
+            "verifier_base_url": verifier_base_url,
         },
     ]
     if include_controls:
@@ -340,6 +375,14 @@ def run_automated_ablation_with_tracking(
                 "cove": False,
                 "prf_threshold": adaptive_threshold,
                 "cove_threshold": cove_threshold,
+                "generator_backend": generator_backend,
+                "generator_model": generator_model,
+                "generator_api_key": generator_api_key,
+                "generator_base_url": generator_base_url,
+                "verifier_backend": verifier_backend,
+                "verifier_model": verifier_model,
+                "verifier_api_key": verifier_api_key,
+                "verifier_base_url": verifier_base_url,
             },
             {
                 "name": "A3_Baseline_CoVe",
@@ -348,6 +391,14 @@ def run_automated_ablation_with_tracking(
                 "cove": True,
                 "prf_threshold": adaptive_threshold,
                 "cove_threshold": cove_threshold,
+                "generator_backend": generator_backend,
+                "generator_model": generator_model,
+                "generator_api_key": generator_api_key,
+                "generator_base_url": generator_base_url,
+                "verifier_backend": verifier_backend,
+                "verifier_model": verifier_model,
+                "verifier_api_key": verifier_api_key,
+                "verifier_base_url": verifier_base_url,
             },
         ])
     configurations.extend([
@@ -358,6 +409,14 @@ def run_automated_ablation_with_tracking(
             "cove": False,
             "prf_threshold": adaptive_threshold,
             "cove_threshold": cove_threshold,
+            "generator_backend": generator_backend,
+            "generator_model": generator_model,
+            "generator_api_key": generator_api_key,
+            "generator_base_url": generator_base_url,
+            "verifier_backend": verifier_backend,
+            "verifier_model": verifier_model,
+            "verifier_api_key": verifier_api_key,
+            "verifier_base_url": verifier_base_url,
         },
         {
             "name": "C_Adaptive",
@@ -366,6 +425,14 @@ def run_automated_ablation_with_tracking(
             "cove": False,
             "prf_threshold": adaptive_threshold,
             "cove_threshold": cove_threshold,
+            "generator_backend": generator_backend,
+            "generator_model": generator_model,
+            "generator_api_key": generator_api_key,
+            "generator_base_url": generator_base_url,
+            "verifier_backend": verifier_backend,
+            "verifier_model": verifier_model,
+            "verifier_api_key": verifier_api_key,
+            "verifier_base_url": verifier_base_url,
         },
         {
             "name": "D_CoVe_Full",
@@ -374,6 +441,14 @@ def run_automated_ablation_with_tracking(
             "cove": True,
             "prf_threshold": adaptive_threshold,
             "cove_threshold": cove_threshold,
+            "generator_backend": generator_backend,
+            "generator_model": generator_model,
+            "generator_api_key": generator_api_key,
+            "generator_base_url": generator_base_url,
+            "verifier_backend": verifier_backend,
+            "verifier_model": verifier_model,
+            "verifier_api_key": verifier_api_key,
+            "verifier_base_url": verifier_base_url,
         },
     ])
 
@@ -470,12 +545,23 @@ def build_argparser() -> argparse.ArgumentParser:
     parser.add_argument("--local-data-dir", default=None, help="Directory containing offline dataset JSON/JSONL files.")
     parser.add_argument("--hf-cache-dir", default=None, help="Optional Hugging Face cache dir for offline/local loads.")
     parser.add_argument("--offline", action="store_true", help="Use local files / cache only and avoid network dataset fetches.")
+    parser.add_argument("--generator-backend", default="auto", choices=["auto", "heuristic", "openai", "moonshot", "siliconflow"], help="Answer generation backend.")
+    parser.add_argument("--generator-model", default="Qwen/Qwen2.5-7B-Instruct", help="Generation model name for OpenAI-compatible backends.")
+    parser.add_argument("--verifier-backend", default="heuristic", choices=["heuristic", "openai", "moonshot", "siliconflow"], help="Verification backend.")
+    parser.add_argument("--verifier-model", default="moonshot-v1-8k", help="Verification model name for OpenAI-compatible backends.")
+    parser.add_argument("--generator-api-key", default=None, help="Optional explicit API key for generator backend.")
+    parser.add_argument("--generator-base-url", default=None, help="Optional explicit base URL for generator backend.")
+    parser.add_argument("--verifier-api-key", default=None, help="Optional explicit API key for verifier backend.")
+    parser.add_argument("--verifier-base-url", default=None, help="Optional explicit base URL for verifier backend.")
+    parser.add_argument("--real-cove", action="store_true", help="Force real LLM-based CoVe verification using verifier backend/model settings.")
     return parser
 
 
 def load_config(args: argparse.Namespace) -> Dict[str, Any]:
+    merged = vars(args).copy()
+    merged.update(load_local_private_overrides())
     if not args.config:
-        return vars(args)
+        return merged
 
     config_path = Path(args.config).expanduser()
     candidate_paths = [config_path]
@@ -492,7 +578,6 @@ def load_config(args: argparse.Namespace) -> Dict[str, Any]:
 
     with open(resolved_path, "r", encoding="utf-8") as f:
         config = json.load(f)
-    merged = vars(args).copy()
     merged.update(config)
     return merged
 
@@ -500,6 +585,9 @@ def load_config(args: argparse.Namespace) -> Dict[str, Any]:
 def main() -> None:
     args = build_argparser().parse_args()
     config = load_config(args)
+    verifier_backend = config.get("verifier_backend", "heuristic")
+    if config.get("real_cove", False) and verifier_backend == "heuristic":
+        verifier_backend = "moonshot"
     run_automated_ablation_with_tracking(
         dataset_name=config["dataset"],
         split=config["split"],
@@ -515,6 +603,14 @@ def main() -> None:
         local_data_dir=config.get("local_data_dir"),
         hf_cache_dir=config.get("hf_cache_dir"),
         offline=bool(config.get("offline", False)),
+        generator_backend=config.get("generator_backend", "auto"),
+        generator_model=config.get("generator_model", "Qwen/Qwen2.5-7B-Instruct"),
+        generator_api_key=config.get("generator_api_key"),
+        generator_base_url=config.get("generator_base_url"),
+        verifier_backend=verifier_backend if config.get("real_cove", False) else config.get("verifier_backend", "heuristic"),
+        verifier_model=config.get("verifier_model", "moonshot-v1-8k"),
+        verifier_api_key=config.get("verifier_api_key"),
+        verifier_base_url=config.get("verifier_base_url"),
     )
 
 
