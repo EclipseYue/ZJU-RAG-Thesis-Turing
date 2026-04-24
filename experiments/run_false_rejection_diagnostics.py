@@ -74,7 +74,7 @@ def run_variant(rag, query_item, top_k, prf_threshold, verifier_threshold, confi
     verifier = CoVeVerifier(
         confidence_threshold=verifier_threshold,
         backend=config.get("verifier_backend", "heuristic") if not config.get("real_cove", False) else config.get("verifier_backend", "moonshot"),
-        model=config.get("verifier_model", "moonshot-v1-8k"),
+        model=config.get("verifier_model", "kimi-k2-0711-preview "),
         api_key=config.get("verifier_api_key"),
         base_url=config.get("verifier_base_url"),
     )
@@ -116,7 +116,7 @@ def build_argparser():
     parser.add_argument("--hf-cache-dir", default=None, help="Optional Hugging Face cache dir.")
     parser.add_argument("--offline", action="store_true", help="Use local files / cache only and avoid network dataset fetches.")
     parser.add_argument("--verifier-backend", default="heuristic", choices=["heuristic", "openai", "moonshot", "siliconflow"], help="Verification backend.")
-    parser.add_argument("--verifier-model", default="moonshot-v1-8k", help="Verification model name.")
+    parser.add_argument("--verifier-model", default="kimi-k2-0711-preview ", help="Verification model name.")
     parser.add_argument("--verifier-api-key", default=None, help="Optional explicit verifier API key.")
     parser.add_argument("--verifier-base-url", default=None, help="Optional explicit verifier base URL.")
     parser.add_argument("--real-cove", action="store_true", help="Force real LLM-based CoVe verification.")
@@ -198,7 +198,7 @@ def main():
             "thresholds": config["thresholds"],
             "real_cove": bool(config.get("real_cove", False)),
             "verifier_backend": config.get("verifier_backend", "heuristic"),
-            "verifier_model": config.get("verifier_model", "moonshot-v1-8k"),
+            "verifier_model": config.get("verifier_model", "kimi-k2-0711-preview "),
         },
         "variants": variants,
     }

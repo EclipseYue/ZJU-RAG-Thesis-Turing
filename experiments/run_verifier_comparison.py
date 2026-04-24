@@ -13,7 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from rererank_v1.cove_verifier import CoVeVerifier
 from rererank_v1.dataset_loader import load_multihop_sample
 from rererank_v1.paths import repo_root, results_dir
-from rererank_v1.rag_pipeline import RAGPipeline, heuristic_generate_answer
+from rererank_v1.rag_pipeline import RAGPipeline
+from rererank_v1.llm_generator import llm_generate_answer, heuristic_generate_answer
 
 
 def load_local_private_overrides():
@@ -77,7 +78,7 @@ def build_verifier(name, threshold, config):
         return CoVeVerifier(
             confidence_threshold=threshold,
             backend=config.get("verifier_backend", "heuristic") if not config.get("real_cove", False) else config.get("verifier_backend", "moonshot"),
-            model=config.get("verifier_model", "moonshot-v1-8k"),
+            model=config.get("verifier_model", "kimi-k2-0711-preview "),
             api_key=config.get("verifier_api_key"),
             base_url=config.get("verifier_base_url"),
         )
@@ -111,7 +112,7 @@ def build_argparser():
     parser.add_argument("--hf-cache-dir", default=None, help="Optional Hugging Face cache dir.")
     parser.add_argument("--offline", action="store_true", help="Use local files / cache only and avoid network dataset fetches.")
     parser.add_argument("--verifier-backend", default="heuristic", choices=["heuristic", "openai", "moonshot", "siliconflow"], help="Verification backend.")
-    parser.add_argument("--verifier-model", default="moonshot-v1-8k", help="Verification model name.")
+    parser.add_argument("--verifier-model", default="kimi-k2-0711-preview ", help="Verification model name.")
     parser.add_argument("--verifier-api-key", default=None, help="Optional explicit verifier API key.")
     parser.add_argument("--verifier-base-url", default=None, help="Optional explicit verifier base URL.")
     parser.add_argument("--real-cove", action="store_true", help="Force real LLM-based CoVe verification for cove_* variants.")
@@ -178,7 +179,19 @@ def main():
                 top_k=int(config["top_k"]),
                 prf_threshold=float(config["prf_threshold"]),
             )
-            draft = heuristic_generate_answer(query_item["query"], search_res["results"])
+            # Use LLM generator if configured, otherwise fallback to heuristic
+            generator_backend = config.get("generator_backend", "heuristic")
+            if generator_backend and generator_backend != "heuristic":
+                draft = llm_generate_answer(
+                    query_item["query"],
+                    search_res["results"],
+                    model=config.get("generator_model", "kimi-k2-0711-preview"),
+                    backend=generator_backend,
+                    api_key=config.get("generator_api_key"),
+                    base_url=config.get("generator_base_url"),
+                )
+            else:
+                draft = heuristic_generate_answer(query_item["query"], search_res["results"])
             verification = verifier.evaluate_answer(draft, search_res["chain"])
             rejected = verification.get("status") == "REJECTED"
             final_answer = "No-Answer" if rejected else draft
@@ -210,7 +223,7 @@ def main():
             "verifiers": config["verifiers"],
             "real_cove": bool(config.get("real_cove", False)),
             "verifier_backend": config.get("verifier_backend", "heuristic"),
-            "verifier_model": config.get("verifier_model", "moonshot-v1-8k"),
+            "verifier_model": config.get("verifier_model", "kimi-k2-0711-preview "),
         },
         "variants": variants,
     }

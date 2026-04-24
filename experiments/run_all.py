@@ -174,7 +174,7 @@ def evaluate_query(
             chain,
             confidence_threshold=cove_threshold,
             backend=config.get("verifier_backend", "heuristic"),
-            model=config.get("verifier_model", "moonshot-v1-8k"),
+            model=config.get("verifier_model", "kimi-k2-0711-preview "),
             api_key=config.get("verifier_api_key"),
             base_url=config.get("verifier_base_url"),
         )
@@ -317,7 +317,7 @@ def run_automated_ablation_with_tracking(
     generator_backend: str = "auto",
     generator_model: str = "Qwen/Qwen2.5-7B-Instruct",
     verifier_backend: str = "heuristic",
-    verifier_model: str = "moonshot-v1-8k",
+    verifier_model: str = "kimi-k2-0711-preview ",
     generator_api_key: str | None = None,
     generator_base_url: str | None = None,
     verifier_api_key: str | None = None,
@@ -548,7 +548,7 @@ def build_argparser() -> argparse.ArgumentParser:
     parser.add_argument("--generator-backend", default="auto", choices=["auto", "heuristic", "openai", "moonshot", "siliconflow"], help="Answer generation backend.")
     parser.add_argument("--generator-model", default="Qwen/Qwen2.5-7B-Instruct", help="Generation model name for OpenAI-compatible backends.")
     parser.add_argument("--verifier-backend", default="heuristic", choices=["heuristic", "openai", "moonshot", "siliconflow"], help="Verification backend.")
-    parser.add_argument("--verifier-model", default="moonshot-v1-8k", help="Verification model name for OpenAI-compatible backends.")
+    parser.add_argument("--verifier-model", default="kimi-k2-0711-preview ", help="Verification model name for OpenAI-compatible backends.")
     parser.add_argument("--generator-api-key", default=None, help="Optional explicit API key for generator backend.")
     parser.add_argument("--generator-base-url", default=None, help="Optional explicit base URL for generator backend.")
     parser.add_argument("--verifier-api-key", default=None, help="Optional explicit API key for verifier backend.")
@@ -608,7 +608,7 @@ def main() -> None:
         generator_api_key=config.get("generator_api_key"),
         generator_base_url=config.get("generator_base_url"),
         verifier_backend=verifier_backend if config.get("real_cove", False) else config.get("verifier_backend", "heuristic"),
-        verifier_model=config.get("verifier_model", "moonshot-v1-8k"),
+        verifier_model=config.get("verifier_model", "kimi-k2-0711-preview "),
         verifier_api_key=config.get("verifier_api_key"),
         verifier_base_url=config.get("verifier_base_url"),
     )

@@ -17,7 +17,7 @@ class CoVeVerifier:
         self,
         confidence_threshold: float = 0.6,
         backend: str = "heuristic",
-        model: str = "moonshot-v1-8k",
+        model: str = "kimi-k2-0711-preview ",
         api_key: str | None = None,
         base_url: str | None = None,
     ):
