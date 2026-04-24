@@ -3,7 +3,7 @@ import json
 import logging
 from typing import List, Dict, Any, Optional
 
-from .llm_backends import build_openai_compat_client, resolve_openai_compat_config
+from .llm_backends import build_openai_compat_client, create_chat_completion, resolve_openai_compat_config
 
 logger = logging.getLogger(__name__)
 
@@ -96,7 +96,9 @@ def llm_generate_answer(
     )
 
     try:
-        response = client.chat.completions.create(
+        response = create_chat_completion(
+            client,
+            config,
             model=config.model,
             messages=[
                 {"role": "system", "content": "You are a precise, concise QA assistant."},
