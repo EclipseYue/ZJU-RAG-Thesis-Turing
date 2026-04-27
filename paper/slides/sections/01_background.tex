@@ -1,0 +1,149 @@
+% =============================================================
+%  Section 01: 研究背景与动机
+% =============================================================
+\section{研究背景与动机}
+
+% ---- 1.1 大背景 -------------------------------------------------
+\begin{frame}{LLM 时代的"知识鸿沟"}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.55\textwidth}
+    \begin{block}{大语言模型的能力边界}
+      \begin{itemize}
+        \item \hlb{参数化知识}：训练截止后即静态，难以更新。
+        \item \hlb{长尾事实薄弱}：稀有实体、最新事件易出错。
+        \item \hlb{幻觉风险}：生成"看似合理但事实错误"的内容。
+        \item \hlb{推理可控性差}：缺乏可追溯的中间证据。
+      \end{itemize}
+    \end{block}
+
+    \column{0.45\textwidth}
+    \begin{alertblock}{应对范式：检索增强生成 (RAG)}
+      在生成前\hl{显式检索外部知识}，将证据注入上下文：
+      \begin{itemize}
+        \item 缓解幻觉
+        \item 支持知识更新
+        \item 提供可追溯证据链
+      \end{itemize}
+    \end{alertblock}
+  \end{columns}
+
+  \vspace{0.5em}
+  \footnotesize\color{SoftGray}
+  代表工作：Lewis et al.\ (2020) RAG；Guu et al.\ (2020) REALM；
+  Asai et al.\ (2023) Self-RAG；Trivedi et al.\ (2023) IRCoT。
+\end{frame}
+
+% ---- 1.2 RAG 的真实挑战 ------------------------------------------
+\begin{frame}{然而，真实场景下 RAG 仍面临三重挑战}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{1}\ 异构融合困难}
+      知识源不只是文本：还有\hl{表格}、\hl{知识图谱}、半结构化数据。\\[0.3em]
+      不同模态如何\hlb{统一表示}并进入同一检索流程？
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{2}\ 复杂跨文档推理}
+      多跳问题、桥接实体、否定与约束\ldots\\[0.3em]
+      单轮检索易\hl{遗漏第二跳证据}；需要\hlb{按需补检索}而非简单地"检索更多"。
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{3}\ 推理缺乏可信验证}
+      "看起来对"不等于"被证据支持"。\\[0.3em]
+      何时该\hl{拒答}（No-Answer）？\hlb{如何在拒答与可用性之间取得平衡}？
+    \end{block}
+  \end{columns}
+
+  \vspace{0.8em}
+  \begin{exampleblock}{本研究关注的命题}
+    把 RAG 视为\hl{兼顾正确率、成本与安全性的序列决策过程}，
+    在统一框架内显式权衡\hlt{效果 / Token 与延迟成本 / 拒答安全性}三者矛盾。
+  \end{exampleblock}
+\end{frame}
+
+% ---- 1.3 经典 RAG 局限可视化 -------------------------------------
+\begin{frame}{经典两阶段 RAG 流程及其盲点}
+  \centering
+  \begin{tikzpicture}[
+      node distance=0.6cm and 0.9cm,
+      box/.style={draw=ZjuBlue, fill=ZjuBlue!5, rounded corners=2pt,
+                  minimum height=1cm, minimum width=2cm, font=\small,
+                  align=center, thick},
+      bad/.style={draw=ZjuRed, fill=ZjuRed!8, rounded corners=2pt,
+                  minimum height=0.8cm, minimum width=2.4cm, font=\scriptsize\itshape,
+                  text=ZjuRed, align=center},
+      arrow/.style={-{Stealth[length=2mm]}, thick, ZjuBlue}
+    ]
+    \node[box] (q) {Query};
+    \node[box, right=of q] (r) {Retrieval\\\scriptsize{Vector / BM25}};
+    \node[box, right=of r] (rr) {Rerank\\\scriptsize{CrossEncoder}};
+    \node[box, right=of rr] (g) {Generation\\\scriptsize{LLM}};
+    \node[box, right=of g] (a) {Answer};
+
+    \draw[arrow] (q) -- (r);
+    \draw[arrow] (r) -- (rr);
+    \draw[arrow] (rr) -- (g);
+    \draw[arrow] (g) -- (a);
+
+    \node[bad, below=0.45cm of r]  (b1) {只有文本，难融表格/图谱};
+    \node[bad, below=0.45cm of rr] (b2) {单轮检索难覆盖第二跳};
+    \node[bad, below=0.45cm of g]  (b3) {无验证 → 幻觉直出};
+
+    \draw[ZjuRed, dashed, thick, -{Stealth[length=1.5mm]}] (b1) -- (r);
+    \draw[ZjuRed, dashed, thick, -{Stealth[length=1.5mm]}] (b2) -- (rr);
+    \draw[ZjuRed, dashed, thick, -{Stealth[length=1.5mm]}] (b3) -- (g);
+  \end{tikzpicture}
+
+  \vspace{0.6em}
+  \footnotesize\color{SoftGray}
+  本研究在该流程上引入\hl{异构入口}、\hl{自适应补检索}、\hl{后验验证}三个补丁，并定量诊断它们的耦合与副作用。
+\end{frame}
+
+% ---- 1.4 相关工作四条线 ------------------------------------------
+\begin{frame}{相关工作概览}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \begin{block}{① 纯文本检索基础}
+      \footnotesize
+      \begin{itemize}
+        \item BM25、DPR (Karpukhin 2020)、ColBERT
+        \item CrossEncoder Rerank (BGE, MonoT5)
+        \item RRF 融合 (Cormack 2009)
+      \end{itemize}
+    \end{block}
+    \begin{block}{② 主动检索 / 迭代检索}
+      \footnotesize
+      \begin{itemize}
+        \item FLARE (Jiang 2023)：低置信度触发再检索
+        \item IRCoT (Trivedi 2023)：CoT 与检索交替
+        \item Self-RAG (Asai 2023)：反射式检索
+      \end{itemize}
+    \end{block}
+
+    \column{0.5\textwidth}
+    \begin{block}{③ 结构化 / 异构融合}
+      \footnotesize
+      \begin{itemize}
+        \item HybridQA、OTT-QA：表格与文本联合 QA
+        \item ToG (Sun 2024)：图谱思维链
+        \item HippoRAG (Gutiérrez 2024)：仿海马体索引
+      \end{itemize}
+    \end{block}
+    \begin{block}{④ 后验自检 / 可信验证}
+      \footnotesize
+      \begin{itemize}
+        \item CoVe (Dhuliawala 2023)：自我验证链
+        \item FactScore (Min 2023)：原子事实评估
+        \item TRACE (Fang 2024)：证据链可追溯
+      \end{itemize}
+    \end{block}
+  \end{columns}
+
+  \vspace{0.4em}
+  \begin{exampleblock}{本研究的定位}
+    \footnotesize
+    \hlt{不是提出全新范式}，而是把"异构接入 + 主动补检索 + 后验验证"\hlb{置于同一可复现实验下}，
+    定量观察其耦合表现与失败模式，揭示 RAG 中尚未被广泛披露的\hl{副作用与权衡}。
+  \end{exampleblock}
+\end{frame}

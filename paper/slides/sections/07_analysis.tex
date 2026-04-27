@@ -1,0 +1,140 @@
+% =============================================================
+%  Section 07: 验证器/错误分析与案例研究
+% =============================================================
+\section{诊断分析}
+
+% ---- 7.1 验证器对比 ----------------------------------------------
+\begin{frame}{验证器对比：soft / strict 的反差}
+  \footnotesize
+  \centering
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \rowcolor{ZjuBlue!10}
+    \textbf{配置} & \textbf{No-Answer Rate} & \textbf{False Reject Rate} & \textbf{Unsafe Accept Rate} \\ \midrule
+    \rowcolor{AccentTeal!8}
+    Soft ($\tau{=}0.50$ / 0.70) & 0.5\%   & 0.5\%   & \hl{44.0\%} \\
+    \rowcolor{ZjuRed!10}
+    Strict ($\tau{=}0.90$)      & \hl{98.5\%} & \hl{98.5\%} & 0.5\% \\
+    Overlap-soft                 & 15.0\%  & 15.0\%  & \hl{71.5\%} \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.6em}
+  \begin{alertblock}{核心发现：缺乏 sweet spot}
+    \footnotesize
+    \begin{itemize}
+      \item \hlb{Soft}：几乎全放行 → 大量\hl{不安全接受}（Unsafe Accept 44\%）。
+      \item \hlb{Strict}：几乎全拒答 → 大量\hl{误杀正确答案}（False Reject 98.5\%）。
+      \item 单纯调阈值 \hl{无法同时满足"低误杀 + 低不安全接受"}。
+      \item \hlt{结论：当前启发式 CoVe 的"判别力"不足；需要换更细粒度的 NLI / LLM verifier}。
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+% ---- 7.2 错误归因 -----------------------------------------------
+\begin{frame}{错误分布：瓶颈不在"找不到"}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \footnotesize
+    \begin{tabular}{@{}lc@{}}
+      \toprule
+      \rowcolor{ZjuBlue!10}
+      \textbf{错误类型} & \textbf{占比 (N=80)} \\ \midrule
+      \texttt{partial\_evidence}\\\scriptsize{证据部分相关，组织不到位} & \hl{37.5\%} \\
+      \texttt{retrieval\_miss}\\\scriptsize{检索完全错过} & 3.75\% \\
+      \texttt{other}\\\scriptsize{含 CoVe 误杀、生成偏差} & \hl{58.75\%} \\
+      \bottomrule
+    \end{tabular}
+
+    \column{0.5\textwidth}
+    \begin{exampleblock}{诊断结论}
+      \footnotesize
+      \begin{itemize}
+        \item \hl{真正的"检索找不到"只占 3.75\%}。
+        \item 主要瓶颈是\hl{证据组织 + 验证误杀}：
+          \begin{itemize}
+            \footnotesize
+            \item 证据被找到了，但顺序 / 邻接不利于生成。
+            \item 验证器对正确答案误判 REJECTED。
+          \end{itemize}
+      \end{itemize}
+    \end{exampleblock}
+    \begin{block}{对未来工作的指引}
+      \footnotesize
+      下一阶段应优先优化\hlb{证据组织}与\hlb{验证器置信粒度}，
+      而\hlt{不是}继续堆叠召回模型。
+    \end{block}
+  \end{columns}
+\end{frame}
+
+% ---- 7.3 案例研究 1：成功 ----------------------------------------
+\begin{frame}{案例研究 \numbox{1}：Hetero+Adaptive 成功补齐第二跳}
+  \begin{block}{Query}
+    \small ``Who founded the company that built the Falcon 9 rocket, and in what year?''
+  \end{block}
+
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \begin{block}{Baseline (A) ：第二跳证据缺失}
+      \scriptsize
+      Top-1: ``\textit{Falcon 9 is a reusable rocket developed by SpaceX\ldots}''\\[0.3em]
+      \hl{Missing: SpaceX 创始人与年份。}\\
+      $\Rightarrow$ 答案不完整。
+    \end{block}
+
+    \column{0.5\textwidth}
+    \begin{exampleblock}{Hetero + Adaptive (C) ：补检中}
+      \scriptsize
+      触发 PRF，扩展关键词 ``\texttt{SpaceX founder year}''；\\
+      第二轮命中：\\
+      \texttt{Graph Fact: Elon Musk -> founder\_of -> SpaceX}\\
+      \texttt{Table: Tech Founders | Company: SpaceX, Year: 2002}\\[0.3em]
+      \hl{两跳证据齐全，答案正确。}
+    \end{exampleblock}
+  \end{columns}
+
+  \vspace{0.4em}
+  \begin{block}{}
+    \footnotesize
+    \hlt{说明：异构序列化在 bridge 多跳场景下确有正面价值，只是被全局格式噪声平均掉了。}
+  \end{block}
+\end{frame}
+
+% ---- 7.4 案例研究 2：失败 ----------------------------------------
+\begin{frame}{案例研究 \numbox{2}：CoVe 误杀正确答案}
+  \begin{block}{Query}
+    \small ``Where was Ermengarde of Anjou born?''（金雀花王朝史料）
+  \end{block}
+
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.55\textwidth}
+    \begin{block}{发生了什么}
+      \begin{itemize}
+        \item Retrieval + Adaptive \hl{成功命中}原文：\\
+              \scriptsize\textit{``Ermengarde was born at Anjou in 1018\ldots''}
+        \item 启发式生成给出\hlt{正确答案}：\textbf{Anjou}。
+        \item 异构图谱三元组：\\
+              \scriptsize\texttt{Ermengarde -> birthplace -> Angers (city, in Anjou)}
+        \item CoVe 做声明级匹配：\\
+              \texttt{Anjou} vs \texttt{Angers} \hl{字面不同} \\
+              $\Rightarrow$ \hl{REJECTED → No-Answer}。
+      \end{itemize}
+    \end{block}
+
+    \column{0.45\textwidth}
+    \begin{alertblock}{失败的根因}
+      \footnotesize
+      \begin{itemize}
+        \item 当前 CoVe 用\hl{词项覆盖}近似支持度。
+        \item 对\hlb{同义实体 / 上下位关系}没有理解能力。
+        \item 这是\hl{soft / strict 单维度调参无法解决}的问题。
+      \end{itemize}
+    \end{alertblock}
+    \begin{exampleblock}{修复方向}
+      \footnotesize
+      用\hlb{NLI 软置信}（"完全支持 / 部分支持 / 矛盾"）替代字面匹配。
+    \end{exampleblock}
+  \end{columns}
+\end{frame}

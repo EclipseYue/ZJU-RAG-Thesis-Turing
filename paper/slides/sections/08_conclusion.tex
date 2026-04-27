@@ -1,0 +1,129 @@
+% =============================================================
+%  Section 08: 结论与未来工作
+% =============================================================
+\section{结论与未来工作}
+
+% ---- 8.1 主要结论 -----------------------------------------------
+\begin{frame}{主要结论：四点诊断}
+  \begin{block}{\numbox{1}\ 纯文本基线最稳定}
+    \footnotesize
+    在启发式生成端控制下，\hlb{加入异构 / Adaptive / CoVe 单独或组合后}，
+    F1 \hl{均未超过 Baseline}。这并非说明这些模块无价值，
+    而是揭示\hlt{它们与生成端、与彼此的耦合远比预期复杂}。
+  \end{block}
+
+  \begin{block}{\numbox{2}\ 异构序列化未带来稳定收益}
+    \footnotesize
+    HotpotQA 上 F1 从 \hl{6.16 → 4.59}；归因于\hl{格式噪声}（特殊符号比例 18×）。
+    \hlb{多源信息的潜在收益被噪声吞噬}。
+  \end{block}
+
+  \begin{block}{\numbox{3}\ Adaptive 的真正价值在覆盖率而非 F1}
+    \footnotesize
+    SupportAllHit@5 在 HotpotQA \hl{+5.0 pp}、2Wiki \hl{+7.5 pp}（CI 显著）；
+    bridge 类问题 \hl{+7.92 pp}。
+    但当前启发式生成端 \hl{无法把覆盖率增益完整转化为 F1 增益}。
+  \end{block}
+
+  \begin{alertblock}{\numbox{4}\ 当前 CoVe 缺乏 sweet spot}
+    \footnotesize
+    Soft \& Strict 之间无单一阈值能同时满足"低误杀 + 低不安全接受"；
+    \hl{需要从字面匹配升级为 NLI 软置信}。
+  \end{alertblock}
+\end{frame}
+
+% ---- 8.2 三大贡献 ----------------------------------------------
+\begin{frame}{研究贡献}
+  \begin{exampleblock}{方法贡献}
+    \begin{itemize}
+      \item 提出\hl{统一证据单元}抽象，把文本 / 表格 / 图谱送入同一检索算子。
+      \item 设计\hl{基于重排置信度的 Adaptive PRF + RRF 融合}机制。
+      \item 集成\hl{CoVe 启发式后验验证 + No-Answer 安全机制}。
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{工程贡献}
+    \begin{itemize}
+      \item 构建\hlb{模块化、可一键复现}的 RAG 实验平台。
+      \item 论文-代码-数据\hlb{强联动}：脚本自动产出 LaTeX 表 / 图。
+    \end{itemize}
+  \end{block}
+
+  \begin{alertblock}{诊断贡献（最具启发性）}
+    \begin{itemize}
+      \item 量化\hl{格式噪声、覆盖-效果断层、CoVe 误杀-漏放矛盾}三类副作用。
+      \item 给出\hl{可被后续工作直接利用的失败模式分类}与改进切入口。
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+% ---- 8.3 未来工作 -----------------------------------------------
+\begin{frame}{未来工作：从"诊断"走向"闭环"}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{1}\ CoVe 升级为\\反馈节点}
+      \footnotesize
+      验证失败 \hl{$\Rightarrow$} 反向触发：
+      \begin{itemize}
+        \item 补检索（refine 查询）
+        \item 重新生成（regenerate）
+      \end{itemize}
+      从\hlt{死板拒答}走向\hlt{自我修复}的\hl{闭环 RAG}。
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{2}\ 学习式预算策略}
+      \footnotesize
+      把"覆盖收益 - Token 成本 - 延迟"显式建模为\hl{成本感知决策}：
+      \begin{itemize}
+        \item 上下文 bandit
+        \item 强化学习触发器
+      \end{itemize}
+      取代当前\hlt{静态启发式阈值}。
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{3}\ NLI 软置信验证}
+      \footnotesize
+      用\hl{NLI / LLM verifier} 替换字面匹配，区分：
+      \begin{itemize}
+        \item 完全支持
+        \item 部分支持
+        \item 明显矛盾
+      \end{itemize}
+      解决 \hlt{soft/strict 二极化}问题。
+    \end{block}
+  \end{columns}
+
+  \vspace{0.6em}
+  \begin{exampleblock}{中期路线图（基于 EXPERIMENT\_TODO）}
+    \footnotesize
+    \begin{enumerate}
+      \item Real CoVe smoke test (N=20) → 主消融 (N=100) → 验证器对比 (N=100)
+      \item 接入真实独立的表格库 / 知识图谱 → 替换伴生构造
+      \item 多 Provider 对照（Qwen vs Kimi vs DeepSeek）量化生成端影响
+    \end{enumerate}
+  \end{exampleblock}
+\end{frame}
+
+% ---- 8.4 边界声明 -----------------------------------------------
+\begin{frame}{结论边界与适用范围（防过度推广）}
+  \begin{alertblock}{\faExclamationTriangle\ 我们的结论\hl{不适用}于以下情境}
+    \footnotesize
+    \begin{itemize}
+      \item \hl{非启发式生成端}：换成 GPT-4 级 LLM，覆盖率→F1 转化率可能显著提升。
+      \item \hl{真实独立异构数据库}：本文异构是伴生构造，结论不可外推到 OTT-QA / HybridQA 这类原生异构数据。
+      \item \hl{大于本工作样本规模的诊断子实验}：阈值扫描 / 错误归因属趋势判断，不是定论。
+      \item \hl{完整 LLM-CoVe 验证器}：本工作默认启发式，已铺好 \texttt{--real-cove} 接口但未全量执行。
+    \end{itemize}
+  \end{alertblock}
+
+  \begin{exampleblock}{\faCheckCircle\ 但以下结论我们认为是稳健的}
+    \footnotesize
+    \begin{itemize}
+      \item Adaptive 提升\hl{证据覆盖率}（双数据集 95\% CI 不含 0）。
+      \item \hl{格式噪声}显著影响异构序列化效果。
+      \item 启发式 CoVe 在 soft/strict 之间存在\hl{结构性的 sweet spot 缺失}。
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}

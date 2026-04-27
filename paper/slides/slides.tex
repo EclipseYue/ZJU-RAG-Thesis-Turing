@@ -1,0 +1,130 @@
+% !TEX program = xelatex
+% =============================================================
+%  ZJU 本科毕业设计答辩 Slides
+%  Title : 面向多源异构知识的检索增强生成框架
+%          —— 自适应补检索与后验验证的协同诊断
+%  Engine: XeLaTeX
+%  Build : make  (or:  latexmk -xelatex slides.tex)
+% =============================================================
+\documentclass[aspectratio=169, 11pt, xcolor={dvipsnames,svgnames}]{beamer}
+
+% -------- Theme (metropolis 优先；不可用时回退) ----------------
+\IfFileExists{beamerthememetropolis.sty}{%
+  \usetheme[progressbar=frametitle, numbering=fraction, block=fill]{metropolis}%
+}{%
+  \usetheme{Madrid}%
+  \usecolortheme{seahorse}%
+}
+
+% -------- 中文：ctex + 字体回退 -------------------------------
+\usepackage[UTF8, scheme=plain]{ctex}
+
+% -------- 通用宏包 -------------------------------------------
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs,array,tabularx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,calc,fit,backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+\usepackage{appendixnumberbeamer}
+
+% -------- 自定义颜色（浙大蓝调） -------------------------------
+\definecolor{ZjuBlue}{RGB}{0, 63, 136}
+\definecolor{ZjuRed}{RGB}{176, 31, 36}
+\definecolor{AccentTeal}{RGB}{0, 123, 167}
+\definecolor{AccentGold}{RGB}{205, 153, 51}
+\definecolor{SoftGray}{RGB}{96, 96, 96}
+\definecolor{LightGray}{RGB}{240, 240, 240}
+
+\setbeamercolor{frametitle}{bg=ZjuBlue, fg=white}
+\setbeamercolor{progress bar}{fg=ZjuRed, bg=LightGray}
+\setbeamercolor{title separator}{fg=ZjuRed}
+\setbeamercolor{alerted text}{fg=ZjuRed}
+\setbeamercolor{block title}{bg=ZjuBlue!85, fg=white}
+\setbeamercolor{block body}{bg=ZjuBlue!5, fg=black}
+\setbeamercolor{block title example}{bg=AccentTeal, fg=white}
+\setbeamercolor{block body example}{bg=AccentTeal!8, fg=black}
+\setbeamercolor{block title alerted}{bg=ZjuRed, fg=white}
+\setbeamercolor{block body alerted}{bg=ZjuRed!8, fg=black}
+
+% -------- 字号微调 -------------------------------------------
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamerfont{title}{size=\Large, series=\bfseries}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+
+% -------- 自定义命令 -----------------------------------------
+\newcommand{\hl}[1]{\textcolor{ZjuRed}{\textbf{#1}}}
+\newcommand{\hlb}[1]{\textcolor{ZjuBlue}{\textbf{#1}}}
+\newcommand{\hlt}[1]{\textcolor{AccentTeal}{\textbf{#1}}}
+
+% 紧凑列表
+\setbeamertemplate{itemize item}{\color{ZjuBlue}\textbullet}
+\setbeamertemplate{itemize subitem}{\color{ZjuRed}\textendash}
+
+% 数字 box
+\newcommand{\numbox}[1]{%
+  \tikz[baseline=(c.base)]\node[circle,fill=ZjuRed,text=white,
+        inner sep=1pt,minimum size=1.4em,font=\small\bfseries](c){#1};}
+
+% 图片路径：复用论文 figures
+\graphicspath{{figures/}{../zjuthesis/figures/}}
+
+% Listings 样式（用于命令/代码）
+\lstdefinestyle{shellstyle}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{LightGray},
+  frame=single,
+  framerule=0pt,
+  rulecolor=\color{LightGray},
+  keywordstyle=\color{ZjuBlue}\bfseries,
+  commentstyle=\color{SoftGray}\itshape,
+  showstringspaces=false,
+  breaklines=true,
+}
+
+% =============================================================
+%  题目信息
+% =============================================================
+\title[多源异构 RAG 框架]{面向多源异构知识的检索增强生成框架}
+\subtitle{自适应补检索与后验验证的协同机制研究与诊断}
+\author[作者]{答辩人：\hl{\textbf{XXX}} \\ \vspace{0.3em}\small 指导教师：XXX 教授}
+\institute[ZJU]{浙江大学 \quad 本科毕业设计（论文）答辩}
+\date{\today}
+
+% =============================================================
+\begin{document}
+
+% --- 封面 ----------------------------------------------------
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+% --- 目录 ----------------------------------------------------
+\begin{frame}{汇报提纲}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% =============================================================
+\input{sections/01_background.tex}
+\input{sections/02_problem.tex}
+\input{sections/03_method.tex}
+\input{sections/04_implementation.tex}
+\input{sections/05_experiment.tex}
+\input{sections/06_results.tex}
+\input{sections/07_analysis.tex}
+\input{sections/08_conclusion.tex}
+\input{sections/09_qa.tex}
+
+\appendix
+\input{sections/zz_appendix.tex}
+
+\end{document}

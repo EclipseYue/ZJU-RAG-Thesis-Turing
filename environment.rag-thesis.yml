@@ -1,0 +1,15 @@
+name: rag-thesis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - numpy=1.26.4
+  - scipy
+  - scikit-learn
+  - flask
+  - pip:
+      - datasets>=2.18.0
+      - transformers>=4.40.0,<4.41.0
+      - sentence-transformers>=2.7.0,<3.0.0

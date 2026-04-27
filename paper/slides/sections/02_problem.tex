@@ -1,0 +1,86 @@
+% =============================================================
+%  Section 02: 研究问题、目标与创新点
+% =============================================================
+\section{研究问题与目标}
+
+% ---- 2.1 三个研究问题 --------------------------------------------
+\begin{frame}{研究问题（RQ）}
+  \begin{block}{RQ1：异构接入}
+    在本科算力与公开数据规模下，能否构建\hlb{统一的对照实验入口}，
+    使检索、重排、补检索、验证四个模块可被\hl{独立开关、组合评估}？
+  \end{block}
+
+  \begin{block}{RQ2：自适应补检索}
+    在多跳 / 桥接 / 比较类问题上，
+    \hlb{基于重排序置信度触发的补检索 + RRF 融合}
+    能在多大程度上提升 Top-$k$ 证据覆盖率？
+    \hl{是否会以可接受的 Token 与延迟代价换取覆盖率收益？}
+  \end{block}
+
+  \begin{block}{RQ3：后验验证与拒答安全}
+    当证据缺失或与生成结果冲突时，如何\hlb{拒答}才能在
+    \hl{抑制幻觉}与\hl{保留可用性}之间取得平衡？
+    现有启发式 CoVe 是否存在 sweet spot？
+  \end{block}
+\end{frame}
+
+% ---- 2.2 研究目标 ----------------------------------------------
+\begin{frame}{研究目标}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \begin{exampleblock}{工程目标}
+      \begin{itemize}
+        \item 端到端\hlt{可复现实验平台}：模块化、配置驱动、命令行入口统一。
+        \item 同一个数据集 + 同一个生成后端，\hlt{六组消融可一键跑完}。
+        \item 自动产出 LaTeX 表 / 图 + bootstrap 置信区间，\hlt{论文与代码强联动}。
+      \end{itemize}
+    \end{exampleblock}
+
+    \column{0.5\textwidth}
+    \begin{block}{研究目标}
+      \begin{itemize}
+        \item 在\hl{相同生成后端}下，量化"异构序列化"的净影响。
+        \item 评估自适应补检索的\hl{覆盖增益 / 成本代价}。
+        \item 诊断 CoVe 验证器在 \hl{soft / strict} 阈值下的\hl{误杀-漏放}权衡。
+        \item 给出\hlb{可解释的失败模式分类}，指出后续闭环改进方向。
+      \end{itemize}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+% ---- 2.3 三大创新点 ----------------------------------------------
+\begin{frame}{三大创新点}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{1}\ 统一证据单元入口}
+      \footnotesize
+      抽象\hl{EvidenceUnit}：\\
+      \texttt{\{content, source, metadata\}}\\[0.3em]
+      文本 chunk / 表格行 / 三元组三种来源走\hlb{同一检索-重排算子}，
+      产出\hl{可追溯证据空间}。
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{2}\ 成本约束自适应检索}
+      \footnotesize
+      以\hl{重排置信度}与证据充分性触发\hlb{按需补检索}（Active Retrieval）：\\[0.3em]
+      把 \hlt{Token 消耗 / 延迟 p50/p95} 作为\hl{硬约束指标}，
+      不只是性能锦上添花。
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{3}\ 验证闭环与 No-Answer Safety}
+      \footnotesize
+      借鉴 \hlb{CoVe} 与 \hlb{FactScore} 思想，对生成结果做\hl{声明级核验}；
+      证据不足或冲突时输出\hl{No-Answer}，并在系统层面定义安全指标。
+    \end{block}
+  \end{columns}
+
+  \vspace{0.6em}
+  \begin{alertblock}{重点说明：本研究的"诊断式"立场}
+    与"刷榜式"研究不同，本研究的核心贡献\hl{不在证明系统已经鲁棒}，
+    而在\hl{揭示三个模块叠加时的副作用}——
+    异构格式噪声、覆盖增益与 F1 不直接挂钩、CoVe 缺乏 sweet spot——
+    并将其量化为\hlt{可被后续工作直接利用的诊断结论}。
+  \end{alertblock}
+\end{frame}

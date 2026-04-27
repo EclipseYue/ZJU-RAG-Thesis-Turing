@@ -1,0 +1,133 @@
+% =============================================================
+%  Section 05: 实验设计
+% =============================================================
+\section{实验设计}
+
+% ---- 5.1 数据集与规模 -------------------------------------------
+\begin{frame}{数据集与样本规模}
+  \footnotesize
+  \begin{columns}[T,onlytextwidth]
+    \column{0.55\textwidth}
+    \begin{block}{主数据集}
+      \begin{itemize}
+        \item \hlb{HotpotQA (distractor)}：dev 全量 \hl{N=7405} —— 主消融
+        \item \hlb{2WikiMultihopQA}：N=100 —— 跨数据集泛化
+        \item PopQA：补充样本（短答案、单跳）
+      \end{itemize}
+    \end{block}
+    \begin{block}{诊断子集}
+      \begin{itemize}
+        \item 阈值扫描：N=50
+        \item 错误归因：N=80
+        \item 验证器对比：N=200
+        \item 早期 Phase 1 mock：17 条诊断查询
+      \end{itemize}
+    \end{block}
+
+    \column{0.45\textwidth}
+    \begin{exampleblock}{\faCheckCircle\ 实验有效性}
+      \begin{itemize}
+        \item 主消融在\hl{大样本 N=7405} 上完成 \\ → 趋势可信。
+        \item 诊断实验在小样本 → \hlb{趋势判断}而非定论。
+        \item 所有结果\hl{paired bootstrap 95\% CI}。
+        \item 同一生成后端控制变量，\hl{消除生成端波动}。
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+% ---- 5.2 消融配置 -----------------------------------------------
+\begin{frame}{六组消融：模块独立 + 组合}
+  \footnotesize
+  \centering
+  \begin{tabular}{@{}clccc@{}}
+    \toprule
+    \rowcolor{ZjuBlue!10}
+    \textbf{ID} & \textbf{配置} & \textbf{Hetero} & \textbf{Adaptive} & \textbf{CoVe} \\ \midrule
+    A   & Baseline (Naive Text RAG)    & --   & --   & -- \\
+    A2  & + Adaptive only              & --   & \checkmark & -- \\
+    A3  & + CoVe only                  & --   & --   & \checkmark \\
+    B   & + Hetero only                & \checkmark & --   & -- \\
+    C   & + Hetero + Adaptive          & \checkmark & \checkmark & -- \\
+    \rowcolor{ZjuRed!8}
+    D   & Full system (strict CoVe)    & \checkmark & \checkmark & \checkmark \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.6em}
+  \begin{block}{\faKey\ 设计精髓：A2 / A3 / B 是\hl{单变量控制组}}
+    通过同时报告 \hlb{A2 (单加 Adaptive)}、\hlb{A3 (单加 CoVe)}、\hlb{B (单加 Hetero)}，
+    可以\hl{把每个模块的净贡献从耦合中拆开}，而不是只比较 \hlt{A vs D}。
+  \end{block}
+\end{frame}
+
+% ---- 5.3 评测指标 -----------------------------------------------
+\begin{frame}{三类评测指标：效果 / 成本 / 安全}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.33\textwidth}
+    \begin{block}{效果指标}
+      \footnotesize
+      \begin{itemize}
+        \item \hl{EM} \\ \hl{F1} (HotpotQA 标准)
+        \item \hl{SupportAllHit@5} \\ SupportRecall@5
+        \item MRR / NDCG@5
+        \item Hit@3 / Precision@3
+      \end{itemize}
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{成本指标}
+      \footnotesize
+      \begin{itemize}
+        \item Avg Tokens
+        \item Avg Latency (ms)
+        \item \hl{p50 / p95 Latency}
+        \item API 调用数（真实 LLM）
+      \end{itemize}
+      \footnotesize\color{SoftGray}
+      把成本作为\hl{硬约束}，而非附录。
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{alertblock}{安全指标}
+      \footnotesize
+      \begin{itemize}
+        \item \hl{No-Answer Rate (NAR)}
+        \item False Reject Rate (FRR)
+        \item \hl{Unsafe Accept Rate}
+      \end{itemize}
+      \footnotesize\color{SoftGray}
+      显式量化"应拒答而未拒"。
+    \end{alertblock}
+  \end{columns}
+
+  \vspace{0.5em}
+  \begin{exampleblock}{统计显著性}
+    \footnotesize
+    所有差值汇报均带 \hl{paired bootstrap 95\% CI}（重抽样 1000 次），
+    避免单次跑数引入的方差被过度解读。
+  \end{exampleblock}
+\end{frame}
+
+% ---- 5.4 跨方法对比 ---------------------------------------------
+\begin{frame}{跨方法对比设置}
+  \footnotesize
+  \begin{block}{对比方法（N=100）}
+    \begin{itemize}
+      \item \hlb{Naive RAG}：单轮 retrieval + 直接生成
+      \item \hlb{Dense + Rerank}：本系统不带 PRF 与 CoVe
+      \item \hlb{CoT-only}：完全无外部知识，仅 LLM 思维链
+      \item \hlb{IRCoT-Lite}：迭代式检索-推理交替（强基线）
+      \item \hlb{Ours = Adaptive Only}：本系统的 A2 配置
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{验证器对比（N=200）}
+    \begin{itemize}
+      \item \texttt{cove\_soft} ($\tau$=0.50)
+      \item \texttt{cove\_standard} ($\tau$=0.70)
+      \item \hl{\texttt{cove\_strict} ($\tau$=0.90)}
+      \item \texttt{overlap\_soft}（基于词项覆盖）
+    \end{itemize}
+  \end{block}
+\end{frame}

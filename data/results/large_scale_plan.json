@@ -1,0 +1,36 @@
+{
+  "dataset": "HotpotQA / 2WikiMultihopQA",
+  "target_queries": [
+    100,
+    300,
+    500
+  ],
+  "assumptions": {
+    "execution_mode": "CPU or mock-first local validation",
+    "small_scale_reference": {
+      "phase1_avg_latency_s": 0.002,
+      "phase1_avg_tokens": 181.3
+    },
+    "note": "Real-model latency will be significantly higher than mock-mode latency."
+  },
+  "planning_table": [
+    {
+      "queries": 100,
+      "local_mock_estimated_minutes": 1,
+      "recommended_mode": "local dry-run",
+      "paper_usage": "sanity check only"
+    },
+    {
+      "queries": 300,
+      "local_mock_estimated_minutes": 2,
+      "recommended_mode": "CPU overnight or rented GPU",
+      "paper_usage": "pilot study"
+    },
+    {
+      "queries": 500,
+      "local_mock_estimated_minutes": 3,
+      "recommended_mode": "rented GPU server for real-model ablation",
+      "paper_usage": "main large-scale study"
+    }
+  ]
+}

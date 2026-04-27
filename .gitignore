@@ -170,6 +170,7 @@ cython_debug/
 .Trashes
 ehthumbs.db
 Thumbs.db
+NUL
 
 # LaTeX generated files (optional, depending on if you want to track them or not)
 paper/zjuthesis/out/
