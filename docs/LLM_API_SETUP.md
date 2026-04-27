@@ -20,7 +20,15 @@ export OPENAI_API_KEY="sk-..."
 export OPENAI_BASE_URL="https://api.openai.com/v1"
 ```
 
-### 2.2 Moonshot / Kimi
+### 2.2 DeepSeek
+
+```bash
+export DEEPSEEK_API_KEY="sk-..."
+# 可选
+export DEEPSEEK_BASE_URL="https://api.deepseek.com"
+```
+
+### 2.3 Moonshot / Kimi
 
 ```bash
 export MOONSHOT_API_KEY="sk-..."
@@ -34,7 +42,7 @@ export MOONSHOT_BASE_URL="https://api.moonshot.cn/v1"
 export KIMI_API_KEY="sk-..."
 ```
 
-### 2.3 SiliconFlow
+### 2.4 SiliconFlow
 
 ```bash
 export SILICONFLOW_API_KEY="sk-..."
@@ -46,9 +54,9 @@ export SILICONFLOW_BASE_URL="https://api.siliconflow.cn/v1"
 主实验入口支持：
 
 ```bash
---generator-backend auto|heuristic|openai|moonshot|siliconflow
+--generator-backend auto|heuristic|openai|deepseek|moonshot|siliconflow
 --generator-model <model_name>
---verifier-backend heuristic|openai|moonshot|siliconflow
+--verifier-backend heuristic|openai|deepseek|moonshot|siliconflow
 --verifier-model <model_name>
 --generator-api-key <api_key>
 --generator-base-url <base_url>
@@ -86,6 +94,7 @@ experiments/configs/local_api_overrides.json
 ## 5. 推荐原则
 
 - 只想稳定复现实验：使用默认启发式验证
+- 当前默认真实 API 推荐：DeepSeek
 - 想验证真实 LLM 生成：设置 `generator-backend`
 - 想补真实 CoVe/NLI 风格验证：设置 `verifier-backend` 并加 `--real-cove`
 

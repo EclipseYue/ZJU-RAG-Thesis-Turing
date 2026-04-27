@@ -34,11 +34,19 @@ def resolve_openai_compat_config(
 
     Supported providers:
     - auto: prefer explicit OPENAI_* envs, then Moonshot/Kimi, then SiliconFlow.
+    - deepseek: uses DEEPSEEK_API_KEY and https://api.deepseek.com
     - moonshot: uses MOONSHOT_API_KEY / KIMI_API_KEY and https://api.moonshot.cn/v1
     - siliconflow: uses SILICONFLOW_API_KEY or OPENAI_API_KEY and https://api.siliconflow.cn/v1
     - openai: uses OPENAI_API_KEY / OPENAI_BASE_URL
     """
     provider = (provider or os.getenv("RERERANK_LLM_PROVIDER") or "auto").lower()
+
+    if provider == "deepseek":
+        resolved_key = _pick(api_key, os.getenv("DEEPSEEK_API_KEY"))
+        resolved_url = _pick(base_url, os.getenv("DEEPSEEK_BASE_URL"), "https://api.deepseek.com")
+        if not resolved_key:
+            return None
+        return OpenAICompatConfig("deepseek", resolved_key, resolved_url, model)
 
     if provider == "moonshot":
         resolved_key = _pick(api_key, os.getenv("MOONSHOT_API_KEY"), os.getenv("KIMI_API_KEY"))
@@ -64,6 +72,7 @@ def resolve_openai_compat_config(
     # auto
     return (
         resolve_openai_compat_config(model=model, provider="openai", api_key=api_key, base_url=base_url)
+        or resolve_openai_compat_config(model=model, provider="deepseek", api_key=api_key, base_url=base_url)
         or resolve_openai_compat_config(model=model, provider="moonshot", api_key=api_key, base_url=base_url)
         or resolve_openai_compat_config(model=model, provider="siliconflow", api_key=api_key, base_url=base_url)
     )

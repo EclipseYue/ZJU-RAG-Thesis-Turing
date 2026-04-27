@@ -77,8 +77,8 @@ def build_verifier(name, threshold, config):
     if name == "cove":
         return CoVeVerifier(
             confidence_threshold=threshold,
-            backend=config.get("verifier_backend", "heuristic") if not config.get("real_cove", False) else config.get("verifier_backend", "moonshot"),
-            model=config.get("verifier_model", "kimi-k2-0711-preview "),
+            backend=config.get("verifier_backend", "heuristic") if not config.get("real_cove", False) else config.get("verifier_backend", "deepseek"),
+            model=config.get("verifier_model", "deepseek-v4-flash"),
             api_key=config.get("verifier_api_key"),
             base_url=config.get("verifier_base_url"),
         )
@@ -111,8 +111,8 @@ def build_argparser():
     parser.add_argument("--local-data-dir", default=None, help="Directory containing offline dataset JSON/JSONL files.")
     parser.add_argument("--hf-cache-dir", default=None, help="Optional Hugging Face cache dir.")
     parser.add_argument("--offline", action="store_true", help="Use local files / cache only and avoid network dataset fetches.")
-    parser.add_argument("--verifier-backend", default="heuristic", choices=["heuristic", "openai", "moonshot", "siliconflow"], help="Verification backend.")
-    parser.add_argument("--verifier-model", default="kimi-k2-0711-preview ", help="Verification model name.")
+    parser.add_argument("--verifier-backend", default="heuristic", choices=["heuristic", "openai", "deepseek", "moonshot", "siliconflow"], help="Verification backend.")
+    parser.add_argument("--verifier-model", default="deepseek-v4-flash", help="Verification model name.")
     parser.add_argument("--verifier-api-key", default=None, help="Optional explicit verifier API key.")
     parser.add_argument("--verifier-base-url", default=None, help="Optional explicit verifier base URL.")
     parser.add_argument("--real-cove", action="store_true", help="Force real LLM-based CoVe verification for cove_* variants.")
@@ -155,7 +155,7 @@ def main():
     config = load_config(args)
     os.environ["FORCE_MOCK"] = "0"
     if config.get("real_cove", False) and config.get("verifier_backend", "heuristic") == "heuristic":
-        config["verifier_backend"] = "moonshot"
+        config["verifier_backend"] = "deepseek"
 
     data = load_multihop_sample(
         config["dataset"],
@@ -185,7 +185,7 @@ def main():
                 draft = llm_generate_answer(
                     query_item["query"],
                     search_res["results"],
-                    model=config.get("generator_model", "kimi-k2-0711-preview"),
+                    model=config.get("generator_model", "deepseek-v4-flash"),
                     backend=generator_backend,
                     api_key=config.get("generator_api_key"),
                     base_url=config.get("generator_base_url"),
@@ -223,7 +223,7 @@ def main():
             "verifiers": config["verifiers"],
             "real_cove": bool(config.get("real_cove", False)),
             "verifier_backend": config.get("verifier_backend", "heuristic"),
-            "verifier_model": config.get("verifier_model", "kimi-k2-0711-preview "),
+            "verifier_model": config.get("verifier_model", "deepseek-v4-flash"),
         },
         "variants": variants,
     }

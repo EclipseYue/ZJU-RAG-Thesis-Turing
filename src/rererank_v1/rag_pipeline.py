@@ -509,7 +509,7 @@ class RAGPipeline:
         evidence_chain: List[Dict[str, Any]],
         confidence_threshold: float = 0.5,
         backend: str = "heuristic",
-        model: str = "kimi-k2-0711-preview ",
+        model: str = "deepseek-v4-flash",
         api_key: str | None = None,
         base_url: str | None = None,
     ) -> Dict[str, Any]:

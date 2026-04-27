@@ -7,7 +7,7 @@
   "hetero": true,
   "thresholds": [0.5, 0.7, 0.9],
   "verifier_backend": "heuristic",
-  "verifier_model": "kimi-k2-0711-preview ",
+  "verifier_model": "deepseek-v4-flash",
   "device": "cuda",
   "output_name": "false_rejection_diagnostics_hotpotqa.json",
   "local_data_dir": "data/datasets",

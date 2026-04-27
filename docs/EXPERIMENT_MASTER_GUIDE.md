@@ -93,8 +93,8 @@ data/datasets/2wikimultihopqa/validation.json
 `run_all.py` 当前支持以下后端参数：
 
 ```text
---generator-backend auto|heuristic|openai|moonshot|siliconflow
---verifier-backend heuristic|openai|moonshot|siliconflow
+--generator-backend auto|heuristic|openai|deepseek|moonshot|siliconflow
+--verifier-backend heuristic|openai|deepseek|moonshot|siliconflow
 --generator-model <model_name>
 --verifier-model <model_name>
 --real-cove
@@ -105,7 +105,7 @@ data/datasets/2wikimultihopqa/validation.json
 - 不改变实验矩阵本身，只改变 CoVe 相关配置实际使用的验证后端。
 - 不传入时，默认沿用“类 CoVe / 启发式近似验证”。
 - 传入后，优先使用 `verifier_backend` 和 `verifier_model`。
-- 若传入 `--real-cove` 但 `verifier_backend` 仍为 `heuristic`，主入口会自动回退到 `moonshot` 作为默认真实 CoVe 后端。
+- 若传入 `--real-cove` 但 `verifier_backend` 仍为 `heuristic`，主入口会自动回退到 `deepseek` 作为默认真实 CoVe 后端。
 
 ### 4.3 环境变量
 
@@ -114,6 +114,9 @@ data/datasets/2wikimultihopqa/validation.json
 - OpenAI 风格：
   - `OPENAI_API_KEY`
   - `OPENAI_BASE_URL`
+- DeepSeek：
+  - `DEEPSEEK_API_KEY`
+  - `DEEPSEEK_BASE_URL`，默认 `https://api.deepseek.com`
 - Moonshot / Kimi：
   - `MOONSHOT_API_KEY` 或 `KIMI_API_KEY`
   - `MOONSHOT_BASE_URL`，默认 `https://api.moonshot.cn/v1`
@@ -141,16 +144,16 @@ experiments/configs/local_api_overrides.json
 
 ### 4.5 示例
 
-使用 Moonshot 作为真实验证后端，但不实际运行示例：
+使用 DeepSeek 作为真实验证后端，但不实际运行示例：
 
 ```bash
-export MOONSHOT_API_KEY="sk-..."
+export DEEPSEEK_API_KEY="sk-..."
 python experiments/run_all.py \
   --config experiments/configs/ablation_with_controls.json \
-  --generator-backend auto \
-  --generator-model Qwen/Qwen2.5-7B-Instruct \
-  --verifier-backend moonshot \
-  --verifier-model moonshot-v1-8k \
+  --generator-backend deepseek \
+  --generator-model deepseek-v4-flash \
+  --verifier-backend deepseek \
+  --verifier-model deepseek-v4-flash \
   --real-cove
 ```
 
