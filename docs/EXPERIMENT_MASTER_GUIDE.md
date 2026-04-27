@@ -117,14 +117,14 @@ data/datasets/2wikimultihopqa/validation.json
 - DeepSeek：
   - `DEEPSEEK_API_KEY`
   - `DEEPSEEK_BASE_URL`，默认 `https://api.deepseek.com`
-- Moonshot / Kimi：
+- Moonshot / Kimi（历史可选）：
   - `MOONSHOT_API_KEY` 或 `KIMI_API_KEY`
   - `MOONSHOT_BASE_URL`，默认 `https://api.moonshot.cn/v1`
 - SiliconFlow：
   - `SILICONFLOW_API_KEY`
   - `SILICONFLOW_BASE_URL`，默认 `https://api.siliconflow.cn/v1`
 
-若 `generator_backend=auto`，系统会优先尝试 `OPENAI_*`，再尝试 Moonshot，再尝试 SiliconFlow。
+若 `generator_backend=auto`，系统会优先尝试 `OPENAI_*`，再尝试 DeepSeek，再尝试 Moonshot，最后尝试 SiliconFlow。
 
 ### 4.4 本地私有覆盖配置
 

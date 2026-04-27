@@ -10,7 +10,7 @@
 
 % -------- Theme (metropolis 优先；不可用时回退) ----------------
 \IfFileExists{beamerthememetropolis.sty}{%
-  \usetheme[progressbar=frametitle, numbering=fraction, block=fill]{metropolis}%
+  \usetheme[progressbar=none, numbering=fraction, block=fill]{metropolis}%
 }{%
   \usetheme{Madrid}%
   \usecolortheme{seahorse}%
@@ -30,6 +30,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepackage{xcolor}
+\usepackage{colortbl}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{fontawesome5}

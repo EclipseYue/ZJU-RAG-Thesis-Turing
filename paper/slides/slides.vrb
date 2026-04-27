@@ -1,0 +1,26 @@
+\frametitle{附录 D：可复现命令一览}
+\footnotesize
+  \begin{lstlisting}[style=shellstyle, basicstyle=\ttfamily\scriptsize]
+# 主消融（HotpotQA dev 全量）
+python experiments/run_all.py \
+    --config configs/ablation_with_controls.json
+
+# 验证器对比（N=200）
+python experiments/run_verifier_comparison.py --n 200
+
+# 分桶增益分析
+python experiments/run_bucket_gain_study.py
+
+# Pareto 前沿
+python experiments/run_pareto.py
+
+# 阈值扫描
+python experiments/run_threshold_sweep.py --tau 0.7,0.8,0.9,0.95
+
+# 切真实 LLM CoVe
+python experiments/run_all.py --real-cove --provider deepseek
+
+# 出图 + 自动回填到 LaTeX
+python experiments/plot_results.py
+python experiments/update_tex.py
+  \end{lstlisting}

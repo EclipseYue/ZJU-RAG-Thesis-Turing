@@ -1,9 +1,7 @@
 % =============================================================
 %  Appendix: 备用 slides（应对答辩追问）
 % =============================================================
-\section*{附\quad 录}
-
-% ---- A.1 RRF 公式细节 -------------------------------------------
+% \section*{附\quad 录}  % 已由 \appendix 标记，注释以避 calc 溢出% ---- A.1 RRF 公式细节 -------------------------------------------
 \begin{frame}{附录 A：Reciprocal Rank Fusion 形式化}
   \footnotesize
   给定首轮排序 $r_q$ 与扩展轮排序 $r_{q'}$，文档 $d$ 的最终分数为：
@@ -63,7 +61,7 @@
 \end{frame}
 
 % ---- A.4 实验脚本入口 -------------------------------------------
-\begin{frame}{附录 D：可复现命令一览}
+\begin{frame}[fragile]{附录 D：可复现命令一览}
   \footnotesize
   \begin{lstlisting}[style=shellstyle, basicstyle=\ttfamily\scriptsize]
 # 主消融（HotpotQA dev 全量）

@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{研究背景与动机}{3}{0}{1}
+\beamer@sectionintoc {2}{研究问题与目标}{8}{0}{2}
+\beamer@sectionintoc {3}{方法与系统架构}{12}{0}{3}
+\beamer@sectionintoc {4}{关键实现}{18}{0}{4}
+\beamer@sectionintoc {5}{实验设计}{22}{0}{5}
+\beamer@sectionintoc {6}{实验结果}{27}{0}{6}
+\beamer@sectionintoc {7}{诊断分析}{33}{0}{7}
+\beamer@sectionintoc {8}{结论与未来工作}{38}{0}{8}

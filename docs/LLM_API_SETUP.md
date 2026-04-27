@@ -7,8 +7,8 @@
 项目中的生成与验证后端统一走 OpenAI 兼容调用方式，因此可以接入：
 
 - OpenAI 官方接口
-- Moonshot / Kimi
-- SiliconFlow
+- Moonshot / Kimi（历史可选）
+- SiliconFlow（历史可选）
 - 其他支持 `chat.completions` 的兼容网关
 
 ## 2. 环境变量
@@ -28,7 +28,7 @@ export DEEPSEEK_API_KEY="sk-..."
 export DEEPSEEK_BASE_URL="https://api.deepseek.com"
 ```
 
-### 2.3 Moonshot / Kimi
+### 2.3 Moonshot / Kimi（历史可选）
 
 ```bash
 export MOONSHOT_API_KEY="sk-..."
@@ -42,7 +42,7 @@ export MOONSHOT_BASE_URL="https://api.moonshot.cn/v1"
 export KIMI_API_KEY="sk-..."
 ```
 
-### 2.4 SiliconFlow
+### 2.4 SiliconFlow（历史可选）
 
 ```bash
 export SILICONFLOW_API_KEY="sk-..."
@@ -94,7 +94,7 @@ experiments/configs/local_api_overrides.json
 ## 5. 推荐原则
 
 - 只想稳定复现实验：使用默认启发式验证
-- 当前默认真实 API 推荐：DeepSeek
+- 当前默认真实 API：DeepSeek
 - 想验证真实 LLM 生成：设置 `generator-backend`
 - 想补真实 CoVe/NLI 风格验证：设置 `verifier-backend` 并加 `--real-cove`
 
