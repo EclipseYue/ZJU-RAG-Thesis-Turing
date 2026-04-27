@@ -1,172 +1,83 @@
 % =============================================================
-%  Section 06: 主消融与跨数据集结果
+%  Section 06: 实验结果
 % =============================================================
 \section{实验结果}
 
-% ---- 6.1 主消融数值表 -------------------------------------------
-\begin{frame}{主消融：HotpotQA dev 全量 (N=7405)}
-  \footnotesize
-  \centering
-  \begin{tabular}{@{}lccccc@{}}
-    \toprule
-    \rowcolor{ZjuBlue!10}
-    \textbf{ID} & \textbf{配置} & \textbf{F1} & \textbf{NAR} & \textbf{Tokens} & \textbf{Latency (ms)} \\ \midrule
-    \rowcolor{AccentTeal!8}
-    A   & Baseline                    & \hlt{6.16} & 0.0\% & 1012.47 & 236.05 \\
-    A2  & + Adaptive only             & 6.16  & 0.0\%   & 1041.02 & 301.47 \\
-    A3  & + CoVe only                 & 5.76  & 13.52\% & 552.26  & 170.54 \\
-    B   & + Hetero only               & 4.59  & 0.0\%   & 716.85  & 281.04 \\
-    C   & + Hetero + Adaptive         & 4.59  & 0.0\%   & 743.60  & 291.51 \\
-    \rowcolor{ZjuRed!10}
-    D   & Full (strict CoVe)          & \hl{0.06} & \hl{97.2\%} & 743.60  & 291.31 \\
-    \bottomrule
-  \end{tabular}
-
-  \vspace{0.6em}
-  \begin{alertblock}{\faSearch\ 三个反直觉发现}
-    \footnotesize
-    \begin{enumerate}
-      \item \hl{Baseline 反而最稳定}——在启发式生成端控制下，加模块普遍\hl{未带来 F1 增益}。
-      \item \hl{Hetero 拉低 F1 (6.16 → 4.59)}——\hlb{格式噪声}超过了"多源信息"带来的潜在收益。
-      \item \hl{strict CoVe 几乎拒答全部 (97.2\%)}——把 F1 拉到接近 0；\hlb{soft / strict 之间无 sweet spot}。
-    \end{enumerate}
-  \end{alertblock}
-\end{frame}
-
-% ---- 6.2 F1 / NAR / 成本三图 ------------------------------------
-\begin{frame}{主消融可视化：效果 / 安全 / 成本}
+\begin{frame}{主消融结果：Baseline 反而最稳定}
   \begin{columns}[T,onlytextwidth]
-    \column{0.33\textwidth}
+    \column{0.56\textwidth}
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{ablation_f1.png}\\
-    \footnotesize\color{SoftGray} F1 各变体对比
+    \includegraphics[width=\linewidth]{ablation_f1.png}
 
-    \column{0.33\textwidth}
-    \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{ablation_safety.png}\\
-    \footnotesize\color{SoftGray} 拒答率（NAR）
-
-    \column{0.33\textwidth}
-    \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{ablation_cost_latency.png}\\
-    \footnotesize\color{SoftGray} Token / Latency
+    \column{0.44\textwidth}
+    \begin{block}{关键数值（HotpotQA, N=7405）}
+      \small
+      \begin{tabular}{@{}lcc@{}}
+        \toprule
+        配置 & F1 & NAR \\ \midrule
+        A   & \hl{6.16} & 0.0\% \\
+        A2  & 6.16 & 0.0\% \\
+        A3  & 5.76 & 13.5\% \\
+        B   & 4.59 & 0.0\% \\
+        C   & 4.59 & 0.0\% \\
+        D   & 0.06 & \hl{97.2\%} \\
+        \bottomrule
+      \end{tabular}
+    \end{block}
+    \begin{alertblock}{结论}
+      \begin{itemize}
+        \item \hl{异构接入未带来稳定 F1 增益}
+        \item strict CoVe 导致\hl{大规模拒答}
+      \end{itemize}
+    \end{alertblock}
   \end{columns}
-
-  \vspace{0.6em}
-  \begin{exampleblock}{读图要点}
-    \footnotesize
-    \begin{itemize}
-      \item Adaptive 单加（A2）→ 延迟 \hl{$+27\%$}，F1 几乎不变；说明\hlb{覆盖增益未转化为 F1 增益}。
-      \item Hetero（B/C）→ Token \hlt{下降}（序列化更短），但 F1 \hl{下降更明显}。
-      \item Full D 在拒答主导下，所有"效果"指标失真——这正是\hlb{安全-效果矛盾}的可视化。
-    \end{itemize}
-  \end{exampleblock}
 \end{frame}
 
-% ---- 6.3 跨数据集 ----------------------------------------------
-\begin{frame}{跨数据集对照（N=100）}
+\begin{frame}{成本与安全：模块收益并非免费}
   \begin{columns}[T,onlytextwidth]
     \column{0.5\textwidth}
-    \footnotesize
     \centering
-    \begin{tabular}{@{}llc@{}}
-      \toprule
-      \rowcolor{ZjuBlue!10}
-      \textbf{Dataset} & \textbf{Method} & \textbf{F1} \\ \midrule
-      HotpotQA & Naive RAG          & 7.96 \\
-      HotpotQA & Dense + Rerank     & 7.89 \\
-      HotpotQA & CoT-only           & 6.98 \\
-      HotpotQA & IRCoT-Lite         & \hlt{8.26} \\
-      \rowcolor{ZjuRed!8}
-      HotpotQA & \textbf{Ours (Adaptive)} & \hl{8.09} \\ \midrule
-      2Wiki    & Naive RAG          & 7.51 \\
-      2Wiki    & Dense + Rerank     & 8.16 \\
-      2Wiki    & CoT-only           & \hlt{11.44} \\
-      2Wiki    & IRCoT-Lite         & 7.62 \\
-      \rowcolor{ZjuRed!8}
-      2Wiki    & \textbf{Ours (Adaptive)} & \hl{8.28} \\
-      \bottomrule
-    \end{tabular}
+    \includegraphics[width=\linewidth]{ablation_cost_latency.png}\\[0.3em]
+    \footnotesize\color{SoftGray} Token 与延迟
 
     \column{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{cross_dataset_support_hit.png}\\[0.4em]
-    \footnotesize\color{SoftGray} 跨数据集 \texttt{SupportAllHit@5} 对比
+    \includegraphics[width=\linewidth]{ablation_safety.png}\\[0.3em]
+    \footnotesize\color{SoftGray} 拒答率（NAR）
   \end{columns}
 
   \vspace{0.5em}
-  \begin{block}{结论}
-    \footnotesize
-    在 F1 指标上 Ours 与强基线 \hlb{IRCoT-Lite 接近}（差距在 CI 内）；
-    在\hl{证据覆盖率}指标上 Adaptive 显著占优 —— 说明\hlt{方法的价值在覆盖率，而非答案精度}。
-  \end{block}
-\end{frame}
-
-% ---- 6.4 显著性 + 分桶 ------------------------------------------
-\begin{frame}{Adaptive 的显著性与分桶增益}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
-    \begin{block}{Paired Bootstrap 95\% CI \\ \footnotesize（指标：SupportAllHit@5）}
-      \footnotesize
-      \centering
-      \begin{tabular}{@{}lc@{}}
-        \toprule
-        Dataset & $\Delta$ (pp) \\ \midrule
-        HotpotQA & \hl{+5.0} \, [+1.25, +10.0]  \\
-        2Wiki    & \hl{+7.5} \, [+2.50, +13.75] \\
-        \bottomrule
-      \end{tabular}
-      \\[0.5em]
-      $\Rightarrow$ \hlb{两数据集均显著}（CI 不含 0）。
-    \end{block}
-
-    \column{0.5\textwidth}
-    \begin{block}{HotpotQA 分桶分析}
-      \footnotesize
-      \centering
-      \begin{tabular}{@{}lcc@{}}
-        \toprule
-        类型 & N & $\Delta$ SupportAllHit@5 \\ \midrule
-        \hl{bridge}     & 404 & \hl{+7.92 pp} \\
-                        &     & \scriptsize [+5.45, +10.64] \\ \midrule
-        comparison      & 96  & +1.04 pp \\
-                        &     & \scriptsize $\approx 0$ \\
-        \bottomrule
-      \end{tabular}
-    \end{block}
-  \end{columns}
-
-  \vspace{0.6em}
   \begin{exampleblock}{解读}
-    \footnotesize
-    Adaptive 的增益\hl{集中在 bridge 多跳}场景——
-    第二跳实体往往出现在 Top-1 文档中，扩展查询能精准触达；
-    \hlb{comparison 类问题}本身两个对比对象都已在 Top-$k$，补检索几乎无新增信息。
+    \begin{itemize}
+      \item A2 相比 A：延迟上升，但 F1 基本不变。
+      \item B/C 序列化更短，Token 降低，但 \hl{格式噪声}导致效果下降。
+      \item D 的安全性建立在\hl{几乎全拒答}之上，不具备实际可用性。
+    \end{itemize}
   \end{exampleblock}
 \end{frame}
 
-% ---- 6.5 阈值敏感性 + Pareto -----------------------------------
-\begin{frame}{阈值敏感性与效果-成本前沿}
+\begin{frame}{Adaptive 的价值：体现在证据覆盖率}
   \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
+    \column{0.52\textwidth}
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{threshold_sensitivity.png}\\[0.3em]
-    \footnotesize\color{SoftGray} 阈值扫描 (N=50)：$\tau \in \{0.7, 0.8, 0.9, 0.95\}$
+    \includegraphics[width=\linewidth]{cross_dataset_support_hit.png}
 
-    \column{0.5\textwidth}
-    \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{pareto_frontier.png}\\[0.3em]
-    \footnotesize\color{SoftGray} 效果-成本 Pareto 前沿
+    \column{0.48\textwidth}
+    \begin{block}{paired bootstrap 95\% CI}
+      \small
+      \begin{tabular}{@{}lc@{}}
+        \toprule
+        数据集 & $\Delta$ SupportAllHit@5 \\ \midrule
+        HotpotQA & \hl{+5.0 pp} \\
+        2Wiki    & \hl{+7.5 pp} \\
+        \bottomrule
+      \end{tabular}
+    \end{block}
+    \begin{exampleblock}{分桶观察}
+      bridge 类问题增益最明显：\hl{+7.92 pp}；comparison 类增益接近 0。
+    \end{exampleblock}
+    \begin{alertblock}{含义}
+      Adaptive 更像\hl{补齐第二跳证据}的机制，而不是直接提升最终答案 F1 的机制。
+    \end{alertblock}
   \end{columns}
-
-  \vspace{0.6em}
-  \begin{block}{两点观察}
-    \footnotesize
-    \begin{itemize}
-      \item \hlb{阈值不敏感}：SupportAllHit@5 在 $\tau \in [0.7, 0.95]$ 上恒为 66.0；\\
-            但延迟从 \hl{1015.64ms 降至 919.62ms} —— \hlt{更保守的阈值反而更省}。
-      \item Pareto 上 \hlb{Adaptive Only} 与 \hlb{Baseline} 距离很近 ——
-            \hl{当前形态下，"加模块"的边际收益有限}。
-    \end{itemize}
-  \end{block}
 \end{frame}

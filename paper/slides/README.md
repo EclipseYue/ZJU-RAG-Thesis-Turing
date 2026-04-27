@@ -13,10 +13,10 @@ xelatex slides.tex
 xelatex slides.tex   # 第二次以解决交叉引用 / 目录
 ```
 
-需要 TeX Live / MiKTeX，并安装 `metropolis` 主题（可选，缺失时自动回退到 Madrid 主题）。
+需要 TeX Live / MiKTeX。若本地存在 `beamerthemeFormal.sty`，将优先使用 `Formal` 主题；否则回退到 `metropolis` / `Madrid`。
 
 ```bash
-# 安装 metropolis（一次性）
+# 安装 metropolis（如未使用 Formal 主题）
 tlmgr install beamertheme-metropolis pgfopts
 ```
 
@@ -30,18 +30,16 @@ slides/
 ├── figures/           # 本工程独有图（如有）
 └── sections/
     ├── 01_background.tex     # 研究背景与动机
-    ├── 02_problem.tex        # 研究问题、目标、创新点
+    ├── 02_problem.tex        # 研究目标与创新点
     ├── 03_method.tex         # 方法与系统架构
-    ├── 04_implementation.tex # 关键实现细节
     ├── 05_experiment.tex     # 实验设计
-    ├── 06_results.tex        # 主消融与跨数据集结果
-    ├── 07_analysis.tex       # 阈值/验证器/错误分析与案例
+    ├── 06_results.tex        # 主结果
+    ├── 07_analysis.tex       # 失败原因与案例分析
     ├── 08_conclusion.tex     # 结论与未来工作
-    ├── 09_qa.tex             # 答辩感谢
-    └── zz_appendix.tex       # 附录（备用 slide）
+    └── 09_qa.tex             # Q&A
 ```
 
 ## 字体说明
 
-- 主类 `ctex` 自动选择字体集（Windows 用宋体/黑体；macOS 用 PingFang）。
-- 如出现 `Font ... not found`，可在 `slides.tex` 显式指定 `\setCJKmainfont{...}`。
+- 默认优先使用 Windows 系统字体：`Times New Roman`、`Aptos/Segoe UI`、`SimSun`、`Microsoft YaHei`。
+- 如出现 `Font ... not found`，可在 `slides.tex` 显式指定 `\setmainfont`、`\setsansfont`、`\setCJKmainfont`。

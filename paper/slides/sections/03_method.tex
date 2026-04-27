@@ -3,173 +3,83 @@
 % =============================================================
 \section{方法与系统架构}
 
-% ---- 3.1 总体架构 ------------------------------------------------
 \begin{frame}{系统总体架构}
   \begin{columns}[T,onlytextwidth]
-    \column{0.62\textwidth}
+    \column{0.64\textwidth}
     \centering
-    \includegraphics[width=\linewidth, keepaspectratio]{rag_architecture_flow.png}
+    \includegraphics[width=\linewidth]{rag_architecture_flow.png}
 
-    \column{0.38\textwidth}
-    \footnotesize
-    \begin{block}{四个相对正交模块}
+    \column{0.36\textwidth}
+    \begin{block}{整体流程}
       \begin{itemize}
-        \item \hlb{Phase 1} 检索 + 重排（含 PRF）
-        \item \hlb{Phase 2} 异构序列化入口
-        \item \hlb{Phase 3} 证据组织
-        \item \hlb{Phase 4} CoVe 后验验证
+        \item 检索与重排
+        \item 低置信触发补检索
+        \item 证据组织后生成答案
+        \item 生成后再做验证与拒答
       \end{itemize}
     \end{block}
-    \begin{alertblock}{两条反馈环}
+    \begin{exampleblock}{两个反馈环}
       \begin{itemize}
-        \item 置信度 $< \tau$ \\ $\Rightarrow$ \hl{扩展查询并重检索}
-        \item 证据冲突 \\ $\Rightarrow$ \hl{触发 No-Answer}
+        \item \hl{低置信} $\rightarrow$ 扩展查询
+        \item \hl{证据冲突} $\rightarrow$ No-Answer
       \end{itemize}
-    \end{alertblock}
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
-% ---- 3.2 Pipeline 十步 ------------------------------------------
-\begin{frame}{端到端 Pipeline：十步流程}
-  \footnotesize
-  \begin{enumerate}
-    \item \hlb{Query 预处理}：原始问题字符串入口。
-    \item \hlb{向量编码}：\texttt{all-MiniLM-L6-v2} 把 query 与文档统一映射到 384 维语义空间。
-    \item \hlb{稠密检索}：cosine similarity 召回 Top-$k$ 候选。
-    \item \hlb{交叉重排}：\texttt{BAAI/bge-reranker-base} 对 $(q, d)$ 精排。
-    \item \hlb{置信度判定}：取 max rerank score 与阈值 $\tau$ 比较。
-    \item \hlb{Adaptive PRF}：若低于 $\tau$ → 抽取 top doc 关键词 → 扩展 query → 二次检索/重排。
-    \item \hlb{RRF 融合}：将首轮与扩展轮排序按 $\frac{1}{k+\text{rank}}$ ($k{=}60$) 累加得最终排序。
-    \item \hlb{证据组织}：按实体 / 来源 / RRF 分数序列化为上下文。
-    \item \hlb{生成}：默认启发式生成（图谱→宾语；表格→值；文本→重合句），可切真实 LLM。
-    \item \hlb{CoVe 后验}：声明级支持度比对，软阈值 0.50；冲突或证据不足 → 输出 \hl{No-Answer}。
-  \end{enumerate}
+\begin{frame}{方法设计：三项关键机制}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{1}\ EvidenceUnit}
+      以 \texttt{content / source / metadata} 统一三类证据表示，支持\hl{同一检索与重排接口}。
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{2}\ Adaptive PRF}
+      若 Top-1 重排分低于阈值 $\tau$，则从高分证据中抽取关键词，执行\hl{二次检索 + RRF 融合}。
+    \end{block}
+
+    \column{0.33\textwidth}
+    \begin{block}{\numbox{3}\ CoVe 验证}
+      将答案拆成原子声明，与证据做支持度比对；若证据不足，则返回\hl{拒答}而非冒险作答。
+    \end{block}
+  \end{columns}
+
+  \vspace{0.5em}
+  \begin{exampleblock}{实现策略}
+    使用轻量 embedding + CrossEncoder 重排 + 启发式生成后端，尽量把实验差异归因到检索与验证模块本身。
+  \end{exampleblock}
 \end{frame}
 
-% ---- 3.3 EvidenceUnit -------------------------------------------
-\begin{frame}[fragile]{统一证据单元 EvidenceUnit}
+\begin{frame}[fragile]{异构接入与补检索机制}
   \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
-    \begin{block}{统一 Schema}
-      \footnotesize
-      \begin{tabular}{@{}lp{0.6\linewidth}@{}}
-        \toprule
-        字段 & 含义 \\ \midrule
-        \texttt{content}  & 序列化后的证据文本 \\
-        \texttt{source}   & \texttt{text} / \texttt{table} / \texttt{graph} \\
-        \texttt{metadata} & 实体 ID、原始字段、来源文档等 \\
-        \bottomrule
-      \end{tabular}
-    \end{block}
-    \begin{exampleblock}{\faKey\ 设计要点}
-      \footnotesize
-      不同模态走\hl{同一检索算子接口}；元数据保留可追溯锚点，
-      为后续证据链与验证提供\hlb{统一坐标系}。
-    \end{exampleblock}
-
-    \column{0.5\textwidth}
-    \begin{block}{异构 → 文本的序列化范式}
-      \footnotesize
-      \textbf{表格行 (row-wise)：}
+    \column{0.48\textwidth}
+    \begin{block}{异构序列化示例}
+      \textbf{表格行：}
       \begin{lstlisting}[style=shellstyle, basicstyle=\ttfamily\tiny]
-Table: Tech Founders |
-Company: SpaceX,
-Founder: Elon Musk,
+Table: Tech Founders
+Company: SpaceX, Founder: Elon Musk
 Year: 2002
       \end{lstlisting}
-      \textbf{知识图谱三元组：}
+      \textbf{图谱三元组：}
       \begin{lstlisting}[style=shellstyle, basicstyle=\ttfamily\tiny]
 Graph Fact: Elon Musk
-  -> founder_of -> SpaceX
+ -> founder_of -> SpaceX
       \end{lstlisting}
-      \textbf{文本 chunk：原文段落直接保留。}
     \end{block}
-  \end{columns}
-\end{frame}
 
-% ---- 3.4 Adaptive PRF + RRF -------------------------------------
-\begin{frame}{自适应补检索：Adaptive PRF + RRF}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.55\textwidth}
-    \begin{block}{触发条件（启发式）}
-      \footnotesize
-      给定首轮 Top-1 重排分 $s_1$ 与阈值 $\tau$：
+    \column{0.52\textwidth}
+    \begin{block}{Adaptive PRF 判定逻辑}
       \[
-        \text{Trigger PRF} \;=\;
-        \begin{cases}
-          \text{True}, & s_1 < \tau \quad\text{(\hlb{证据不足})} \\
-          \text{False}, & s_1 \ge \tau
-        \end{cases}
+        s_1 < \tau \Rightarrow \text{Expand query and retrieve again}
       \]
-      触发后从 Top-1 提取关键词，拼接为扩展查询 $q'$，
-      再做一轮 retrieval + rerank。
+      其中 $s_1$ 为首轮 Top-1 重排分，RRF 融合公式为：
+      \[
+        \mathrm{RRF}(d)=\sum \frac{1}{60+\mathrm{rank}(d)}
+      \]
     \end{block}
-    \begin{exampleblock}{Reciprocal Rank Fusion}
-      \footnotesize
-      $\displaystyle \text{RRF}(d) = \sum_{r \in \{r_q, r_{q'}\}} \frac{1}{k + r(d)}, \quad k = 60$
-    \end{exampleblock}
-
-    \column{0.45\textwidth}
-    \centering
-    \begin{tikzpicture}[
-        node distance=0.35cm,
-        box/.style={draw=ZjuBlue, fill=ZjuBlue!5, rounded corners=2pt,
-                    minimum width=3.0cm, minimum height=0.7cm,
-                    font=\scriptsize, align=center, thick},
-        dec/.style={draw=ZjuRed, fill=ZjuRed!8, diamond, aspect=2,
-                    inner sep=1pt, font=\scriptsize, align=center, thick},
-        arr/.style={-{Stealth[length=2mm]}, thick, ZjuBlue}
-      ]
-      \node[box] (q)  {Query $q$};
-      \node[box, below=of q] (r1) {Retrieval + Rerank};
-      \node[dec, below=of r1] (d) {$s_1 < \tau$?};
-      \node[box, below left=0.5cm and -0.2cm of d, fill=ZjuRed!10] (kw) {扩展关键词 → $q'$};
-      \node[box, below=of kw] (r2) {二轮 Retrieval + Rerank};
-      \node[box, below right=0.5cm and -0.2cm of d, fill=AccentTeal!10] (rrf) {RRF 融合};
-      \node[box, below=of rrf, fill=AccentGold!20] (out) {Top-$k$ Evidence};
-
-      \draw[arr] (q) -- (r1);
-      \draw[arr] (r1) -- (d);
-      \draw[arr] (d.west) -| node[above, font=\tiny, ZjuRed]{Yes} (kw.north);
-      \draw[arr] (kw) -- (r2);
-      \draw[arr] (r2) |- (rrf);
-      \draw[arr] (d.east) -| node[above, font=\tiny, ZjuBlue]{No} (rrf.north);
-      \draw[arr] (rrf) -- (out);
-    \end{tikzpicture}
-  \end{columns}
-\end{frame}
-
-% ---- 3.5 CoVe 后验验证 ------------------------------------------
-\begin{frame}{后验验证：CoVe 启发式 / NLI 软置信}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.55\textwidth}
-    \begin{block}{核心流程}
-      \footnotesize
-      \begin{enumerate}
-        \item \hlb{声明切分}：把生成结果切为若干原子声明 $c_i$。
-        \item \hlb{支持度比对}：计算每个 $c_i$ 与证据集的支持分（词项覆盖率 / 链路分数 / 可替换为 NLI）。
-        \item \hlb{阈值判决}：
-          \begin{itemize}
-            \item 全部 $c_i$ 被支持 $\Rightarrow$ \hlt{Accepted}
-            \item 任一 $c_i$ 不支持或冲突 $\Rightarrow$ \hl{REJECTED → No-Answer}
-          \end{itemize}
-        \item \hlb{可追溯日志}：记录每条声明的支持得分、来源证据、最终判决。
-      \end{enumerate}
-    \end{block}
-
-    \column{0.45\textwidth}
-    \begin{alertblock}{阈值的 soft-strict 张力}
-      \footnotesize
-      \begin{tabular}{@{}lcc@{}}
-        \toprule
-        模式 & 拒答率 & 不安全接受率 \\ \midrule
-        Soft  ($\tau{=}0.50$) & 0.5\%  & \hl{44.0\%} \\
-        Strict ($\tau{=}0.90$) & \hl{98.5\%} & 0.5\% \\
-        \bottomrule
-      \end{tabular}
-      \\[0.4em]
-      \hl{当前启发式 CoVe 不存在 sweet spot} —— 软则漏放、严则误杀。\\
-      \hlt{这正是后续工作的关键切入口。}
+    \begin{alertblock}{设计动机}
+      不直接“多检索一些”，而是只在\hl{证据不足时}付出额外成本。
     \end{alertblock}
   \end{columns}
 \end{frame}
