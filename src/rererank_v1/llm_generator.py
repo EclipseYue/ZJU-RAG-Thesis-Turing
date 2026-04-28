@@ -107,7 +107,21 @@ def llm_generate_answer(
             temperature=0.1,  # Low temperature for factual QA
             max_tokens=100
         )
-        answer = response.choices[0].message.content.strip()
+        choice = response.choices[0] if getattr(response, "choices", None) else None
+        message = getattr(choice, "message", None) if choice is not None else None
+        raw_content = getattr(message, "content", "") if message is not None else ""
+        if raw_content is None:
+            raw_content = ""
+        answer = str(raw_content).strip()
+
+        if not answer:
+            logger.warning(
+                "LLM returned empty content via provider=%s model=%s. Falling back to heuristic generator.",
+                config.provider,
+                config.model,
+            )
+            fallback_answer = heuristic_generate_answer(query, results).strip()
+            return fallback_answer if fallback_answer else "No-Answer"
         
         # Normalize LLM "I don't know" variations to our standard rejection signal
         if "no-answer" in answer.lower() or "not contain enough information" in answer.lower():
@@ -116,4 +130,5 @@ def llm_generate_answer(
         return answer
     except Exception as e:
         logger.error("LLM API call failed via provider=%s model=%s: %s", config.provider, config.model, e)
-        return heuristic_generate_answer(query, results)
+        fallback_answer = heuristic_generate_answer(query, results).strip()
+        return fallback_answer if fallback_answer else "No-Answer"
