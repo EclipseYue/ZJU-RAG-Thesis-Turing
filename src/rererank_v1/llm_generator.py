@@ -1,11 +1,66 @@
 import os
 import json
 import logging
+import re
 from typing import List, Dict, Any, Optional
 
 from .llm_backends import build_openai_compat_client, create_chat_completion, resolve_openai_compat_config
 
 logger = logging.getLogger(__name__)
+
+
+def _postprocess_answer(query: str, answer: str) -> str:
+    text = (answer or "").strip()
+    if not text:
+        return "No-Answer"
+
+    lowered = text.lower()
+    if lowered in {"yes", "yes.", "yes!", "yes,"}:
+        return "Yes"
+    if lowered in {"no", "no.", "no!", "no,"}:
+        return "No"
+    if "no-answer" in lowered or "not enough information" in lowered:
+        return "No-Answer"
+
+    query_lower = query.lower()
+    if any(query_lower.startswith(prefix) for prefix in ("is ", "are ", "was ", "were ", "do ", "does ", "did ", "can ")):
+        if re.search(r"\byes\b", lowered):
+            return "Yes"
+        if re.search(r"\bno\b", lowered):
+            return "No"
+
+    text = re.sub(r"\s+", " ", text)
+    text = text.replace("\n", " ").strip()
+    text = re.sub(r"^(answer\s*:\s*)", "", text, flags=re.IGNORECASE).strip()
+
+    # Prefer the first short clause over an explanatory sentence.
+    first_clause = re.split(r"[.;\n]", text)[0].strip()
+    if first_clause:
+        text = first_clause
+
+    # Compress common definitional patterns to their subject/entity phrase.
+    for pattern in (
+        r"^(.{1,120}?)\s+is\s+",
+        r"^(.{1,120}?)\s+was\s+",
+        r"^(.{1,120}?)\s+are\s+",
+        r"^(.{1,120}?)\s+were\s+",
+    ):
+        match = re.match(pattern, text, flags=re.IGNORECASE)
+        if match:
+            candidate = match.group(1).strip(" ,.-")
+            if candidate:
+                text = candidate
+                break
+
+    # For "who/what/where/when" questions, keep the answer terse.
+    if len(text.split()) > 12:
+        comma_clause = text.split(",")[0].strip()
+        if comma_clause:
+            text = comma_clause
+    if len(text.split()) > 12:
+        text = " ".join(text.split()[:12]).strip(" ,.-")
+
+    return text if text else "No-Answer"
 
 # Fallback heuristic if API is not configured or fails
 def heuristic_generate_answer(query: str, results) -> str:
@@ -37,9 +92,9 @@ def heuristic_generate_answer(query: str, results) -> str:
             overlap = len(q_tokens & s_tokens)
             if overlap > 0: candidates.append((overlap * 0.5, sent))
     if not candidates:
-        return results[0].get("text", "")[:120]
+        return _postprocess_answer(query, results[0].get("text", "")[:120])
     candidates.sort(key=lambda x: x[0], reverse=True)
-    return candidates[0][1][:200]
+    return _postprocess_answer(query, candidates[0][1][:200])
 
 
 def llm_generate_answer(
@@ -89,7 +144,10 @@ def llm_generate_answer(
     prompt = (
         "You are an expert QA assistant. Answer the user's question STRICTLY based on the provided Context.\n"
         "If the Context does not contain enough information to answer the question, output exactly 'No-Answer'.\n"
-        "Keep your answer concise and factual (e.g., just the entity name, date, or short phrase if possible).\n\n"
+        "Return only the final answer, not an explanation.\n"
+        "Prefer the shortest correct answer possible: a single entity, date, number, place, organization, or short phrase.\n"
+        "For yes/no questions, output exactly 'Yes' or 'No'.\n"
+        "Do not quote long evidence sentences. Do not restate the question. Do not add reasoning.\n\n"
         f"Context:\n{context_str}\n\n"
         f"Question: {query}\n"
         "Answer:"
@@ -122,12 +180,8 @@ def llm_generate_answer(
             )
             fallback_answer = heuristic_generate_answer(query, results).strip()
             return fallback_answer if fallback_answer else "No-Answer"
-        
-        # Normalize LLM "I don't know" variations to our standard rejection signal
-        if "no-answer" in answer.lower() or "not contain enough information" in answer.lower():
-            return "No-Answer"
-            
-        return answer
+
+        return _postprocess_answer(query, answer)
     except Exception as e:
         logger.error("LLM API call failed via provider=%s model=%s: %s", config.provider, config.model, e)
         fallback_answer = heuristic_generate_answer(query, results).strip()
