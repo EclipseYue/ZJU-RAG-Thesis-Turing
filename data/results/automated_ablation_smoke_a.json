@@ -1,0 +1,20 @@
+[
+  {
+    "Config": "A_Baseline",
+    "Hetero": false,
+    "Adaptive": false,
+    "CoVe": false,
+    "Samples": 20,
+    "MockMode": false,
+    "Device": "cuda",
+    "SupportRecall@K": 80.0,
+    "SupportAllHit@K": 60.0,
+    "ExactMatch": 30.0,
+    "F1_Score": 41.07,
+    "Avg_Tokens": 1130.05,
+    "Avg_Latency_ms": 254.37,
+    "Avg_Retrieval_Calls": 2.0,
+    "Avg_Reranker_Calls": 2.0,
+    "No_Answer_Rate_Percent": 0.0
+  }
+]
