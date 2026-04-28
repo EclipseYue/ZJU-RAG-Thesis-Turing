@@ -1,0 +1,24 @@
+{
+  "route": "A",
+  "stage": "A3_real_heterogeneous",
+  "dataset": "hybridqa",
+  "split": "validation",
+  "samples": 100,
+  "local_data_dir": "data/datasets",
+  "offline": true,
+  "baseline": {
+    "name": "llamaindex_hybridqa",
+    "text_top_k": 5,
+    "table_top_k": 5,
+    "fusion": "late_fusion"
+  },
+  "metrics": [
+    "exact_match",
+    "f1",
+    "table_recall_at_k",
+    "text_recall_at_k",
+    "latency_ms",
+    "token_count"
+  ],
+  "notes": "Route A real text+table target. Loader and table serialization are pending."
+}

@@ -1,5 +1,7 @@
 # V6 迭代计划：真实模型接入与安全增强
 
+> 历史说明：本文档形成于旧路线阶段，保留作研究档案。当前正式路线请以 `docs/ROUTE_A_ARCHITECTURE.md` 为准。
+
 ## 概述
 
 在V1–V5已建立的渐进式评测框架基础上，V6的核心目标是从“Mock评测/近似打分”过渡到“真实模型推理”，并进一步增强无答案安全机制与系统可扩展能力，使实验结果更贴近可部署形态，同时保持可复现、可对比的迭代记录方式。
@@ -191,7 +193,7 @@ class AdaptiveThreshold:
 1. **Environment Setup**: Install real model dependencies
 2. **Baseline Measurement**: Establish current mock system performance
 3. **Incremental Integration**: Phase-wise replacement of mock components
-4. **Continuous Monitoring**: Real-time performance tracking dashboard
+4. **Continuous Monitoring**: 历史上曾设想接入 dashboard，但该方向已不再作为当前仓库主线
 
 ---
 

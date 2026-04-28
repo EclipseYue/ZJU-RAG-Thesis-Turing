@@ -55,7 +55,7 @@ import json
 from datetime import datetime
 
 def save_benchmark_result(metrics, description="Benchmark Run"):
-    """Save results to JSON for the dashboard."""
+    """Save historical benchmark results to research_history.json."""
     data_file = data_dir() / "research_history.json"
     data_file.parent.mkdir(parents=True, exist_ok=True)
     
@@ -84,7 +84,7 @@ def save_benchmark_result(metrics, description="Benchmark Run"):
     with open(data_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2)
     
-    print(f"\n✅ Results saved to {data_file} for visualization.")
+    print(f"\n✅ Results saved to {data_file} as historical benchmark records.")
 
 def run_benchmark():
     print("="*60)

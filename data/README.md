@@ -1,5 +1,5 @@
 # 数据与结果
 
-- `research_history.json`：实验迭代与计划数据（供 `app.py` 仪表盘读取）。
-- `results/`：实验输出结果（JSON）。
-
+- `datasets/`：离线数据集缓存与导出文件
+- `results/`：实验输出结果（JSON）
+- `research_history.json`：历史研究记录，保留作参考，不再绑定任何 Web 仪表盘入口

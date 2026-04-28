@@ -1,0 +1,27 @@
+{
+  "route": "A",
+  "stage": "A1_text_baseline",
+  "dataset": "hotpotqa",
+  "split": "validation",
+  "samples": 100,
+  "local_data_dir": "data/datasets",
+  "offline": true,
+  "baseline": {
+    "name": "llamaindex_text",
+    "embed_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "top_k": 5,
+    "chunk_size": 512,
+    "chunk_overlap": 64,
+    "cache_dir": "auto",
+    "local_files_only": true
+  },
+  "metrics": [
+    "exact_match",
+    "f1",
+    "support_recall_at_k",
+    "support_all_hit_at_k",
+    "latency_ms",
+    "token_count"
+  ],
+  "notes": "Route A first baseline. This preset is a configuration target; do not treat legacy pseudo-hetero results as the final baseline."
+}

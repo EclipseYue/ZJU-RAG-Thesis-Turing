@@ -150,7 +150,7 @@ def detect_no_answer(scores, documents, query):
 - 重排序模型：BAAI/bge-reranker-base
 - 向量数据库：FAISS
 - 图数据库：Neo4j
-- Web框架：Flask
+- Web框架：Flask（历史原型阶段，当前主线已移除 Web 看板）
 
 **关键实现细节：**
 - 批处理优化：支持8个文档的并行处理
@@ -358,7 +358,7 @@ V6      0.409   0.521   真实模型验证成功
 - PyTorch 1.13+
 - Transformers 4.21+
 - FAISS 1.7+
-- Flask 2.0+
+- Flask 2.0+（历史依赖，当前主线不再必需）
 
 **模型配置：**
 - 嵌入模型: sentence-transformers/all-MiniLM-L6-v2
@@ -378,7 +378,7 @@ pip install -r requirements.txt
 python v6_experiment.py
 
 # 启动Web界面
-python app.py
+# 历史命令：旧 Flask 看板入口，当前已移除
 ```
 
 **API使用示例：**

@@ -2,17 +2,32 @@
 
 本文件统一整合仓库中的实验入口、配置方式、离线数据说明、LLM/API 后端说明、结果落盘约定与论文更新流程。后续如需执行实验，请优先以本文档为准。
 
+当前仓库已明确选择 **Route A**：
+
+- 保留现有实验壳与论文联动机制
+- 用成熟框架重建可信 baseline
+- 将真实异构任务作为后续主线
+
+路线总览见：
+- [Route A 架构与迁移蓝图](/Users/eclipse/code/RAG/Rererank_v1/docs/ROUTE_A_ARCHITECTURE.md)
+- [GPU 服务器迁移与真实 API 实验运行手册](/Users/eclipse/code/RAG/Rererank_v1/docs/GPU_SERVER_RUNBOOK.md)
+
 ## 1. 目标与范围
 
 本项目当前的实验分为三层：
 
-- 原型层：验证检索、重排序、异构接入和验证逻辑能否跑通。
-- 主结果层：围绕 HotpotQA / 2Wiki 的主消融、控制组、分桶和验证器诊断。
-- 论文回填层：把结果 JSON、图表和结论同步到 LaTeX 论文中。
+- 迁移层：清理旧原型、搭建新 baseline 接口、验证实验壳可复用性。
+- 原型/诊断层：保留旧 HotpotQA / 2Wiki 消融与失败分析，作为历史阶段参考。
+- 正式主线层：未来在成熟 baseline 与真实异构任务上重跑关键实验，并回填论文。
 
 本文档只负责说明如何配置和执行，不替你自动跑实验。
 
 ## 2. 关键实验入口
+
+说明：
+
+- 现有入口大多仍服务于“旧 baseline + 诊断实验”。
+- Route A 下，这些入口优先被视为 **实验壳**，不是最终 baseline 本身。
 
 ### 2.1 主消融入口
 
@@ -51,6 +66,47 @@ python experiments/run_false_rejection_diagnostics.py --config experiments/confi
 python experiments/run_verifier_comparison.py --config experiments/configs/verifier_comparison.json
 python experiments/run_verifier_comparison.py --config experiments/configs/verifier_comparison.json --real-cove
 ```
+
+### 2.3 Route A baseline 入口
+
+文件：`experiments/run_route_a_baseline.py`
+
+用途：
+- 运行成熟框架底座的 Route A baseline
+- 当前支持 `llamaindex_text`
+- 默认读取 `experiments/presets/route_a_hotpotqa.json`
+
+小样本试跑命令：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hotpotqa.json \
+  --samples 20 \
+  --generator-backend heuristic \
+  --output-name route_a_hotpotqa_smoke.json
+```
+
+若本地 PyPI 证书或代理不稳定，Route A 依赖建议安装到仓库 `.venv`：
+
+```bash
+.venv/bin/pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+  --trusted-host pypi.tuna.tsinghua.edu.cn \
+  -r requirements-route-a.txt
+```
+
+兼容普通环境的命令如下：
+
+```bash
+python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hotpotqa.json \
+  --samples 20 \
+  --generator-backend heuristic \
+  --output-name route_a_hotpotqa_smoke.json
+```
+
+迁移到 GPU 服务器后的推荐执行顺序，见：
+
+- [GPU 服务器迁移与真实 API 实验运行手册](/Users/eclipse/code/RAG/Rererank_v1/docs/GPU_SERVER_RUNBOOK.md)
 
 ## 3. 数据与离线模式
 
@@ -157,6 +213,28 @@ python experiments/run_all.py \
   --real-cove
 ```
 
+## 4.6 迁移到 GPU 服务器后的建议
+
+当前推荐做法不是“把所有实验都切成真实 API 全量跑”，而是：
+
+- Route A baseline 作为正式主线
+- 旧 `run_all.py` / `run_verifier_comparison.py` / `run_false_rejection_diagnostics.py` 作为小样本诊断线
+- 真实 API 只在关键实验上开启
+- 旧消融壳优先使用 `--only-configs` 与 `--checkpoint-every`
+
+推荐优先顺序：
+
+1. Route A heuristic smoke
+2. Route A 真实生成 smoke
+3. Route A 100 样本真实生成 baseline
+4. 旧 `A_Baseline` 20 样本 smoke
+5. 旧 `A3_Baseline_CoVe / D_CoVe_Full` 20 样本 smoke
+6. verifier comparison / false rejection diagnostics 小样本真实 CoVe
+
+详细命令和迁移步骤见：
+
+- [GPU 服务器迁移与真实 API 实验运行手册](/Users/eclipse/code/RAG/Rererank_v1/docs/GPU_SERVER_RUNBOOK.md)
+
 ## 5. 配置文件
 
 当前主配置位于 `experiments/configs/`：
@@ -165,6 +243,11 @@ python experiments/run_all.py \
 - `false_rejection_diagnostics.json`
 - `bucket_gain_study.json`
 - `verifier_comparison.json`
+
+Route A 的新预设位于 `experiments/presets/`：
+
+- `route_a_hotpotqa.json`
+- `route_a_hybridqa.json`
 
 建议做法：
 - 把数据路径、设备、离线模式写进配置文件
@@ -222,6 +305,7 @@ latexmk -g
 - 当前“异构数据”主要是伴生式规则构造，不是真实独立表格库/图谱库。
 - 当前 CoVe 默认是启发式近似验证，不应在论文里无条件表述为“完整复现的真实 LLM CoVe”。
 - 真实 LLM 生成/验证接口已经可配置，但是否启用是实验选择，不是默认行为。
+- 现有 `run_all.py` 等入口适合做迁移前的诊断与小规模补充验证，但不应继续被视为最终可信 baseline 的唯一来源。
 
 ## 9. 推荐执行顺序
 

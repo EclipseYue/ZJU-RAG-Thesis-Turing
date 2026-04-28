@@ -1,0 +1,14 @@
+[
+  {
+    "Config": "llamaindex_text",
+    "Route": "A",
+    "Stage": "A1_text_baseline",
+    "Dataset": "hotpotqa",
+    "Samples": 2,
+    "SupportRecall@K": 75.0,
+    "SupportAllHit@K": 50.0,
+    "ExactMatch": 0.0,
+    "F1_Score": 0.0,
+    "Avg_Latency_ms": 12.08
+  }
+]

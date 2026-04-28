@@ -1,5 +1,7 @@
 # V6迭代快速启动指南
 
+> 历史说明：本文档是旧路线阶段计划，保留作档案参考。当前仓库正式路线请以 `docs/ROUTE_A_ARCHITECTURE.md` 与 `docs/EXPERIMENT_MASTER_GUIDE.md` 为准。
+
 ## 🚀 立即开始
 
 ### 1. 环境准备
@@ -15,8 +17,7 @@ pip install aiohttp  # 用于异步处理
 # 运行V5最终验证
 python reranker_study.py --phase v5 --validate
 
-# 检查可视化仪表板
-python app.py  # 访问 http://localhost:5000
+# 旧版可视化仪表板已退役，不再作为当前路线入口
 ```
 
 ### 3. V6核心组件启动
