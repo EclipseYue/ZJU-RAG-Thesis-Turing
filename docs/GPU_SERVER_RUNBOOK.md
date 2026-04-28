@@ -140,7 +140,7 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
   --preset experiments/presets/route_a_hotpotqa.json \
   --samples 20 \
   --generator-backend heuristic \
-  --output-name route_a_hotpotqa_server_smoke.json
+  --output-name route_a_hotpotqa_heuristic_server_smoke.json
 ```
 
 目标：
@@ -159,8 +159,9 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
 
 说明：
 
-- 若 `local_api_overrides.json` 已配置真实生成端，会直接走真实 API
-- 若没有，则会回退到默认逻辑
+- 当前 `route_a_hotpotqa.json` 已显式声明 `generator_backend=deepseek`、`generator_model=deepseek-v4-flash`
+- 若 `local_api_overrides.json` 中也配置了生成端，则以私有配置为准
+- 只有你显式传入 `--generator-backend heuristic` 时，才会改走启发式
 
 目标：
 
@@ -279,7 +280,7 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
 
 ### Route A
 
-- `route_a_hotpotqa_server_smoke.json`
+- `route_a_hotpotqa_heuristic_server_smoke.json`
 - `route_a_hotpotqa_realapi_smoke.json`
 - `route_a_hotpotqa_realapi_100.json`
 

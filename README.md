@@ -74,8 +74,17 @@ Route A baseline 试跑入口：
 .venv/bin/python experiments/run_route_a_baseline.py \
   --preset experiments/presets/route_a_hotpotqa.json \
   --samples 20 \
+  --output-name route_a_hotpotqa_realapi_smoke.json
+```
+
+如果只是排查检索链，不希望消耗真实 API，再显式切回启发式：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hotpotqa.json \
+  --samples 20 \
   --generator-backend heuristic \
-  --output-name route_a_hotpotqa_smoke.json
+  --output-name route_a_hotpotqa_heuristic_smoke.json
 ```
 
 Route A 额外依赖：

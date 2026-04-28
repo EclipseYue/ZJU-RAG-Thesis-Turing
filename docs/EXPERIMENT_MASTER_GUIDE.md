@@ -76,14 +76,29 @@ python experiments/run_verifier_comparison.py --config experiments/configs/verif
 - 当前支持 `llamaindex_text`
 - 默认读取 `experiments/presets/route_a_hotpotqa.json`
 
-小样本试跑命令：
+默认小样本试跑命令：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hotpotqa.json \
+  --samples 20 \
+  --output-name route_a_hotpotqa_realapi_smoke.json
+```
+
+说明：
+
+- 当前 `route_a_hotpotqa.json` 已显式声明 `generator_backend=deepseek`、`generator_model=deepseek-v4-flash`
+- 若 `experiments/configs/local_api_overrides.json` 中也存在生成端配置，则会继续以该私有配置为准
+- 只有在你显式传入 `--generator-backend heuristic` 时，才会改走启发式
+
+如果只是排查检索链，不希望消耗真实 API：
 
 ```bash
 .venv/bin/python experiments/run_route_a_baseline.py \
   --preset experiments/presets/route_a_hotpotqa.json \
   --samples 20 \
   --generator-backend heuristic \
-  --output-name route_a_hotpotqa_smoke.json
+  --output-name route_a_hotpotqa_heuristic_smoke.json
 ```
 
 若本地 PyPI 证书或代理不稳定，Route A 依赖建议安装到仓库 `.venv`：
@@ -100,8 +115,7 @@ python experiments/run_verifier_comparison.py --config experiments/configs/verif
 python experiments/run_route_a_baseline.py \
   --preset experiments/presets/route_a_hotpotqa.json \
   --samples 20 \
-  --generator-backend heuristic \
-  --output-name route_a_hotpotqa_smoke.json
+  --output-name route_a_hotpotqa_realapi_smoke.json
 ```
 
 迁移到 GPU 服务器后的推荐执行顺序，见：

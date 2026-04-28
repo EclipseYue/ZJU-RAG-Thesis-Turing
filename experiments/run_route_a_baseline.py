@@ -136,6 +136,8 @@ def summarize(config: Dict[str, Any], details: List[Dict[str, Any]]) -> Dict[str
         "Route": config.get("route", "A"),
         "Stage": config.get("stage", "A1_text_baseline"),
         "Dataset": config["dataset"],
+        "GeneratorBackend": config.get("generator_backend", "heuristic"),
+        "GeneratorModel": config.get("generator_model", ""),
         "Samples": len(details),
         "SupportRecall@K": round(mean(item["support_recall"] for item in details) * 100, 2),
         "SupportAllHit@K": round(mean(item["support_all_hit"] for item in details) * 100, 2),
@@ -169,6 +171,9 @@ def main() -> None:
     if args.generator_model is not None:
         config["generator_model"] = args.generator_model
 
+    config.setdefault("generator_backend", "deepseek")
+    config.setdefault("generator_model", "deepseek-v4-flash")
+
     bundle = load_multihop_sample(
         config["dataset"],
         split=config.get("split", "validation"),
@@ -196,6 +201,9 @@ def main() -> None:
             "dataset": config["dataset"],
             "split": config.get("split", "validation"),
             "samples": len(details),
+            "generator_backend": config.get("generator_backend", "heuristic"),
+            "generator_model": config.get("generator_model", ""),
+            "uses_real_api": config.get("generator_backend", "heuristic") != "heuristic",
         },
         "matrix": matrix,
         "details": details,
@@ -209,6 +217,10 @@ def main() -> None:
     with open(out_dir / report_name, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
+    print(
+        f"Effective generator: backend={config.get('generator_backend', 'heuristic')} "
+        f"model={config.get('generator_model', '') or '<default>'}"
+    )
     print(json.dumps(matrix[0], ensure_ascii=False, indent=2))
     print(f"Saved matrix: {out_dir / args.output_name}")
     print(f"Saved report: {out_dir / report_name}")

@@ -6,6 +6,8 @@
   "samples": 100,
   "local_data_dir": "data/datasets",
   "offline": true,
+  "generator_backend": "deepseek",
+  "generator_model": "deepseek-v4-flash",
   "baseline": {
     "name": "llamaindex_text",
     "embed_model": "sentence-transformers/all-MiniLM-L6-v2",

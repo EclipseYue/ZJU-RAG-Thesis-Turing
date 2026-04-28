@@ -63,7 +63,7 @@ ls experiments/configs/local_api_overrides.json
 任务：
 
 - 先在服务器上确认 Route A baseline 能正常跑
-- 不急着打开真实生成
+- 先只检查检索、嵌入、落盘链路
 
 命令：
 
@@ -72,12 +72,12 @@ ls experiments/configs/local_api_overrides.json
   --preset experiments/presets/route_a_hotpotqa.json \
   --samples 20 \
   --generator-backend heuristic \
-  --output-name route_a_hotpotqa_server_smoke.json
+  --output-name route_a_hotpotqa_heuristic_server_smoke.json
 ```
 
 预期产物：
 
-- `data/results/route_a_hotpotqa_server_smoke.json`
+- `data/results/route_a_hotpotqa_heuristic_server_smoke.json`
 
 ### 3. Route A 真实生成 smoke
 
@@ -85,6 +85,7 @@ ls experiments/configs/local_api_overrides.json
 
 - 验证 Route A + 真实 API 生成链是否稳定
 - 检查空答案、长句复述和极端慢速是否仍存在
+- 当前这一条默认就是**真实 API**
 
 命令：
 
@@ -114,6 +115,7 @@ ls experiments/configs/local_api_overrides.json
 
 - 这一步优先级高于旧版大样本消融
 - 只要这一步还没稳，旧 baseline 就不应该继续扩样本
+- 该命令默认使用 `deepseek / deepseek-v4-flash`，除非你显式改回 heuristic
 
 ### 5. 旧主消融单配置 smoke test
 
