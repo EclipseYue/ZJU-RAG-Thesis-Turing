@@ -28,6 +28,21 @@ def load_local_private_overrides() -> Dict[str, Any]:
         return json.load(f)
 
 
+def cli_overrides(parser: argparse.ArgumentParser, args: argparse.Namespace) -> Dict[str, Any]:
+    argv = sys.argv[1:]
+    overrides: Dict[str, Any] = {}
+    for action in parser._actions:
+        if not action.option_strings or action.dest == "help":
+            continue
+        present = any(
+            opt in argv or any(token.startswith(f"{opt}=") for token in argv)
+            for opt in action.option_strings
+        )
+        if present:
+            overrides[action.dest] = getattr(args, action.dest)
+    return overrides
+
+
 def normalize_answer(text: str) -> str:
     text = (text or "").strip().lower()
     text = re.sub(r"\b(a|an|the)\b", " ", text)
@@ -299,6 +314,31 @@ def update_research_history(entry: Dict[str, Any]) -> None:
         json.dump(history, f, ensure_ascii=False, indent=2)
 
 
+def save_progress(
+    output_name: str,
+    run_info: Dict[str, Any],
+    results_matrix: List[Dict[str, Any]],
+    detailed_runs: List[Dict[str, Any]],
+    progress: Dict[str, Any],
+) -> None:
+    out_dir = results_dir()
+    out_dir.mkdir(parents=True, exist_ok=True)
+    matrix_path = out_dir / output_name
+    progress_path = out_dir / f"{Path(output_name).stem}_progress.json"
+
+    with open(matrix_path, "w", encoding="utf-8") as f:
+        json.dump(results_matrix, f, ensure_ascii=False, indent=2)
+
+    payload = {
+        "run_info": run_info,
+        "matrix": results_matrix,
+        "details": detailed_runs,
+        "progress": progress,
+    }
+    with open(progress_path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+
+
 def run_automated_ablation_with_tracking(
     dataset_name: str = "hotpotqa",
     split: str = "validation",
@@ -322,6 +362,8 @@ def run_automated_ablation_with_tracking(
     generator_base_url: str | None = None,
     verifier_api_key: str | None = None,
     verifier_base_url: str | None = None,
+    only_configs: List[str] | None = None,
+    checkpoint_every: int = 5,
 ) -> Dict[str, Any]:
     if not HF_DATASETS_AVAILABLE:
         raise ImportError("缺少 `datasets` 依赖，无法加载真实基准数据。")
@@ -452,8 +494,26 @@ def run_automated_ablation_with_tracking(
         },
     ])
 
+    if only_configs:
+        allowed = set(only_configs)
+        configurations = [cfg for cfg in configurations if cfg["name"] in allowed]
+        logger.info("Filtered configurations to: %s", ", ".join(cfg["name"] for cfg in configurations))
+        if not configurations:
+            raise ValueError(f"No configurations matched only_configs={only_configs}")
+
     results_matrix: List[Dict[str, Any]] = []
     detailed_runs: List[Dict[str, Any]] = []
+    run_info = {
+        "timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
+        "dataset_name": dataset_name,
+        "split": split,
+        "num_samples": num_samples,
+        "top_k": top_k,
+        "force_mock": force_mock,
+        "device": device,
+        "only_configs": only_configs or [],
+        "checkpoint_every": checkpoint_every,
+    }
 
     for config in configurations:
         if use_wandb and wandb is not None:
@@ -474,7 +534,29 @@ def run_automated_ablation_with_tracking(
             rag.add_evidence_units(text_bundle["corpus"])
             queries = text_bundle["queries"]
 
-        query_results = [evaluate_query(rag, query_item, config, top_k=top_k) for query_item in queries]
+        query_results = []
+        for idx, query_item in enumerate(queries, start=1):
+            query_results.append(evaluate_query(rag, query_item, config, top_k=top_k))
+            if checkpoint_every > 0 and (idx % checkpoint_every == 0 or idx == len(queries)):
+                partial_summary = summarize_results(config, query_results, rag)
+                current_details = detailed_runs + [{
+                    "config": config,
+                    "summary": partial_summary,
+                    "queries": query_results,
+                }]
+                save_progress(
+                    output_name=output_name,
+                    run_info=run_info,
+                    results_matrix=results_matrix + [partial_summary],
+                    detailed_runs=current_details,
+                    progress={
+                        "status": "running",
+                        "current_config": config["name"],
+                        "completed_configs": [item["Config"] for item in results_matrix],
+                        "completed_queries_in_current_config": idx,
+                        "total_queries_in_current_config": len(queries),
+                    },
+                )
         summary = summarize_results(config, query_results, rag)
         results_matrix.append(summary)
         detailed_runs.append({
@@ -482,6 +564,19 @@ def run_automated_ablation_with_tracking(
             "summary": summary,
             "queries": query_results,
         })
+        save_progress(
+            output_name=output_name,
+            run_info=run_info,
+            results_matrix=results_matrix,
+            detailed_runs=detailed_runs,
+            progress={
+                "status": "running",
+                "current_config": config["name"],
+                "completed_configs": [item["Config"] for item in results_matrix],
+                "completed_queries_in_current_config": len(queries),
+                "total_queries_in_current_config": len(queries),
+            },
+        )
 
         if use_wandb and wandb is not None:
             wandb.log(summary)
@@ -490,27 +585,32 @@ def run_automated_ablation_with_tracking(
     out_dir = results_dir()
     out_dir.mkdir(parents=True, exist_ok=True)
     matrix_path = out_dir / output_name
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    timestamp = run_info["timestamp"]
     report_path = out_dir / f"{Path(output_name).stem}_report_{timestamp}.json"
 
     with open(matrix_path, "w", encoding="utf-8") as f:
         json.dump(results_matrix, f, ensure_ascii=False, indent=2)
 
     report_payload = {
-        "run_info": {
-            "timestamp": timestamp,
-            "dataset_name": dataset_name,
-            "split": split,
-            "num_samples": num_samples,
-            "top_k": top_k,
-            "force_mock": force_mock,
-            "device": device,
-        },
+        "run_info": run_info,
         "matrix": results_matrix,
         "details": detailed_runs,
     }
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(report_payload, f, ensure_ascii=False, indent=2)
+    save_progress(
+        output_name=output_name,
+        run_info=run_info,
+        results_matrix=results_matrix,
+        detailed_runs=detailed_runs,
+        progress={
+            "status": "completed",
+            "current_config": None,
+            "completed_configs": [item["Config"] for item in results_matrix],
+            "completed_queries_in_current_config": 0,
+            "total_queries_in_current_config": 0,
+        },
+    )
 
     update_research_history({
         "id": timestamp,
@@ -554,37 +654,39 @@ def build_argparser() -> argparse.ArgumentParser:
     parser.add_argument("--verifier-api-key", default=None, help="Optional explicit API key for verifier backend.")
     parser.add_argument("--verifier-base-url", default=None, help="Optional explicit base URL for verifier backend.")
     parser.add_argument("--real-cove", action="store_true", help="Force real LLM-based CoVe verification using verifier backend/model settings.")
+    parser.add_argument("--only-configs", nargs="+", default=None, help="Optional config names to run, e.g. A_Baseline A3_Baseline_CoVe.")
+    parser.add_argument("--checkpoint-every", type=int, default=5, help="Save incremental progress every N queries.")
     return parser
 
 
-def load_config(args: argparse.Namespace) -> Dict[str, Any]:
-    merged = vars(args).copy()
+def load_config(parser: argparse.ArgumentParser, args: argparse.Namespace) -> Dict[str, Any]:
+    merged = parser.parse_args([]).__dict__.copy()
     merged.update(load_local_private_overrides())
-    if not args.config:
-        return merged
+    if args.config:
+        config_path = Path(args.config).expanduser()
+        candidate_paths = [config_path]
+        if config_path.is_absolute():
+            candidate_paths.append(repo_root() / "experiments" / "configs" / config_path.name)
+        else:
+            candidate_paths.append((repo_root() / config_path).resolve())
+            candidate_paths.append(repo_root() / "experiments" / "configs" / config_path.name)
 
-    config_path = Path(args.config).expanduser()
-    candidate_paths = [config_path]
-    if config_path.is_absolute():
-        candidate_paths.append(repo_root() / "experiments" / "configs" / config_path.name)
-    else:
-        candidate_paths.append((repo_root() / config_path).resolve())
-        candidate_paths.append(repo_root() / "experiments" / "configs" / config_path.name)
+        resolved_path = next((path for path in candidate_paths if path.exists()), None)
+        if resolved_path is None:
+            searched = ", ".join(str(path) for path in candidate_paths)
+            raise FileNotFoundError(f"Could not find config file. Searched: {searched}")
 
-    resolved_path = next((path for path in candidate_paths if path.exists()), None)
-    if resolved_path is None:
-        searched = ", ".join(str(path) for path in candidate_paths)
-        raise FileNotFoundError(f"Could not find config file. Searched: {searched}")
-
-    with open(resolved_path, "r", encoding="utf-8") as f:
-        config = json.load(f)
-    merged.update(config)
+        with open(resolved_path, "r", encoding="utf-8") as f:
+            config = json.load(f)
+        merged.update(config)
+    merged.update(cli_overrides(parser, args))
     return merged
 
 
 def main() -> None:
-    args = build_argparser().parse_args()
-    config = load_config(args)
+    parser = build_argparser()
+    args = parser.parse_args()
+    config = load_config(parser, args)
     verifier_backend = config.get("verifier_backend", "heuristic")
     if config.get("real_cove", False) and verifier_backend == "heuristic":
         verifier_backend = "deepseek"
@@ -611,6 +713,8 @@ def main() -> None:
         verifier_model=config.get("verifier_model", "deepseek-v4-flash"),
         verifier_api_key=config.get("verifier_api_key"),
         verifier_base_url=config.get("verifier_base_url"),
+        only_configs=config.get("only_configs"),
+        checkpoint_every=int(config.get("checkpoint_every", 5)),
     )
 
 
