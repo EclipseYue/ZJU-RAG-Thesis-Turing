@@ -743,6 +743,35 @@
         "matrix": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_a.json",
         "report": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_a_report_20260428_021840.json"
       }
+    },
+    {
+      "id": "20260428_022737",
+      "timestamp": "2026-04-28 02:28:52",
+      "description": "Automated ablation on hotpotqa (20 samples)",
+      "metrics": [
+        {
+          "Config": "A_Baseline",
+          "Hetero": false,
+          "Adaptive": false,
+          "CoVe": false,
+          "Samples": 20,
+          "MockMode": false,
+          "Device": "cuda",
+          "SupportRecall@K": 80.0,
+          "SupportAllHit@K": 60.0,
+          "ExactMatch": 30.0,
+          "F1_Score": 41.07,
+          "Avg_Tokens": 1130.05,
+          "Avg_Latency_ms": 252.4,
+          "Avg_Retrieval_Calls": 2.0,
+          "Avg_Reranker_Calls": 2.0,
+          "No_Answer_Rate_Percent": 0.0
+        }
+      ],
+      "artifacts": {
+        "matrix": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_a_v2.json",
+        "report": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_a_v2_report_20260428_022737.json"
+      }
     }
   ],
   "plan": [
