@@ -1,6 +1,6 @@
 {
   "run_info": {
-    "timestamp": "20260428_031503",
+    "timestamp": "20260428_023918",
     "dataset_name": "hotpotqa",
     "split": "validation",
     "num_samples": 20,
@@ -23,10 +23,10 @@
       "Device": "cuda",
       "SupportRecall@K": 80.0,
       "SupportAllHit@K": 60.0,
-      "ExactMatch": 25.0,
-      "F1_Score": 34.37,
+      "ExactMatch": 30.0,
+      "F1_Score": 45.49,
       "Avg_Tokens": 1130.05,
-      "Avg_Latency_ms": 251.52,
+      "Avg_Latency_ms": 251.46,
       "Avg_Retrieval_Calls": 2.0,
       "Avg_Reranker_Calls": 2.0,
       "No_Answer_Rate_Percent": 0.0
@@ -60,10 +60,10 @@
         "Device": "cuda",
         "SupportRecall@K": 80.0,
         "SupportAllHit@K": 60.0,
-        "ExactMatch": 25.0,
-        "F1_Score": 34.37,
+        "ExactMatch": 30.0,
+        "F1_Score": 45.49,
         "Avg_Tokens": 1130.05,
-        "Avg_Latency_ms": 251.52,
+        "Avg_Latency_ms": 251.46,
         "Avg_Retrieval_Calls": 2.0,
         "Avg_Reranker_Calls": 2.0,
         "No_Answer_Rate_Percent": 0.0
@@ -73,8 +73,8 @@
           "id": "5a8b57f25542995d1e6f1371",
           "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
           "answer": "yes",
-          "predicted_answer": "No-Answer",
-          "generated_answer": "No-Answer",
+          "predicted_answer": "Ed Wood is a 1994 American biographical period comedy-drama film directed and produced by Tim Burton, and starring Johnny Depp as cult filmmaker Ed Wood",
+          "generated_answer": "Ed Wood is a 1994 American biographical period comedy-drama film directed and produced by Tim Burton, and starring Johnny Depp as cult filmmaker Ed Wood",
           "exact_match": 0.0,
           "f1_score": 0.0,
           "support_recall": 0.5,
@@ -93,7 +93,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 790.0,
-            "total_latency": 0.20697355270385742,
+            "total_latency": 0.2042524814605713,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -103,8 +103,8 @@
           "id": "5a8c7595554299585d9e36b6",
           "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
           "answer": "Chief of Protocol",
-          "predicted_answer": "Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer",
-          "generated_answer": "Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
           "exact_match": 0.0,
           "f1_score": 0.0,
           "support_recall": 0.5,
@@ -123,7 +123,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 918.0,
-            "total_latency": 0.19437336921691895,
+            "total_latency": 0.17135381698608398,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -153,7 +153,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1410.0,
-            "total_latency": 0.2747669219970703,
+            "total_latency": 0.26471710205078125,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -163,8 +163,8 @@
           "id": "5adbf0a255429947ff17385a",
           "query": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
           "answer": "no",
-          "predicted_answer": "No.",
-          "generated_answer": "No.",
+          "predicted_answer": "No",
+          "generated_answer": "No",
           "exact_match": 1.0,
           "f1_score": 1.0,
           "support_recall": 1.0,
@@ -183,7 +183,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 780.0,
-            "total_latency": 0.21905255317687988,
+            "total_latency": 0.21561574935913086,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -193,8 +193,8 @@
           "id": "5a8e3ea95542995a26add48d",
           "query": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
           "answer": "Greenwich Village, New York City",
-          "predicted_answer": "Based on Trigiani's 2000 best-selling novel of the same name, the story is set in the actual Virginia town of Big Stone Gap circa 1970s",
-          "generated_answer": "Based on Trigiani's 2000 best-selling novel of the same name, the story is set in the actual Virginia town of Big Stone Gap circa 1970s",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
           "exact_match": 0.0,
           "f1_score": 0.0,
           "support_recall": 0.5,
@@ -213,7 +213,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1113.0,
-            "total_latency": 0.24186944961547852,
+            "total_latency": 0.24653005599975586,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -223,10 +223,10 @@
           "id": "5abd94525542992ac4f382d2",
           "query": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
           "answer": "YG Entertainment",
-          "predicted_answer": "2014 S/S is the debut album of South Korean group WINNER",
-          "generated_answer": "2014 S/S is the debut album of South Korean group WINNER",
-          "exact_match": 0.0,
-          "f1_score": 0.0,
+          "predicted_answer": "YG Entertainment",
+          "generated_answer": "YG Entertainment",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
           "support_recall": 0.5,
           "support_all_hit": 0.0,
           "predicted_titles": [
@@ -243,7 +243,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1200.0,
-            "total_latency": 0.2980685234069824,
+            "total_latency": 0.3228740692138672,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -273,7 +273,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 998.0,
-            "total_latency": 0.2727653980255127,
+            "total_latency": 0.2466907501220703,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -303,7 +303,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1163.0,
-            "total_latency": 0.27011847496032715,
+            "total_latency": 0.25103092193603516,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -313,8 +313,8 @@
           "id": "5a7bbb64554299042af8f7cc",
           "query": "Who is older, Annie Morton or Terry Richardson?",
           "answer": "Terry Richardson",
-          "predicted_answer": "No-Answer",
-          "generated_answer": "No-Answer",
+          "predicted_answer": "No-",
+          "generated_answer": "No-",
           "exact_match": 0.0,
           "f1_score": 0.0,
           "support_recall": 0.5,
@@ -333,7 +333,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 844.0,
-            "total_latency": 0.22232484817504883,
+            "total_latency": 0.2424168586730957,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -343,8 +343,8 @@
           "id": "5a8db19d5542994ba4e3dd00",
           "query": "Are Local H and For Against both from the United States?",
           "answer": "yes",
-          "predicted_answer": "Yes",
-          "generated_answer": "Yes",
+          "predicted_answer": "Yes.",
+          "generated_answer": "Yes.",
           "exact_match": 1.0,
           "f1_score": 1.0,
           "support_recall": 1.0,
@@ -363,7 +363,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 2089.0,
-            "total_latency": 0.346555233001709,
+            "total_latency": 0.3459620475769043,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -373,10 +373,10 @@
           "id": "5a7166395542994082a3e814",
           "query": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
           "answer": "Kansas Song",
-          "predicted_answer": "Two branch campuses are in the Kansas City metropolitan area: the Edwards Campus in Overland Park, and the university's medical school and hospital in Kansas City",
-          "generated_answer": "Two branch campuses are in the Kansas City metropolitan area: the Edwards Campus in Overland Park, and the university's medical school and hospital in Kansas City",
+          "predicted_answer": "Kansas Song (We’re From Kansas)",
+          "generated_answer": "Kansas Song (We’re From Kansas)",
           "exact_match": 0.0,
-          "f1_score": 0.07692307692307693,
+          "f1_score": 0.5,
           "support_recall": 1.0,
           "support_all_hit": 1.0,
           "predicted_titles": [
@@ -393,7 +393,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1544.0,
-            "total_latency": 0.35072779655456543,
+            "total_latency": 0.3478858470916748,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -423,7 +423,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 806.0,
-            "total_latency": 0.1902928352355957,
+            "total_latency": 0.19095802307128906,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -453,7 +453,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1432.0,
-            "total_latency": 0.28626084327697754,
+            "total_latency": 0.28418660163879395,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -463,8 +463,8 @@
           "id": "5ab56e32554299637185c594",
           "query": "Are Random House Tower and 888 7th Avenue both used for real estate?",
           "answer": "no",
-          "predicted_answer": "The Random House Tower, also known as the Park Imperial Apartments, is a 52-story mixed-use tower in New York City, United States, that is used as the headquarters of book publisher Random House and a",
-          "generated_answer": "The Random House Tower, also known as the Park Imperial Apartments, is a 52-story mixed-use tower in New York City, United States, that is used as the headquarters of book publisher Random House and a",
+          "predicted_answer": "Yes.",
+          "generated_answer": "Yes.",
           "exact_match": 0.0,
           "f1_score": 0.0,
           "support_recall": 1.0,
@@ -483,7 +483,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1067.0,
-            "total_latency": 0.24225592613220215,
+            "total_latency": 0.2357771396636963,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -513,7 +513,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 748.0,
-            "total_latency": 0.18977761268615723,
+            "total_latency": 0.19426369667053223,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -543,7 +543,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1331.0,
-            "total_latency": 0.2514464855194092,
+            "total_latency": 0.2790675163269043,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -573,7 +573,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1058.0,
-            "total_latency": 0.22366094589233398,
+            "total_latency": 0.22279119491577148,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -603,7 +603,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 828.0,
-            "total_latency": 0.2180476188659668,
+            "total_latency": 0.21511268615722656,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -613,10 +613,10 @@
           "id": "5ae0d4c9554299603e418468",
           "query": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
           "answer": "1969 until 1974",
-          "predicted_answer": "His other roles included Assistant Secretary for Health and Scientific Affairs in the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services) durin",
-          "generated_answer": "His other roles included Assistant Secretary for Health and Scientific Affairs in the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services) durin",
+          "predicted_answer": "1969-1974",
+          "generated_answer": "1969-1974",
           "exact_match": 0.0,
-          "f1_score": 0.0,
+          "f1_score": 0.8,
           "support_recall": 0.5,
           "support_all_hit": 0.0,
           "predicted_titles": [
@@ -633,7 +633,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 1614.0,
-            "total_latency": 0.29288434982299805,
+            "total_latency": 0.3066117763519287,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -663,7 +663,7 @@
           "no_answer": false,
           "stats_delta": {
             "total_tokens": 868.0,
-            "total_latency": 0.23813247680664062,
+            "total_latency": 0.2410585880279541,
             "retrieval_calls": 2.0,
             "reranker_calls": 2.0
           },
@@ -671,14 +671,5 @@
         }
       ]
     }
-  ],
-  "progress": {
-    "status": "completed",
-    "current_config": null,
-    "completed_configs": [
-      "A_Baseline"
-    ],
-    "completed_queries_in_current_config": 0,
-    "total_queries_in_current_config": 0
-  }
+  ]
 }

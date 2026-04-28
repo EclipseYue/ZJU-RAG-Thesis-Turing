@@ -671,14 +671,5 @@
         }
       ]
     }
-  ],
-  "progress": {
-    "status": "completed",
-    "current_config": null,
-    "completed_configs": [
-      "A_Baseline"
-    ],
-    "completed_queries_in_current_config": 0,
-    "total_queries_in_current_config": 0
-  }
+  ]
 }

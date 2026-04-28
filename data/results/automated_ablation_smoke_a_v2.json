@@ -9,10 +9,10 @@
     "Device": "cuda",
     "SupportRecall@K": 80.0,
     "SupportAllHit@K": 60.0,
-    "ExactMatch": 30.0,
-    "F1_Score": 41.07,
+    "ExactMatch": 25.0,
+    "F1_Score": 34.37,
     "Avg_Tokens": 1130.05,
-    "Avg_Latency_ms": 252.4,
+    "Avg_Latency_ms": 251.52,
     "Avg_Retrieval_Calls": 2.0,
     "Avg_Reranker_Calls": 2.0,
     "No_Answer_Rate_Percent": 0.0
