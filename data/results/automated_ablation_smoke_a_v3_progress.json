@@ -1,0 +1,684 @@
+{
+  "run_info": {
+    "timestamp": "20260428_032800",
+    "dataset_name": "hotpotqa",
+    "split": "validation",
+    "num_samples": 20,
+    "top_k": 5,
+    "force_mock": false,
+    "device": "cuda",
+    "only_configs": [
+      "A_Baseline"
+    ],
+    "checkpoint_every": 2
+  },
+  "matrix": [
+    {
+      "Config": "A_Baseline",
+      "Hetero": false,
+      "Adaptive": false,
+      "CoVe": false,
+      "Samples": 20,
+      "MockMode": false,
+      "Device": "cuda",
+      "SupportRecall@K": 80.0,
+      "SupportAllHit@K": 60.0,
+      "ExactMatch": 25.0,
+      "F1_Score": 41.34,
+      "Avg_Tokens": 1130.05,
+      "Avg_Latency_ms": 250.42,
+      "Avg_Retrieval_Calls": 2.0,
+      "Avg_Reranker_Calls": 2.0,
+      "No_Answer_Rate_Percent": 0.0
+    }
+  ],
+  "details": [
+    {
+      "config": {
+        "name": "A_Baseline",
+        "hetero": false,
+        "adaptive": false,
+        "cove": false,
+        "prf_threshold": 0.8,
+        "cove_threshold": 0.9,
+        "generator_backend": "deepseek",
+        "generator_model": "deepseek-v4-flash",
+        "generator_api_key": "sk-6112898d3c43430ba65ac40ba4905088",
+        "generator_base_url": "https://api.deepseek.com",
+        "verifier_backend": "heuristic",
+        "verifier_model": "deepseek-v4-flash",
+        "verifier_api_key": "sk-6112898d3c43430ba65ac40ba4905088",
+        "verifier_base_url": "https://api.deepseek.com"
+      },
+      "summary": {
+        "Config": "A_Baseline",
+        "Hetero": false,
+        "Adaptive": false,
+        "CoVe": false,
+        "Samples": 20,
+        "MockMode": false,
+        "Device": "cuda",
+        "SupportRecall@K": 80.0,
+        "SupportAllHit@K": 60.0,
+        "ExactMatch": 25.0,
+        "F1_Score": 41.34,
+        "Avg_Tokens": 1130.05,
+        "Avg_Latency_ms": 250.42,
+        "Avg_Retrieval_Calls": 2.0,
+        "Avg_Reranker_Calls": 2.0,
+        "No_Answer_Rate_Percent": 0.0
+      },
+      "queries": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Ed Wood",
+            "Ed Wood (film)",
+            "Robert Barton",
+            "Adam Collis",
+            "Woodson, Arkansas"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 790.0,
+            "total_latency": 0.23219704627990723,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "predicted_answer": "Kiss and Tell",
+          "generated_answer": "Kiss and Tell",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Kiss and Tell (1945 film)",
+            "Janet Waldo",
+            "A Kiss for Corliss",
+            "Meet Corliss Archer",
+            "Meet Corliss Archer (TV series)"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 918.0,
+            "total_latency": 0.18697190284729004,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a85ea095542994775f606a8",
+          "query": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "answer": "Animorphs",
+          "predicted_answer": "Animorph",
+          "generated_answer": "Animorph",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Victoria Hanley",
+            "Andre Norton Award",
+            "The Divide trilogy"
+          ],
+          "supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1410.0,
+            "total_latency": 0.25377964973449707,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5adbf0a255429947ff17385a",
+          "query": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "answer": "no",
+          "predicted_answer": "No",
+          "generated_answer": "No",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Esma Sultan (daughter of Abdülaziz)",
+            "Esma Sultan",
+            "Sultan Ahmed Mosque"
+          ],
+          "supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 780.0,
+            "total_latency": 0.24405550956726074,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a8e3ea95542995a26add48d",
+          "query": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "answer": "Greenwich Village, New York City",
+          "predicted_answer": "Based on Trigiani's 2000 best-selling novel of the same name, the story",
+          "generated_answer": "Based on Trigiani's 2000 best-selling novel of the same name, the story",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Big Stone Gap (film)",
+            "I Love NY (2015 film)",
+            "Drive Angry",
+            "Criss Angel",
+            "City of Angels (film)"
+          ],
+          "supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1113.0,
+            "total_latency": 0.23132801055908203,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5abd94525542992ac4f382d2",
+          "query": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+          "answer": "YG Entertainment",
+          "predicted_answer": "2014 S/S",
+          "generated_answer": "2014 S/S",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "2014 S/S",
+            "History (band)",
+            "Seventeen discography",
+            "List of awards and nominations received by Shinee",
+            "BTS discography"
+          ],
+          "supporting_titles": [
+            "2014 S/S",
+            "Winner (band)"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1200.0,
+            "total_latency": 0.2915689945220947,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a85b2d95542997b5ce40028",
+          "query": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "answer": "Eenasul Fateh",
+          "predicted_answer": "Eenasul Fateh",
+          "generated_answer": "Eenasul Fateh",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Eenasul Fateh",
+            "ELDee",
+            "Management consulting",
+            "Indriati Iskak",
+            "Amaruk Kayshapanta"
+          ],
+          "supporting_titles": [
+            "Eenasul Fateh",
+            "Management consulting"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 998.0,
+            "total_latency": 0.2516603469848633,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a87ab905542996e4f3088c1",
+          "query": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "answer": "3,677 seated",
+          "predicted_answer": "4,000",
+          "generated_answer": "4,000",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Lewiston Maineiacs",
+            "Dwyer Arena",
+            "Androscoggin Bank Colisée",
+            "2006–07 QMJHL season",
+            "Case Gym"
+          ],
+          "supporting_titles": [
+            "Androscoggin Bank Colisée",
+            "Lewiston Maineiacs"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1163.0,
+            "total_latency": 0.27339982986450195,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a7bbb64554299042af8f7cc",
+          "query": "Who is older, Annie Morton or Terry Richardson?",
+          "answer": "Terry Richardson",
+          "predicted_answer": "Kenton Terry Richardson (born 26 July 1999)",
+          "generated_answer": "Kenton Terry Richardson (born 26 July 1999)",
+          "exact_match": 0.0,
+          "f1_score": 0.4444444444444445,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Annie Morton",
+            "Kenton Richardson",
+            "Lady Gaga x Terry Richardson",
+            "Gretchen Osgood Warren",
+            "Molly Childers"
+          ],
+          "supporting_titles": [
+            "Annie Morton",
+            "Terry Richardson"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 844.0,
+            "total_latency": 0.23270368576049805,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a8db19d5542994ba4e3dd00",
+          "query": "Are Local H and For Against both from the United States?",
+          "answer": "yes",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "For Against",
+            "Local H",
+            "Mendocino County GMO Ban",
+            "Winner (band)",
+            "Loan modification in the United States"
+          ],
+          "supporting_titles": [
+            "For Against",
+            "Local H"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 2089.0,
+            "total_latency": 0.3401377201080322,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a7166395542994082a3e814",
+          "query": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+          "answer": "Kansas Song",
+          "predicted_answer": "Kansas Song (We’re From Kansas)",
+          "generated_answer": "Kansas Song (We’re From Kansas)",
+          "exact_match": 0.0,
+          "f1_score": 0.5,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "University of Kansas",
+            "Kansas Song",
+            "University of Missouri–Kansas City",
+            "Downtown Kansas City",
+            "Kansas City jazz"
+          ],
+          "supporting_titles": [
+            "Kansas Song",
+            "University of Kansas"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1544.0,
+            "total_latency": 0.3272709846496582,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a877e5d5542993e715abf7d",
+          "query": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and Téa Leoni?",
+          "answer": "David Weissman",
+          "predicted_answer": "David Weissman",
+          "generated_answer": "David Weissman",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "The Family Man",
+            "David Weissman",
+            "Deadfall (1993 film)",
+            "Time to Kill (1989 film)",
+            "Ed Wood (film)"
+          ],
+          "supporting_titles": [
+            "David Weissman",
+            "The Family Man"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 806.0,
+            "total_latency": 0.1767575740814209,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5ab3b0bf5542992ade7c6e39",
+          "query": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "answer": "1999",
+          "predicted_answer": "The film stars Arnold Schwarzenegger as Jack Slater",
+          "generated_answer": "The film stars Arnold Schwarzenegger as Jack Slater",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Oh My God (Guns N' Roses song)",
+            "Last Action Hero",
+            "Steven Adler",
+            "Arnold Schwarzenegger filmography",
+            "Guns N' Roses discography"
+          ],
+          "supporting_titles": [
+            "End of Days (film)",
+            "Oh My God (Guns N' Roses song)"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1432.0,
+            "total_latency": 0.29540395736694336,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5ab56e32554299637185c594",
+          "query": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+          "answer": "no",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "888 7th Avenue",
+            "Random House Tower",
+            "Villard (imprint)",
+            "Real estate technology",
+            "R509 road (Ireland)"
+          ],
+          "supporting_titles": [
+            "888 7th Avenue",
+            "Random House Tower"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1067.0,
+            "total_latency": 0.2445673942565918,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5ab6d09255429954757d337d",
+          "query": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+          "answer": "from 1986 to 2013",
+          "predicted_answer": "1986–2013",
+          "generated_answer": "1986–2013",
+          "exact_match": 0.0,
+          "f1_score": 0.6666666666666666,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Matt Busby",
+            "Alex Ferguson",
+            "Ernest Mangnall",
+            "Joshua Parlby",
+            "1995–96 Manchester United F.C. season"
+          ],
+          "supporting_titles": [
+            "1995–96 Manchester United F.C. season",
+            "Alex Ferguson"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 748.0,
+            "total_latency": 0.2089536190032959,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a75e05c55429976ec32bc5f",
+          "query": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+          "answer": "9,984",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Brown State Fishing Lake",
+            "Shawnee State Fishing Lake",
+            "Fishing Lake",
+            "Neosho State Fishing Lake",
+            "Brown County, Kansas"
+          ],
+          "supporting_titles": [
+            "Brown County, Kansas",
+            "Brown State Fishing Lake"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1331.0,
+            "total_latency": 0.2649717330932617,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5ab3e45655429976abd1bcd4",
+          "query": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+          "answer": "the North Atlantic Conference",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Vermont Catamounts men's soccer",
+            "Vermont Catamounts men's basketball",
+            "Vermont Catamounts men's ice hockey",
+            "2010–11 Vermont Catamounts men's basketball team",
+            "2015–16 Vermont Catamounts men's basketball team"
+          ],
+          "supporting_titles": [
+            "America East Conference",
+            "Vermont Catamounts men's soccer"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1058.0,
+            "total_latency": 0.24906492233276367,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5ab29c24554299449642c932",
+          "query": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+          "answer": "yes",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi",
+            "Verdi, the King of Melody",
+            "Giuseppe Verdi (film)",
+            "List of major opera composers"
+          ],
+          "supporting_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 828.0,
+            "total_latency": 0.21172809600830078,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5ae0d4c9554299603e418468",
+          "query": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+          "answer": "1969 until 1974",
+          "predicted_answer": "1969-1974",
+          "generated_answer": "1969-1974",
+          "exact_match": 0.0,
+          "f1_score": 0.8,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Roger O. Egeberg",
+            "Bradford P. Campbell",
+            "Robert Hormats",
+            "Edward D. Martin",
+            "Steven K. Galson"
+          ],
+          "supporting_titles": [
+            "Richard Nixon",
+            "Roger O. Egeberg"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1614.0,
+            "total_latency": 0.2783951759338379,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        },
+        {
+          "id": "5a8133725542995ce29dcbdb",
+          "query": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+          "answer": "Robert Erskine Childers DSC",
+          "predicted_answer": "Robert Erskine Childers",
+          "generated_answer": "Robert Erskine Childers",
+          "exact_match": 0.0,
+          "f1_score": 0.8571428571428571,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Robert Erskine Childers",
+            "Robert Caesar Childers",
+            "Erskine Barton Childers",
+            "Robert Barton",
+            "Henry Roth"
+          ],
+          "supporting_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 868.0,
+            "total_latency": 0.21341609954833984,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": null
+        }
+      ]
+    }
+  ],
+  "progress": {
+    "status": "completed",
+    "current_config": null,
+    "completed_configs": [
+      "A_Baseline"
+    ],
+    "completed_queries_in_current_config": 0,
+    "total_queries_in_current_config": 0
+  }
+}
