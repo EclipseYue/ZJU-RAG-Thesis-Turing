@@ -859,6 +859,82 @@
         "matrix": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_a_v3.json",
         "report": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_a_v3_report_20260428_032800.json"
       }
+    },
+    {
+      "id": "20260428_131446",
+      "timestamp": "2026-04-28 13:16:02",
+      "description": "Automated ablation on hotpotqa (20 samples)",
+      "metrics": [
+        {
+          "Config": "A_Baseline",
+          "Hetero": false,
+          "Adaptive": false,
+          "CoVe": false,
+          "Samples": 20,
+          "MockMode": false,
+          "Device": "cuda",
+          "SupportRecall@K": 80.0,
+          "SupportAllHit@K": 60.0,
+          "ExactMatch": 15.0,
+          "F1_Score": 28.24,
+          "Avg_Tokens": 1130.05,
+          "Avg_Latency_ms": 255.56,
+          "Avg_Retrieval_Calls": 2.0,
+          "Avg_Reranker_Calls": 2.0,
+          "No_Answer_Rate_Percent": 0.0
+        }
+      ],
+      "artifacts": {
+        "matrix": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_a_server.json",
+        "report": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_a_server_report_20260428_131446.json"
+      }
+    },
+    {
+      "id": "20260428_132258",
+      "timestamp": "2026-04-28 13:27:35",
+      "description": "Automated ablation on hotpotqa (20 samples)",
+      "metrics": [
+        {
+          "Config": "A3_Baseline_CoVe",
+          "Hetero": false,
+          "Adaptive": false,
+          "CoVe": true,
+          "Samples": 20,
+          "MockMode": false,
+          "Device": "cuda",
+          "SupportRecall@K": 75.0,
+          "SupportAllHit@K": 50.0,
+          "ExactMatch": 15.0,
+          "F1_Score": 15.0,
+          "Avg_Tokens": 591.9,
+          "Avg_Latency_ms": 142.6,
+          "Avg_Retrieval_Calls": 1.0,
+          "Avg_Reranker_Calls": 1.0,
+          "No_Answer_Rate_Percent": 75.0
+        },
+        {
+          "Config": "D_CoVe_Full",
+          "Hetero": true,
+          "Adaptive": true,
+          "CoVe": true,
+          "Samples": 20,
+          "MockMode": false,
+          "Device": "cuda",
+          "SupportRecall@K": 77.5,
+          "SupportAllHit@K": 55.0,
+          "ExactMatch": 15.0,
+          "F1_Score": 15.0,
+          "Avg_Tokens": 729.7,
+          "Avg_Latency_ms": 215.48,
+          "Avg_Retrieval_Calls": 2.0,
+          "Avg_Reranker_Calls": 2.0,
+          "No_Answer_Rate_Percent": 80.0
+        }
+      ],
+      "artifacts": {
+        "matrix": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_cove_server.json",
+        "report": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_smoke_cove_server_report_20260428_132258.json"
+      }
     }
   ],
   "plan": [

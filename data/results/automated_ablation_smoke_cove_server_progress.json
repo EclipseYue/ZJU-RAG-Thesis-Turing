@@ -1,0 +1,1782 @@
+{
+  "run_info": {
+    "timestamp": "20260428_132258",
+    "dataset_name": "hotpotqa",
+    "split": "validation",
+    "num_samples": 20,
+    "top_k": 5,
+    "force_mock": false,
+    "device": "cuda",
+    "only_configs": [
+      "A3_Baseline_CoVe",
+      "D_CoVe_Full"
+    ],
+    "checkpoint_every": 2
+  },
+  "matrix": [
+    {
+      "Config": "A3_Baseline_CoVe",
+      "Hetero": false,
+      "Adaptive": false,
+      "CoVe": true,
+      "Samples": 20,
+      "MockMode": false,
+      "Device": "cuda",
+      "SupportRecall@K": 75.0,
+      "SupportAllHit@K": 50.0,
+      "ExactMatch": 15.0,
+      "F1_Score": 15.0,
+      "Avg_Tokens": 591.9,
+      "Avg_Latency_ms": 142.6,
+      "Avg_Retrieval_Calls": 1.0,
+      "Avg_Reranker_Calls": 1.0,
+      "No_Answer_Rate_Percent": 75.0
+    },
+    {
+      "Config": "D_CoVe_Full",
+      "Hetero": true,
+      "Adaptive": true,
+      "CoVe": true,
+      "Samples": 20,
+      "MockMode": false,
+      "Device": "cuda",
+      "SupportRecall@K": 77.5,
+      "SupportAllHit@K": 55.0,
+      "ExactMatch": 15.0,
+      "F1_Score": 15.0,
+      "Avg_Tokens": 729.7,
+      "Avg_Latency_ms": 215.48,
+      "Avg_Retrieval_Calls": 2.0,
+      "Avg_Reranker_Calls": 2.0,
+      "No_Answer_Rate_Percent": 80.0
+    }
+  ],
+  "details": [
+    {
+      "config": {
+        "name": "A3_Baseline_CoVe",
+        "hetero": false,
+        "adaptive": false,
+        "cove": true,
+        "prf_threshold": 0.8,
+        "cove_threshold": 0.9,
+        "generator_backend": "deepseek",
+        "generator_model": "deepseek-v4-flash",
+        "generator_api_key": "sk-6112898d3c43430ba65ac40ba4905088",
+        "generator_base_url": "https://api.deepseek.com",
+        "verifier_backend": "deepseek",
+        "verifier_model": "deepseek-v4-flash",
+        "verifier_api_key": "sk-6112898d3c43430ba65ac40ba4905088",
+        "verifier_base_url": "https://api.deepseek.com"
+      },
+      "summary": {
+        "Config": "A3_Baseline_CoVe",
+        "Hetero": false,
+        "Adaptive": false,
+        "CoVe": true,
+        "Samples": 20,
+        "MockMode": false,
+        "Device": "cuda",
+        "SupportRecall@K": 75.0,
+        "SupportAllHit@K": 50.0,
+        "ExactMatch": 15.0,
+        "F1_Score": 15.0,
+        "Avg_Tokens": 591.9,
+        "Avg_Latency_ms": 142.6,
+        "Avg_Retrieval_Calls": 1.0,
+        "Avg_Reranker_Calls": 1.0,
+        "No_Answer_Rate_Percent": 75.0
+      },
+      "queries": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Ed Wood",
+            "Ed Wood (film)",
+            "Adam Collis",
+            "Robert Barton",
+            "Robert Caesar Childers"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 349.0,
+            "total_latency": 0.1613152027130127,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.29855042695999146,
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.29855042695999146
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Kiss and Tell (1945 film)",
+            "Janet Waldo",
+            "A Kiss for Corliss",
+            "Meet Corliss Archer",
+            "Meet Corliss Archer (TV series)"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 444.0,
+            "total_latency": 0.10152387619018555,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.9998829305171966,
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": true,
+                "confidence": 0.9998829305171966
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a85ea095542994775f606a8",
+          "query": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "answer": "Animorphs",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Animorphs We need to find a science fantasy young adult series told",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Victoria Hanley",
+            "Andre Norton Award",
+            "The Divide trilogy"
+          ],
+          "supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 690.0,
+            "total_latency": 0.13783693313598633,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.8443627443578507,
+            "claims": [
+              {
+                "claim": "Animorphs We need to find a science fantasy young adult series told",
+                "supported": false,
+                "confidence": 0.8443627443578507
+              }
+            ]
+          }
+        },
+        {
+          "id": "5adbf0a255429947ff17385a",
+          "query": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "answer": "no",
+          "predicted_answer": "No",
+          "generated_answer": "No",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Esma Sultan (daughter of Abdülaziz)",
+            "Sultan Ahmed Mosque",
+            "Djamaâ el Kebir"
+          ],
+          "supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 487.0,
+            "total_latency": 0.15369415283203125,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "claims": [
+              {
+                "claim": "No",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8e3ea95542995a26add48d",
+          "query": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "answer": "Greenwich Village, New York City",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Big Stone Gap (film)",
+            "Criss Angel",
+            "I Love NY (2015 film)",
+            "Drive Angry",
+            "Great Eastern Conventions"
+          ],
+          "supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 553.0,
+            "total_latency": 0.1382441520690918,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.29964560866355894,
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.29964560866355894
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abd94525542992ac4f382d2",
+          "query": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+          "answer": "YG Entertainment",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer: \"2014 S/S",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "2014 S/S",
+            "History (band)",
+            "Seventeen discography",
+            "List of awards and nominations received by Shinee",
+            "BTS discography"
+          ],
+          "supporting_titles": [
+            "2014 S/S",
+            "Winner (band)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 585.0,
+            "total_latency": 0.16248679161071777,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5333232839902242,
+            "claims": [
+              {
+                "claim": "We need to answer: \"2014 S/S",
+                "supported": false,
+                "confidence": 0.5333232839902242
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a85b2d95542997b5ce40028",
+          "query": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "answer": "Eenasul Fateh",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Eenasul Fateh We need to find who",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Eenasul Fateh",
+            "Management consulting",
+            "ELDee",
+            "Amaruk Kayshapanta",
+            "Pershing Square Capital Management"
+          ],
+          "supporting_titles": [
+            "Eenasul Fateh",
+            "Management consulting"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 485.0,
+            "total_latency": 0.14590191841125488,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.6499236285686493,
+            "claims": [
+              {
+                "claim": "Eenasul Fateh We need to find who",
+                "supported": false,
+                "confidence": 0.6499236285686493
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a87ab905542996e4f3088c1",
+          "query": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "answer": "3,677 seated",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the seating capacity of the arena where the",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Lewiston Maineiacs",
+            "Androscoggin Bank Colisée",
+            "Dwyer Arena",
+            "Case Gym",
+            "Robins Center"
+          ],
+          "supporting_titles": [
+            "Androscoggin Bank Colisée",
+            "Lewiston Maineiacs"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 587.0,
+            "total_latency": 0.15483307838439941,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5331758876641591,
+            "claims": [
+              {
+                "claim": "We need to find the seating capacity of the arena where the",
+                "supported": false,
+                "confidence": 0.5331758876641591
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7bbb64554299042af8f7cc",
+          "query": "Who is older, Annie Morton or Terry Richardson?",
+          "answer": "Terry Richardson",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to determine who",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Annie Morton",
+            "Kenton Richardson",
+            "Lady Gaga x Terry Richardson",
+            "Gretchen Osgood Warren",
+            "Molly Childers"
+          ],
+          "supporting_titles": [
+            "Annie Morton",
+            "Terry Richardson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 407.0,
+            "total_latency": 0.11326885223388672,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.29998984336853024,
+            "claims": [
+              {
+                "claim": "We need to determine who",
+                "supported": false,
+                "confidence": 0.29998984336853024
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8db19d5542994ba4e3dd00",
+          "query": "Are Local H and For Against both from the United States?",
+          "answer": "yes",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "For Against",
+            "Local H",
+            "Mendocino County GMO Ban",
+            "Loan modification in the United States",
+            "Kansas City metropolitan area"
+          ],
+          "supporting_titles": [
+            "For Against",
+            "Local H"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1742.0,
+            "total_latency": 0.2769043445587158,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7166395542994082a3e814",
+          "query": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+          "answer": "Kansas Song",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Kansas Song We need to find the fight song of the University",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "University of Kansas",
+            "Kansas Song",
+            "University of Missouri–Kansas City",
+            "Downtown Kansas City",
+            "Kansas City jazz"
+          ],
+          "supporting_titles": [
+            "Kansas Song",
+            "University of Kansas"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 778.0,
+            "total_latency": 0.17417049407958984,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.7666235009829203,
+            "claims": [
+              {
+                "claim": "Kansas Song We need to find the fight song of the University",
+                "supported": false,
+                "confidence": 0.7666235009829203
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a877e5d5542993e715abf7d",
+          "query": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and Téa Leoni?",
+          "answer": "David Weissman",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "David Weissman We need to find a screenwriter who co-wrote a film",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "The Family Man",
+            "David Weissman",
+            "Deadfall (1993 film)",
+            "Time to Kill (1989 film)",
+            "Ed Wood (film)"
+          ],
+          "supporting_titles": [
+            "David Weissman",
+            "The Family Man"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 388.0,
+            "total_latency": 0.10173487663269043,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.7999642014503479,
+            "claims": [
+              {
+                "claim": "David Weissman We need to find a screenwriter who co-wrote a film",
+                "supported": false,
+                "confidence": 0.7999642014503479
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab3b0bf5542992ade7c6e39",
+          "query": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "answer": "1999",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based strictly on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Oh My God (Guns N' Roses song)",
+            "Last Action Hero",
+            "Steven Adler",
+            "Arnold Schwarzenegger filmography",
+            "Guns N' Roses discography"
+          ],
+          "supporting_titles": [
+            "End of Days (film)",
+            "Oh My God (Guns N' Roses song)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 701.0,
+            "total_latency": 0.15148043632507324,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.27275576591491696,
+            "claims": [
+              {
+                "claim": "We need to answer based strictly on context",
+                "supported": false,
+                "confidence": 0.27275576591491696
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab56e32554299637185c594",
+          "query": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+          "answer": "no",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "888 7th Avenue",
+            "Random House Tower",
+            "Villard (imprint)",
+            "Real estate technology",
+            "R509 road (Ireland)"
+          ],
+          "supporting_titles": [
+            "888 7th Avenue",
+            "Random House Tower"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 504.0,
+            "total_latency": 0.13565468788146973,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab6d09255429954757d337d",
+          "query": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+          "answer": "from 1986 to 2013",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the manager who recruited David Beckham",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Matt Busby",
+            "Alex Ferguson",
+            "Ernest Mangnall",
+            "Joshua Parlby",
+            "David Beckham Academy"
+          ],
+          "supporting_titles": [
+            "1995–96 Manchester United F.C. season",
+            "Alex Ferguson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 336.0,
+            "total_latency": 0.10226964950561523,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.4163993577162424,
+            "claims": [
+              {
+                "claim": "We need to find the manager who recruited David Beckham",
+                "supported": false,
+                "confidence": 0.4163993577162424
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a75e05c55429976ec32bc5f",
+          "query": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+          "answer": "9,984",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Brown State Fishing Lake",
+            "Shawnee State Fishing Lake",
+            "Fishing Lake",
+            "Neosho State Fishing Lake",
+            "Commanda Lake"
+          ],
+          "supporting_titles": [
+            "Brown County, Kansas",
+            "Brown State Fishing Lake"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 716.0,
+            "total_latency": 0.15184712409973145,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.29998973608016966,
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.29998973608016966
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab3e45655429976abd1bcd4",
+          "query": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+          "answer": "the North Atlantic Conference",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the conference that Vermont Catamounts men's soccer currently",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Vermont Catamounts men's soccer",
+            "Vermont Catamounts men's basketball",
+            "Vermont Catamounts men's ice hockey",
+            "2015–16 Vermont Catamounts men's basketball team",
+            "2010–11 Vermont Catamounts men's basketball team"
+          ],
+          "supporting_titles": [
+            "America East Conference",
+            "Vermont Catamounts men's soccer"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 520.0,
+            "total_latency": 0.12302732467651367,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.8249751806259153,
+            "claims": [
+              {
+                "claim": "We need to find the conference that Vermont Catamounts men's soccer currently",
+                "supported": false,
+                "confidence": 0.8249751806259153
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab29c24554299449642c932",
+          "query": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+          "answer": "yes",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi",
+            "Verdi, the King of Melody",
+            "Giuseppe Verdi (film)",
+            "List of major opera composers"
+          ],
+          "supporting_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 399.0,
+            "total_latency": 0.10802578926086426,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae0d4c9554299603e418468",
+          "query": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+          "answer": "1969 until 1974",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "1969-1974 We need to find the years of the administration during which",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Roger O. Egeberg",
+            "Bradford P. Campbell",
+            "Robert Hormats",
+            "Office of Population Affairs",
+            "Edward D. Martin"
+          ],
+          "supporting_titles": [
+            "Richard Nixon",
+            "Roger O. Egeberg"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 772.0,
+            "total_latency": 0.15132808685302734,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.47498984336853023,
+            "claims": [
+              {
+                "claim": "1969-1974 We need to find the years of the administration during which",
+                "supported": false,
+                "confidence": 0.47498984336853023
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8133725542995ce29dcbdb",
+          "query": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+          "answer": "Robert Erskine Childers DSC",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Robert Erskine Childers We need to determine which writer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Robert Erskine Childers",
+            "Henry Roth",
+            "Erskine Barton Childers",
+            "Robert Caesar Childers",
+            "Robert Barton"
+          ],
+          "supporting_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 395.0,
+            "total_latency": 0.10642290115356445,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.7999847292900085,
+            "claims": [
+              {
+                "claim": "Robert Erskine Childers We need to determine which writer",
+                "supported": false,
+                "confidence": 0.7999847292900085
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "name": "D_CoVe_Full",
+        "hetero": true,
+        "adaptive": true,
+        "cove": true,
+        "prf_threshold": 0.8,
+        "cove_threshold": 0.9,
+        "generator_backend": "deepseek",
+        "generator_model": "deepseek-v4-flash",
+        "generator_api_key": "sk-6112898d3c43430ba65ac40ba4905088",
+        "generator_base_url": "https://api.deepseek.com",
+        "verifier_backend": "deepseek",
+        "verifier_model": "deepseek-v4-flash",
+        "verifier_api_key": "sk-6112898d3c43430ba65ac40ba4905088",
+        "verifier_base_url": "https://api.deepseek.com"
+      },
+      "summary": {
+        "Config": "D_CoVe_Full",
+        "Hetero": true,
+        "Adaptive": true,
+        "CoVe": true,
+        "Samples": 20,
+        "MockMode": false,
+        "Device": "cuda",
+        "SupportRecall@K": 77.5,
+        "SupportAllHit@K": 55.0,
+        "ExactMatch": 15.0,
+        "F1_Score": 15.0,
+        "Avg_Tokens": 729.7,
+        "Avg_Latency_ms": 215.48,
+        "Avg_Retrieval_Calls": 2.0,
+        "Avg_Reranker_Calls": 2.0,
+        "No_Answer_Rate_Percent": 80.0
+      },
+      "queries": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to determine nationality of Ed Wood and Scott Derrickson",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Ed Wood",
+            "Ed Wood (film)",
+            "Ed Wood (film)",
+            "Ed Wood (film)",
+            "Scott Derrickson"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 390.0,
+            "total_latency": 0.15303707122802734,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.35983606557377046,
+            "claims": [
+              {
+                "claim": "We need to determine nationality of Ed Wood and Scott Derrickson",
+                "supported": false,
+                "confidence": 0.35983606557377046
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Kiss and Tell (1945 film)",
+            "A Kiss for Corliss",
+            "Kiss and Tell (1945 film)",
+            "Meet Corliss Archer (TV series)",
+            "Kiss and Tell (1945 film)"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 690.0,
+            "total_latency": 0.20557641983032227,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.009836065573770493,
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.009836065573770493
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a85ea095542994775f606a8",
+          "query": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "answer": "Animorphs",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Victoria Hanley",
+            "Andre Norton Award",
+            "The Divide trilogy"
+          ],
+          "supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1410.0,
+            "total_latency": 0.26512622833251953,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.009836065573770493,
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.009836065573770493
+              }
+            ]
+          }
+        },
+        {
+          "id": "5adbf0a255429947ff17385a",
+          "query": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "answer": "no",
+          "predicted_answer": "No",
+          "generated_answer": "No",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Esma Sultan (daughter of Abdülaziz)",
+            "Esma Sultan",
+            "Sultan Ahmed Mosque"
+          ],
+          "supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 780.0,
+            "total_latency": 0.2159266471862793,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "claims": [
+              {
+                "claim": "No",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8e3ea95542995a26add48d",
+          "query": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "answer": "Greenwich Village, New York City",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Big Stone Gap (film)",
+            "Big Stone Gap (film)",
+            "I Love NY (2015 film)",
+            "I Love NY (2015 film)",
+            "Conrad Brooks"
+          ],
+          "supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 653.0,
+            "total_latency": 0.18640375137329102,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.009836065573770493,
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.009836065573770493
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abd94525542992ac4f382d2",
+          "query": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+          "answer": "YG Entertainment",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "YG Entertainment We are asked: \"2014 S/S",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "2014 S/S",
+            "History (band)",
+            "Seventeen discography",
+            "List of awards and nominations received by Shinee",
+            "BTS discography"
+          ],
+          "supporting_titles": [
+            "2014 S/S",
+            "Winner (band)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1200.0,
+            "total_latency": 0.312701940536499,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.4765027322404371,
+            "claims": [
+              {
+                "claim": "YG Entertainment We are asked: \"2014 S/S",
+                "supported": false,
+                "confidence": 0.4765027322404371
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a85b2d95542997b5ce40028",
+          "query": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "answer": "Eenasul Fateh",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Eenasul Fateh We need to answer who",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Eenasul Fateh",
+            "ELDee",
+            "Management consulting",
+            "Eenasul Fateh",
+            "Management consulting"
+          ],
+          "supporting_titles": [
+            "Eenasul Fateh",
+            "Management consulting"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 689.0,
+            "total_latency": 0.2161242961883545,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.35983606557377046,
+            "claims": [
+              {
+                "claim": "Eenasul Fateh We need to answer who",
+                "supported": false,
+                "confidence": 0.35983606557377046
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a87ab905542996e4f3088c1",
+          "query": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "answer": "3,677 seated",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the seating capacity of the arena where the",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Lewiston Maineiacs",
+            "Dwyer Arena",
+            "Lewiston Maineiacs",
+            "Dwyer Arena",
+            "Lewiston Maineiacs"
+          ],
+          "supporting_titles": [
+            "Androscoggin Bank Colisée",
+            "Lewiston Maineiacs"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 534.0,
+            "total_latency": 0.19429659843444824,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.12650273224043715,
+            "claims": [
+              {
+                "claim": "We need to find the seating capacity of the arena where the",
+                "supported": false,
+                "confidence": 0.12650273224043715
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7bbb64554299042af8f7cc",
+          "query": "Who is older, Annie Morton or Terry Richardson?",
+          "answer": "Terry Richardson",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Annie Morton",
+            "Kenton Richardson",
+            "Annie Morton",
+            "Annie Morton",
+            "Gretchen Osgood Warren"
+          ],
+          "supporting_titles": [
+            "Annie Morton",
+            "Terry Richardson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 428.0,
+            "total_latency": 0.21794843673706055,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.009836065573770493,
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.009836065573770493
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8db19d5542994ba4e3dd00",
+          "query": "Are Local H and For Against both from the United States?",
+          "answer": "yes",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Local H",
+            "Local H",
+            "For Against",
+            "America East Conference",
+            "Local H"
+          ],
+          "supporting_titles": [
+            "For Against",
+            "Local H"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 518.0,
+            "total_latency": 0.217299222946167,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7166395542994082a3e814",
+          "query": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+          "answer": "Kansas Song",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Kansas Song (We’re From Kansas) We need to identify the university: main",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "University of Kansas",
+            "Kansas Song",
+            "Kansas Song",
+            "University of Kansas",
+            "University of Kansas"
+          ],
+          "supporting_titles": [
+            "Kansas Song",
+            "University of Kansas"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 690.0,
+            "total_latency": 0.221480131149292,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5098360655737705,
+            "claims": [
+              {
+                "claim": "Kansas Song (We’re From Kansas) We need to identify the university: main",
+                "supported": false,
+                "confidence": 0.5098360655737705
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a877e5d5542993e715abf7d",
+          "query": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and Téa Leoni?",
+          "answer": "David Weissman",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "David Weissman We need to find a screenwriter who co-wrote a film",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "The Family Man",
+            "David Weissman",
+            "Deadfall (1993 film)",
+            "The Family Man",
+            "Time to Kill (1989 film)"
+          ],
+          "supporting_titles": [
+            "David Weissman",
+            "The Family Man"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 615.0,
+            "total_latency": 0.18441319465637207,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5098360655737705,
+            "claims": [
+              {
+                "claim": "David Weissman We need to find a screenwriter who co-wrote a film",
+                "supported": false,
+                "confidence": 0.5098360655737705
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab3b0bf5542992ade7c6e39",
+          "query": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "answer": "1999",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "1999 We need to find the year Guns N' Roses performed a",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Oh My God (Guns N' Roses song)",
+            "Steven Adler",
+            "Arnold Schwarzenegger filmography",
+            "Guns N' Roses discography",
+            "Guns N' Roses discography"
+          ],
+          "supporting_titles": [
+            "End of Days (film)",
+            "Oh My God (Guns N' Roses song)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1228.0,
+            "total_latency": 0.29068517684936523,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.40983606557377045,
+            "claims": [
+              {
+                "claim": "1999 We need to find the year Guns N' Roses performed a",
+                "supported": false,
+                "confidence": 0.40983606557377045
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab56e32554299637185c594",
+          "query": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+          "answer": "no",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "888 7th Avenue",
+            "Random House Tower",
+            "888 7th Avenue",
+            "Random House Tower",
+            "Random House Tower"
+          ],
+          "supporting_titles": [
+            "888 7th Avenue",
+            "Random House Tower"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 550.0,
+            "total_latency": 0.2008039951324463,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab6d09255429954757d337d",
+          "query": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+          "answer": "from 1986 to 2013",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the football manager who recruited David Beckham and",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Matt Busby",
+            "Alex Ferguson",
+            "Ernest Mangnall",
+            "David Beckham Academy",
+            "1995–96 Manchester United F.C. season"
+          ],
+          "supporting_titles": [
+            "1995–96 Manchester United F.C. season",
+            "Alex Ferguson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 735.0,
+            "total_latency": 0.19413208961486816,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.40983606557377045,
+            "claims": [
+              {
+                "claim": "We need to find the football manager who recruited David Beckham and",
+                "supported": false,
+                "confidence": 0.40983606557377045
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a75e05c55429976ec32bc5f",
+          "query": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+          "answer": "9,984",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Brown State Fishing Lake",
+            "Brown State Fishing Lake",
+            "Osage State Fishing Lake",
+            "Fishing Lake",
+            "Fishing Lake"
+          ],
+          "supporting_titles": [
+            "Brown County, Kansas",
+            "Brown State Fishing Lake"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 440.0,
+            "total_latency": 0.1710205078125,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.009836065573770493,
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.009836065573770493
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab3e45655429976abd1bcd4",
+          "query": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+          "answer": "the North Atlantic Conference",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the conference of Vermont Catamounts men's soccer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Vermont Catamounts men's soccer",
+            "Vermont Catamounts men's basketball",
+            "Vermont Catamounts men's soccer",
+            "Vermont Catamounts men's ice hockey",
+            "2016–17 Vermont Catamounts men's basketball team"
+          ],
+          "supporting_titles": [
+            "America East Conference",
+            "Vermont Catamounts men's soccer"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 792.0,
+            "total_latency": 0.19168806076049805,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.4765027322404371,
+            "claims": [
+              {
+                "claim": "We need to find the conference of Vermont Catamounts men's soccer",
+                "supported": false,
+                "confidence": 0.4765027322404371
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab29c24554299449642c932",
+          "query": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+          "answer": "yes",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi",
+            "Verdi, the King of Melody",
+            "Teatro Giuseppe Verdi",
+            "Giuseppe Verdi (film)"
+          ],
+          "supporting_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 334.0,
+            "total_latency": 0.17098140716552734,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae0d4c9554299603e418468",
+          "query": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+          "answer": "1969 until 1974",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "1969–1974 We need to find the years of the Nixon administration",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Roger O. Egeberg",
+            "Roger O. Egeberg",
+            "Robert Hormats",
+            "Bradford P. Campbell",
+            "Steven K. Galson"
+          ],
+          "supporting_titles": [
+            "Richard Nixon",
+            "Roger O. Egeberg"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1275.0,
+            "total_latency": 0.29578471183776855,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.40983606557377045,
+            "claims": [
+              {
+                "claim": "1969–1974 We need to find the years of the Nixon administration",
+                "supported": false,
+                "confidence": 0.40983606557377045
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8133725542995ce29dcbdb",
+          "query": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+          "answer": "Robert Erskine Childers DSC",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Robert Erskine Childers We need to determine which writer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Robert Erskine Childers",
+            "Erskine Barton Childers",
+            "Robert Erskine Childers",
+            "Erskine Barton Childers",
+            "Henry Roth"
+          ],
+          "supporting_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 643.0,
+            "total_latency": 0.20412302017211914,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5098360655737705,
+            "claims": [
+              {
+                "claim": "Robert Erskine Childers We need to determine which writer",
+                "supported": false,
+                "confidence": 0.5098360655737705
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "progress": {
+    "status": "completed",
+    "current_config": null,
+    "completed_configs": [
+      "A3_Baseline_CoVe",
+      "D_CoVe_Full"
+    ],
+    "completed_queries_in_current_config": 0,
+    "total_queries_in_current_config": 0
+  }
+}
