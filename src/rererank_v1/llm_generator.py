@@ -4,7 +4,12 @@ import logging
 import re
 from typing import List, Dict, Any, Optional
 
-from .llm_backends import build_openai_compat_client, create_chat_completion, resolve_openai_compat_config
+from .llm_backends import (
+    build_openai_compat_client,
+    create_chat_completion,
+    extract_message_text,
+    resolve_openai_compat_config,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -167,16 +172,15 @@ def llm_generate_answer(
         )
         choice = response.choices[0] if getattr(response, "choices", None) else None
         message = getattr(choice, "message", None) if choice is not None else None
-        raw_content = getattr(message, "content", "") if message is not None else ""
-        if raw_content is None:
-            raw_content = ""
-        answer = str(raw_content).strip()
+        answer = extract_message_text(message)
 
         if not answer:
+            finish_reason = getattr(choice, "finish_reason", None) if choice is not None else None
             logger.warning(
-                "LLM returned empty content via provider=%s model=%s. Falling back to heuristic generator.",
+                "LLM returned empty content via provider=%s model=%s finish_reason=%s. Falling back to heuristic generator.",
                 config.provider,
                 config.model,
+                finish_reason,
             )
             fallback_answer = heuristic_generate_answer(query, results).strip()
             return fallback_answer if fallback_answer else "No-Answer"

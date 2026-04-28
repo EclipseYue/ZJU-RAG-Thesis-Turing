@@ -2,7 +2,12 @@ import logging
 from typing import List, Dict, Any, Tuple
 import re
 
-from .llm_backends import build_openai_compat_client, create_chat_completion, resolve_openai_compat_config
+from .llm_backends import (
+    build_openai_compat_client,
+    create_chat_completion,
+    extract_message_text,
+    resolve_openai_compat_config,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -88,7 +93,8 @@ class CoVeVerifier:
                 max_tokens=200,
                 response_format={"type": "json_object"},
             )
-            content = response.choices[0].message.content.strip()
+            choice = response.choices[0] if getattr(response, "choices", None) else None
+            content = extract_message_text(getattr(choice, "message", None))
             import json
             payload = json.loads(content)
             confidence = float(payload.get("confidence", 0.0))

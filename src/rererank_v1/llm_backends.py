@@ -2,7 +2,7 @@ import logging
 import os
 import time
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 _LAST_REQUEST_TS: dict[str, float] = {}
@@ -163,3 +163,66 @@ def create_chat_completion(client, config: OpenAICompatConfig, **kwargs):
                 exc,
             )
             time.sleep(delay)
+
+
+def _collect_text(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        text = value.strip()
+        return [text] if text else []
+    if isinstance(value, list):
+        parts: list[str] = []
+        for item in value:
+            parts.extend(_collect_text(item))
+        return parts
+    if isinstance(value, dict):
+        parts: list[str] = []
+        for key in ("text", "content", "reasoning_content", "output_text", "arguments", "value"):
+            if key in value:
+                parts.extend(_collect_text(value.get(key)))
+        return parts
+
+    # Pydantic/OpenAI SDK objects
+    for attr in ("text", "content", "reasoning_content", "output_text", "arguments", "value"):
+        if hasattr(value, attr):
+            parts = _collect_text(getattr(value, attr))
+            if parts:
+                return parts
+    return []
+
+
+def extract_message_text(message: Any) -> str:
+    """
+    Best-effort extraction for OpenAI-compatible message payloads.
+
+    Compatible providers sometimes return:
+    - message.content as plain string
+    - message.content as structured list/dicts
+    - blank content but populated reasoning_content
+    - tool/function call arguments carrying the only text payload
+    """
+    if message is None:
+        return ""
+
+    candidates: list[str] = []
+    for attr in ("content", "reasoning_content", "output_text", "refusal"):
+        if hasattr(message, attr):
+            candidates.extend(_collect_text(getattr(message, attr)))
+
+    tool_calls = getattr(message, "tool_calls", None)
+    if tool_calls:
+        candidates.extend(_collect_text(tool_calls))
+
+    function_call = getattr(message, "function_call", None)
+    if function_call:
+        candidates.extend(_collect_text(function_call))
+
+    deduped: list[str] = []
+    seen = set()
+    for item in candidates:
+        normalized = item.strip()
+        if normalized and normalized not in seen:
+            deduped.append(normalized)
+            seen.add(normalized)
+    return "\n".join(deduped).strip()
