@@ -1,0 +1,17 @@
+[
+  {
+    "Config": "llamaindex_text_short_answer",
+    "Route": "A",
+    "Stage": "A1_text_baseline_short_answer",
+    "Dataset": "hotpotqa",
+    "GeneratorBackend": "deepseek",
+    "GeneratorModel": "deepseek-v4-flash",
+    "AnswerMode": "strict_short",
+    "Samples": 50,
+    "SupportRecall@K": 78.0,
+    "SupportAllHit@K": 56.0,
+    "ExactMatch": 0.0,
+    "F1_Score": 2.66,
+    "Avg_Latency_ms": 3218.39
+  }
+]
