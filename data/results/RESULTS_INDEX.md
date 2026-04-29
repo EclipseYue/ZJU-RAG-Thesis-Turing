@@ -60,6 +60,27 @@
 - Route A 在本地初期接线阶段的 heuristic smoke
 - 主要用于排查与回顾，不建议作为论文正式结果引用
 
+### Batch D: 2026-04-29 Verification Feedback 真实 CoVe 实验
+
+目录：
+
+- [2026-04-29-verification-feedback](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback)
+
+用途：
+
+- 比较 hard reject、soft accept 与 verification feedback 三种验证策略
+- 支撑“verification collapse 可以通过软判定与反馈补检索缓解，但会引入额外成本”的论文论点
+
+推荐引用文件：
+
+- [verification_feedback_hotpotqa_50_v2.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_hotpotqa_50_v2.json)
+- [verification_feedback_policy_smoke.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_policy_smoke.json)
+
+说明：
+
+- `verification_feedback_study_hotpotqa_50.json` 是修复 verifier 解析与置信度口径前的污染版，只保留作排障记录，不建议引用。
+- `verification_feedback_study_hotpotqa_50_v2.json` 是当前可引用版本。
+
 ## 2. 当前结果摘要
 
 ### 2.1 Route A 服务器批次
@@ -115,15 +136,47 @@
 - 但真实 CoVe 下拒答率仍然很高
 - 这批结果更适合用作诊断和论文中的“问题暴露”材料
 
+### 2.3 Verification Feedback 批次
+
+`hard_reject`：
+
+- `ExactMatch = 6.0`
+- `F1 = 13.15`
+- `No_Answer_Rate = 40.0`
+- `Avg_Latency_ms = 266.7`
+
+`soft_accept`：
+
+- `ExactMatch = 10.0`
+- `F1 = 19.19`
+- `No_Answer_Rate = 34.0`
+- `Avg_Latency_ms = 261.67`
+
+`verification_feedback`：
+
+- `ExactMatch = 12.0`
+- `F1 = 20.47`
+- `No_Answer_Rate = 20.0`
+- `Feedback_Rate = 34.0`
+- `Avg_Latency_ms = 356.37`
+- `Avg_Retrieval_Calls = 2.68`
+
+结论：
+
+- soft accept 相比 hard reject 明显降低了过度拒答，并带来 F1 提升。
+- verification feedback 进一步把拒答率降到 20.0%，F1 小幅提升到 20.47，但增加了约 36% 的端到端延迟。
+- 该批结果适合用于论文中的 tradeoff 分析，而不是作为“最终强性能系统”声明。
+
 ## 3. 当前推荐引用顺序
 
 如果你现在要继续实验或写文档，建议按以下优先级引用结果：
 
 1. Route A 服务器 `realapi_100`
-2. Route A 服务器 `realapi_smoke_latest`
-3. Route A 服务器 `heuristic_smoke`
-4. 旧消融服务器 `legacy_a_baseline_smoke`
-5. 旧消融服务器 `legacy_a3_cove_smoke`
+2. Verification Feedback `hotpotqa_50_v2`
+3. Route A 服务器 `realapi_smoke_latest`
+4. Route A 服务器 `heuristic_smoke`
+5. 旧消融服务器 `legacy_a_baseline_smoke`
+6. 旧消融服务器 `legacy_a3_cove_smoke`
 
 ## 3.1 当前批次对比图
 
@@ -134,6 +187,7 @@
 - [current_batch_latency_noanswer.png](/Users/eclipse/code/RAG/Rererank_v1/paper/zjuthesis/figures/current_batch_latency_noanswer.png)
 - [tradeoff_f1_rejection.png](/Users/eclipse/code/RAG/Rererank_v1/paper/zjuthesis/figures/tradeoff_f1_rejection.png)
 - [tradeoff_f1_latency.png](/Users/eclipse/code/RAG/Rererank_v1/paper/zjuthesis/figures/tradeoff_f1_latency.png)
+- [verifier_calibration.png](/Users/eclipse/code/RAG/Rererank_v1/paper/zjuthesis/figures/verifier_calibration.png)
 
 用途：
 
@@ -147,10 +201,10 @@
   展示当前批次的 F1--拒答率权衡，用于支撑 verification collapse 讨论
 - `tradeoff_f1_latency.png`
   展示当前批次的 F1--延迟权衡，用于支撑成本-效果讨论
+- `verifier_calibration.png`
+  展示验证置信度与实际回答正确性的关系，用于支撑 calibration 分析
 
-后续若存在 `data/results/verification_feedback_study_hotpotqa*.json`，运行 `experiments/plot_tradeoff_calibration.py` 后会将 hard/soft/feedback 变体自动加入权衡图，并在逐样本记录含验证置信度时生成：
-
-- `paper/zjuthesis/figures/verifier_calibration.png`
+当前 `experiments/plot_tradeoff_calibration.py` 会优先读取 `verification_feedback_study_hotpotqa_50_v2.json`，避免误用修复前的污染版结果。
 
 ## 4. 命名规范
 
@@ -172,4 +226,4 @@
 
 - Route A 继续做误差分析和模型对照，而不是立刻扩更大样本。
 - 旧消融壳只保留诊断角色，不再作为后续主线的主要结果来源。
-- 下一批优先运行 `verification_feedback_study_hotpotqa_50`，观察软验证与反馈补检索能否降低 CoVe 造成的过度拒答。
+- 下一批优先做 targeted feedback 改造，避免继续使用简单拼接失败 claim 的粗糙补检索策略。

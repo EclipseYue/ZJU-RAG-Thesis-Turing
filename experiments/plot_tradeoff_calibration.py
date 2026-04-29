@@ -12,6 +12,23 @@ RESULTS = ROOT / "data" / "results"
 FIGURES = ROOT / "paper" / "zjuthesis" / "figures"
 
 
+def find_feedback_result() -> Path | None:
+    preferred = [
+        RESULTS / "verification_feedback_study_hotpotqa_50_v2.json",
+        RESULTS / "verification_feedback_study_hotpotqa_50.json",
+        RESULTS / "verification_feedback_study_hotpotqa.json",
+    ]
+    for path in preferred:
+        if path.exists():
+            return path
+    candidates = sorted(
+        RESULTS.glob("verification_feedback_study_hotpotqa*.json"),
+        key=lambda path: path.stat().st_mtime,
+        reverse=True,
+    )
+    return candidates[0] if candidates else None
+
+
 def load_matrix_rows() -> list[dict]:
     rows = []
     candidates = [
@@ -19,7 +36,7 @@ def load_matrix_rows() -> list[dict]:
         ("Legacy A", RESULTS / "batches" / "2026-04-28-legacy-server-smoke" / "legacy_a_baseline_smoke_matrix.json"),
         ("Legacy A3 CoVe", RESULTS / "batches" / "2026-04-28-legacy-server-smoke" / "legacy_a3_cove_smoke_matrix.json"),
     ]
-    feedback_path = RESULTS / "verification_feedback_study_hotpotqa.json"
+    feedback_path = find_feedback_result()
     for label, path in candidates:
         if not path.exists():
             continue
@@ -69,8 +86,8 @@ def plot_tradeoffs(rows: list[dict]) -> list[Path]:
 
 
 def plot_calibration() -> Path | None:
-    path = RESULTS / "verification_feedback_study_hotpotqa.json"
-    if not path.exists():
+    path = find_feedback_result()
+    if not path:
         return None
     data = json.loads(path.read_text(encoding="utf-8"))
     records = []
