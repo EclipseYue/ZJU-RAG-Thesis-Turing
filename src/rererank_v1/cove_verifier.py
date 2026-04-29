@@ -1,6 +1,7 @@
 import logging
 from typing import List, Dict, Any, Tuple
 import re
+import json
 
 from .llm_backends import (
     build_openai_compat_client,
@@ -35,6 +36,44 @@ class CoVeVerifier:
         self.base_url = base_url
         self.decision_policy = decision_policy
         self.min_claim_confidence = min_claim_confidence
+
+    def _parse_llm_verification_payload(self, content: str) -> Dict[str, Any]:
+        """
+        Parse verifier output from OpenAI-compatible providers.
+
+        Some providers return strict JSON, while others may wrap it in Markdown
+        fences or add a short natural-language prefix. The verifier should be
+        robust to those formatting differences because they are not semantic
+        verification failures.
+        """
+        text = (content or "").strip()
+        if not text:
+            raise ValueError("empty verifier response")
+
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            pass
+
+        fenced = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, flags=re.DOTALL | re.IGNORECASE)
+        if fenced:
+            return json.loads(fenced.group(1))
+
+        start = text.find("{")
+        end = text.rfind("}")
+        if 0 <= start < end:
+            return json.loads(text[start : end + 1])
+
+        label_match = re.search(r"\b(SUPPORTED|INSUFFICIENT|CONTRADICTED)\b", text, flags=re.IGNORECASE)
+        confidence_match = re.search(r"(?:confidence|score)\D{0,20}([01](?:\.\d+)?)", text, flags=re.IGNORECASE)
+        if label_match:
+            return {
+                "label": label_match.group(1).upper(),
+                "confidence": float(confidence_match.group(1)) if confidence_match else 0.5,
+                "reason": text[:240],
+            }
+
+        raise ValueError(f"cannot parse verifier response: {text[:120]}")
 
     def extract_claims(self, generated_answer: str) -> List[str]:
         """
@@ -81,6 +120,8 @@ class CoVeVerifier:
             "Given a claim and retrieved evidence, decide whether the claim is supported.\n"
             "Return JSON with keys: label, confidence, reason.\n"
             "label must be one of SUPPORTED, INSUFFICIENT, CONTRADICTED.\n"
+            "Return only a JSON object, without Markdown fences or extra text.\n"
+            'Example: {"label":"SUPPORTED","confidence":0.82,"reason":"..."}\n'
             f"Claim: {claim}\n"
             f"Evidence:\n{evidence_text}\n"
         )
@@ -99,13 +140,17 @@ class CoVeVerifier:
             )
             choice = response.choices[0] if getattr(response, "choices", None) else None
             content = extract_message_text(getattr(choice, "message", None))
-            import json
-            payload = json.loads(content)
+            payload = self._parse_llm_verification_payload(content)
             confidence = float(payload.get("confidence", 0.0))
             label = str(payload.get("label", "INSUFFICIENT")).upper()
             return label == "SUPPORTED" and confidence >= self.threshold, confidence
         except Exception as exc:
-            logger.error("LLM verification failed via provider=%s model=%s: %s", config.provider, config.model, exc)
+            logger.warning(
+                "LLM verification parse/call failed via provider=%s model=%s: %s. Falling back to heuristic verification.",
+                config.provider,
+                config.model,
+                exc,
+            )
             return self._verify_claim_heuristic(claim, evidence_chain)
 
     def _verify_claim_heuristic(self, claim: str, evidence_chain: List[Dict[str, Any]]) -> Tuple[bool, float]:
