@@ -26,7 +26,10 @@
         "mode": "overlap",
         "threshold": 0.35
       }
-    ]
+    ],
+    "real_cove": true,
+    "verifier_backend": "deepseek",
+    "verifier_model": "deepseek-v4-flash"
   },
   "variants": {
     "cove_soft": {
@@ -34,11 +37,11 @@
       "threshold": 0.35,
       "summary": {
         "samples": 200,
-        "F1": 4.96,
-        "No_Answer_Rate": 0.5,
-        "False_Rejection_Rate": 0.5,
-        "Unsafe_Accept_Rate": 85.5,
-        "Avg_Verify_Confidence": 0.7107
+        "F1": 16.78,
+        "No_Answer_Rate": 26.5,
+        "False_Rejection_Rate": 26.5,
+        "Unsafe_Accept_Rate": 35.0,
+        "Avg_Verify_Confidence": 0.5838
       }
     },
     "cove_standard": {
@@ -46,11 +49,11 @@
       "threshold": 0.5,
       "summary": {
         "samples": 200,
-        "F1": 4.96,
-        "No_Answer_Rate": 0.5,
-        "False_Rejection_Rate": 0.5,
-        "Unsafe_Accept_Rate": 85.5,
-        "Avg_Verify_Confidence": 0.7107
+        "F1": 11.19,
+        "No_Answer_Rate": 40.5,
+        "False_Rejection_Rate": 40.5,
+        "Unsafe_Accept_Rate": 28.5,
+        "Avg_Verify_Confidence": 0.4882
       }
     },
     "cove_strict": {
@@ -58,11 +61,11 @@
       "threshold": 0.9,
       "summary": {
         "samples": 200,
-        "F1": 0.0,
-        "No_Answer_Rate": 98.5,
-        "False_Rejection_Rate": 98.5,
-        "Unsafe_Accept_Rate": 1.5,
-        "Avg_Verify_Confidence": 0.7107
+        "F1": 7.02,
+        "No_Answer_Rate": 62.5,
+        "False_Rejection_Rate": 62.5,
+        "Unsafe_Accept_Rate": 17.0,
+        "Avg_Verify_Confidence": 0.5282
       }
     },
     "overlap_soft": {
@@ -70,11 +73,11 @@
       "threshold": 0.35,
       "summary": {
         "samples": 200,
-        "F1": 4.83,
-        "No_Answer_Rate": 15.0,
-        "False_Rejection_Rate": 15.0,
-        "Unsafe_Accept_Rate": 71.5,
-        "Avg_Verify_Confidence": 0.8235
+        "F1": 12.02,
+        "No_Answer_Rate": 60.5,
+        "False_Rejection_Rate": 60.5,
+        "Unsafe_Accept_Rate": 15.5,
+        "Avg_Verify_Confidence": 0.3132
       }
     }
   }
