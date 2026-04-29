@@ -143,7 +143,11 @@ class CoVeVerifier:
             payload = self._parse_llm_verification_payload(content)
             confidence = float(payload.get("confidence", 0.0))
             label = str(payload.get("label", "INSUFFICIENT")).upper()
-            return label == "SUPPORTED" and confidence >= self.threshold, confidence
+            # LLM confidence is confidence in the predicted label, not always
+            # confidence that the claim is supported. Convert it into a support
+            # confidence before soft aggregation.
+            support_confidence = confidence if label == "SUPPORTED" else max(0.0, 1.0 - confidence)
+            return label == "SUPPORTED" and support_confidence >= self.threshold, support_confidence
         except Exception as exc:
             logger.warning(
                 "LLM verification parse/call failed via provider=%s model=%s: %s. Falling back to heuristic verification.",
@@ -182,10 +186,31 @@ class CoVeVerifier:
         """
         Executes the full CoVe pipeline on a generated answer.
         """
+        if (generated_answer or "").strip().lower() in {"no-answer", "no answer", "unknown"}:
+            return {
+                "status": "REJECTED",
+                "reason": "Generator abstained before verification.",
+                "avg_confidence": 0.0,
+                "min_confidence": 0.0,
+                "unsupported_count": 1,
+                "decision_policy": self.decision_policy,
+                "claims": [
+                    {
+                        "claim": generated_answer,
+                        "supported": False,
+                        "confidence": 0.0,
+                    }
+                ],
+            }
+
         if not evidence_chain:
             return {
                 "status": "REJECTED",
                 "reason": "No evidence retrieved (No-Answer Safety)",
+                "avg_confidence": 0.0,
+                "min_confidence": 0.0,
+                "unsupported_count": 0,
+                "decision_policy": self.decision_policy,
                 "claims": []
             }
             
