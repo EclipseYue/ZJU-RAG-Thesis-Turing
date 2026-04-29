@@ -1,0 +1,620 @@
+{
+  "config": {
+    "dataset": "hotpotqa",
+    "split": "validation",
+    "samples": 5,
+    "top_k": 5,
+    "prf_threshold": 0.8,
+    "hetero": false,
+    "generator_backend": "deepseek",
+    "generator_model": "deepseek-v4-flash",
+    "verifier_backend": "deepseek",
+    "verifier_model": "deepseek-v4-flash",
+    "real_cove": true,
+    "device": "cuda",
+    "local_data_dir": "data/datasets",
+    "hf_cache_dir": null,
+    "offline": true,
+    "output_name": "verification_feedback_study_hotpotqa_parser_smoke.json",
+    "variants": [
+      {
+        "name": "hard_reject",
+        "threshold": 0.5,
+        "decision_policy": "hard",
+        "feedback_retry": false
+      },
+      {
+        "name": "soft_accept",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": false
+      },
+      {
+        "name": "verification_feedback",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": true
+      }
+    ],
+    "generator_base_url": "https://api.deepseek.com",
+    "verifier_base_url": "https://api.deepseek.com"
+  },
+  "variants": {
+    "hard_reject": {
+      "config": {
+        "name": "hard_reject",
+        "threshold": 0.5,
+        "decision_policy": "hard",
+        "feedback_retry": false
+      },
+      "summary": {
+        "Samples": 5,
+        "ExactMatch": 0.0,
+        "F1_Score": 0.0,
+        "SupportRecall@K": 70.0,
+        "SupportAllHit@K": 40.0,
+        "No_Answer_Rate_Percent": 80.0,
+        "Feedback_Rate_Percent": 0.0,
+        "Avg_Verify_Confidence": 0.712,
+        "Avg_Latency_ms": 243.76,
+        "Avg_Retrieval_Calls": 2.0
+      },
+      "records": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "draft_answer": "No",
+          "predicted_answer": "No-Answer",
+          "rejected": true,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Ed Wood",
+            "Ed Wood (film)",
+            "Woodson, Arkansas",
+            "Adam Collis",
+            "Conrad Brooks"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "avg_confidence": 0.95,
+          "min_confidence": 0.95,
+          "unsupported_count": 1,
+          "verification_reason": "At least one claim is unsupported under hard verification.",
+          "stats_delta": {
+            "total_tokens": 860.0,
+            "total_latency": 0.3163280487060547,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "draft_answer": "We need to answer: \"What government position",
+          "predicted_answer": "No-Answer",
+          "rejected": true,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Kiss and Tell (1945 film)",
+            "Janet Waldo",
+            "A Kiss for Corliss",
+            "Meet Corliss Archer",
+            "Meet Corliss Archer (TV series)"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "avg_confidence": 0.7,
+          "min_confidence": 0.7,
+          "unsupported_count": 1,
+          "verification_reason": "At least one claim is unsupported under hard verification.",
+          "stats_delta": {
+            "total_tokens": 918.0,
+            "total_latency": 0.1938190460205078,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a85ea095542994775f606a8",
+          "query": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "answer": "Animorphs",
+          "draft_answer": "We need to find a science fantasy young adult series told in",
+          "predicted_answer": "We need to find a science fantasy young adult series told in",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": true,
+          "predicted_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Victoria Hanley",
+            "Andre Norton Award",
+            "The Divide trilogy"
+          ],
+          "supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "avg_confidence": 0.95,
+          "min_confidence": 0.95,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1410.0,
+            "total_latency": 0.2774546146392822,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5adbf0a255429947ff17385a",
+          "query": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "answer": "no",
+          "draft_answer": "No",
+          "predicted_answer": "No-Answer",
+          "rejected": true,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": true,
+          "predicted_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Esma Sultan (daughter of Abdülaziz)",
+            "Esma Sultan",
+            "Sultan Ahmed Mosque"
+          ],
+          "supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "avg_confidence": 0.95,
+          "min_confidence": 0.95,
+          "unsupported_count": 1,
+          "verification_reason": "At least one claim is unsupported under hard verification.",
+          "stats_delta": {
+            "total_tokens": 780.0,
+            "total_latency": 0.2269601821899414,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8e3ea95542995a26add48d",
+          "query": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "answer": "Greenwich Village, New York City",
+          "draft_answer": "No-Answer",
+          "predicted_answer": "No-Answer",
+          "rejected": true,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Big Stone Gap (film)",
+            "I Love NY (2015 film)",
+            "Nola (film)",
+            "Ed Wood (film)",
+            "Great Eastern Conventions"
+          ],
+          "supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "avg_confidence": 0.009836065573770493,
+          "min_confidence": 0.009836065573770493,
+          "unsupported_count": 1,
+          "verification_reason": "At least one claim is unsupported under hard verification.",
+          "stats_delta": {
+            "total_tokens": 954.0,
+            "total_latency": 0.2042529582977295,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        }
+      ]
+    },
+    "soft_accept": {
+      "config": {
+        "name": "soft_accept",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": false
+      },
+      "summary": {
+        "Samples": 5,
+        "ExactMatch": 20.0,
+        "F1_Score": 20.0,
+        "SupportRecall@K": 70.0,
+        "SupportAllHit@K": 40.0,
+        "No_Answer_Rate_Percent": 0.0,
+        "Feedback_Rate_Percent": 0.0,
+        "Avg_Verify_Confidence": 0.77,
+        "Avg_Latency_ms": 218.41,
+        "Avg_Retrieval_Calls": 2.0
+      },
+      "records": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "draft_answer": "No-Answer",
+          "predicted_answer": "No-Answer",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Ed Wood",
+            "Ed Wood (film)",
+            "Woodson, Arkansas",
+            "Adam Collis",
+            "Conrad Brooks"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "avg_confidence": 0.95,
+          "min_confidence": 0.95,
+          "unsupported_count": 1,
+          "verification_reason": "Partially supported by evidence (Soft acceptance).",
+          "stats_delta": {
+            "total_tokens": 860.0,
+            "total_latency": 0.19963860511779785,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "draft_answer": "We need to find the government position held by the woman who",
+          "predicted_answer": "We need to find the government position held by the woman who",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Kiss and Tell (1945 film)",
+            "Janet Waldo",
+            "A Kiss for Corliss",
+            "Meet Corliss Archer",
+            "Meet Corliss Archer (TV series)"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "avg_confidence": 0.95,
+          "min_confidence": 0.95,
+          "unsupported_count": 1,
+          "verification_reason": "Partially supported by evidence (Soft acceptance).",
+          "stats_delta": {
+            "total_tokens": 918.0,
+            "total_latency": 0.19888710975646973,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a85ea095542994775f606a8",
+          "query": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "answer": "Animorphs",
+          "draft_answer": "We need to find the series based on the description: science fantasy",
+          "predicted_answer": "We need to find the series based on the description: science fantasy",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": true,
+          "predicted_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Victoria Hanley",
+            "Andre Norton Award",
+            "The Divide trilogy"
+          ],
+          "supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "avg_confidence": 0.5,
+          "min_confidence": 0.5,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1410.0,
+            "total_latency": 0.28008365631103516,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5adbf0a255429947ff17385a",
+          "query": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "answer": "no",
+          "draft_answer": "No",
+          "predicted_answer": "No",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 1.0,
+          "f1": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": true,
+          "predicted_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Esma Sultan (daughter of Abdülaziz)",
+            "Esma Sultan",
+            "Sultan Ahmed Mosque"
+          ],
+          "supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "avg_confidence": 0.95,
+          "min_confidence": 0.95,
+          "unsupported_count": 1,
+          "verification_reason": "Partially supported by evidence (Soft acceptance).",
+          "stats_delta": {
+            "total_tokens": 780.0,
+            "total_latency": 0.21847271919250488,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8e3ea95542995a26add48d",
+          "query": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "answer": "Greenwich Village, New York City",
+          "draft_answer": "No-Answer",
+          "predicted_answer": "No-Answer",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Big Stone Gap (film)",
+            "I Love NY (2015 film)",
+            "Nola (film)",
+            "Ed Wood (film)",
+            "Great Eastern Conventions"
+          ],
+          "supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "avg_confidence": 0.5,
+          "min_confidence": 0.5,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 954.0,
+            "total_latency": 0.1949620246887207,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        }
+      ]
+    },
+    "verification_feedback": {
+      "config": {
+        "name": "verification_feedback",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": true
+      },
+      "summary": {
+        "Samples": 5,
+        "ExactMatch": 0.0,
+        "F1_Score": 5.0,
+        "SupportRecall@K": 70.0,
+        "SupportAllHit@K": 40.0,
+        "No_Answer_Rate_Percent": 40.0,
+        "Feedback_Rate_Percent": 40.0,
+        "Avg_Verify_Confidence": 0.5686,
+        "Avg_Latency_ms": 299.58,
+        "Avg_Retrieval_Calls": 2.8
+      },
+      "records": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "draft_answer": "No-Answer",
+          "predicted_answer": "No-Answer",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Ed Wood",
+            "Ed Wood (film)",
+            "Woodson, Arkansas",
+            "Adam Collis",
+            "Conrad Brooks"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "avg_confidence": 0.5,
+          "min_confidence": 0.5,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 860.0,
+            "total_latency": 0.20362448692321777,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "draft_answer": "We need to answer: \"What government position",
+          "predicted_answer": "No-Answer",
+          "rejected": true,
+          "used_feedback": true,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Kiss and Tell (1945 film)",
+            "Janet Waldo",
+            "A Kiss for Corliss",
+            "Meet Corliss Archer",
+            "Meet Corliss Archer (TV series)"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "avg_confidence": 0.2431693989071038,
+          "min_confidence": 0.2431693989071038,
+          "unsupported_count": 1,
+          "verification_reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+          "stats_delta": {
+            "total_tokens": 1920.0,
+            "total_latency": 0.3876631259918213,
+            "retrieval_calls": 4.0,
+            "reranker_calls": 4.0
+          }
+        },
+        {
+          "id": "5a85ea095542994775f606a8",
+          "query": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "answer": "Animorphs",
+          "draft_answer": "Animorphs We need to find a series that",
+          "predicted_answer": "Animorphs We need to find a series that",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.25,
+          "support_recall": 1.0,
+          "support_all_hit": true,
+          "predicted_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Victoria Hanley",
+            "Andre Norton Award",
+            "The Divide trilogy"
+          ],
+          "supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "avg_confidence": 0.95,
+          "min_confidence": 0.95,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1410.0,
+            "total_latency": 0.27865028381347656,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5adbf0a255429947ff17385a",
+          "query": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "answer": "no",
+          "draft_answer": "No",
+          "predicted_answer": "No-Answer",
+          "rejected": true,
+          "used_feedback": true,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": true,
+          "predicted_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Esma Sultan (daughter of Abdülaziz)",
+            "Esma Sultan",
+            "Sultan Ahmed Mosque"
+          ],
+          "supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "avg_confidence": 0.2,
+          "min_confidence": 0.2,
+          "unsupported_count": 1,
+          "verification_reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+          "stats_delta": {
+            "total_tokens": 1572.0,
+            "total_latency": 0.43434834480285645,
+            "retrieval_calls": 4.0,
+            "reranker_calls": 4.0
+          }
+        },
+        {
+          "id": "5a8e3ea95542995a26add48d",
+          "query": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "answer": "Greenwich Village, New York City",
+          "draft_answer": "We need to answer based on context",
+          "predicted_answer": "We need to answer based on context",
+          "rejected": false,
+          "used_feedback": false,
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Big Stone Gap (film)",
+            "I Love NY (2015 film)",
+            "Nola (film)",
+            "Ed Wood (film)",
+            "Great Eastern Conventions"
+          ],
+          "supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "avg_confidence": 0.95,
+          "min_confidence": 0.95,
+          "unsupported_count": 1,
+          "verification_reason": "Partially supported by evidence (Soft acceptance).",
+          "stats_delta": {
+            "total_tokens": 954.0,
+            "total_latency": 0.19361209869384766,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        }
+      ]
+    }
+  }
+}
