@@ -127,7 +127,7 @@ python experiments/run_route_a_baseline.py \
 文件：`experiments/run_verification_feedback_study.py`
 
 用途：
-- 比较 `hard_reject`、`soft_accept`、`verification_feedback` 三类验证策略
+- 比较 `hard_reject`、`soft_accept`、`verification_feedback`、`targeted_feedback` 四类验证策略
 - 检查 CoVe 式验证从“一票否决”改为“软置信度聚合”后，拒答率与 F1 的变化
 - 检查验证失败后触发定向补检索是否能缓解 verification collapse
 
@@ -144,7 +144,7 @@ experiments/configs/verification_feedback_study.json
   --config experiments/configs/verification_feedback_study.json \
   --samples 50 \
   --real-cove \
-  --output-name verification_feedback_study_hotpotqa_50.json
+  --output-name verification_feedback_study_hotpotqa_50_v3.json
 ```
 
 输出指标：
@@ -163,7 +163,8 @@ experiments/configs/verification_feedback_study.json
 
 - `hard_reject` 对应旧式严格 CoVe 的崩溃风险
 - `soft_accept` 对应软置信度判别
-- `verification_feedback` 对应最小验证反馈闭环
+- `verification_feedback` 对应失败声明拼接式最小反馈闭环
+- `targeted_feedback` 对应基于问题实体、已检索标题与失败声明的定向补检索闭环
 
 ### 2.5 权衡曲线与校准图入口
 

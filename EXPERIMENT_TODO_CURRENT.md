@@ -174,7 +174,7 @@ ls experiments/configs/local_api_overrides.json
 
 任务：
 
-- 比较硬拒答、软置信度接受、验证失败后定向补检索三种策略
+- 比较硬拒答、软置信度接受、失败声明拼接反馈、定向补检索四种策略
 - 把“verification collapse”从负结果推进为可修复的方法问题
 - 该实验默认使用真实生成端与真实 CoVe 验证端，样本量先从 50 开始
 
@@ -185,19 +185,18 @@ ls experiments/configs/local_api_overrides.json
   --config experiments/configs/verification_feedback_study.json \
   --samples 50 \
   --real-cove \
-  --output-name verification_feedback_study_hotpotqa_50.json
+  --output-name verification_feedback_study_hotpotqa_50_v3.json
 ```
 
 预期产物：
 
-- `data/results/verification_feedback_study_hotpotqa_50.json`
-- `data/results/verification_feedback_study_hotpotqa_50_report_*.json`
+- `data/results/verification_feedback_study_hotpotqa_50_v3.json`
 
 用于论文：
 
-- 对比 `hard_reject / soft_accept / verification_feedback`
+- 对比 `hard_reject / soft_accept / verification_feedback / targeted_feedback`
 - 报告 F1、拒答率、平均验证置信度、反馈触发率、平均检索次数与延迟
-- 若反馈版本在拒答率下降的同时不显著拉低 F1，可作为“最小闭环修复”贡献
+- 若 `targeted_feedback` 相比 `verification_feedback` 提升 F1 或降低拒答率，可作为“定向反馈闭环”贡献
 
 ### 8. 权衡曲线与校准图生成
 

@@ -246,12 +246,12 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
   --config experiments/configs/verification_feedback_study.json \
   --samples 50 \
   --real-cove \
-  --output-name verification_feedback_study_hotpotqa_50.json
+  --output-name verification_feedback_study_hotpotqa_50_v3.json
 ```
 
 目标：
 
-- 对比 `hard_reject`、`soft_accept` 与 `verification_feedback`
+- 对比 `hard_reject`、`soft_accept`、`verification_feedback` 与 `targeted_feedback`
 - 检验 verification collapse 是否能被软决策或失败后补检索缓解
 - 为论文中“方法闭环”提供实验支撑
 

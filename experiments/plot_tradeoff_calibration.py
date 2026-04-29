@@ -14,6 +14,7 @@ FIGURES = ROOT / "paper" / "zjuthesis" / "figures"
 
 def find_feedback_result() -> Path | None:
     preferred = [
+        RESULTS / "verification_feedback_study_hotpotqa_50_v3.json",
         RESULTS / "verification_feedback_study_hotpotqa_50_v2.json",
         RESULTS / "verification_feedback_study_hotpotqa_50.json",
         RESULTS / "verification_feedback_study_hotpotqa.json",

@@ -32,7 +32,15 @@
       "name": "verification_feedback",
       "threshold": 0.5,
       "decision_policy": "soft",
-      "feedback_retry": true
+      "feedback_retry": true,
+      "feedback_strategy": "claim_concat"
+    },
+    {
+      "name": "targeted_feedback",
+      "threshold": 0.5,
+      "decision_policy": "soft",
+      "feedback_retry": true,
+      "feedback_strategy": "targeted_query"
     }
   ]
 }

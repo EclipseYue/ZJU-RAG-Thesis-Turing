@@ -17,6 +17,14 @@ from rererank_v1.llm_generator import heuristic_generate_answer, llm_generate_an
 from rererank_v1.paths import repo_root, results_dir
 from rererank_v1.rag_pipeline import RAGPipeline
 
+STOPWORDS = {
+    "what", "which", "who", "whom", "whose", "where", "when", "were", "was",
+    "are", "is", "did", "does", "do", "the", "a", "an", "of", "in", "on",
+    "for", "to", "by", "and", "or", "with", "from", "that", "this", "these",
+    "those", "same", "held", "position", "located", "director", "woman",
+    "man", "film", "series", "book", "books", "city", "country",
+}
+
 
 def load_json(path: Path) -> Dict[str, Any]:
     with open(path, "r", encoding="utf-8") as f:
@@ -111,6 +119,68 @@ def failed_claim_text(verification: Dict[str, Any], fallback: str) -> str:
     return text[:240] if text else fallback[:240]
 
 
+def useful_text_fragment(text: str) -> bool:
+    normalized = normalize_answer(text)
+    if not normalized or normalized in {"noanswer", "no answer", "unknown"}:
+        return False
+    if normalized.startswith(("we need", "need to", "i need", "answer based")):
+        return False
+    return len(normalized.split()) >= 2
+
+
+def extract_query_terms(*texts: str) -> List[str]:
+    terms: List[str] = []
+    seen = set()
+
+    def add(term: str) -> None:
+        clean = re.sub(r"\s+", " ", term).strip(" '\".,;:!?()[]{}")
+        key = clean.lower()
+        if clean and key not in seen and key not in STOPWORDS:
+            terms.append(clean)
+            seen.add(key)
+
+    for text in texts:
+        for quoted in re.findall(r'"([^"]{2,80})"', text or ""):
+            add(quoted)
+        for phrase in re.findall(r"\b[A-Z][A-Za-z0-9'’-]*(?:\s+[A-Z][A-Za-z0-9'’-]*){0,5}", text or ""):
+            add(phrase)
+        for token in re.findall(r"\b[a-zA-Z][a-zA-Z0-9'’-]{4,}\b", text or ""):
+            if token.lower() not in STOPWORDS:
+                add(token)
+    return terms[:10]
+
+
+def build_retry_query(
+    query: str,
+    verification: Dict[str, Any],
+    draft: str,
+    results: List[Dict[str, Any]],
+    strategy: str,
+    top_k: int,
+) -> str:
+    if strategy == "claim_concat":
+        retry_hint = failed_claim_text(verification, draft)
+        return f"{query} {retry_hint}".strip()
+
+    failed_claims = [
+        item.get("claim", "")
+        for item in verification.get("claims", [])
+        if not item.get("supported", False) and useful_text_fragment(item.get("claim", ""))
+    ]
+    retrieved_titles = extract_titles(results, top_k=3)
+    terms = extract_query_terms(query, draft, " ".join(failed_claims), " ".join(retrieved_titles))
+
+    parts = [query]
+    if terms:
+        parts.append("Key entities: " + "; ".join(terms[:8]))
+    if retrieved_titles:
+        parts.append("Retrieved evidence titles: " + "; ".join(retrieved_titles[:3]))
+    if failed_claims:
+        parts.append("Missing or weak claim: " + " ".join(failed_claims)[:160])
+    parts.append("Find the missing bridge evidence and answer entity.")
+    return " ".join(parts)[:500]
+
+
 def evaluate_item(
     rag: RAGPipeline,
     query_item: Dict[str, Any],
@@ -129,11 +199,18 @@ def evaluate_item(
     final_results = search["results"]
     final_verification = verification
     final_answer = draft
+    retry_query = ""
 
     if verification.get("status") == "REJECTED" and variant.get("feedback_retry", False):
         used_feedback = True
-        retry_hint = failed_claim_text(verification, draft)
-        retry_query = f"{query_item['query']} {retry_hint}".strip()
+        retry_query = build_retry_query(
+            query_item["query"],
+            verification,
+            draft,
+            search["results"],
+            strategy=variant.get("feedback_strategy", "claim_concat"),
+            top_k=top_k,
+        )
         retry_search = rag.search_with_chain(retry_query, top_k=top_k, prf_threshold=prf_threshold)
         retry_draft = generate_answer(query_item["query"], retry_search["results"], config)
         retry_verification = verifier.evaluate_answer(retry_draft, retry_search["chain"])
@@ -157,6 +234,8 @@ def evaluate_item(
         "predicted_answer": pred,
         "rejected": rejected,
         "used_feedback": used_feedback,
+        "feedback_strategy": variant.get("feedback_strategy", "none"),
+        "retry_query": retry_query,
         "exact_match": 0.0 if rejected else exact_match(query_item.get("answer", ""), pred),
         "f1": 0.0 if rejected else f1_score(query_item.get("answer", ""), pred),
         "support_recall": support_hits / len(supporting_titles) if supporting_titles else 0.0,

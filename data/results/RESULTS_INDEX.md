@@ -204,7 +204,7 @@
 - `verifier_calibration.png`
   展示验证置信度与实际回答正确性的关系，用于支撑 calibration 分析
 
-当前 `experiments/plot_tradeoff_calibration.py` 会优先读取 `verification_feedback_study_hotpotqa_50_v2.json`，避免误用修复前的污染版结果。
+当前 `experiments/plot_tradeoff_calibration.py` 会优先读取 `verification_feedback_study_hotpotqa_50_v3.json`，若 v3 尚不存在则回退到 `verification_feedback_study_hotpotqa_50_v2.json`，避免误用修复前的污染版结果。
 
 ## 4. 命名规范
 

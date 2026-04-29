@@ -1,0 +1,430 @@
+{
+  "config": {
+    "dataset": "hotpotqa",
+    "split": "validation",
+    "samples": 2,
+    "top_k": 5,
+    "prf_threshold": 0.8,
+    "hetero": false,
+    "generator_backend": "deepseek",
+    "generator_model": "deepseek-v4-flash",
+    "verifier_backend": "deepseek",
+    "verifier_model": "deepseek-v4-flash",
+    "real_cove": false,
+    "device": "cuda",
+    "local_data_dir": "data/datasets",
+    "hf_cache_dir": null,
+    "offline": true,
+    "output_name": "verification_feedback_targeted_local_smoke.json",
+    "variants": [
+      {
+        "name": "hard_reject",
+        "threshold": 0.5,
+        "decision_policy": "hard",
+        "feedback_retry": false
+      },
+      {
+        "name": "soft_accept",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": false
+      },
+      {
+        "name": "verification_feedback",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": true,
+        "feedback_strategy": "claim_concat"
+      },
+      {
+        "name": "targeted_feedback",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": true,
+        "feedback_strategy": "targeted_query"
+      }
+    ],
+    "generator_base_url": "https://api.deepseek.com",
+    "verifier_base_url": "https://api.deepseek.com"
+  },
+  "variants": {
+    "hard_reject": {
+      "config": {
+        "name": "hard_reject",
+        "threshold": 0.5,
+        "decision_policy": "hard",
+        "feedback_retry": false
+      },
+      "summary": {
+        "Samples": 2,
+        "ExactMatch": 0.0,
+        "F1_Score": 0.0,
+        "SupportRecall@K": 25.0,
+        "SupportAllHit@K": 0.0,
+        "No_Answer_Rate_Percent": 0.0,
+        "Feedback_Rate_Percent": 0.0,
+        "Avg_Verify_Confidence": 0.8548,
+        "Avg_Latency_ms": 5.39,
+        "Avg_Retrieval_Calls": 2.0
+      },
+      "records": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "draft_answer": "Woodson and its accompanying Woodson Lake and Wood Hollow",
+          "predicted_answer": "Woodson and its accompanying Woodson Lake and Wood Hollow",
+          "rejected": false,
+          "used_feedback": false,
+          "feedback_strategy": "none",
+          "retry_query": "",
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Tyler Bates",
+            "Woodson, Arkansas",
+            "Adam Collis",
+            "Lord High Treasurer",
+            "Ed Wood"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "avg_confidence": 0.7096774193548386,
+          "min_confidence": 0.7096774193548386,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1103.0,
+            "total_latency": 0.0048677921295166016,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "draft_answer": "She",
+          "predicted_answer": "She",
+          "rejected": false,
+          "used_feedback": false,
+          "feedback_strategy": "none",
+          "retry_query": "",
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.0,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Janet Waldo",
+            "Woodson, Arkansas",
+            "Charles Craft",
+            "Meet Corliss Archer",
+            "Tyler Bates"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "avg_confidence": 1.0,
+          "min_confidence": 1.0,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1184.0,
+            "total_latency": 0.005908966064453125,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        }
+      ]
+    },
+    "soft_accept": {
+      "config": {
+        "name": "soft_accept",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": false
+      },
+      "summary": {
+        "Samples": 2,
+        "ExactMatch": 0.0,
+        "F1_Score": 0.0,
+        "SupportRecall@K": 25.0,
+        "SupportAllHit@K": 0.0,
+        "No_Answer_Rate_Percent": 0.0,
+        "Feedback_Rate_Percent": 0.0,
+        "Avg_Verify_Confidence": 0.8548,
+        "Avg_Latency_ms": 6.45,
+        "Avg_Retrieval_Calls": 2.0
+      },
+      "records": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "draft_answer": "Woodson and its accompanying Woodson Lake and Wood Hollow",
+          "predicted_answer": "Woodson and its accompanying Woodson Lake and Wood Hollow",
+          "rejected": false,
+          "used_feedback": false,
+          "feedback_strategy": "none",
+          "retry_query": "",
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Tyler Bates",
+            "Woodson, Arkansas",
+            "Adam Collis",
+            "Lord High Treasurer",
+            "Ed Wood"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "avg_confidence": 0.7096774193548386,
+          "min_confidence": 0.7096774193548386,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1103.0,
+            "total_latency": 0.005475282669067383,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "draft_answer": "She",
+          "predicted_answer": "She",
+          "rejected": false,
+          "used_feedback": false,
+          "feedback_strategy": "none",
+          "retry_query": "",
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.0,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Janet Waldo",
+            "Woodson, Arkansas",
+            "Charles Craft",
+            "Meet Corliss Archer",
+            "Tyler Bates"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "avg_confidence": 1.0,
+          "min_confidence": 1.0,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1184.0,
+            "total_latency": 0.007422924041748047,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        }
+      ]
+    },
+    "verification_feedback": {
+      "config": {
+        "name": "verification_feedback",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": true,
+        "feedback_strategy": "claim_concat"
+      },
+      "summary": {
+        "Samples": 2,
+        "ExactMatch": 0.0,
+        "F1_Score": 0.0,
+        "SupportRecall@K": 25.0,
+        "SupportAllHit@K": 0.0,
+        "No_Answer_Rate_Percent": 0.0,
+        "Feedback_Rate_Percent": 0.0,
+        "Avg_Verify_Confidence": 0.8548,
+        "Avg_Latency_ms": 6.83,
+        "Avg_Retrieval_Calls": 2.0
+      },
+      "records": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "draft_answer": "Woodson and its accompanying Woodson Lake and Wood Hollow",
+          "predicted_answer": "Woodson and its accompanying Woodson Lake and Wood Hollow",
+          "rejected": false,
+          "used_feedback": false,
+          "feedback_strategy": "claim_concat",
+          "retry_query": "",
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Tyler Bates",
+            "Woodson, Arkansas",
+            "Adam Collis",
+            "Lord High Treasurer",
+            "Ed Wood"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "avg_confidence": 0.7096774193548386,
+          "min_confidence": 0.7096774193548386,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1103.0,
+            "total_latency": 0.006576061248779297,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "draft_answer": "She",
+          "predicted_answer": "She",
+          "rejected": false,
+          "used_feedback": false,
+          "feedback_strategy": "claim_concat",
+          "retry_query": "",
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.0,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Janet Waldo",
+            "Woodson, Arkansas",
+            "Charles Craft",
+            "Meet Corliss Archer",
+            "Tyler Bates"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "avg_confidence": 1.0,
+          "min_confidence": 1.0,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1184.0,
+            "total_latency": 0.0070836544036865234,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        }
+      ]
+    },
+    "targeted_feedback": {
+      "config": {
+        "name": "targeted_feedback",
+        "threshold": 0.5,
+        "decision_policy": "soft",
+        "feedback_retry": true,
+        "feedback_strategy": "targeted_query"
+      },
+      "summary": {
+        "Samples": 2,
+        "ExactMatch": 0.0,
+        "F1_Score": 0.0,
+        "SupportRecall@K": 25.0,
+        "SupportAllHit@K": 0.0,
+        "No_Answer_Rate_Percent": 0.0,
+        "Feedback_Rate_Percent": 0.0,
+        "Avg_Verify_Confidence": 0.8548,
+        "Avg_Latency_ms": 6.57,
+        "Avg_Retrieval_Calls": 2.0
+      },
+      "records": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "draft_answer": "Woodson and its accompanying Woodson Lake and Wood Hollow",
+          "predicted_answer": "Woodson and its accompanying Woodson Lake and Wood Hollow",
+          "rejected": false,
+          "used_feedback": false,
+          "feedback_strategy": "targeted_query",
+          "retry_query": "",
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Tyler Bates",
+            "Woodson, Arkansas",
+            "Adam Collis",
+            "Lord High Treasurer",
+            "Ed Wood"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "avg_confidence": 0.7096774193548386,
+          "min_confidence": 0.7096774193548386,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1103.0,
+            "total_latency": 0.005900859832763672,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "draft_answer": "She",
+          "predicted_answer": "She",
+          "rejected": false,
+          "used_feedback": false,
+          "feedback_strategy": "targeted_query",
+          "retry_query": "",
+          "exact_match": 0.0,
+          "f1": 0.0,
+          "support_recall": 0.0,
+          "support_all_hit": false,
+          "predicted_titles": [
+            "Janet Waldo",
+            "Woodson, Arkansas",
+            "Charles Craft",
+            "Meet Corliss Archer",
+            "Tyler Bates"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "avg_confidence": 1.0,
+          "min_confidence": 1.0,
+          "unsupported_count": 0,
+          "verification_reason": "All claims supported by evidence.",
+          "stats_delta": {
+            "total_tokens": 1184.0,
+            "total_latency": 0.0072481632232666016,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          }
+        }
+      ]
+    }
+  }
+}
