@@ -1,11 +1,12 @@
 # 当前实验待办清单
 
-本文档面向 `2026-04-28` 这一阶段的实际推进情况整理。当前目标已经从“直接补真实 CoVe”进一步调整为：
+本文档面向 `2026-04-29` 这一阶段的实际推进情况整理。当前目标已经从“直接补真实 CoVe”进一步调整为：
 
 - 用 **Route A** 建立可信 baseline
 - 把旧消融壳降级为“小样本真实 API 诊断线”
 - 把 CoVe 失败从“现象描述”推进到“软验证/反馈检索”的方法对照
 - 增加 F1--拒答率、F1--延迟、验证置信度校准等论文型图表
+- 在 v3 结果基础上，把下一轮重点转向短答案生成/答案抽取与 repeated-run 稳定性验证
 - 在 GPU 服务器上稳定推进，不再重复之前的长时全损问题
 
 总原则：
@@ -30,6 +31,35 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
 ```
 
 ## P0 必做
+
+### 0. 当前结论与下一轮优先级
+
+已完成：
+
+- Route A 真实 API 100 样本文本基线。
+- Verification Feedback v2/v3 小样本真实 CoVe 对照。
+- F1--拒答率、F1--延迟与 verifier calibration 图。
+
+当前最佳反馈配置：
+
+- `verification_feedback_study_hotpotqa_50_v3.json` 中的 `verification_feedback`
+- `F1 = 25.35`
+- `No_Answer_Rate = 12.0%`
+- `Avg_Latency_ms = 345.86`
+- `Avg_Retrieval_Calls = 2.60`
+
+关键判断：
+
+- `targeted_feedback` 没有超过 claim-concat `verification_feedback`，暂时不继续沿这个方向微调。
+- 当前主要瓶颈已经从“是否能缓解 CoVe collapse”转向“生成器能否稳定输出 HotpotQA 短答案”。
+- 下一轮 P0 是答案抽取/短答案约束与 repeated-run 稳定性验证。
+
+下一轮建议顺序：
+
+1. 先做 `verification_feedback` repeated-run 稳定性验证。
+2. 再做 short-answer extractor / answer-only generator 改造。
+3. 然后跑 `Route A + short answer` 与 `verification_feedback + short answer` 的 50 样本对照。
+4. 最后再决定是否扩到 100 样本。
 
 ### 1. GPU 服务器准备与 Route A 环境验证
 
@@ -197,6 +227,62 @@ ls experiments/configs/local_api_overrides.json
 - 对比 `hard_reject / soft_accept / verification_feedback / targeted_feedback`
 - 报告 F1、拒答率、平均验证置信度、反馈触发率、平均检索次数与延迟
 - 若 `targeted_feedback` 相比 `verification_feedback` 提升 F1 或降低拒答率，可作为“定向反馈闭环”贡献
+
+当前结果：
+
+- v3 中 `verification_feedback` 优于 `targeted_feedback`，因此后续默认保留 `verification_feedback` 作为反馈闭环代表。
+- `targeted_feedback` 作为负结果保留，用于说明“更复杂的 query 构造不必然带来收益”。
+
+### 7.1 Repeated-run 稳定性验证
+
+任务：
+
+- 检查真实 API 下 `verification_feedback` 结果是否稳定。
+- 避免单次 50 样本结果受生成器波动影响过大。
+
+推荐命令：
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_study.json \
+  --samples 50 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_50_v3_run2.json
+```
+
+如果成本允许，再跑 run3：
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_study.json \
+  --samples 50 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_50_v3_run3.json
+```
+
+判断标准：
+
+- `verification_feedback` 的 F1 若稳定在 23--27 区间，论文可写成“稳定缓解拒答但仍受生成质量限制”。
+- 若波动超过 5 个 F1 点，需要在论文里明确说明真实 API 非确定性，并避免过强结论。
+
+### 7.2 短答案抽取/答案格式约束实验
+
+任务：
+
+- 针对 Route A 误差分析中 74% 冗长推理式输出的问题，增加短答案抽取或更严格 answer-only 生成。
+- 目标是提高 EM/F1，而不是继续降低拒答率。
+
+建议实验名：
+
+```text
+route_a_hotpotqa_realapi_50_short_answer.json
+verification_feedback_study_hotpotqa_50_short_answer.json
+```
+
+预期判断：
+
+- 若短答案约束能显著提升 Route A F1，则论文中应把“生成格式控制”列为主要瓶颈和后续改进方向。
+- 若短答案约束不提升，则需要回到检索证据链质量和 answer extraction 逻辑。
 
 ### 8. 权衡曲线与校准图生成
 

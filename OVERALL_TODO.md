@@ -22,7 +22,9 @@ GPU 服务器迁移与真实 API 运行细则见：
 - 已完成：在 GPU 服务器上完成 Route A 的 `20 -> 100` 样本真实 API 递进实验，并整理为规范化批次结果。
 - 已完成：新增 `run_verification_feedback_study.py`，用于比较硬拒答、软验证与验证反馈补检索。
 - 已完成：新增 `plot_tradeoff_calibration.py`，用于生成 F1--拒答率、F1--延迟与后续校准图。
-- 待做：在 GPU 服务器上运行 `verification_feedback_study_hotpotqa_50`，验证反馈闭环是否缓解 CoVe 崩溃。
+- 已完成：在 GPU 服务器上运行 `verification_feedback_study_hotpotqa_50_v2/v3`，验证反馈闭环可以缓解 CoVe 崩溃。
+- 待做：对 `verification_feedback` 做 repeated-run 稳定性验证，确认真实 API 波动范围。
+- 待做：新增短答案抽取/答案格式约束实验，优先解决 Route A 与反馈实验中的生成格式瓶颈。
 
 ## P1 强烈建议
 
@@ -31,7 +33,7 @@ GPU 服务器迁移与真实 API 运行细则见：
 - 已完成：在实验说明中明确哪些脚本仍使用启发式生成，哪些脚本已经具备真实 LLM 接口。
 - 已完成：在 `src/rererank_v1/` 下建立 `baselines/`、`adapters/`、`modules/` 新骨架，避免后续继续把新逻辑堆进旧原型文件。
 - 待做：将 `Adaptive PRF`、`CoVe`、`Evidence Chain` 设计成可插拔模块，挂接到成熟 baseline。
-- 待做：将 soft verification / feedback retrieval 迁移到 Route A baseline，避免长期停留在旧原型壳。
+- 待做：将 soft verification / feedback retrieval 与 short-answer extractor 迁移到 Route A baseline，避免长期停留在旧原型壳。
 - 待做：将 `dataset_loader.py` 中的伪异构逻辑降级为 `legacy path`，不再作为默认实验路线。
 - 待做：将旧 `run_all.py` 主消融壳明确收缩为“小样本真实 API 诊断线”，只保留关键配置 smoke 与 verifier 诊断任务。
 

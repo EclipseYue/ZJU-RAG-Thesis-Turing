@@ -166,6 +166,22 @@ experiments/configs/verification_feedback_study.json
 - `verification_feedback` 对应失败声明拼接式最小反馈闭环
 - `targeted_feedback` 对应基于问题实体、已检索标题与失败声明的定向补检索闭环
 
+当前结论：
+
+- `verification_feedback_study_hotpotqa_50_v3.json` 中，claim-concat `verification_feedback` 是当前最佳配置。
+- `targeted_feedback` 未超过 claim-concat 反馈，后续不再优先微调 query 构造。
+- 后续主线转为 short-answer generation / answer extraction 与 repeated-run 稳定性验证。
+
+推荐 repeated-run 命令：
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_study.json \
+  --samples 50 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_50_v3_run2.json
+```
+
 ### 2.5 权衡曲线与校准图入口
 
 文件：`experiments/plot_tradeoff_calibration.py`

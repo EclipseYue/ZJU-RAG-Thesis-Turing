@@ -68,18 +68,21 @@
 
 用途：
 
-- 比较 hard reject、soft accept 与 verification feedback 三种验证策略
-- 支撑“verification collapse 可以通过软判定与反馈补检索缓解，但会引入额外成本”的论文论点
+- 比较 hard reject、soft accept、claim-concat feedback 与 targeted feedback 四种验证策略
+- 支撑“verification collapse 可以通过软判定与反馈补检索缓解，但收益受生成格式和反馈查询质量约束”的论文论点
 
 推荐引用文件：
 
 - [verification_feedback_hotpotqa_50_v2.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_hotpotqa_50_v2.json)
+- [verification_feedback_hotpotqa_50_v3.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_hotpotqa_50_v3.json)
 - [verification_feedback_policy_smoke.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_policy_smoke.json)
+- [verification_feedback_targeted_smoke.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_targeted_smoke.json)
 
 说明：
 
 - `verification_feedback_study_hotpotqa_50.json` 是修复 verifier 解析与置信度口径前的污染版，只保留作排障记录，不建议引用。
-- `verification_feedback_study_hotpotqa_50_v2.json` 是当前可引用版本。
+- `verification_feedback_study_hotpotqa_50_v2.json` 是第一版可引用版本。
+- `verification_feedback_study_hotpotqa_50_v3.json` 是当前推荐引用版本。
 
 ## 2. 当前结果摘要
 
@@ -138,6 +141,8 @@
 
 ### 2.3 Verification Feedback 批次
 
+#### v2 结果
+
 `hard_reject`：
 
 - `ExactMatch = 6.0`
@@ -167,12 +172,52 @@
 - verification feedback 进一步把拒答率降到 20.0%，F1 小幅提升到 20.47，但增加了约 36% 的端到端延迟。
 - 该批结果适合用于论文中的 tradeoff 分析，而不是作为“最终强性能系统”声明。
 
+#### v3 结果
+
+`hard_reject`：
+
+- `ExactMatch = 0.0`
+- `F1 = 8.78`
+- `No_Answer_Rate = 44.0`
+- `Avg_Latency_ms = 264.64`
+
+`soft_accept`：
+
+- `ExactMatch = 6.0`
+- `F1 = 13.58`
+- `No_Answer_Rate = 44.0`
+- `Avg_Latency_ms = 259.83`
+
+`verification_feedback`：
+
+- `ExactMatch = 14.0`
+- `F1 = 25.35`
+- `No_Answer_Rate = 12.0`
+- `Feedback_Rate = 30.0`
+- `Avg_Latency_ms = 345.86`
+- `Avg_Retrieval_Calls = 2.60`
+
+`targeted_feedback`：
+
+- `ExactMatch = 10.0`
+- `F1 = 20.98`
+- `No_Answer_Rate = 16.0`
+- `Feedback_Rate = 24.0`
+- `Avg_Latency_ms = 338.83`
+- `Avg_Retrieval_Calls = 2.48`
+
+结论：
+
+- v3 中 claim-concat `verification_feedback` 是当前最佳配置，F1 达到 25.35，拒答率降至 12.0%。
+- `targeted_feedback` 没有超过 claim-concat feedback，说明当前简单的实体/标题增强查询并未稳定提升补检索质量。
+- v2 与 v3 的 hard/soft 结果存在波动，说明真实 API 生成与验证具有一定非确定性；后续若要写更稳结论，需要做 repeated-run 稳定性验证。
+
 ## 3. 当前推荐引用顺序
 
 如果你现在要继续实验或写文档，建议按以下优先级引用结果：
 
 1. Route A 服务器 `realapi_100`
-2. Verification Feedback `hotpotqa_50_v2`
+2. Verification Feedback `hotpotqa_50_v3`
 3. Route A 服务器 `realapi_smoke_latest`
 4. Route A 服务器 `heuristic_smoke`
 5. 旧消融服务器 `legacy_a_baseline_smoke`
@@ -226,4 +271,4 @@
 
 - Route A 继续做误差分析和模型对照，而不是立刻扩更大样本。
 - 旧消融壳只保留诊断角色，不再作为后续主线的主要结果来源。
-- 下一批优先做 targeted feedback 改造，避免继续使用简单拼接失败 claim 的粗糙补检索策略。
+- 下一批优先做答案抽取/短答案约束与 repeated-run 稳定性验证，而不是继续微调 feedback query。
