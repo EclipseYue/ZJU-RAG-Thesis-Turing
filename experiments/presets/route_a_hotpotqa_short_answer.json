@@ -1,0 +1,29 @@
+{
+  "route": "A",
+  "stage": "A1_text_baseline_short_answer",
+  "dataset": "hotpotqa",
+  "split": "validation",
+  "samples": 50,
+  "local_data_dir": "data/datasets",
+  "offline": true,
+  "generator_backend": "deepseek",
+  "generator_model": "deepseek-v4-flash",
+  "answer_mode": "strict_short",
+  "baseline": {
+    "name": "llamaindex_text_short_answer",
+    "embed_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "top_k": 5,
+    "chunk_size": 512,
+    "chunk_overlap": 64,
+    "cache_dir": "auto",
+    "local_files_only": true
+  },
+  "metrics": [
+    "exact_match",
+    "f1",
+    "support_recall_at_k",
+    "support_all_hit_at_k",
+    "latency_ms"
+  ],
+  "notes": "Route A short-answer control. Retrieval is unchanged; only generation prompt/post-processing is stricter."
+}

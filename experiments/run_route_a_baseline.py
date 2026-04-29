@@ -105,6 +105,7 @@ def evaluate_query(
         model=config.get("generator_model", "deepseek-v4-flash"),
         api_key=config.get("generator_api_key"),
         base_url=config.get("generator_base_url"),
+        answer_mode=config.get("answer_mode", "concise"),
     )
     latency_ms = (time.perf_counter() - start) * 1000
 
@@ -138,6 +139,7 @@ def summarize(config: Dict[str, Any], details: List[Dict[str, Any]]) -> Dict[str
         "Dataset": config["dataset"],
         "GeneratorBackend": config.get("generator_backend", "heuristic"),
         "GeneratorModel": config.get("generator_model", ""),
+        "AnswerMode": config.get("answer_mode", "concise"),
         "Samples": len(details),
         "SupportRecall@K": round(mean(item["support_recall"] for item in details) * 100, 2),
         "SupportAllHit@K": round(mean(item["support_all_hit"] for item in details) * 100, 2),
@@ -203,6 +205,7 @@ def main() -> None:
             "samples": len(details),
             "generator_backend": config.get("generator_backend", "heuristic"),
             "generator_model": config.get("generator_model", ""),
+            "answer_mode": config.get("answer_mode", "concise"),
             "uses_real_api": config.get("generator_backend", "heuristic") != "heuristic",
         },
         "matrix": matrix,

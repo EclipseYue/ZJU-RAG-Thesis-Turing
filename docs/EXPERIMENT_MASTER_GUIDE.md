@@ -170,7 +170,8 @@ experiments/configs/verification_feedback_study.json
 
 - `verification_feedback_study_hotpotqa_50_v3.json` 中，claim-concat `verification_feedback` 是当前最佳配置。
 - `targeted_feedback` 未超过 claim-concat 反馈，后续不再优先微调 query 构造。
-- 后续主线转为 short-answer generation / answer extraction 与 repeated-run 稳定性验证。
+- 三次 repeated-run 显示，`verification_feedback` 的 F1 为 `23.51 ± 1.43`，拒答率为 `12.67 ± 0.94`，该结果已经足够进入论文。
+- 后续主线转为 short-answer generation / answer extraction。
 
 推荐 repeated-run 命令：
 
@@ -181,6 +182,48 @@ experiments/configs/verification_feedback_study.json
   --real-cove \
   --output-name verification_feedback_study_hotpotqa_50_v3_run2.json
 ```
+
+当前 repeated-run 已完成；除非需要更多统计置信度，否则不建议继续重复同一实验。
+
+### 2.6 短答案约束实验
+
+目的：
+- 检查 Route A 与反馈闭环的剩余瓶颈是否来自冗长推理式输出。
+- 检索与验证配置保持不变，只把生成端切到 `answer_mode=strict_short`。
+
+Route A 短答案命令：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hotpotqa_short_answer.json \
+  --samples 50 \
+  --output-name route_a_hotpotqa_realapi_50_short_answer.json
+```
+
+Feedback 短答案命令：
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_short_answer.json \
+  --samples 50 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_50_short_answer.json
+```
+
+判断：
+- 若 F1/EM 明显提升，论文应把答案格式控制列为主要工程瓶颈。
+- 若 F1/EM 不提升，说明剩余瓶颈更可能在证据链缺跳或验证器校准。
+
+### 2.7 真实异构数据补充路线
+
+当前建议：
+- 不在最后阶段把 Neo4j 服务作为正式实验硬依赖。
+- 若需要图谱实验，优先把 Neo4j/Wikidata 结果导出为静态 JSONL 三元组，保证可复现。
+- 若需要表格实验，优先选择 `HybridQA` 或 `OTT-QA` 小样本 smoke。
+
+推荐定位：
+- 作为“真实异构数据接入的可行性补充实验”。
+- 不替代当前 HotpotQA + Route A + Verification Feedback 主线。
 
 ### 2.5 权衡曲线与校准图入口
 

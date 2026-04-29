@@ -106,6 +106,7 @@ def generate_answer(query: str, results: List[Dict[str, Any]], config: Dict[str,
         model=config.get("generator_model", "deepseek-v4-flash"),
         api_key=config.get("generator_api_key"),
         base_url=config.get("generator_base_url"),
+        answer_mode=config.get("answer_mode", "concise"),
     )
 
 

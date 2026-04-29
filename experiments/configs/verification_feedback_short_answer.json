@@ -1,0 +1,34 @@
+{
+  "dataset": "hotpotqa",
+  "split": "validation",
+  "samples": 50,
+  "top_k": 5,
+  "prf_threshold": 0.8,
+  "hetero": false,
+  "generator_backend": "deepseek",
+  "generator_model": "deepseek-v4-flash",
+  "answer_mode": "strict_short",
+  "verifier_backend": "deepseek",
+  "verifier_model": "deepseek-v4-flash",
+  "real_cove": true,
+  "device": "cuda",
+  "local_data_dir": "data/datasets",
+  "hf_cache_dir": null,
+  "offline": true,
+  "output_name": "verification_feedback_study_hotpotqa_50_short_answer.json",
+  "variants": [
+    {
+      "name": "soft_accept_short_answer",
+      "threshold": 0.5,
+      "decision_policy": "soft",
+      "feedback_retry": false
+    },
+    {
+      "name": "verification_feedback_short_answer",
+      "threshold": 0.5,
+      "decision_policy": "soft",
+      "feedback_retry": true,
+      "feedback_strategy": "claim_concat"
+    }
+  ]
+}

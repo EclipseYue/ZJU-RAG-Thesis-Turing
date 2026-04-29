@@ -56,10 +56,10 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
 
 下一轮建议顺序：
 
-1. 先做 `verification_feedback` repeated-run 稳定性验证。
-2. 再做 short-answer extractor / answer-only generator 改造。
+1. 已完成 `verification_feedback` repeated-run 稳定性验证。
+2. 下一步做 short-answer extractor / answer-only generator 改造。
 3. 然后跑 `Route A + short answer` 与 `verification_feedback + short answer` 的 50 样本对照。
-4. 最后再决定是否扩到 100 样本。
+4. 若短答案约束能提升 F1，再决定是否扩到 100 样本。
 
 ### 1. GPU 服务器准备与 Route A 环境验证
 
@@ -240,6 +240,13 @@ ls experiments/configs/local_api_overrides.json
 - 检查真实 API 下 `verification_feedback` 结果是否稳定。
 - 避免单次 50 样本结果受生成器波动影响过大。
 
+当前状态：
+
+- 已完成 `verification_feedback_study_hotpotqa_50_v3`、`v3_run2`、`v3_run3`。
+- `verification_feedback` 三次 F1 均值为 `23.51 ± 1.43`，拒答率为 `12.67 ± 0.94`。
+- `targeted_feedback` 三次 F1 均值为 `20.87 ± 0.88`，稳定但低于 claim-concat 反馈。
+- 该部分已经达到论文可写程度。
+
 推荐命令：
 
 ```bash
@@ -260,10 +267,10 @@ ls experiments/configs/local_api_overrides.json
   --output-name verification_feedback_study_hotpotqa_50_v3_run3.json
 ```
 
-判断标准：
+论文写法：
 
-- `verification_feedback` 的 F1 若稳定在 23--27 区间，论文可写成“稳定缓解拒答但仍受生成质量限制”。
-- 若波动超过 5 个 F1 点，需要在论文里明确说明真实 API 非确定性，并避免过强结论。
+- 可以写成“反馈闭环稳定降低拒答率并提升 F1，但仍未解决短答案生成瓶颈”。
+- 不建议再继续扩同类反馈实验；边际收益不高。
 
 ### 7.2 短答案抽取/答案格式约束实验
 
@@ -271,6 +278,7 @@ ls experiments/configs/local_api_overrides.json
 
 - 针对 Route A 误差分析中 74% 冗长推理式输出的问题，增加短答案抽取或更严格 answer-only 生成。
 - 目标是提高 EM/F1，而不是继续降低拒答率。
+- 这是论文定稿前最值得补的一组实验。
 
 建议实验名：
 
@@ -279,10 +287,66 @@ route_a_hotpotqa_realapi_50_short_answer.json
 verification_feedback_study_hotpotqa_50_short_answer.json
 ```
 
+服务器命令：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hotpotqa_short_answer.json \
+  --samples 50 \
+  --output-name route_a_hotpotqa_realapi_50_short_answer.json
+```
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_short_answer.json \
+  --samples 50 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_50_short_answer.json
+```
+
 预期判断：
 
 - 若短答案约束能显著提升 Route A F1，则论文中应把“生成格式控制”列为主要瓶颈和后续改进方向。
 - 若短答案约束不提升，则需要回到检索证据链质量和 answer extraction 逻辑。
+
+最低完成标准：
+
+- 跑 50 样本 Route A short-answer 对照。
+- 跑 50 样本 verification-feedback short-answer 对照。
+- 至少给出一张“短答案约束前后 F1/EM 变化”的表。
+
+若时间非常紧：
+
+- 可以不扩到 100 样本。
+- 可以只在论文中把 repeated-run 反馈实验作为最终方法改进结果，把 short-answer 作为未来工作。
+
+### 7.3 真实表格/图谱数据路线
+
+任务：
+
+- 补足“伪异构数据外部效度不足”的短板。
+- 先做数据接入设计和小样本 smoke，不要把它和当前 HotpotQA 主线混成一个大实验。
+
+推荐路线：
+
+- 表格：优先用 `HybridQA` 或 `OTT-QA` 的 text+table 样本，先做 20--50 条 smoke。
+- 图谱：优先用本地 JSONL 三元组文件模拟 graph evidence，不建议论文最后阶段强依赖 Neo4j 服务。
+- Neo4j：可以作为工程展示或附录方案，但正式实验建议导出为 `subject, relation, object, source_title` 的静态 JSONL，保证可复现。
+
+建议文件结构：
+
+```text
+data/datasets/hybridqa/validation.json
+data/datasets/graph_triples/hotpotqa_wikidata_like.jsonl
+experiments/presets/route_a_hybridqa.json
+experiments/presets/route_a_graph_triples.json
+```
+
+最低完成标准：
+
+- 表格或图谱二选一先跑通 20 条。
+- 只报告检索覆盖率、回答 F1 和案例，不追求大样本。
+- 论文写作中明确这是“真实异构接入的可行性补充”，不是替代当前 HotpotQA 主结果。
 
 ### 8. 权衡曲线与校准图生成
 

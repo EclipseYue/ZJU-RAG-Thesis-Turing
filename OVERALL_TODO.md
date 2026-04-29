@@ -23,8 +23,10 @@ GPU 服务器迁移与真实 API 运行细则见：
 - 已完成：新增 `run_verification_feedback_study.py`，用于比较硬拒答、软验证与验证反馈补检索。
 - 已完成：新增 `plot_tradeoff_calibration.py`，用于生成 F1--拒答率、F1--延迟与后续校准图。
 - 已完成：在 GPU 服务器上运行 `verification_feedback_study_hotpotqa_50_v2/v3`，验证反馈闭环可以缓解 CoVe 崩溃。
-- 待做：对 `verification_feedback` 做 repeated-run 稳定性验证，确认真实 API 波动范围。
-- 待做：新增短答案抽取/答案格式约束实验，优先解决 Route A 与反馈实验中的生成格式瓶颈。
+- 已完成：对 `verification_feedback` 做 repeated-run 稳定性验证，确认真实 API 波动范围。
+- 已完成：新增短答案抽取/答案格式约束实验配置，优先解决 Route A 与反馈实验中的生成格式瓶颈。
+- 待做：在服务器运行 Route A short-answer 与 verification-feedback short-answer 两组 50 样本实验。
+- 待做：规划真实表格/图谱数据小样本补充实验，优先用静态数据文件，谨慎引入 Neo4j 服务依赖。
 
 ## P1 强烈建议
 
@@ -41,6 +43,7 @@ GPU 服务器迁移与真实 API 运行细则见：
 
 - 待做：引入 `HybridQA` 或 `OTT-QA` 作为真实 text+table 异构任务。
 - 待做：为真实异构任务补充独立实验预设，例如 `route_a_hybridqa.json`。
+- 待做：若继续使用图谱数据，优先导出为 JSONL 三元组并复用统一 EvidenceUnit，而不是直接依赖在线 Neo4j。
 - 待做：补齐 `run_bucket_gain_study.py` 与其他补充脚本的统一后端开关，使所有补实验都能复用真实验证策略。
 - 待做：增加真实 LLM 生成与启发式生成的小规模对照配置，但不在当前阶段实际运行。
 - 待做：在新 baseline 跑稳后，更新论文主线，将旧“伪异构诊断”结果重定位为原型阶段分析。

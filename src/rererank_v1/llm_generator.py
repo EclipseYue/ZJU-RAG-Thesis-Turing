@@ -14,7 +14,7 @@ from .llm_backends import (
 logger = logging.getLogger(__name__)
 
 
-def _postprocess_answer(query: str, answer: str) -> str:
+def _postprocess_answer(query: str, answer: str, answer_mode: str = "concise") -> str:
     text = (answer or "").strip()
     if not text:
         return "No-Answer"
@@ -37,6 +37,8 @@ def _postprocess_answer(query: str, answer: str) -> str:
     text = re.sub(r"\s+", " ", text)
     text = text.replace("\n", " ").strip()
     text = re.sub(r"^(answer\s*:\s*)", "", text, flags=re.IGNORECASE).strip()
+    text = re.sub(r"^(final answer\s*:\s*)", "", text, flags=re.IGNORECASE).strip()
+    text = text.strip("`'\" ")
 
     # Prefer the first short clause over an explanatory sentence.
     first_clause = re.split(r"[.;\n]", text)[0].strip()
@@ -64,6 +66,16 @@ def _postprocess_answer(query: str, answer: str) -> str:
             text = comma_clause
     if len(text.split()) > 12:
         text = " ".join(text.split()[:12]).strip(" ,.-")
+
+    if answer_mode == "strict_short":
+        text = re.sub(
+            r"^(the answer is|it is|it was|they are|this is|that is)\s+",
+            "",
+            text,
+            flags=re.IGNORECASE,
+        ).strip(" ,.-")
+        if len(text.split()) > 8:
+            text = " ".join(text.split()[:8]).strip(" ,.-")
 
     return text if text else "No-Answer"
 
@@ -109,6 +121,7 @@ def llm_generate_answer(
     backend: str = "auto",
     api_key: Optional[str] = None,
     base_url: Optional[str] = None,
+    answer_mode: str = "concise",
 ) -> str:
     """
     Real LLM Generator using OpenAI-compatible API (e.g., DeepSeek, vLLM local LLaMA-3).
@@ -146,17 +159,39 @@ def llm_generate_answer(
     if not context_str:
         context_str = "No relevant context found."
 
-    prompt = (
-        "You are an expert QA assistant. Answer the user's question STRICTLY based on the provided Context.\n"
-        "If the Context does not contain enough information to answer the question, output exactly 'No-Answer'.\n"
-        "Return only the final answer, not an explanation.\n"
-        "Prefer the shortest correct answer possible: a single entity, date, number, place, organization, or short phrase.\n"
-        "For yes/no questions, output exactly 'Yes' or 'No'.\n"
-        "Do not quote long evidence sentences. Do not restate the question. Do not add reasoning.\n\n"
-        f"Context:\n{context_str}\n\n"
-        f"Question: {query}\n"
-        "Answer:"
-    )
+    if answer_mode == "strict_short":
+        prompt = (
+            "Answer the question using ONLY the provided Context.\n"
+            "Output exactly one short answer span.\n"
+            "Rules:\n"
+            "1. Do not explain or show reasoning.\n"
+            "2. Do not restate the question.\n"
+            "3. For yes/no questions, output exactly 'Yes' or 'No'.\n"
+            "4. For entity/date/place questions, output only the entity/date/place phrase.\n"
+            "5. If the answer is not supported by the Context, output exactly 'No-Answer'.\n"
+            "6. Keep the answer under 8 words whenever possible.\n\n"
+            f"Context:\n{context_str}\n\n"
+            f"Question: {query}\n"
+            "Short answer:"
+        )
+        system_prompt = "You are an extractive QA system. Return only a short answer span."
+        max_tokens = 32
+        temperature = 0.0
+    else:
+        prompt = (
+            "You are an expert QA assistant. Answer the user's question STRICTLY based on the provided Context.\n"
+            "If the Context does not contain enough information to answer the question, output exactly 'No-Answer'.\n"
+            "Return only the final answer, not an explanation.\n"
+            "Prefer the shortest correct answer possible: a single entity, date, number, place, organization, or short phrase.\n"
+            "For yes/no questions, output exactly 'Yes' or 'No'.\n"
+            "Do not quote long evidence sentences. Do not restate the question. Do not add reasoning.\n\n"
+            f"Context:\n{context_str}\n\n"
+            f"Question: {query}\n"
+            "Answer:"
+        )
+        system_prompt = "You are a precise, concise QA assistant."
+        max_tokens = 100
+        temperature = 0.1
 
     try:
         response = create_chat_completion(
@@ -164,11 +199,11 @@ def llm_generate_answer(
             config,
             model=config.model,
             messages=[
-                {"role": "system", "content": "You are a precise, concise QA assistant."},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.1,  # Low temperature for factual QA
-            max_tokens=100
+            temperature=temperature,
+            max_tokens=max_tokens
         )
         choice = response.choices[0] if getattr(response, "choices", None) else None
         message = getattr(choice, "message", None) if choice is not None else None
@@ -185,7 +220,7 @@ def llm_generate_answer(
             fallback_answer = heuristic_generate_answer(query, results).strip()
             return fallback_answer if fallback_answer else "No-Answer"
 
-        return _postprocess_answer(query, answer)
+        return _postprocess_answer(query, answer, answer_mode=answer_mode)
     except Exception as e:
         logger.error("LLM API call failed via provider=%s model=%s: %s", config.provider, config.model, e)
         fallback_answer = heuristic_generate_answer(query, results).strip()

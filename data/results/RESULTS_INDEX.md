@@ -75,6 +75,8 @@
 
 - [verification_feedback_hotpotqa_50_v2.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_hotpotqa_50_v2.json)
 - [verification_feedback_hotpotqa_50_v3.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_hotpotqa_50_v3.json)
+- [verification_feedback_hotpotqa_50_v3_run2.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_hotpotqa_50_v3_run2.json)
+- [verification_feedback_hotpotqa_50_v3_run3.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_hotpotqa_50_v3_run3.json)
 - [verification_feedback_policy_smoke.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_policy_smoke.json)
 - [verification_feedback_targeted_smoke.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-29-verification-feedback/verification_feedback_targeted_smoke.json)
 
@@ -212,6 +214,40 @@
 - `targeted_feedback` 没有超过 claim-concat feedback，说明当前简单的实体/标题增强查询并未稳定提升补检索质量。
 - v2 与 v3 的 hard/soft 结果存在波动，说明真实 API 生成与验证具有一定非确定性；后续若要写更稳结论，需要做 repeated-run 稳定性验证。
 
+#### v3 repeated-run 稳定性
+
+三次 50 样本 repeated-run 的均值如下：
+
+`hard_reject`：
+
+- `F1 = 11.77 ± 2.64`
+- `No_Answer_Rate = 42.67 ± 1.89`
+
+`soft_accept`：
+
+- `F1 = 15.36 ± 1.68`
+- `No_Answer_Rate = 34.00 ± 7.12`
+
+`verification_feedback`：
+
+- `F1 = 23.51 ± 1.43`
+- `No_Answer_Rate = 12.67 ± 0.94`
+- `Feedback_Rate = 30.00 ± 3.27`
+- `Avg_Latency_ms = 345.40 ± 6.04`
+
+`targeted_feedback`：
+
+- `F1 = 20.87 ± 0.88`
+- `No_Answer_Rate = 18.00 ± 1.63`
+- `Feedback_Rate = 28.00 ± 3.27`
+- `Avg_Latency_ms = 349.80 ± 10.54`
+
+结论：
+
+- `verification_feedback` 在三次运行中稳定优于 `hard_reject`、`soft_accept` 与 `targeted_feedback`。
+- claim-concat 反馈不是偶然单次峰值，而是当前最稳的反馈闭环配置。
+- 论文可以用 repeated-run 均值报告该部分结果，并把单次 v3 最优值作为补充说明。
+
 ## 3. 当前推荐引用顺序
 
 如果你现在要继续实验或写文档，建议按以下优先级引用结果：
@@ -271,4 +307,4 @@
 
 - Route A 继续做误差分析和模型对照，而不是立刻扩更大样本。
 - 旧消融壳只保留诊断角色，不再作为后续主线的主要结果来源。
-- 下一批优先做答案抽取/短答案约束与 repeated-run 稳定性验证，而不是继续微调 feedback query。
+- repeated-run 已完成；下一批优先做答案抽取/短答案约束，而不是继续微调 feedback query。
