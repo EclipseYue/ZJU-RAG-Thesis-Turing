@@ -239,6 +239,34 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
 
 - 生成真实 verifier 条件下的 FRR / unsafe accept 诊断数据
 
+### Step 7. 验证闭环与软决策实验
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_study.json \
+  --samples 50 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_50.json
+```
+
+目标：
+
+- 对比 `hard_reject`、`soft_accept` 与 `verification_feedback`
+- 检验 verification collapse 是否能被软决策或失败后补检索缓解
+- 为论文中“方法闭环”提供实验支撑
+
+### Step 8. Tradeoff 与 calibration 出图
+
+```bash
+.venv/bin/python experiments/plot_tradeoff_calibration.py
+```
+
+目标：
+
+- 生成 `F1 vs No-Answer Rate`
+- 生成 `F1 vs Latency`
+- 若已完成反馈实验，则额外生成 verifier calibration 图
+
 ## 6. 针对“刚才消融实验”的具体后续建议
 
 结合最近的 `smoke_a / smoke_a_v2 / smoke_a_v3` 结果，当前更合理的推进方式是：
@@ -314,7 +342,9 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
 5. `run_all.py` 仅 `A3_Baseline_CoVe / D_CoVe_Full` 20 条
 6. `run_verifier_comparison.py` 100 条真实 CoVe
 7. `run_false_rejection_diagnostics.py` 100 条真实 CoVe
+8. `run_verification_feedback_study.py` 50 条验证闭环实验
+9. `plot_tradeoff_calibration.py` 生成 tradeoff / calibration 图
 
 一句话总结：
 
-**GPU 服务器优先用来把 Route A baseline 跑稳，旧消融壳只做小样本真实 API 诊断，不再当主线全量推进。**
+**GPU 服务器优先用来把 Route A baseline 跑稳，旧消融壳只做小样本真实 API 诊断；新一轮重点是把 verification collapse 从现象分析推进到软验证与反馈检索的闭环实验。**

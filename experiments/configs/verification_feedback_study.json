@@ -1,0 +1,38 @@
+{
+  "dataset": "hotpotqa",
+  "split": "validation",
+  "samples": 50,
+  "top_k": 5,
+  "prf_threshold": 0.8,
+  "hetero": false,
+  "generator_backend": "deepseek",
+  "generator_model": "deepseek-v4-flash",
+  "verifier_backend": "deepseek",
+  "verifier_model": "deepseek-v4-flash",
+  "real_cove": true,
+  "device": "cuda",
+  "local_data_dir": "data/datasets",
+  "hf_cache_dir": null,
+  "offline": true,
+  "output_name": "verification_feedback_study_hotpotqa.json",
+  "variants": [
+    {
+      "name": "hard_reject",
+      "threshold": 0.5,
+      "decision_policy": "hard",
+      "feedback_retry": false
+    },
+    {
+      "name": "soft_accept",
+      "threshold": 0.5,
+      "decision_policy": "soft",
+      "feedback_retry": false
+    },
+    {
+      "name": "verification_feedback",
+      "threshold": 0.5,
+      "decision_policy": "soft",
+      "feedback_retry": true
+    }
+  ]
+}

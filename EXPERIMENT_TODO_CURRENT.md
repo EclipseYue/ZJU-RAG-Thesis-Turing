@@ -4,6 +4,8 @@
 
 - 用 **Route A** 建立可信 baseline
 - 把旧消融壳降级为“小样本真实 API 诊断线”
+- 把 CoVe 失败从“现象描述”推进到“软验证/反馈检索”的方法对照
+- 增加 F1--拒答率、F1--延迟、验证置信度校准等论文型图表
 - 在 GPU 服务器上稳定推进，不再重复之前的长时全损问题
 
 总原则：
@@ -168,9 +170,57 @@ ls experiments/configs/local_api_overrides.json
 
 - `data/results/automated_ablation_smoke_cove_server.json`
 
+### 7. Verification-aware 反馈闭环实验
+
+任务：
+
+- 比较硬拒答、软置信度接受、验证失败后定向补检索三种策略
+- 把“verification collapse”从负结果推进为可修复的方法问题
+- 该实验默认使用真实生成端与真实 CoVe 验证端，样本量先从 50 开始
+
+命令：
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_study.json \
+  --samples 50 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_50.json
+```
+
+预期产物：
+
+- `data/results/verification_feedback_study_hotpotqa_50.json`
+- `data/results/verification_feedback_study_hotpotqa_50_report_*.json`
+
+用于论文：
+
+- 对比 `hard_reject / soft_accept / verification_feedback`
+- 报告 F1、拒答率、平均验证置信度、反馈触发率、平均检索次数与延迟
+- 若反馈版本在拒答率下降的同时不显著拉低 F1，可作为“最小闭环修复”贡献
+
+### 8. 权衡曲线与校准图生成
+
+任务：
+
+- 将当前 Route A 与旧消融 smoke 结果整理成论文图
+- 若第 7 步结果已存在，自动加入 soft/feedback 变体并生成验证校准图
+
+命令：
+
+```bash
+MPLCONFIGDIR=/tmp/mpl .venv/bin/python experiments/plot_tradeoff_calibration.py
+```
+
+预期产物：
+
+- `paper/zjuthesis/figures/tradeoff_f1_rejection.png`
+- `paper/zjuthesis/figures/tradeoff_f1_latency.png`
+- `paper/zjuthesis/figures/verifier_calibration.png`，仅当反馈实验报告含逐样本置信度时生成
+
 ## P1 强烈建议
 
-### 7. 真实 CoVe 验证器对比实验
+### 9. 真实 CoVe 验证器对比实验
 
 任务：
 
@@ -197,7 +247,7 @@ ls experiments/configs/local_api_overrides.json
 - 更新 verifier 诊断表
 - 讨论类 CoVe 与真实 CoVe 的行为差异
 
-### 8. 真实 CoVe 错误拒答诊断
+### 10. 真实 CoVe 错误拒答诊断
 
 任务：
 
@@ -233,7 +283,7 @@ ls experiments/configs/local_api_overrides.json
 
 - 补真实 verifier 下的拒答率、FRR、不安全接受率
 
-### 9. 拉回结果并重画图
+### 11. 拉回结果并重画图
 
 任务：
 
@@ -260,7 +310,7 @@ python3 experiments/plot_results.py
 
 ## P2 可选补充
 
-### 10. 旧消融壳的完整真实 API 小样本实验
+### 12. 旧消融壳的完整真实 API 小样本实验
 
 任务：
 
@@ -282,7 +332,7 @@ python3 experiments/plot_results.py
 - 只有当 Route A 100 样本已经稳定后，才建议做这一步
 - 如果 `generator_api_key` 未配置，这条命令仍会回退到启发式生成
 
-### 11. provider 对照实验
+### 13. provider 对照实验
 
 任务：
 
@@ -296,7 +346,7 @@ python3 experiments/plot_results.py
 
 ## 暂不建议做
 
-### 12. 不建议直接跑全量 7405 的真实 API 实验
+### 14. 不建议直接跑全量 7405 的真实 API 实验
 
 原因：
 
@@ -304,7 +354,7 @@ python3 experiments/plot_results.py
 - 成本不可控
 - 对本科论文的边际收益有限
 
-### 13. 不建议在本阶段切换到全新真实异构数据集
+### 15. 不建议在本阶段切换到全新真实异构数据集
 
 原因：
 
@@ -313,7 +363,7 @@ python3 experiments/plot_results.py
 
 ## 结果回填任务
 
-### 14. 论文回填
+### 16. 论文回填
 
 任务：
 
@@ -327,7 +377,7 @@ python3 experiments/plot_results.py
 - `paper/zjuthesis/body/undergraduate/final/abstract.tex`
 - `paper/zjuthesis/body/undergraduate/final/5-conclusion.tex`
 
-### 15. 文档轻微更新
+### 17. 文档轻微更新
 
 任务：
 
@@ -347,9 +397,10 @@ python3 experiments/plot_results.py
 4. 跑 Route A 100 样本 baseline
 5. 跑旧 `A_Baseline` 20 样本 smoke
 6. 跑旧 `A3_Baseline_CoVe / D_CoVe_Full` 20 样本 smoke
-7. 跑 `run_verifier_comparison.py` 的 100 样本真实 CoVe
-8. 跑 `run_false_rejection_diagnostics.py` 的 100 样本真实 CoVe
-9. 拉回结果
-10. 重画图
-11. 回填论文
-12. 更新 TODO 和 guide
+7. 跑 `run_verification_feedback_study.py` 的 50 样本真实 CoVe 闭环实验
+8. 跑 `run_verifier_comparison.py` 的 100 样本真实 CoVe
+9. 跑 `run_false_rejection_diagnostics.py` 的 100 样本真实 CoVe
+10. 拉回结果
+11. 运行 `plot_tradeoff_calibration.py` 重画权衡曲线与校准图
+12. 回填论文
+13. 更新 TODO 和 guide

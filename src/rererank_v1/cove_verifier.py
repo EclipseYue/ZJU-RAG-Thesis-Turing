@@ -25,12 +25,16 @@ class CoVeVerifier:
         model: str = "deepseek-v4-flash",
         api_key: str | None = None,
         base_url: str | None = None,
+        decision_policy: str = "soft",
+        min_claim_confidence: float | None = None,
     ):
         self.threshold = confidence_threshold
         self.backend = backend
         self.model = model
         self.api_key = api_key
         self.base_url = base_url
+        self.decision_policy = decision_policy
+        self.min_claim_confidence = min_claim_confidence
 
     def extract_claims(self, generated_answer: str) -> List[str]:
         """
@@ -159,7 +163,15 @@ class CoVeVerifier:
             
         avg_confidence = total_confidence / len(claims) if claims else 0.0
         
-        if avg_confidence >= self.threshold:
+        min_confidence = min((item["confidence"] for item in verification_results), default=avg_confidence)
+        unsupported_count = sum(1 for item in verification_results if not item["supported"])
+        if self.min_claim_confidence is not None and min_confidence < self.min_claim_confidence:
+            status = "REJECTED"
+            reason = "At least one claim is below the minimum claim confidence."
+        elif self.decision_policy == "hard" and not all_supported:
+            status = "REJECTED"
+            reason = "At least one claim is unsupported under hard verification."
+        elif avg_confidence >= self.threshold:
             status = "ACCEPTED"
             if all_supported:
                 reason = "All claims supported by evidence."
@@ -173,5 +185,8 @@ class CoVeVerifier:
             "status": status,
             "reason": reason,
             "avg_confidence": avg_confidence,
+            "min_confidence": min_confidence,
+            "unsupported_count": unsupported_count,
+            "decision_policy": self.decision_policy,
             "claims": verification_results
         }

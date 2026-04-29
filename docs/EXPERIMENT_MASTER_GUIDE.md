@@ -122,6 +122,72 @@ python experiments/run_route_a_baseline.py \
 
 - [GPU 服务器迁移与真实 API 实验运行手册](/Users/eclipse/code/RAG/Rererank_v1/docs/GPU_SERVER_RUNBOOK.md)
 
+### 2.4 Verification-aware 反馈闭环入口
+
+文件：`experiments/run_verification_feedback_study.py`
+
+用途：
+- 比较 `hard_reject`、`soft_accept`、`verification_feedback` 三类验证策略
+- 检查 CoVe 式验证从“一票否决”改为“软置信度聚合”后，拒答率与 F1 的变化
+- 检查验证失败后触发定向补检索是否能缓解 verification collapse
+
+配置文件：
+
+```text
+experiments/configs/verification_feedback_study.json
+```
+
+服务器推荐命令：
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_study.json \
+  --samples 50 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_50.json
+```
+
+输出指标：
+
+- `ExactMatch`
+- `F1_Score`
+- `SupportRecall@K`
+- `SupportAllHit@K`
+- `No_Answer_Rate_Percent`
+- `Feedback_Rate_Percent`
+- `Avg_Verify_Confidence`
+- `Avg_Latency_ms`
+- `Avg_Retrieval_Calls`
+
+论文定位：
+
+- `hard_reject` 对应旧式严格 CoVe 的崩溃风险
+- `soft_accept` 对应软置信度判别
+- `verification_feedback` 对应最小验证反馈闭环
+
+### 2.5 权衡曲线与校准图入口
+
+文件：`experiments/plot_tradeoff_calibration.py`
+
+用途：
+- 汇总当前 Route A 与旧消融 smoke 结果
+- 绘制 `F1--拒答率` 与 `F1--延迟` 权衡图
+- 若存在 `verification_feedback_study_hotpotqa*.json` 且包含逐样本置信度，自动绘制 verifier calibration 图
+
+命令：
+
+```bash
+MPLCONFIGDIR=/tmp/mpl .venv/bin/python experiments/plot_tradeoff_calibration.py
+```
+
+输出：
+
+```text
+paper/zjuthesis/figures/tradeoff_f1_rejection.png
+paper/zjuthesis/figures/tradeoff_f1_latency.png
+paper/zjuthesis/figures/verifier_calibration.png
+```
+
 ## 3. 数据与离线模式
 
 ### 3.1 默认数据目录
@@ -257,6 +323,7 @@ python experiments/run_all.py \
 - `false_rejection_diagnostics.json`
 - `bucket_gain_study.json`
 - `verifier_comparison.json`
+- `verification_feedback_study.json`
 
 Route A 的新预设位于 `experiments/presets/`：
 
@@ -328,10 +395,11 @@ latexmk -g
 1. 先确认本地/远程离线数据在位
 2. 先跑一轮类 CoVe 小样本试跑
 3. 再用 `--real-cove` 跑同口径版本
-4. 再跑错误拒答诊断和验证器对比
-5. 视情况补跑 bridge / comparison 分桶
-6. 重绘图表
-7. 回填论文
+4. 跑 `verification_feedback_study`，比较硬拒答、软判定与反馈补检索
+5. 再跑错误拒答诊断和验证器对比
+6. 视情况补跑 bridge / comparison 分桶
+7. 运行 `plot_tradeoff_calibration.py` 重绘权衡曲线与校准图
+8. 回填论文
 
 ## 10. 相关旧文档
 

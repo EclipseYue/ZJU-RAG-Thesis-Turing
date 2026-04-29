@@ -512,6 +512,8 @@ class RAGPipeline:
         model: str = "deepseek-v4-flash",
         api_key: str | None = None,
         base_url: str | None = None,
+        decision_policy: str = "soft",
+        min_claim_confidence: float | None = None,
     ) -> Dict[str, Any]:
         """
         Phase 4 feature: Chain-of-Verification (CoVe).
@@ -525,6 +527,8 @@ class RAGPipeline:
             model=model,
             api_key=api_key,
             base_url=base_url,
+            decision_policy=decision_policy,
+            min_claim_confidence=min_claim_confidence,
         )
         
         cove_result = verifier.evaluate_answer(generated_answer, evidence_chain)

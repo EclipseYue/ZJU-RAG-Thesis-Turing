@@ -19,7 +19,10 @@ GPU 服务器迁移与真实 API 运行细则见：
 - 已完成：新增 LlamaIndex 文本 baseline 包装器和 Route A 实验预设。
 - 已完成：新增 `experiments/run_route_a_baseline.py`，用于驱动 Route A 文本 baseline 小样本试跑。
 - 已完成：在 `.venv` 中安装 LlamaIndex，并跑通 `route_a_hotpotqa_smoke_2` 小样本验证。
-- 待做：在 GPU 服务器上完成 Route A 的 `20 -> 100` 样本真实 API 递进实验。
+- 已完成：在 GPU 服务器上完成 Route A 的 `20 -> 100` 样本真实 API 递进实验，并整理为规范化批次结果。
+- 已完成：新增 `run_verification_feedback_study.py`，用于比较硬拒答、软验证与验证反馈补检索。
+- 已完成：新增 `plot_tradeoff_calibration.py`，用于生成 F1--拒答率、F1--延迟与后续校准图。
+- 待做：在 GPU 服务器上运行 `verification_feedback_study_hotpotqa_50`，验证反馈闭环是否缓解 CoVe 崩溃。
 
 ## P1 强烈建议
 
@@ -28,6 +31,7 @@ GPU 服务器迁移与真实 API 运行细则见：
 - 已完成：在实验说明中明确哪些脚本仍使用启发式生成，哪些脚本已经具备真实 LLM 接口。
 - 已完成：在 `src/rererank_v1/` 下建立 `baselines/`、`adapters/`、`modules/` 新骨架，避免后续继续把新逻辑堆进旧原型文件。
 - 待做：将 `Adaptive PRF`、`CoVe`、`Evidence Chain` 设计成可插拔模块，挂接到成熟 baseline。
+- 待做：将 soft verification / feedback retrieval 迁移到 Route A baseline，避免长期停留在旧原型壳。
 - 待做：将 `dataset_loader.py` 中的伪异构逻辑降级为 `legacy path`，不再作为默认实验路线。
 - 待做：将旧 `run_all.py` 主消融壳明确收缩为“小样本真实 API 诊断线”，只保留关键配置 smoke 与 verifier 诊断任务。
 
@@ -45,4 +49,6 @@ GPU 服务器迁移与真实 API 运行细则见：
 - 一份统一实验总指南。
 - 一份 API 配置说明。
 - 一套支持真实 LLM 生成/验证、可迁移到成熟 baseline 的实验框架改动。
+- 一套用于验证崩溃诊断、软置信度验证与反馈补检索对比的实验配置。
+- 一组当前批次的权衡曲线绘图脚本与论文图表。
 - 一轮仓库历史遗留清理。

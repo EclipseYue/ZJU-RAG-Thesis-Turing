@@ -1,0 +1,38 @@
+[
+  {
+    "Config": "A3_Baseline_CoVe",
+    "Hetero": false,
+    "Adaptive": false,
+    "CoVe": true,
+    "Samples": 20,
+    "MockMode": false,
+    "Device": "cuda",
+    "SupportRecall@K": 75.0,
+    "SupportAllHit@K": 50.0,
+    "ExactMatch": 15.0,
+    "F1_Score": 15.0,
+    "Avg_Tokens": 591.9,
+    "Avg_Latency_ms": 142.6,
+    "Avg_Retrieval_Calls": 1.0,
+    "Avg_Reranker_Calls": 1.0,
+    "No_Answer_Rate_Percent": 75.0
+  },
+  {
+    "Config": "D_CoVe_Full",
+    "Hetero": true,
+    "Adaptive": true,
+    "CoVe": true,
+    "Samples": 20,
+    "MockMode": false,
+    "Device": "cuda",
+    "SupportRecall@K": 77.5,
+    "SupportAllHit@K": 55.0,
+    "ExactMatch": 15.0,
+    "F1_Score": 15.0,
+    "Avg_Tokens": 729.7,
+    "Avg_Latency_ms": 215.48,
+    "Avg_Retrieval_Calls": 2.0,
+    "Avg_Reranker_Calls": 2.0,
+    "No_Answer_Rate_Percent": 80.0
+  }
+]
