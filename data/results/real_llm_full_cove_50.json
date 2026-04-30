@@ -1,0 +1,20 @@
+[
+  {
+    "Config": "D_CoVe_Full",
+    "Hetero": true,
+    "Adaptive": true,
+    "CoVe": true,
+    "Samples": 50,
+    "MockMode": false,
+    "Device": "cuda",
+    "SupportRecall@K": 78.0,
+    "SupportAllHit@K": 56.0,
+    "ExactMatch": 6.0,
+    "F1_Score": 13.96,
+    "Avg_Tokens": 820.14,
+    "Avg_Latency_ms": 255.64,
+    "Avg_Retrieval_Calls": 2.0,
+    "Avg_Reranker_Calls": 2.0,
+    "No_Answer_Rate_Percent": 62.0
+  }
+]

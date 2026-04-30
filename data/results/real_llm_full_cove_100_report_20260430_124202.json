@@ -1,0 +1,4475 @@
+{
+  "run_info": {
+    "timestamp": "20260430_124202",
+    "dataset_name": "hotpotqa",
+    "split": "validation",
+    "num_samples": 100,
+    "top_k": 5,
+    "force_mock": false,
+    "device": "cuda",
+    "only_configs": [
+      "D_CoVe_Full"
+    ],
+    "checkpoint_every": 1
+  },
+  "matrix": [
+    {
+      "Config": "D_CoVe_Full",
+      "Hetero": true,
+      "Adaptive": true,
+      "CoVe": true,
+      "Samples": 100,
+      "MockMode": false,
+      "Device": "cuda",
+      "SupportRecall@K": 73.0,
+      "SupportAllHit@K": 49.0,
+      "ExactMatch": 5.0,
+      "F1_Score": 12.71,
+      "Avg_Tokens": 769.53,
+      "Avg_Latency_ms": 244.88,
+      "Avg_Retrieval_Calls": 1.99,
+      "Avg_Reranker_Calls": 1.99,
+      "No_Answer_Rate_Percent": 57.0
+    }
+  ],
+  "details": [
+    {
+      "config": {
+        "name": "D_CoVe_Full",
+        "hetero": true,
+        "adaptive": true,
+        "cove": true,
+        "prf_threshold": 0.8,
+        "cove_threshold": 0.9,
+        "generator_backend": "deepseek",
+        "generator_model": "deepseek-v4-flash",
+        "generator_api_key": "sk-6112898d3c43430ba65ac40ba4905088",
+        "generator_base_url": "https://api.deepseek.com",
+        "verifier_backend": "deepseek",
+        "verifier_model": "deepseek-v4-flash",
+        "verifier_api_key": "sk-6112898d3c43430ba65ac40ba4905088",
+        "verifier_base_url": "https://api.deepseek.com"
+      },
+      "summary": {
+        "Config": "D_CoVe_Full",
+        "Hetero": true,
+        "Adaptive": true,
+        "CoVe": true,
+        "Samples": 100,
+        "MockMode": false,
+        "Device": "cuda",
+        "SupportRecall@K": 73.0,
+        "SupportAllHit@K": 49.0,
+        "ExactMatch": 5.0,
+        "F1_Score": 12.71,
+        "Avg_Tokens": 769.53,
+        "Avg_Latency_ms": 244.88,
+        "Avg_Retrieval_Calls": 1.99,
+        "Avg_Reranker_Calls": 1.99,
+        "No_Answer_Rate_Percent": 57.0
+      },
+      "queries": [
+        {
+          "id": "5a8b57f25542995d1e6f1371",
+          "query": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "answer": "yes",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to determine if Scott Derrickson and Ed Wood",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Ed Wood",
+            "Ed Wood (film)",
+            "Ed Wood (film)",
+            "Ed Wood (film)",
+            "Scott Derrickson"
+          ],
+          "supporting_titles": [
+            "Ed Wood",
+            "Scott Derrickson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 390.0,
+            "total_latency": 0.30282163619995117,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.42983606557377046,
+            "min_confidence": 0.42983606557377046,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to determine if Scott Derrickson and Ed Wood",
+                "supported": false,
+                "confidence": 0.42983606557377046
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8c7595554299585d9e36b6",
+          "query": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "answer": "Chief of Protocol",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Kiss and Tell (1945 film)",
+            "A Kiss for Corliss",
+            "Kiss and Tell (1945 film)",
+            "Meet Corliss Archer (TV series)",
+            "Kiss and Tell (1945 film)"
+          ],
+          "supporting_titles": [
+            "Kiss and Tell (1945 film)",
+            "Shirley Temple"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 690.0,
+            "total_latency": 0.18316221237182617,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a85ea095542994775f606a8",
+          "query": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "answer": "Animorphs",
+          "predicted_answer": "We need to find the answer strictly from context",
+          "generated_answer": "We need to find the answer strictly from context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles",
+            "Victoria Hanley",
+            "Andre Norton Award",
+            "Night School: the Web Series"
+          ],
+          "supporting_titles": [
+            "Animorphs",
+            "The Hork-Bajir Chronicles"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1240.0,
+            "total_latency": 0.276017427444458,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.9,
+            "min_confidence": 0.9,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the answer strictly from context",
+                "supported": false,
+                "confidence": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "id": "5adbf0a255429947ff17385a",
+          "query": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "answer": "no",
+          "predicted_answer": "No",
+          "generated_answer": "No",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque",
+            "Esma Sultan (daughter of Abdülaziz)",
+            "Esma Sultan",
+            "Sultan Ahmed Mosque"
+          ],
+          "supporting_titles": [
+            "Esma Sultan Mansion",
+            "Laleli Mosque"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 780.0,
+            "total_latency": 0.23455381393432617,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No",
+                "supported": false,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8e3ea95542995a26add48d",
+          "query": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "answer": "Greenwich Village, New York City",
+          "predicted_answer": "We need to find the director of \"Big Stone Gap\" and then",
+          "generated_answer": "We need to find the director of \"Big Stone Gap\" and then",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Big Stone Gap (film)",
+            "Big Stone Gap (film)",
+            "Independent Spirit Awards",
+            "I Love NY (2015 film)",
+            "Chris Menges"
+          ],
+          "supporting_titles": [
+            "Adriana Trigiani",
+            "Big Stone Gap (film)"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 522.0,
+            "total_latency": 0.19970393180847168,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the director of \"Big Stone Gap\" and then",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abd94525542992ac4f382d2",
+          "query": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+          "answer": "YG Entertainment",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "2014 S/S",
+            "History (band)",
+            "Seventeen discography",
+            "List of awards and nominations received by Shinee",
+            "BTS discography"
+          ],
+          "supporting_titles": [
+            "2014 S/S",
+            "Winner (band)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1200.0,
+            "total_latency": 0.33396244049072266,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a85b2d95542997b5ce40028",
+          "query": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "answer": "Eenasul Fateh",
+          "predicted_answer": "Eenasul Fateh We need to answer: \"Who",
+          "generated_answer": "Eenasul Fateh We need to answer: \"Who",
+          "exact_match": 0.0,
+          "f1_score": 0.4444444444444445,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Eenasul Fateh",
+            "Management consulting",
+            "Eenasul Fateh",
+            "Management consulting",
+            "ELDee"
+          ],
+          "supporting_titles": [
+            "Eenasul Fateh",
+            "Management consulting"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 800.0,
+            "total_latency": 0.2850651741027832,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Eenasul Fateh We need to answer: \"Who",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a87ab905542996e4f3088c1",
+          "query": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "answer": "3,677 seated",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Lewiston Maineiacs",
+            "Dwyer Arena",
+            "Lewiston Maineiacs",
+            "Dwyer Arena",
+            "Lewiston Maineiacs"
+          ],
+          "supporting_titles": [
+            "Androscoggin Bank Colisée",
+            "Lewiston Maineiacs"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 534.0,
+            "total_latency": 0.2107841968536377,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7bbb64554299042af8f7cc",
+          "query": "Who is older, Annie Morton or Terry Richardson?",
+          "answer": "Terry Richardson",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to compare ages of Annie Morton and Terry Richardson",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Annie Morton",
+            "Annie Morton",
+            "Annie Morton",
+            "Gretchen Osgood Warren",
+            "Kenton Richardson"
+          ],
+          "supporting_titles": [
+            "Annie Morton",
+            "Terry Richardson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 410.0,
+            "total_latency": 0.23212909698486328,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to compare ages of Annie Morton and Terry Richardson",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8db19d5542994ba4e3dd00",
+          "query": "Are Local H and For Against both from the United States?",
+          "answer": "yes",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Yes",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Local H",
+            "East Lempster, New Hampshire",
+            "For Against",
+            "Hampden County, Massachusetts",
+            "Local H"
+          ],
+          "supporting_titles": [
+            "For Against",
+            "Local H"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 653.0,
+            "total_latency": 0.22072505950927734,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.8,
+            "min_confidence": 0.8,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": false,
+                "confidence": 0.8
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7166395542994082a3e814",
+          "query": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+          "answer": "Kansas Song",
+          "predicted_answer": "We need to find the fight song of the university described",
+          "generated_answer": "We need to find the fight song of the university described",
+          "exact_match": 0.0,
+          "f1_score": 0.1818181818181818,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "University of Kansas",
+            "Kansas Song",
+            "Kansas Song",
+            "University of Kansas",
+            "University of Kansas"
+          ],
+          "supporting_titles": [
+            "Kansas Song",
+            "University of Kansas"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 690.0,
+            "total_latency": 0.2256324291229248,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.98,
+            "min_confidence": 0.98,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the fight song of the university described",
+                "supported": true,
+                "confidence": 0.98
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a877e5d5542993e715abf7d",
+          "query": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and Téa Leoni?",
+          "answer": "David Weissman",
+          "predicted_answer": "David Weissman We need to find a screenwriter who co-wrote a film",
+          "generated_answer": "David Weissman We need to find a screenwriter who co-wrote a film",
+          "exact_match": 0.0,
+          "f1_score": 0.3076923076923077,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "The Family Man",
+            "David Weissman",
+            "The Family Man",
+            "John Waters",
+            "Time to Kill (1989 film)"
+          ],
+          "supporting_titles": [
+            "David Weissman",
+            "The Family Man"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 526.0,
+            "total_latency": 0.22498726844787598,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "David Weissman We need to find a screenwriter who co-wrote a film",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab3b0bf5542992ade7c6e39",
+          "query": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "answer": "1999",
+          "predicted_answer": "We need to find the year Guns N Roses performed a promo",
+          "generated_answer": "We need to find the year Guns N Roses performed a promo",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Oh My God (Guns N' Roses song)",
+            "Steven Adler",
+            "Arnold Schwarzenegger filmography",
+            "Guns N' Roses discography",
+            "Guns N' Roses discography"
+          ],
+          "supporting_titles": [
+            "End of Days (film)",
+            "Oh My God (Guns N' Roses song)"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1228.0,
+            "total_latency": 0.30689215660095215,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the year Guns N Roses performed a promo",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab56e32554299637185c594",
+          "query": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+          "answer": "no",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "888 7th Avenue",
+            "Random House Tower",
+            "888 7th Avenue",
+            "Random House Tower",
+            "Random House Tower"
+          ],
+          "supporting_titles": [
+            "888 7th Avenue",
+            "Random House Tower"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 550.0,
+            "total_latency": 0.19530797004699707,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab6d09255429954757d337d",
+          "query": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+          "answer": "from 1986 to 2013",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "1986 to 2013 We need to identify which manager recruited David Beckham",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Matt Busby",
+            "Alex Ferguson",
+            "Ernest Mangnall",
+            "David Beckham Academy",
+            "1995–96 Manchester United F.C. season"
+          ],
+          "supporting_titles": [
+            "1995–96 Manchester United F.C. season",
+            "Alex Ferguson"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 735.0,
+            "total_latency": 0.2398693561553955,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "1986 to 2013 We need to identify which manager recruited David Beckham",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a75e05c55429976ec32bc5f",
+          "query": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+          "answer": "9,984",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Brown State Fishing Lake",
+            "Brown State Fishing Lake",
+            "Osage State Fishing Lake",
+            "Fishing Lake",
+            "Fishing Lake"
+          ],
+          "supporting_titles": [
+            "Brown County, Kansas",
+            "Brown State Fishing Lake"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 440.0,
+            "total_latency": 0.18301606178283691,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab3e45655429976abd1bcd4",
+          "query": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+          "answer": "the North Atlantic Conference",
+          "predicted_answer": "We need to answer based on context",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Vermont Catamounts men's soccer",
+            "Vermont Catamounts men's basketball",
+            "Vermont Catamounts men's soccer",
+            "Vermont Catamounts men's ice hockey",
+            "2016–17 Vermont Catamounts men's basketball team"
+          ],
+          "supporting_titles": [
+            "America East Conference",
+            "Vermont Catamounts men's soccer"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 792.0,
+            "total_latency": 0.21474981307983398,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.9,
+            "min_confidence": 0.9,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab29c24554299449642c932",
+          "query": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+          "answer": "yes",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Yes",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi",
+            "Verdi, the King of Melody",
+            "Teatro Giuseppe Verdi",
+            "Giuseppe Verdi (film)"
+          ],
+          "supporting_titles": [
+            "Ambroise Thomas",
+            "Giuseppe Verdi"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 334.0,
+            "total_latency": 0.16646528244018555,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae0d4c9554299603e418468",
+          "query": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+          "answer": "1969 until 1974",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Roger O. Egeberg",
+            "Roger O. Egeberg",
+            "Robert Hormats",
+            "The White House Doctor",
+            "The White House Doctor"
+          ],
+          "supporting_titles": [
+            "Richard Nixon",
+            "Roger O. Egeberg"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1025.0,
+            "total_latency": 0.300278902053833,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8133725542995ce29dcbdb",
+          "query": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+          "answer": "Robert Erskine Childers DSC",
+          "predicted_answer": "Robert Erskine Childers We need to answer based on context",
+          "generated_answer": "Robert Erskine Childers We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.4285714285714285,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Robert Erskine Childers",
+            "Erskine Barton Childers",
+            "Robert Erskine Childers",
+            "Erskine Barton Childers",
+            "Henry Roth"
+          ],
+          "supporting_titles": [
+            "Henry Roth",
+            "Robert Erskine Childers"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 643.0,
+            "total_latency": 0.21007633209228516,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "min_confidence": 1.0,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Robert Erskine Childers We need to answer based on context",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae7a8175542993210983ed8",
+          "query": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+          "answer": "Pedro Rodríguez",
+          "predicted_answer": "Pedro Rodríguez We need to find a Mexican Formula One driver who",
+          "generated_answer": "Pedro Rodríguez We need to find a Mexican Formula One driver who",
+          "exact_match": 0.0,
+          "f1_score": 0.4,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Formula One drivers from Mexico",
+            "Sergio Pérez",
+            "Eduardo Troconis",
+            "Formula One drivers from Mexico",
+            "Michael James Lewis"
+          ],
+          "supporting_titles": [
+            "Formula One drivers from Mexico",
+            "Sergio Pérez"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 872.0,
+            "total_latency": 0.2705874443054199,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Pedro Rodríguez We need to find a Mexican Formula One driver who",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae6050f55429929b0807a5e",
+          "query": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+          "answer": "Sonic",
+          "predicted_answer": "We need to find the singer of \"A Rather Blustery Day\" from",
+          "generated_answer": "We need to find the singer of \"A Rather Blustery Day\" from",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "A Rather Blustery Day",
+            "Jim Cummings",
+            "Winnie the Pooh and the Blustery Day",
+            "Kate Higgins",
+            "Heffalumps and Woozles"
+          ],
+          "supporting_titles": [
+            "A Rather Blustery Day",
+            "Jim Cummings"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1031.0,
+            "total_latency": 0.2851095199584961,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the singer of \"A Rather Blustery Day\" from",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5adddccd5542997dc7907069",
+          "query": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+          "answer": "keyboard function keys",
+          "predicted_answer": "We need to find what program the Apple Remote",
+          "generated_answer": "We need to find what program the Apple Remote",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Apple Remote",
+            "Siri Remote",
+            "Apple Remote Desktop",
+            "Remote control",
+            "Apple Remote"
+          ],
+          "supporting_titles": [
+            "Apple Remote",
+            "Front Row (software)"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1058.0,
+            "total_latency": 0.2267599105834961,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find what program the Apple Remote",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae2070a5542994d89d5b313",
+          "query": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+          "answer": "Badly Drawn Boy",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Wolf Alice",
+            "Cho Kyuhyun",
+            "Participant observation",
+            "Steven Adler",
+            "Chuck Berry on Stage"
+          ],
+          "supporting_titles": [
+            "Badly Drawn Boy",
+            "Wolf Alice"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 306.0,
+            "total_latency": 0.18312907218933105,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae22b8d554299234fd0440f",
+          "query": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+          "answer": "World's Best Goalkeeper",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "World's Best Goalkeeper We need to answer: What",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Kasper Schmeichel",
+            "Peter Schmeichel",
+            "Kasper Schmeichel",
+            "Peter Schmeichel",
+            "Kasper Hvidt"
+          ],
+          "supporting_titles": [
+            "Kasper Schmeichel",
+            "Peter Schmeichel"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 596.0,
+            "total_latency": 0.18232297897338867,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.35983606557377046,
+            "min_confidence": 0.35983606557377046,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "World's Best Goalkeeper We need to answer: What",
+                "supported": false,
+                "confidence": 0.35983606557377046
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a722b8655429971e9dc9329",
+          "query": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+          "answer": "Barton Lee Hazlewood",
+          "predicted_answer": "We need to answer: \"Who",
+          "generated_answer": "We need to answer: \"Who",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "These Boots Are Made for Walkin'",
+            "Boots (album)",
+            "Boots (EP)",
+            "Puss N' Boots/These Boots Are Made for Walkin'",
+            "Nancy Sinatra"
+          ],
+          "supporting_titles": [
+            "Lee Hazlewood",
+            "These Boots Are Made for Walkin'"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 702.0,
+            "total_latency": 0.1862351894378662,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer: \"Who",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5adf37a95542995ec70e8f97",
+          "query": "The 2011–12 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+          "answer": "1838",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "2011–12 VCU Rams men's basketball team",
+            "2015–16 VCU Rams men's basketball team",
+            "2009–10 VCU Rams men's basketball team",
+            "2013–14 VCU Rams men's basketball team",
+            "2010–11 VCU Rams men's basketball team"
+          ],
+          "supporting_titles": [
+            "2011–12 VCU Rams men's basketball team",
+            "Virginia Commonwealth University"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1517.0,
+            "total_latency": 0.35755491256713867,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abd259d55429924427fcf1a",
+          "query": "Are both Dictyosperma, and Huernia described as a genus?",
+          "answer": "yes",
+          "predicted_answer": "Yes",
+          "generated_answer": "Yes",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Huernia",
+            "Dictyosperma",
+            "Dictyosperma",
+            "Huernia",
+            "Dictyosperma"
+          ],
+          "supporting_titles": [
+            "Dictyosperma",
+            "Huernia"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 654.0,
+            "total_latency": 0.24547719955444336,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.9,
+            "min_confidence": 0.9,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": false,
+                "confidence": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a828c8355429966c78a6a50",
+          "query": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+          "answer": "Henry J. Kaiser",
+          "predicted_answer": "Yes We need to answer based on context",
+          "generated_answer": "Yes We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Henry J. Kaiser",
+            "Kaiser Ventures",
+            "Kaiser Shipyards",
+            "Kaiser Ventures",
+            "Edgar Kaiser Sr."
+          ],
+          "supporting_titles": [
+            "Henry J. Kaiser",
+            "Kaiser Ventures"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1008.0,
+            "total_latency": 0.27468276023864746,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.9,
+            "min_confidence": 0.9,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Yes We need to answer based on context",
+                "supported": false,
+                "confidence": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8a3e745542996c9b8d5e70",
+          "query": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+          "answer": "Arena of Khazan",
+          "predicted_answer": "We need to answer: \"What",
+          "generated_answer": "We need to answer: \"What",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Tunnels &amp; Trolls",
+            "Ken St. Andre",
+            "Tunnels &amp; Trolls: Crusaders of Khazan",
+            "Tunnels &amp; Trolls",
+            "Arena of Khazan"
+          ],
+          "supporting_titles": [
+            "Arena of Khazan",
+            "Tunnels &amp; Trolls"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 628.0,
+            "total_latency": 0.18369269371032715,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer: \"What",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ac23ff0554299636651994d",
+          "query": "When was Poison's album \"Shut Up, Make Love\" released?",
+          "answer": "2000",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the release date of Poison's album \"Shut Up",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Shut Up, Make Love",
+            "Be the One (Poison song)",
+            "Poison (American band)",
+            "Poison (American band)",
+            "Make Love Not War (album)"
+          ],
+          "supporting_titles": [
+            "Poison (American band)",
+            "Shut Up, Make Love"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 876.0,
+            "total_latency": 0.24393177032470703,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the release date of Poison's album \"Shut Up",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae4a3265542995ad6573de5",
+          "query": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+          "answer": "Fujioka, Gunma",
+          "predicted_answer": "We need to answer: \"Hayden",
+          "generated_answer": "We need to answer: \"Hayden",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Hayden (musician)",
+            "Buck-Tick",
+            "Skyscraper National Park",
+            "Mild and Hazy",
+            "Atsushi Sakurai"
+          ],
+          "supporting_titles": [
+            "Buck-Tick",
+            "Hayden (musician)"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 586.0,
+            "total_latency": 0.25803709030151367,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer: \"Hayden",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae0361155429925eb1afc2c",
+          "query": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+          "answer": "Charles Eugène",
+          "predicted_answer": "We need to find who flew L'Oiseau Blanc",
+          "generated_answer": "We need to find who flew L'Oiseau Blanc",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "L'Oiseau Blanc",
+            "François Coli",
+            "Gervais Raoul Lufbery",
+            "Georges Madon",
+            "Paul Sauvage (aviator)"
+          ],
+          "supporting_titles": [
+            "Charles Nungesser",
+            "L'Oiseau Blanc"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 810.0,
+            "total_latency": 0.23677659034729004,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find who flew L'Oiseau Blanc",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abc0a5d5542993f40c73c64",
+          "query": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+          "answer": "no",
+          "predicted_answer": "No",
+          "generated_answer": "No",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "In the Realm of the Hackers",
+            "Freakonomics Radio",
+            "Hackers (film)",
+            "Freakonomics (film)",
+            "Hackers (film)"
+          ],
+          "supporting_titles": [
+            "Freakonomics (film)",
+            "In the Realm of the Hackers"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 818.0,
+            "total_latency": 0.23482227325439453,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.9,
+            "min_confidence": 0.9,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No",
+                "supported": false,
+                "confidence": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7cc50e554299452d57ba3e",
+          "query": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+          "answer": "Letters to Cleo",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to compare number of members",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Letters to Cleo",
+            "Screaming Trees",
+            "Screaming Trees discography",
+            "Screaming Trees discography",
+            "Change Has Come"
+          ],
+          "supporting_titles": [
+            "Letters to Cleo",
+            "Screaming Trees"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 632.0,
+            "total_latency": 0.20839142799377441,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to compare number of members",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abf63f15542997ec76fd3ea",
+          "query": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+          "answer": "October 1922",
+          "predicted_answer": "We need to find when the Russian Civil War ended",
+          "generated_answer": "We need to find when the Russian Civil War ended",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Alexander Kerensky",
+            "Russian Civil War",
+            "Kerensky–Krasnov uprising",
+            "Socialist Revolutionary Party",
+            "Battle of Romanovka"
+          ],
+          "supporting_titles": [
+            "Russian Civil War",
+            "Socialist Revolutionary Party"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1502.0,
+            "total_latency": 0.4364664554595947,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find when the Russian Civil War ended",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8ef2a75542995a26add583",
+          "query": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+          "answer": "2000",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "2000 We need to find the year when Carlo Rovelli (the Italian",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Seven Brief Lessons on Physics",
+            "Carlo Rovelli",
+            "Seven Brief Lessons on Physics",
+            "Antonino Lo Surdo",
+            "Chiara Nappi"
+          ],
+          "supporting_titles": [
+            "Carlo Rovelli",
+            "Seven Brief Lessons on Physics"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 592.0,
+            "total_latency": 0.1943063735961914,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "2000 We need to find the year when Carlo Rovelli (the Italian",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a80721b554299485f5985ef",
+          "query": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+          "answer": "World War II",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Livesey Hall War Memorial",
+            "Livesey Hall War Memorial",
+            "Rainham War Memorial",
+            "Vietnam War Memorial, Hanoi",
+            "Tower Hill Memorial"
+          ],
+          "supporting_titles": [
+            "Livesey Hall War Memorial",
+            "World War II casualties"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 723.0,
+            "total_latency": 0.2379000186920166,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab51dae5542991779162d82",
+          "query": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+          "answer": "no",
+          "predicted_answer": "No",
+          "generated_answer": "No",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Gerald R. Ford International Airport",
+            "Elko Regional Airport",
+            "Gerald R. Ford International Airport",
+            "Bishop International Airport",
+            "John Glenn Columbus International Airport"
+          ],
+          "supporting_titles": [
+            "Elko Regional Airport",
+            "Gerald R. Ford International Airport"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1010.0,
+            "total_latency": 0.36209583282470703,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "min_confidence": 1.0,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7571135542992d0ec05f98",
+          "query": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+          "answer": "New York City",
+          "predicted_answer": "New York City We need to find the city where Ralph Hefferline",
+          "generated_answer": "New York City We need to find the city where Ralph Hefferline",
+          "exact_match": 0.0,
+          "f1_score": 0.42857142857142855,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Ralph Hefferline",
+            "Columbia University",
+            "Ralph Hefferline",
+            "Stanley Coren",
+            "E. Mavis Hetherington"
+          ],
+          "supporting_titles": [
+            "Columbia University",
+            "Ralph Hefferline"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 754.0,
+            "total_latency": 0.2042069435119629,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "New York City We need to find the city where Ralph Hefferline",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7a0e1e5542990783324e1a",
+          "query": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+          "answer": "Scotch Collie",
+          "predicted_answer": "Scotch Collie We need to answer based strictly on the provided context",
+          "generated_answer": "Scotch Collie We need to answer based strictly on the provided context",
+          "exact_match": 0.0,
+          "f1_score": 0.3076923076923077,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Scotch Collie",
+            "English Setter",
+            "Collie",
+            "Scotch Collie",
+            "Collie"
+          ],
+          "supporting_titles": [
+            "Manchester Terrier",
+            "Scotch Collie"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 574.0,
+            "total_latency": 0.19971394538879395,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Scotch Collie We need to answer based strictly on the provided context",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a74106b55429979e288289e",
+          "query": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+          "answer": "Mumbai",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Sachin Warrier",
+            "Sachin Warrier",
+            "Sachin Warrier",
+            "Sachin Bansal",
+            "Sachin Bansal"
+          ],
+          "supporting_titles": [
+            "Sachin Warrier",
+            "Tata Consultancy Services"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 474.0,
+            "total_latency": 0.19872093200683594,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a79311755429970f5fffe67",
+          "query": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+          "answer": "1962",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "I&quot;s",
+            "Silver Spoon (manga)",
+            "The Kindaichi Case Files",
+            "Manga Bible (series)",
+            "Manga Bible (series)"
+          ],
+          "supporting_titles": [
+            "I&quot;s",
+            "Masakazu Katsura"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1380.0,
+            "total_latency": 0.3266875743865967,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab2d3df554299194fa9352c",
+          "query": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+          "answer": "sovereignty",
+          "predicted_answer": "sovereignty We need to find where Giuseppe Arimondi died",
+          "generated_answer": "sovereignty We need to find where Giuseppe Arimondi died",
+          "exact_match": 0.0,
+          "f1_score": 0.19999999999999998,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Giuseppe Arimondi",
+            "Battle of Adwa",
+            "First Italo-Ethiopian War",
+            "Treaty of Addis Ababa",
+            "Giuseppe Arimondi"
+          ],
+          "supporting_titles": [
+            "Battle of Adwa",
+            "Giuseppe Arimondi"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1058.0,
+            "total_latency": 0.30548834800720215,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "sovereignty We need to find where Giuseppe Arimondi died",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a760ab65542994ccc918697",
+          "query": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+          "answer": "Nelson Rockefeller",
+          "predicted_answer": "We need to answer based on context",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Alfred Balk",
+            "Alfred Balk",
+            "Alfred Balk",
+            "Robert R. Hood",
+            "Eric Schultz"
+          ],
+          "supporting_titles": [
+            "Alfred Balk",
+            "Nelson Rockefeller"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1210.0,
+            "total_latency": 0.34641504287719727,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.9,
+            "min_confidence": 0.9,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7d54165542995f4f402256",
+          "query": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+          "answer": "Yellowcraig",
+          "predicted_answer": "We need to answer: \"A medieval fortress in Dirleton",
+          "generated_answer": "We need to answer: \"A medieval fortress in Dirleton",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Dirleton Castle",
+            "Dirleton",
+            "Lothian and Borders",
+            "Dirleton Castle",
+            "Scottish Borders"
+          ],
+          "supporting_titles": [
+            "Dirleton Castle",
+            "Yellowcraigs"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 710.0,
+            "total_latency": 0.24179625511169434,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer: \"A medieval fortress in Dirleton",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab859a955429934fafe6d7b",
+          "query": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+          "answer": "Phil Spector",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the writer of the song that",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Back to Mono (1958–1969)",
+            "Nashville Rebel (box set)",
+            "Hikky Burr",
+            "Mono Masters",
+            "Heaven Knows (Robert Plant song)"
+          ],
+          "supporting_titles": [
+            "Back to Mono (1958–1969)",
+            "To Know Him Is to Love Him"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1709.0,
+            "total_latency": 0.46814894676208496,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the writer of the song that",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5add61d65542995b365fab21",
+          "query": "What type of forum did a former Soviet statesman initiate?",
+          "answer": "Organizations could come together to address global issues",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Mikhail Suslov",
+            "Andrei Kirilenko (politician)",
+            "Mikhail Gorbachev",
+            "Ephraim Sklyansky",
+            "Nikolai Podgorny"
+          ],
+          "supporting_titles": [
+            "Mikhail Gorbachev",
+            "World Summit of Nobel Peace Laureates"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 849.0,
+            "total_latency": 0.2856407165527344,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8e068b5542995085b37384",
+          "query": "Are Ferocactus and Silene both types of plant?",
+          "answer": "yes",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Yes",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Silene",
+            "Silene stenophylla",
+            "Silene",
+            "Ferocactus",
+            "Ferocactus"
+          ],
+          "supporting_titles": [
+            "Ferocactus",
+            "Silene"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 432.0,
+            "total_latency": 0.20504021644592285,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Yes",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abbf698554299114383a0b5",
+          "query": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+          "answer": "English Electric Canberra",
+          "predicted_answer": "We need to find a British first-generation jet-powered medium bomber used in",
+          "generated_answer": "We need to find a British first-generation jet-powered medium bomber used in",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "English Electric Canberra",
+            "South West Pacific theatre of World War II",
+            "No. 2 Squadron RAAF",
+            "South West Pacific theatre of World War II",
+            "Asiatic-Pacific Theater"
+          ],
+          "supporting_titles": [
+            "English Electric Canberra",
+            "No. 2 Squadron RAAF"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1164.0,
+            "total_latency": 0.3476450443267822,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "min_confidence": 1.0,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find a British first-generation jet-powered medium bomber used in",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8e1027554299653c1aa15f",
+          "query": "Which year and which conference was the 14th season for this conference as part of the NCAA Division that the Colorado Buffaloes played in with a record of 2-6 in conference play?",
+          "answer": "2009 Big 12 Conference",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to parse the question carefully",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "2011 Colorado Buffaloes football team",
+            "2012 Colorado Buffaloes football team",
+            "2014–15 Colorado Buffaloes men's basketball team",
+            "2009 Colorado Buffaloes football team",
+            "2016–17 Colorado Buffaloes men's basketball team"
+          ],
+          "supporting_titles": [
+            "2009 Big 12 Conference football season",
+            "2009 Colorado Buffaloes football team"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1085.0,
+            "total_latency": 0.22510981559753418,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.010000000000000009,
+            "min_confidence": 0.010000000000000009,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to parse the question carefully",
+                "supported": false,
+                "confidence": 0.010000000000000009
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab84bf555429916710eb01f",
+          "query": "In 1991 Euromarché was bought by a chain that operated how any hypermarkets at the end of 2016?",
+          "answer": "1,462",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "1",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Euromarché",
+            "Carrefour",
+            "Euromarché",
+            "SavaCentre",
+            "Euromarché"
+          ],
+          "supporting_titles": [
+            "Carrefour",
+            "Euromarché"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 686.0,
+            "total_latency": 0.21925997734069824,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "1",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a77724455429972597f153e",
+          "query": "What race track in the midwest hosts a 500 mile race eavery May?",
+          "answer": "Indianapolis Motor Speedway",
+          "predicted_answer": "Indianapolis Motor Speedway We need to answer based strictly on context",
+          "generated_answer": "Indianapolis Motor Speedway We need to answer based strictly on context",
+          "exact_match": 0.0,
+          "f1_score": 0.42857142857142855,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "1957 Indianapolis 500",
+            "Indianapolis Motor Speedway",
+            "Louis Schwitzer Award",
+            "Allison Transmission",
+            "Orange County Fair Speedway"
+          ],
+          "supporting_titles": [
+            "1957 Indianapolis 500",
+            "Indianapolis Motor Speedway"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 218.0,
+            "total_latency": 0.08758234977722168,
+            "retrieval_calls": 1.0,
+            "reranker_calls": 1.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Indianapolis Motor Speedway We need to answer based strictly on context",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a87c13f5542996e4f30890c",
+          "query": "In what city did the \"Prince of tenors\" star in a film based on an opera by Giacomo Puccini?",
+          "answer": "Rome",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the answer based strictly on the provided context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.0,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Jacopo Puccini",
+            "Gianni Schicchi",
+            "Cesira Ferrani",
+            "Festival Puccini",
+            "Teatro Giuseppe Verdi"
+          ],
+          "supporting_titles": [
+            "Franco Corelli",
+            "Tosca (1956 film)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 828.0,
+            "total_latency": 0.25414371490478516,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the answer based strictly on the provided context",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ab96ab755429970cfb8eacd",
+          "query": "Ellie Goulding worked with what other writers on her third studio album, Delirium?",
+          "answer": "Max Martin, Savan Kotecha and Ilya Salmanzadeh",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Delirium (Ellie Goulding album)",
+            "Halcyon (album)",
+            "Delirium World Tour",
+            "Delirium (Ellie Goulding album)",
+            "List of songs recorded by Ellie Goulding"
+          ],
+          "supporting_titles": [
+            "Delirium (Ellie Goulding album)",
+            "On My Mind (Ellie Goulding song)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 722.0,
+            "total_latency": 0.20434951782226562,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8a43eb5542996c9b8d5e82",
+          "query": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+          "answer": "Marion, South Australia",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find an Australian city founded in 1838 that contains",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Westminster School, Adelaide",
+            "Westminster School, Adelaide",
+            "High Commission of Australia, London",
+            "High Commission of Australia, London",
+            "Westminster School, Adelaide"
+          ],
+          "supporting_titles": [
+            "Marion, South Australia",
+            "Westminster School, Adelaide"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 675.0,
+            "total_latency": 0.20343995094299316,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find an Australian city founded in 1838 that contains",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae73acb5542991e8301cc07",
+          "query": "D1NZ is a series based on what oversteering technique?",
+          "answer": "Drifting",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Drifting We need to find the answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "D1NZ",
+            "Drifting (motorsport)",
+            "D1NZ",
+            "D1NZ",
+            "Drifting (motorsport)"
+          ],
+          "supporting_titles": [
+            "D1NZ",
+            "Drifting (motorsport)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 682.0,
+            "total_latency": 0.24562621116638184,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Drifting We need to find the answer based on context",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7320565542991f9a20c61d",
+          "query": "who is younger Keith Bostic or Jerry Glanville ?",
+          "answer": "Keith Bostic",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Keith Bostic We need to compare ages: Keith Bostic born Jan 17",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Keith Bostic (American football)",
+            "Keith Bostic",
+            "Jerry Glanville",
+            "Keith Bostic (American football)",
+            "Jerry Glanville"
+          ],
+          "supporting_titles": [
+            "Jerry Glanville",
+            "Keith Bostic (American football)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 528.0,
+            "total_latency": 0.20763230323791504,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Keith Bostic We need to compare ages: Keith Bostic born Jan 17",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae32e125542991a06ce9946",
+          "query": "According to the 2001 census, what was the population of the city in which Kirton End is located?",
+          "answer": "35,124",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer: \"According to the 2001 census",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Kirton End",
+            "Kirton, Nottinghamshire",
+            "Kirton, Suffolk",
+            "Kirton, Nottinghamshire",
+            "Kirton, Nottinghamshire"
+          ],
+          "supporting_titles": [
+            "Boston, Lincolnshire",
+            "Kirton End"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 616.0,
+            "total_latency": 0.24822235107421875,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.42983606557377046,
+            "min_confidence": 0.42983606557377046,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer: \"According to the 2001 census",
+                "supported": false,
+                "confidence": 0.42983606557377046
+              }
+            ]
+          }
+        },
+        {
+          "id": "5adc53f75542996e6852530a",
+          "query": "Are both Cypress and Ajuga genera?",
+          "answer": "no",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer if both Cypress and Ajuga",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Cypress",
+            "Cypress-pine",
+            "Cypress",
+            "Cupressus",
+            "Ajugeae"
+          ],
+          "supporting_titles": [
+            "Ajuga",
+            "Cypress"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 298.0,
+            "total_latency": 0.1705765724182129,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer if both Cypress and Ajuga",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8b20335542996c9b8d5fb3",
+          "query": "What distinction is held by the former NBA player who was a member of the Charlotte Hornets during their 1992-93 season and was head coach for the WNBA team Charlotte Sting?",
+          "answer": "shortest player ever to play in the National Basketball Association",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find a person who: (1)",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.0,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Charlotte Hornets",
+            "2014–15 Charlotte Hornets season",
+            "Ayana Walker",
+            "Charlotte Hornets all-time roster",
+            "List of Charlotte Hornets seasons"
+          ],
+          "supporting_titles": [
+            "1992–93 Charlotte Hornets season",
+            "Muggsy Bogues"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1554.0,
+            "total_latency": 0.2969975471496582,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find a person who: (1)",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a85fb085542994775f606de",
+          "query": "What is the name of the executive producer of the film that has a score composed by Jerry Goldsmith?",
+          "answer": "Ronald Shusett",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We are asked: \"What",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Alien (soundtrack)",
+            "Aliens (soundtrack)",
+            "Legend (film score)",
+            "Mulan (soundtrack)",
+            "L.A. Confidential (soundtrack)"
+          ],
+          "supporting_titles": [
+            "Alien (film)",
+            "Alien (soundtrack)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 806.0,
+            "total_latency": 0.27063846588134766,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We are asked: \"What",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7be2595542997c3ec972ac",
+          "query": "Who was born earlier, Emma Bull or Virginia Woolf?",
+          "answer": "Adeline Virginia Woolf",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Virginia Woolf",
+            "The Duchess and the Jeweller",
+            "Jane de Gay",
+            "Virginia Woolf",
+            "Moments of Being"
+          ],
+          "supporting_titles": [
+            "Emma Bull",
+            "Virginia Woolf"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 346.0,
+            "total_latency": 0.19611525535583496,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a77152355429966f1a36c2e",
+          "query": "What was the Roud Folk Song Index of the nursery rhyme inspiring What Are Little Girls Made Of?",
+          "answer": "821",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Row, Row, Row Your Boat",
+            "What Are Little Boys Made Of?",
+            "Three Little Kittens",
+            "Pretty Little Dutch Girl",
+            "A Wise Old Owl"
+          ],
+          "supporting_titles": [
+            "What Are Little Boys Made Of?",
+            "What Are Little Girls Made Of?"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 692.0,
+            "total_latency": 0.20832109451293945,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8f4c8d554299458435d5a3",
+          "query": "Scott Parkin has been a vocal critic of Exxonmobil and another corporation that has operations in how many countries ?",
+          "answer": "more than 70 countries",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the answer from context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Scott Parkin",
+            "Scott Parkin",
+            "Mobil Producing Nigeria",
+            "Exxon",
+            "Exxon"
+          ],
+          "supporting_titles": [
+            "Halliburton",
+            "Scott Parkin"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 504.0,
+            "total_latency": 0.19883012771606445,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the answer from context",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a80840f554299485f59863b",
+          "query": "What WB supernatrual drama series was Jawbreaker star Rose Mcgowan best known for being in?",
+          "answer": "Charmed",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Charmed We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Rose McGowan",
+            "Jawbreaker (film)",
+            "Rose McGowan",
+            "Raaz Pichhle Janam Ka",
+            "Jawbreaker (film)"
+          ],
+          "supporting_titles": [
+            "Jawbreaker (film)",
+            "Rose McGowan"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 798.0,
+            "total_latency": 0.25914669036865234,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Charmed We need to answer based on context",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8361b65542992ef85e22a0",
+          "query": "Vince Phillips held a junior welterweight title by an organization recognized by what larger Hall of Fame?",
+          "answer": "International Boxing Hall of Fame",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Vince Phillips",
+            "Vince Phillips",
+            "Fatai Onikeke",
+            "Bunny Grant",
+            "Jeff Malcolm"
+          ],
+          "supporting_titles": [
+            "International Boxing Federation",
+            "Vince Phillips"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1112.0,
+            "total_latency": 0.32693958282470703,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae7ba7a5542993210983f12",
+          "query": "What is the name of the singer who's song was released as the lead single from the album \"Confessions\", and that had popular song stuck behind for eight consecutive weeks?",
+          "answer": "Usher",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Yeah! (Usher song)",
+            "Kingston Morning",
+            "Billy Ray Cyrus discography",
+            "Outside (Calvin Harris song)",
+            "Yeah! (Usher song)"
+          ],
+          "supporting_titles": [
+            "I Don't Wanna Know",
+            "Yeah! (Usher song)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1334.0,
+            "total_latency": 0.3382151126861572,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.09999999999999998,
+            "min_confidence": 0.09999999999999998,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.09999999999999998
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ac2acff55429921a00ab02b",
+          "query": "who is the younger brother of The episode guest stars of The Hard Easy ",
+          "answer": "Bill Murray",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "The Hard Easy (Adventure Time)",
+            "The Hard Easy (film)",
+            "The Hard Easy (Adventure Time)",
+            "The Hard Easy (film)",
+            "The Hard Easy (Adventure Time)"
+          ],
+          "supporting_titles": [
+            "Brian Doyle-Murray",
+            "The Hard Easy (Adventure Time)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 783.0,
+            "total_latency": 0.23870396614074707,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based on context",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5aba7cfe554299232ef4a2fd",
+          "query": "The 2017–18 Wigan Athletic F.C. season will be a year in which the team competes in the league cup known as what for sponsorship reasons?",
+          "answer": "Carabao Cup",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "2017–18 Wigan Athletic F.C. season",
+            "2017–18 Wigan Athletic F.C. season",
+            "2006–07 Wigan Athletic F.C. season",
+            "2007–08 Wigan Athletic F.C. season",
+            "1979–80 Wigan Athletic F.C. season"
+          ],
+          "supporting_titles": [
+            "2017–18 Wigan Athletic F.C. season",
+            "EFL Cup"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 682.0,
+            "total_latency": 0.19033503532409668,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae5aba0554299546bf82f17",
+          "query": "Which of Tara Strong major voice role in animated series is an American animated television series based on the DC Comics fictional superhero team, the \"Teen Titans\"?",
+          "answer": "Teen Titans Go!",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find which of Tara Strong's major voice roles in",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Tara Strong",
+            "Tara Strong filmography",
+            "List of Teen Titans Go! episodes",
+            "List of Teen Titans episodes",
+            "Teen Titans"
+          ],
+          "supporting_titles": [
+            "Tara Strong",
+            "Teen Titans Go! (TV series)"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1486.0,
+            "total_latency": 0.2596292495727539,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find which of Tara Strong's major voice roles in",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae1f4cb554299234fd0436d",
+          "query": "What is the inhabitant of the city where  122nd SS-Standarte was formed in2014",
+          "answer": "276,170 inhabitants",
+          "predicted_answer": "276,170 We need to find the city where 122nd SS-Standarte",
+          "generated_answer": "276,170 We need to find the city where 122nd SS-Standarte",
+          "exact_match": 0.0,
+          "f1_score": 0.28571428571428575,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "122nd SS-Standarte",
+            "Strasbourg",
+            "122nd SS-Standarte",
+            "122d Fighter Squadron",
+            "Strasbourg"
+          ],
+          "supporting_titles": [
+            "122nd SS-Standarte",
+            "Strasbourg"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 641.0,
+            "total_latency": 0.25553321838378906,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "276,170 We need to find the city where 122nd SS-Standarte",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae7e1fc55429952e35ea9cc",
+          "query": "What color clothing do people of the Netherlands wear during Oranjegekte or to celebrate the national holiday Koningsdag? ",
+          "answer": "orange",
+          "predicted_answer": "orange We need to answer based on context",
+          "generated_answer": "orange We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.2222222222222222,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Oranjegekte",
+            "Koningsdag",
+            "Oranjegekte",
+            "Queen's Day (disambiguation)",
+            "Christmas in the Basque Country"
+          ],
+          "supporting_titles": [
+            "Koningsdag",
+            "Oranjegekte"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 614.0,
+            "total_latency": 0.2094860076904297,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "orange We need to answer based on context",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae37c765542992f92d822d4",
+          "query": "What was the name of the 1996 loose adaptation of William Shakespeare's \"Romeo & Juliet\" written by James Gunn?",
+          "answer": "Tromeo and Juliet",
+          "predicted_answer": "Tromeo and Juliet We need to find the name of the 1996",
+          "generated_answer": "Tromeo and Juliet We need to find the name of the 1996",
+          "exact_match": 0.0,
+          "f1_score": 0.4615384615384615,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Tromeo and Juliet",
+            "Romeo + Juliet",
+            "The Tragedy of Romeo and Juliet (film)",
+            "Romeo + Juliet",
+            "James Gunn"
+          ],
+          "supporting_titles": [
+            "James Gunn",
+            "Tromeo and Juliet"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 855.0,
+            "total_latency": 0.28148913383483887,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Tromeo and Juliet We need to find the name of the 1996",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae33c4d5542992f92d82262",
+          "query": "Robert Suettinger was the national intelligence officer under which former Governor of Arkansas?",
+          "answer": "William Jefferson Clinton",
+          "predicted_answer": "Bill Clinton We need to find which former Governor of Arkansas Robert",
+          "generated_answer": "Bill Clinton We need to find which former Governor of Arkansas Robert",
+          "exact_match": 0.0,
+          "f1_score": 0.13333333333333333,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Robert Suettinger",
+            "Robert Suettinger",
+            "Director of the Defense Intelligence Agency",
+            "National Intelligence Cross",
+            "Robert R. Hood"
+          ],
+          "supporting_titles": [
+            "Bill Clinton",
+            "Robert Suettinger"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 724.0,
+            "total_latency": 0.21526670455932617,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.9,
+            "min_confidence": 0.9,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Bill Clinton We need to find which former Governor of Arkansas Robert",
+                "supported": false,
+                "confidence": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a77cb335542997042120b3a",
+          "query": "What American professional Hawaiian surfer born 18 October 1992 won the Rip Curl Pro Portugal?",
+          "answer": "John John Florence",
+          "predicted_answer": "John John Florence We need to find the American professional Hawaiian surfer",
+          "generated_answer": "John John Florence We need to find the American professional Hawaiian surfer",
+          "exact_match": 0.0,
+          "f1_score": 0.42857142857142855,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "John John Florence",
+            "MEO Rip Curl Pro Portugal",
+            "MEO Rip Curl Pro Portugal 2017",
+            "MEO Rip Curl Pro Portugal 2016",
+            "Andy Irons"
+          ],
+          "supporting_titles": [
+            "John John Florence",
+            "MEO Rip Curl Pro Portugal"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 888.0,
+            "total_latency": 0.26667284965515137,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "John John Florence We need to find the American professional Hawaiian surfer",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8979f4554299669944a52e",
+          "query": "What is the middle name of the actress who plays Bobbi Bacha in Suburban Madness?",
+          "answer": "Ann",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the middle name of the actress who plays",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Bobbi Bacha",
+            "Suburban Madness",
+            "Bobbi Bacha",
+            "Suburban Madness",
+            "Divya S. Menon"
+          ],
+          "supporting_titles": [
+            "Bobbi Bacha",
+            "Sela Ward"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 452.0,
+            "total_latency": 0.18694162368774414,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the middle name of the actress who plays",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a713ea95542994082a3e6e4",
+          "query": "Alvaro Mexia had a diplomatic mission with which tribe of indigenous people?",
+          "answer": "Apalachees",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Ais We need to answer based strictly on the context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Alvaro Mexia",
+            "Alvaro Mexia",
+            "Alvaro Mexia",
+            "Fernando Tapias Stahelin",
+            "Indigenous peoples of Florida"
+          ],
+          "supporting_titles": [
+            "Alvaro Mexia",
+            "Indigenous peoples of Florida"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 758.0,
+            "total_latency": 0.2664451599121094,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.14983606557377047,
+            "min_confidence": 0.14983606557377047,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Ais We need to answer based strictly on the context",
+                "supported": false,
+                "confidence": 0.14983606557377047
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a78bd9b554299078472774a",
+          "query": "What nationality were social anthropologists Alfred Gell and Edmund Leach?",
+          "answer": "British",
+          "predicted_answer": "British We need to find the nationality of Alfred Gell and Edmund",
+          "generated_answer": "British We need to find the nationality of Alfred Gell and Edmund",
+          "exact_match": 0.0,
+          "f1_score": 0.16666666666666669,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Alfred Gell",
+            "Edmund Leach",
+            "Alfred Gell",
+            "Association of Social Anthropologists",
+            "Thomas Hylland Eriksen"
+          ],
+          "supporting_titles": [
+            "Alfred Gell",
+            "Edmund Leach"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 428.0,
+            "total_latency": 0.2221667766571045,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "min_confidence": 1.0,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "British We need to find the nationality of Alfred Gell and Edmund",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7625e8554299109176e66a",
+          "query": "In which year was the King who made the 1925 Birthday Honours born?",
+          "answer": "1865",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "1925 Birthday Honours",
+            "1925 Birthday Honours",
+            "Birthday Honours",
+            "2017 Birthday Honours",
+            "1951 Birthday Honours"
+          ],
+          "supporting_titles": [
+            "1925 Birthday Honours",
+            "George V"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 788.0,
+            "total_latency": 0.18963027000427246,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae2dd2055429928c423950d",
+          "query": "What is the county seat of the county where East Lempster, New Hampshire is located?",
+          "answer": "Newport",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "East Lempster, New Hampshire",
+            "Lempster, New Hampshire",
+            "Miner Memorial Library",
+            "Sullivan County, New Hampshire",
+            "Lempster, New Hampshire"
+          ],
+          "supporting_titles": [
+            "East Lempster, New Hampshire",
+            "Sullivan County, New Hampshire"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 594.0,
+            "total_latency": 0.223222017288208,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abdf12255429976d4830a2f",
+          "query": "The Album Against the Wind was the 11th Album of a Rock singer Robert C Seger born may 6 1945. What was the Rock singers stage name ?",
+          "answer": "Bob Seger",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "Bob Seger We need to answer: \"What",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Against the Wind (album)",
+            "Bob Seger",
+            "Against the Wind (album)",
+            "Bob Seger",
+            "Ride Out (album)"
+          ],
+          "supporting_titles": [
+            "Against the Wind (album)",
+            "Bob Seger"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 881.0,
+            "total_latency": 0.2700679302215576,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Bob Seger We need to answer: \"What",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a88658955429938390d3f47",
+          "query": "Rostker v. Goldberg held that the practice of what way of filling armed forces vacancies was consitutional?",
+          "answer": "Conscription",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find if the context directly answers the question",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Rostker v. Goldberg",
+            "Rostker v. Goldberg",
+            "Rostker v. Goldberg",
+            "Armed Forces Day (Poland)",
+            "David Waksberg"
+          ],
+          "supporting_titles": [
+            "Conscription in the United States",
+            "Rostker v. Goldberg"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 821.0,
+            "total_latency": 0.35099267959594727,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find if the context directly answers the question",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a86ebac55429960ec39b6d6",
+          "query": "Handi-Snacks are a snack food product line sold by what American multinational confectionery, food, and beverage company that is based in Illinois?",
+          "answer": "Mondelez International, Inc.",
+          "predicted_answer": "Mondelez International We need to find the company that sells Handi-Snacks",
+          "generated_answer": "Mondelez International We need to find the company that sells Handi-Snacks",
+          "exact_match": 0.0,
+          "f1_score": 0.28571428571428575,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Handi-Snacks",
+            "Handi-Snacks",
+            "Handi-Snacks",
+            "Snack Foods Limited",
+            "Snackbox Food Holdings"
+          ],
+          "supporting_titles": [
+            "Handi-Snacks",
+            "Mondelez International"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 428.0,
+            "total_latency": 0.2023310661315918,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Mondelez International We need to find the company that sells Handi-Snacks",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5aba5d2e55429901930fa799",
+          "query": "What was the name of a woman from the book titled \"Their Lives: The Women Targeted by the Clinton Machine \" and was also a former white house intern?",
+          "answer": "Monica Lewinsky",
+          "predicted_answer": "Monica Lewinsky We need to find a woman from \"Their Lives: The",
+          "generated_answer": "Monica Lewinsky We need to find a woman from \"Their Lives: The",
+          "exact_match": 0.0,
+          "f1_score": 0.33333333333333337,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Their Lives",
+            "Monica Lewinsky",
+            "The White House Doctor",
+            "Bill Clinton",
+            "Clinton, Minnesota"
+          ],
+          "supporting_titles": [
+            "Monica Lewinsky",
+            "Their Lives"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 844.0,
+            "total_latency": 0.2506844997406006,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Monica Lewinsky We need to find a woman from \"Their Lives: The",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae5736e5542990ba0bbb2b3",
+          "query": "When was the American lawyer, lobbyist and political consultant who was a senior member of the presidential campaign of Donald Trump born?",
+          "answer": "April 1, 1949",
+          "predicted_answer": "April 1",
+          "generated_answer": "April 1",
+          "exact_match": 0.0,
+          "f1_score": 0.8,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Paul Manafort",
+            "Trump campaign–Russian meeting",
+            "Donald Trump presidential campaign, 2000",
+            "Tony Fabrizio",
+            "Brad Parscale"
+          ],
+          "supporting_titles": [
+            "Paul Manafort",
+            "Trump campaign–Russian meeting"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1182.0,
+            "total_latency": 0.27112555503845215,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "April 1",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae005b555429942ec259bec",
+          "query": "In what year was the novel that Lourenço Mutarelli based \"Nina\" on based first published?",
+          "answer": "1866",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find the year of first publication of the novel",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Lourenço Mutarelli",
+            "4 a.m. (novel)",
+            "The Golden Hour (novel)",
+            "Quando Eu Era Vivo",
+            "The Birds on the Trees"
+          ],
+          "supporting_titles": [
+            "Crime and Punishment",
+            "Lourenço Mutarelli"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 614.0,
+            "total_latency": 0.1692523956298828,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.7,
+            "min_confidence": 0.7,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find the year of first publication of the novel",
+                "supported": false,
+                "confidence": 0.7
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a7759fc5542993569682d60",
+          "query": "Where are Teide National Park and Garajonay National Park located?",
+          "answer": "Canary Islands, Spain",
+          "predicted_answer": "Canary Islands, Spain We need to answer based on context",
+          "generated_answer": "Canary Islands, Spain We need to answer based on context",
+          "exact_match": 0.0,
+          "f1_score": 0.4615384615384615,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Teide National Park",
+            "Garajonay National Park",
+            "Garajonay National Park",
+            "North Cascades National Park",
+            "Roque Cinchado"
+          ],
+          "supporting_titles": [
+            "Garajonay National Park",
+            "Teide National Park"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 455.0,
+            "total_latency": 0.19613289833068848,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Canary Islands, Spain We need to answer based on context",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a835478554299123d8c20ed",
+          "query": "How many copies of Roald Dahl's variation on a popular anecdote sold?",
+          "answer": "250 million",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer based strictly on the context",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Roald Dahl",
+            "The Collected Short Stories of Roald Dahl",
+            "The Best of Roald Dahl",
+            "Roald Dahl",
+            "Roald Dahl: Collected Stories"
+          ],
+          "supporting_titles": [
+            "Mrs. Bixby and the Colonel's Coat",
+            "Roald Dahl"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 419.0,
+            "total_latency": 0.18251276016235352,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer based strictly on the context",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5aba749055429901930fa7d8",
+          "query": "What occupation do Chris Menges and Aram Avakian share?",
+          "answer": "director",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to find a common occupation between Chris Menges and Aram",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Chris Menges",
+            "Chris Menges",
+            "Chris Menges",
+            "Aram Avakian",
+            "11 Harrowhouse"
+          ],
+          "supporting_titles": [
+            "Aram Avakian",
+            "Chris Menges"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 262.0,
+            "total_latency": 0.1566917896270752,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.25,
+            "min_confidence": 0.25,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to find a common occupation between Chris Menges and Aram",
+                "supported": false,
+                "confidence": 0.25
+              }
+            ]
+          }
+        },
+        {
+          "id": "5abfb3425542990832d3a1c0",
+          "query": "Andrew Jaspan was the co-founder of what not-for-profit media outlet?",
+          "answer": "The Conversation",
+          "predicted_answer": "The Conversation We need to find the not-for-profit media outlet that Andrew",
+          "generated_answer": "The Conversation We need to find the not-for-profit media outlet that Andrew",
+          "exact_match": 0.0,
+          "f1_score": 0.15384615384615385,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Andrew Jaspan",
+            "Brad Parscale",
+            "Big Stone Gap (film)",
+            "Jonathan Michael Ansell",
+            "Jay Leiderman"
+          ],
+          "supporting_titles": [
+            "Andrew Jaspan",
+            "The Conversation (website)"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 1162.0,
+            "total_latency": 0.30097365379333496,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "The Conversation We need to find the not-for-profit media outlet that Andrew",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ac3165c5542995ef918c10a",
+          "query": "Which American film director hosted the 18th Independent Spirit Awards in 2002?",
+          "answer": "John Waters",
+          "predicted_answer": "John Waters We need to find the host of the 18th Independent",
+          "generated_answer": "John Waters We need to find the host of the 18th Independent",
+          "exact_match": 0.0,
+          "f1_score": 0.33333333333333337,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "18th Independent Spirit Awards",
+            "Independent Spirit Award for Best Cinematography",
+            "32nd Independent Spirit Awards",
+            "28th Independent Spirit Awards",
+            "Independent Spirit Award for Best Editing"
+          ],
+          "supporting_titles": [
+            "18th Independent Spirit Awards",
+            "John Waters"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 587.0,
+            "total_latency": 0.2187962532043457,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "min_confidence": 1.0,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "John Waters We need to find the host of the 18th Independent",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae53b545542990ba0bbb23c",
+          "query": "Where does the hotel and casino located in which Bill Cosby's third album was recorded?",
+          "answer": "Las Vegas Strip in Paradise",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.0,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "At Last Bill Cosby Really Sings",
+            "Disco Bill",
+            "At Last Bill Cosby Really Sings",
+            "Inside the Mind of Bill Cosby",
+            "Inside the Mind of Bill Cosby"
+          ],
+          "supporting_titles": [
+            "Flamingo Las Vegas",
+            "Why Is There Air?"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 652.0,
+            "total_latency": 0.2219231128692627,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae224da554299234fd043ee",
+          "query": "Do the drinks Gibson and Zurracapote both contain gin?",
+          "answer": "no",
+          "predicted_answer": "No",
+          "generated_answer": "No",
+          "exact_match": 1.0,
+          "f1_score": 1.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Zurracapote",
+            "Gibson (cocktail)",
+            "Gin pennant",
+            "Phillips Distilling Company",
+            "Rubicon Drinks"
+          ],
+          "supporting_titles": [
+            "Gibson (cocktail)",
+            "Zurracapote"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 710.0,
+            "total_latency": 0.287961483001709,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "Partially supported by evidence (Soft acceptance).",
+            "avg_confidence": 0.9,
+            "min_confidence": 0.9,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No",
+                "supported": false,
+                "confidence": 0.9
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ae2b770554299495565db0f",
+          "query": "In what month is the annual documentary film festival, that is presented by the fortnightly published British journal of literary essays, held? ",
+          "answer": "March and April",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to identify which festival",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "London International Documentary Festival",
+            "New Haven Documentary Film Festival",
+            "Chagrin Documentary Film Festival",
+            "London International Documentary Festival",
+            "New Haven Documentary Film Festival"
+          ],
+          "supporting_titles": [
+            "London International Documentary Festival",
+            "London Review of Books"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 728.0,
+            "total_latency": 0.2511589527130127,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.7,
+            "min_confidence": 0.7,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to identify which festival",
+                "supported": false,
+                "confidence": 0.7
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a80b3a9554299485f5986cc",
+          "query": "Tysons Galleria is located in what county?",
+          "answer": "Fairfax County",
+          "predicted_answer": "Fairfax County We need to find the county where Tysons Galleria",
+          "generated_answer": "Fairfax County We need to find the county where Tysons Galleria",
+          "exact_match": 0.0,
+          "f1_score": 0.33333333333333337,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Tysons Galleria",
+            "Tysons, Virginia",
+            "Tysons Corner Center",
+            "Tysons Galleria",
+            "Tysons, Virginia"
+          ],
+          "supporting_titles": [
+            "McLean, Virginia",
+            "Tysons Galleria"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 608.0,
+            "total_latency": 0.2225332260131836,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 0.95,
+            "min_confidence": 0.95,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Fairfax County We need to find the county where Tysons Galleria",
+                "supported": true,
+                "confidence": 0.95
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a8e0a005542995085b373a1",
+          "query": "Bordan Tkachuk was the CEO of a company that provides what sort of products?",
+          "answer": "IT products and services",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No-Answer",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 0.5,
+          "support_all_hit": 0.0,
+          "predicted_titles": [
+            "Bordan Tkachuk",
+            "Bordan Tkachuk",
+            "Jim Lentz",
+            "Keith Bostic",
+            "Jonathan Michael Ansell"
+          ],
+          "supporting_titles": [
+            "Bordan Tkachuk",
+            "Viglen"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 1327.0,
+            "total_latency": 0.48122572898864746,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Generator abstained before verification.",
+            "avg_confidence": 0.0,
+            "min_confidence": 0.0,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No-Answer",
+                "supported": false,
+                "confidence": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5ac1b8ee5542994d76dccedc",
+          "query": "Which filmmaker was known for animation, Lev Yilmaz or Pamela B. Green?",
+          "answer": "Levni Yilmaz",
+          "predicted_answer": "Lev Yilmaz We need to answer based on the context",
+          "generated_answer": "Lev Yilmaz We need to answer based on the context",
+          "exact_match": 0.0,
+          "f1_score": 0.1818181818181818,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Pamela B. Green",
+            "Lev Yilmaz",
+            "Aryanto Yuniawan",
+            "Lev Kuleshov",
+            "Pamela B. Davis"
+          ],
+          "supporting_titles": [
+            "Lev Yilmaz",
+            "Pamela B. Green"
+          ],
+          "no_answer": false,
+          "stats_delta": {
+            "total_tokens": 821.0,
+            "total_latency": 0.25850725173950195,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "ACCEPTED",
+            "reason": "All claims supported by evidence.",
+            "avg_confidence": 1.0,
+            "min_confidence": 1.0,
+            "unsupported_count": 0,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "Lev Yilmaz We need to answer based on the context",
+                "supported": true,
+                "confidence": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "id": "5adccd795542990d50227d2c",
+          "query": "In which city is the ambassador of the Rabat-Salé-Kénitra administrative region to China based?",
+          "answer": "Beijing",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "We need to answer: \"In which city",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Rabat",
+            "Moroccan Ambassador to China",
+            "Rabat",
+            "Sinuiju Special Administrative Region",
+            "Embassy of China, London"
+          ],
+          "supporting_titles": [
+            "Moroccan Ambassador to China",
+            "Rabat"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 498.0,
+            "total_latency": 0.18678951263427734,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.5,
+            "min_confidence": 0.5,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "We need to answer: \"In which city",
+                "supported": false,
+                "confidence": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "id": "5a84c4135542994c784dda31",
+          "query": "Are Yingkou and Fuding the same level of city?",
+          "answer": "no",
+          "predicted_answer": "No-Answer",
+          "generated_answer": "No",
+          "exact_match": 0.0,
+          "f1_score": 0.0,
+          "support_recall": 1.0,
+          "support_all_hit": 1.0,
+          "predicted_titles": [
+            "Yingkou",
+            "Fuding",
+            "Roman Catholic Diocese of Yingkou",
+            "Yingkou",
+            "Yingkou Lanqi Airport"
+          ],
+          "supporting_titles": [
+            "Fuding",
+            "Yingkou"
+          ],
+          "no_answer": true,
+          "stats_delta": {
+            "total_tokens": 360.0,
+            "total_latency": 0.15724921226501465,
+            "retrieval_calls": 2.0,
+            "reranker_calls": 2.0
+          },
+          "verification": {
+            "status": "REJECTED",
+            "reason": "Hallucination detected (Failed CoVe checks). Triggering No-Answer.",
+            "avg_confidence": 0.050000000000000044,
+            "min_confidence": 0.050000000000000044,
+            "unsupported_count": 1,
+            "decision_policy": "soft",
+            "claims": [
+              {
+                "claim": "No",
+                "supported": false,
+                "confidence": 0.050000000000000044
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
