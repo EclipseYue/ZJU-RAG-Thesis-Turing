@@ -168,9 +168,11 @@ experiments/configs/verification_feedback_study.json
 
 当前结论：
 
-- `verification_feedback_study_hotpotqa_50_v3.json` 中，claim-concat `verification_feedback` 是当前最佳配置。
-- `targeted_feedback` 未超过 claim-concat 反馈，后续不再优先微调 query 构造。
+- `verification_feedback_study_hotpotqa_50_v3.json` 中，claim-concat `verification_feedback` 是该批次最佳配置。
 - 三次 repeated-run 显示，`verification_feedback` 的 F1 为 `23.51 ± 1.43`，拒答率为 `12.67 ± 0.94`，该结果已经足够进入论文。
+- 2026-04-30 独立真实 CoVe 复核中，`targeted_feedback` 达到 `F1=25.87`、`No_Answer_Rate=16.0`，说明定向补检索并非无效，但稳定性仍需更多批次确认。
+- 2026-04-30 的 100 样本真实 LLM 反馈复核中，`verification_feedback` 达到 `F1=18.80`、`No_Answer_Rate=18.0`，`targeted_feedback` 达到 `F1=18.60`、`No_Answer_Rate=15.0`；因此论文应把 feedback 表述为“缓解验证崩溃”，而不是“超过无验证纯生成配置”。
+- 200 样本 verifier comparison 显示，阈值越严格，不安全接受率越低，但错误拒答率和 F1 损失越明显。
 - 后续主线转为 short-answer generation / answer extraction。
 
 推荐 repeated-run 命令：
@@ -185,7 +187,60 @@ experiments/configs/verification_feedback_study.json
 
 当前 repeated-run 已完成；除非需要更多统计置信度，否则不建议继续重复同一实验。
 
-### 2.6 短答案约束实验
+### 2.5 真实 LLM 核心消融复核
+
+目的：
+- 检查旧启发式消融得到的模块趋势能否在真实 LLM 生成/验证后端下复现。
+- 不追求全量 7405 样本，而是用 N=100 验证方向性结论。
+- 支撑论文中的分层实验设计：大规模启发式诊断负责定位机制，小规模真实 LLM 复核负责排除后端伪影。
+
+已完成批次：
+
+```text
+data/results/batches/2026-04-30-real-llm-ablation/
+```
+
+关键结果：
+- A Text：`F1=21.28`，`No_Answer_Rate=0.0`
+- A2 Text+Adaptive：`F1=22.17`，`No_Answer_Rate=0.0`
+- A3 Text+CoVe：`F1=16.22`，`No_Answer_Rate=50.0`
+- B Hetero：`F1=19.94`，`SupportAllHit@K=49.0`
+- C Hetero+Adaptive：`F1=19.45`，`SupportAllHit@K=49.0`
+- D Full：`F1=12.71`，`No_Answer_Rate=57.0`
+
+结论：
+- Adaptive 在真实 LLM 条件下仍主要表现为小幅增益，不能写成强端到端优化器。
+- CoVe hard reject 仍会造成高拒答，验证崩溃不是启发式后端独有现象。
+- 当前伴生式异构序列化仍不应被写成真实异构知识收益，只能支持“格式噪声会影响检索/生成”的诊断结论。
+
+绘图命令：
+
+```bash
+MPLCONFIGDIR=/tmp/mpl .venv/bin/python experiments/plot_real_llm_followup.py
+```
+
+### 2.6 评阅注释后的扩样本优先级
+
+评阅意见指出部分补充实验样本量偏小。后续不建议把所有历史配置平均扩样本，而应优先扩展直接支撑论文核心结论的实验：
+
+- P0：真实 LLM 核心消融从 N=100 扩展到 N=300，验证 Adaptive、CoVe 与异构序列化的关键趋势。
+- P0：VAR 真实 CoVe 矩阵从 N=100 扩展到 N=300，验证 hard reject、soft accept、VAR 与 Targeted VAR 的排序稳定性。
+- P1：真实 verifier 阈值对比从 N=200 扩展到 N=500，增强安全-可用性权衡结论的统计稳定性。
+- P1：Route A 文本基线从 N=100 扩展到 N=300，检查“检索稳定但答案表达受限”的误差归因是否稳定。
+- P2：HybridQA text-table 与 Neo4j/Wikidata JSONL graph 只作为独立 smoke，不覆盖当前 HotpotQA 主线。
+
+完整命令见：
+
+- [当前实验待办清单](/Users/eclipse/code/RAG/Rererank_v1/EXPERIMENT_TODO_CURRENT.md)
+
+输出：
+
+```text
+paper/zjuthesis/figures/real_llm_ablation_followup.png
+paper/zjuthesis/figures/real_llm_feedback_followup.png
+```
+
+### 2.7 短答案约束实验
 
 目的：
 - 检查 Route A 与反馈闭环的剩余瓶颈是否来自冗长推理式输出。
@@ -214,7 +269,12 @@ Feedback 短答案命令：
 - 若 F1/EM 明显提升，论文应把答案格式控制列为主要工程瓶颈。
 - 若 F1/EM 不提升，说明剩余瓶颈更可能在证据链缺跳或验证器校准。
 
-### 2.7 真实异构数据补充路线
+当前结果：
+- Route A strict-short：`F1 = 2.66`，`EM = 0.0`。
+- Verification Feedback strict-short：`F1 = 2.01`，`EM = 0.0`。
+- 该结果说明单纯 prompt 压缩会退化，后续应实现候选答案抽取器或 span reranker。
+
+### 2.8 真实异构数据补充路线
 
 当前建议：
 - 不在最后阶段把 Neo4j 服务作为正式实验硬依赖。
@@ -225,7 +285,12 @@ Feedback 短答案命令：
 - 作为“真实异构数据接入的可行性补充实验”。
 - 不替代当前 HotpotQA + Route A + Verification Feedback 主线。
 
-### 2.5 权衡曲线与校准图入口
+写作约束：
+- 当前论文已完成的 B/C/D 异构实验是伴生式序列化异构证据，不是真实 HybridQA/Neo4j 实验。
+- 这些结果只能支持“当前序列化接入方案存在格式噪声”，不能写成“真实异构知识无效”。
+- 若后续加入 Neo4j，正式结果建议使用导出的静态 JSONL 三元组，避免在线服务影响可复现性。
+
+### 2.9 权衡曲线与校准图入口
 
 文件：`experiments/plot_tradeoff_calibration.py`
 

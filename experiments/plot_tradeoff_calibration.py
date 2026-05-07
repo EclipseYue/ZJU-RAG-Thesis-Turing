@@ -14,6 +14,7 @@ FIGURES = ROOT / "paper" / "zjuthesis" / "figures"
 
 def find_feedback_result() -> Path | None:
     preferred = [
+        RESULTS / "verification_feedback_real_cove_100.json",
         RESULTS / "verification_feedback_study_hotpotqa_50_v3.json",
         RESULTS / "verification_feedback_study_hotpotqa_50_v2.json",
         RESULTS / "verification_feedback_study_hotpotqa_50.json",
@@ -47,7 +48,7 @@ def load_matrix_rows() -> list[dict]:
     if feedback_path.exists():
         data = json.loads(feedback_path.read_text(encoding="utf-8"))
         for name, payload in data.get("variants", {}).items():
-            rows.append({"label": name, **payload["summary"]})
+            rows.append({"label": name.replace("_", " "), **payload["summary"]})
     return rows
 
 
@@ -127,11 +128,48 @@ def plot_calibration() -> Path | None:
     return target
 
 
+def plot_verifier_threshold_tradeoff() -> Path | None:
+    path = RESULTS / "verifier_comparison_hotpotqa.json"
+    if not path.exists():
+        return None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    rows = []
+    for name, payload in data.get("variants", {}).items():
+        summary = payload.get("summary", {})
+        rows.append({
+            "name": name.replace("_", " "),
+            "threshold": float(payload.get("threshold", 0.0)),
+            "f1": float(summary.get("F1", 0.0)),
+            "nar": float(summary.get("No_Answer_Rate", 0.0)),
+            "unsafe": float(summary.get("Unsafe_Accept_Rate", 0.0)),
+            "frr": float(summary.get("False_Rejection_Rate", 0.0)),
+        })
+    if not rows:
+        return None
+
+    sns.set_theme(style="whitegrid")
+    plt.figure(figsize=(7.8, 5.2))
+    for row in rows:
+        plt.scatter(row["nar"], row["unsafe"], s=90)
+        plt.text(row["nar"] + 0.8, row["unsafe"], row["name"], fontsize=9)
+    plt.xlabel("No-Answer / False Rejection Rate (%)")
+    plt.ylabel("Unsafe Accept Rate (%)")
+    plt.title("Real-CoVe Threshold Tradeoff")
+    plt.tight_layout()
+    target = FIGURES / "verifier_threshold_tradeoff.png"
+    plt.savefig(target, dpi=300, bbox_inches="tight")
+    plt.close()
+    return target
+
+
 if __name__ == "__main__":
     FIGURES.mkdir(parents=True, exist_ok=True)
     targets = plot_tradeoffs(load_matrix_rows())
     calibration = plot_calibration()
     if calibration:
         targets.append(calibration)
+    threshold_plot = plot_verifier_threshold_tradeoff()
+    if threshold_plot:
+        targets.append(threshold_plot)
     for target in targets:
         print(f"Saved: {target}")

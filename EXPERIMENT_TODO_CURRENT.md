@@ -57,9 +57,9 @@ export RERERANK_LLM_BACKOFF_MAX_SEC=90
 下一轮建议顺序：
 
 1. 已完成 `verification_feedback` repeated-run 稳定性验证。
-2. 下一步做 short-answer extractor / answer-only generator 改造。
-3. 然后跑 `Route A + short answer` 与 `verification_feedback + short answer` 的 50 样本对照。
-4. 若短答案约束能提升 F1，再决定是否扩到 100 样本。
+2. 已完成 `Route A + strict_short` 与 `verification_feedback + strict_short` 的 50 样本对照。
+3. 下一步若继续优化，应实现候选答案抽取器或 span reranker，而不是继续压缩 prompt。
+4. 真实表格/图谱数据作为独立 smoke 规划，不并入当前主线大实验。
 
 ### 1. GPU 服务器准备与 Route A 环境验证
 
@@ -280,6 +280,12 @@ ls experiments/configs/local_api_overrides.json
 - 目标是提高 EM/F1，而不是继续降低拒答率。
 - 这是论文定稿前最值得补的一组实验。
 
+当前状态：
+
+- 已完成 Route A strict-short 50 样本：`F1 = 2.66`，`EM = 0.0`。
+- 已完成 verification-feedback strict-short 50 样本：`F1 = 2.01`，`EM = 0.0`，`No_Answer_Rate = 16.0%`。
+- 结果表明单纯 prompt 压缩会显著退化，论文应将其写成负结果。
+
 建议实验名：
 
 ```text
@@ -311,14 +317,19 @@ verification_feedback_study_hotpotqa_50_short_answer.json
 
 最低完成标准：
 
-- 跑 50 样本 Route A short-answer 对照。
-- 跑 50 样本 verification-feedback short-answer 对照。
-- 至少给出一张“短答案约束前后 F1/EM 变化”的表。
+- 已达成：50 样本 Route A short-answer 对照。
+- 已达成：50 样本 verification-feedback short-answer 对照。
+- 已达成：短答案约束前后 F1/EM 对比图。
 
-若时间非常紧：
+后续不建议：
 
-- 可以不扩到 100 样本。
-- 可以只在论文中把 repeated-run 反馈实验作为最终方法改进结果，把 short-answer 作为未来工作。
+- 不建议继续只调 prompt。
+- 不建议扩到 100 样本，因为方向已经明确退化。
+
+后续建议：
+
+- 若还要提升 F1，新增候选答案抽取器：从 top-k 证据句中抽实体/日期/数值候选，再用问题类型和验证分数排序。
+- 或实现 span reranker：输入问题、候选 span 和证据句，输出最可能短答案。
 
 ### 7.3 真实表格/图谱数据路线
 
@@ -347,6 +358,12 @@ experiments/presets/route_a_graph_triples.json
 - 表格或图谱二选一先跑通 20 条。
 - 只报告检索覆盖率、回答 F1 和案例，不追求大样本。
 - 论文写作中明确这是“真实异构接入的可行性补充”，不是替代当前 HotpotQA 主结果。
+
+当前行文要求：
+
+- 前序异构实验必须继续表述为“伴生式序列化异构证据”，不能写成真实表格库/真实 Neo4j 图谱实验。
+- B/C/D 的退化结论只说明当前序列化接入方案存在格式噪声，不外推为“异构数据无效”。
+- HybridQA/OTT-QA/Neo4j 应写作后续真实异构验证路线，而不是已经完成的主实验。
 
 ### 8. 权衡曲线与校准图生成
 
@@ -546,10 +563,106 @@ python3 experiments/plot_results.py
 4. 跑 Route A 100 样本 baseline
 5. 跑旧 `A_Baseline` 20 样本 smoke
 6. 跑旧 `A3_Baseline_CoVe / D_CoVe_Full` 20 样本 smoke
-7. 跑 `run_verification_feedback_study.py` 的 50 样本真实 CoVe 闭环实验
-8. 跑 `run_verifier_comparison.py` 的 100 样本真实 CoVe
-9. 跑 `run_false_rejection_diagnostics.py` 的 100 样本真实 CoVe
+7. 已完成：跑 `run_verification_feedback_study.py` 的 50 样本真实 CoVe 闭环实验
+8. 已完成：跑 `run_verifier_comparison.py` 的 200 样本真实 CoVe 阈值对比
+9. 可选：跑 `run_false_rejection_diagnostics.py` 的 100 样本真实 CoVe，若论文篇幅足够再补
 10. 拉回结果
 11. 运行 `plot_tradeoff_calibration.py` 重画权衡曲线与校准图
 12. 回填论文
 13. 更新 TODO 和 guide
+
+## 评阅注释后的补充实验计划
+
+本节对应 2026-05-07 评阅意见中的“部分样本量偏小”问题。原则上不建议把所有历史实验都盲目扩到大样本，而应优先扩展直接支撑核心结论的配置。
+
+### P0：真实 LLM 核心消融扩样本
+
+目标：
+
+- 将当前 N=100 的真实 LLM A/A2/A3/B/C/D 复核扩展到 N=300。
+- 重点验证三个结论是否稳定：Adaptive 主要作用于召回、CoVe hard reject 触发高拒答、伴生式异构序列化仍引入格式噪声。
+
+命令：
+
+```bash
+.venv/bin/python experiments/run_all.py \
+  --config experiments/configs/ablation_with_controls.json \
+  --samples 300 \
+  --real-cove \
+  --only-configs A_Baseline A2_Baseline_Adaptive A3_Baseline_CoVe B_Hetero C_Hetero_Adaptive D_CoVe_Full \
+  --checkpoint-every 5 \
+  --output-name automated_ablation_real_llm_300.json
+```
+
+### P0：VAR 真实 CoVe 扩样本
+
+目标：
+
+- 将当前 N=100 的 VAR 矩阵扩展到 N=300。
+- 检查 hard reject、soft accept、VAR、Targeted VAR 的 F1、拒答率与覆盖率排序是否稳定。
+
+命令：
+
+```bash
+.venv/bin/python experiments/run_verification_feedback_study.py \
+  --config experiments/configs/verification_feedback_study.json \
+  --samples 300 \
+  --real-cove \
+  --output-name verification_feedback_study_hotpotqa_300_real_cove.json
+```
+
+### P1：verifier 阈值对比扩样本
+
+目标：
+
+- 将当前 N=200 的 verifier threshold study 扩展到 N=500。
+- 用更稳定样本支持“阈值越严格，不安全接受率越低，但错误拒答和 F1 损失越高”的安全-可用性权衡。
+
+命令：
+
+```bash
+.venv/bin/python experiments/run_verifier_comparison.py \
+  --config experiments/configs/verifier_comparison.json \
+  --samples 500 \
+  --real-cove \
+  --output-name verifier_comparison_real_cove_500.json
+```
+
+### P1：Route A 文本基线扩样本
+
+目标：
+
+- 将 Route A baseline 从 N=100 扩展到 N=300。
+- 检查“检索已较稳定，但答案表达层限制 EM/F1”的结论是否稳定。
+
+命令：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hotpotqa.json \
+  --samples 300 \
+  --output-name route_a_hotpotqa_realapi_300.json
+```
+
+### P2：真实表格与图谱数据 smoke
+
+目标：
+
+- 不在最终提交前强行替换主线结论，而是准备后续扩展路线。
+- 表格侧优先使用 `experiments/presets/route_a_hybridqa.json` 做 text-table smoke。
+- 图谱侧建议先把 Wikidata/Neo4j 导出为静态 JSONL 三元组，再通过 `EvidenceUnit` 接口接入，避免把在线图查询、实体链接和检索机制混在一起。
+
+建议命令：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hybridqa.json \
+  --samples 50 \
+  --output-name route_a_hybridqa_text_table_smoke_50.json
+```
+
+当前论文写法注意：
+
+- 已有异构实验只能表述为“伴生式序列化异构证据的诊断结果”。
+- 不能写成“真实多源异构知识融合整体无效”。
+- 若后续补 HybridQA 或 Neo4j/Wikidata，只作为独立扩展实验，不覆盖当前 HotpotQA 主线。

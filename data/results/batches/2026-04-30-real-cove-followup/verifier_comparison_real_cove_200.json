@@ -1,0 +1,84 @@
+{
+  "config": {
+    "dataset": "hotpotqa",
+    "split": "validation",
+    "samples": 200,
+    "top_k": 5,
+    "prf_threshold": 0.8,
+    "verifiers": [
+      {
+        "name": "cove_soft",
+        "mode": "cove",
+        "threshold": 0.35
+      },
+      {
+        "name": "cove_standard",
+        "mode": "cove",
+        "threshold": 0.5
+      },
+      {
+        "name": "cove_strict",
+        "mode": "cove",
+        "threshold": 0.9
+      },
+      {
+        "name": "overlap_soft",
+        "mode": "overlap",
+        "threshold": 0.35
+      }
+    ],
+    "real_cove": true,
+    "verifier_backend": "deepseek",
+    "verifier_model": "deepseek-v4-flash"
+  },
+  "variants": {
+    "cove_soft": {
+      "mode": "cove",
+      "threshold": 0.35,
+      "summary": {
+        "samples": 200,
+        "F1": 16.78,
+        "No_Answer_Rate": 26.5,
+        "False_Rejection_Rate": 26.5,
+        "Unsafe_Accept_Rate": 35.0,
+        "Avg_Verify_Confidence": 0.5838
+      }
+    },
+    "cove_standard": {
+      "mode": "cove",
+      "threshold": 0.5,
+      "summary": {
+        "samples": 200,
+        "F1": 11.19,
+        "No_Answer_Rate": 40.5,
+        "False_Rejection_Rate": 40.5,
+        "Unsafe_Accept_Rate": 28.5,
+        "Avg_Verify_Confidence": 0.4882
+      }
+    },
+    "cove_strict": {
+      "mode": "cove",
+      "threshold": 0.9,
+      "summary": {
+        "samples": 200,
+        "F1": 7.02,
+        "No_Answer_Rate": 62.5,
+        "False_Rejection_Rate": 62.5,
+        "Unsafe_Accept_Rate": 17.0,
+        "Avg_Verify_Confidence": 0.5282
+      }
+    },
+    "overlap_soft": {
+      "mode": "overlap",
+      "threshold": 0.35,
+      "summary": {
+        "samples": 200,
+        "F1": 12.02,
+        "No_Answer_Rate": 60.5,
+        "False_Rejection_Rate": 60.5,
+        "Unsafe_Accept_Rate": 15.5,
+        "Avg_Verify_Confidence": 0.3132
+      }
+    }
+  }
+}

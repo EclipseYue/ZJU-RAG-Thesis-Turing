@@ -24,8 +24,15 @@ GPU 服务器迁移与真实 API 运行细则见：
 - 已完成：新增 `plot_tradeoff_calibration.py`，用于生成 F1--拒答率、F1--延迟与后续校准图。
 - 已完成：在 GPU 服务器上运行 `verification_feedback_study_hotpotqa_50_v2/v3`，验证反馈闭环可以缓解 CoVe 崩溃。
 - 已完成：对 `verification_feedback` 做 repeated-run 稳定性验证，确认真实 API 波动范围。
+- 已完成：补充 2026-04-30 真实 CoVe follow-up，确认 targeted feedback 在独立批次中可达到 `F1=25.87`，但查询构造优劣仍有样本波动。
+- 已完成：补充 200 样本真实 verifier 阈值对比，形成拒答率、不安全接受率和 F1 的 tradeoff 分析。
 - 已完成：新增短答案抽取/答案格式约束实验配置，优先解决 Route A 与反馈实验中的生成格式瓶颈。
-- 待做：在服务器运行 Route A short-answer 与 verification-feedback short-answer 两组 50 样本实验。
+- 已完成：在服务器运行 Route A short-answer 与 verification-feedback short-answer 两组 50 样本实验。
+- 已完成：补充 2026-04-30 真实 LLM A/A2/A3/B/C/D 消融复核，确认 Adaptive 小增益、CoVe 高拒答和异构序列化噪声趋势在 \texttt{deepseek-v4-flash} 条件下仍然存在。
+- 已完成：补充 100 样本真实 LLM 反馈闭环复核，确认 feedback 能将 hard reject 的 48.0\% 拒答率降至 18.0\%/15.0\%。
+- 已完成：根据评阅注释补充第 4 章导读、1.2 与题目的衔接说明、英文摘要短答案实验结论，以及小样本实验的边界表述。
+- 待做：若继续提升 F1，设计候选答案抽取器或 span reranker，避免继续只靠 prompt 压缩。
+- 待做：按评阅意见优先扩展关键小样本实验：真实 LLM 核心消融 N=300、VAR 真实 CoVe N=300、verifier 阈值对比 N=500、Route A baseline N=300。
 - 待做：规划真实表格/图谱数据小样本补充实验，优先用静态数据文件，谨慎引入 Neo4j 服务依赖。
 
 ## P1 强烈建议
