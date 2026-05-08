@@ -1105,6 +1105,107 @@
         "matrix": "/root/home/ZJU-RAG-Thesis-Turing/data/results/real_llm_full_cove_100.json",
         "report": "/root/home/ZJU-RAG-Thesis-Turing/data/results/real_llm_full_cove_100_report_20260430_124202.json"
       }
+    },
+    {
+      "id": "20260508_025858",
+      "timestamp": "2026-05-08 03:22:40",
+      "description": "Automated ablation on hotpotqa (300 samples)",
+      "metrics": [
+        {
+          "Config": "A_Baseline",
+          "Hetero": false,
+          "Adaptive": false,
+          "CoVe": false,
+          "Samples": 300,
+          "MockMode": true,
+          "Device": "cuda",
+          "SupportRecall@K": 82.74,
+          "SupportAllHit@K": 58.33,
+          "ExactMatch": 33.9,
+          "F1_Score": 45.2,
+          "Avg_Tokens": 104.47,
+          "Avg_Latency_ms": 4797.75,
+          "Avg_Retrieval_Calls": 1.92,
+          "Avg_Reranker_Calls": 1.92,
+          "No_Answer_Rate_Percent": 0.0
+        },
+        {
+          "Config": "A2_Baseline_Adaptive",
+          "Hetero": false,
+          "Adaptive": true,
+          "CoVe": false,
+          "Samples": 300,
+          "MockMode": true,
+          "Device": "cuda",
+          "SupportRecall@K": 82.81,
+          "SupportAllHit@K": 61.33,
+          "ExactMatch": 41.24,
+          "F1_Score": 54.99,
+          "Avg_Tokens": 285.49,
+          "Avg_Latency_ms": 5601.17,
+          "Avg_Retrieval_Calls": 2.0,
+          "Avg_Reranker_Calls": 2.0,
+          "No_Answer_Rate_Percent": 0.0
+        },
+        {
+          "Config": "A3_Baseline_CoVe",
+          "Hetero": false,
+          "Adaptive": false,
+          "CoVe": true,
+          "Samples": 300,
+          "MockMode": true,
+          "Device": "cuda",
+          "SupportRecall@K": 82.04,
+          "SupportAllHit@K": 66.0,
+          "ExactMatch": 9.72,
+          "F1_Score": 12.96,
+          "Avg_Tokens": 106.01,
+          "Avg_Latency_ms": 4798.51,
+          "Avg_Retrieval_Calls": 1.56,
+          "Avg_Reranker_Calls": 1.56,
+          "No_Answer_Rate_Percent": 70.67
+        },
+        {
+          "Config": "B_Hetero",
+          "Hetero": true,
+          "Adaptive": false,
+          "CoVe": false,
+          "Samples": 300,
+          "MockMode": true,
+          "Device": "cuda",
+          "SupportRecall@K": 83.11,
+          "SupportAllHit@K": 59.0,
+          "ExactMatch": 44.02,
+          "F1_Score": 58.69,
+          "Avg_Tokens": 104.82,
+          "Avg_Latency_ms": 399.77,
+          "Avg_Retrieval_Calls": 1.67,
+          "Avg_Reranker_Calls": 1.67,
+          "No_Answer_Rate_Percent": 0.0
+        },
+        {
+          "Config": "D_CoVe_Full",
+          "Hetero": true,
+          "Adaptive": true,
+          "CoVe": true,
+          "Samples": 300,
+          "MockMode": true,
+          "Device": "cuda",
+          "SupportRecall@K": 82.21,
+          "SupportAllHit@K": 57.67,
+          "ExactMatch": 8.79,
+          "F1_Score": 11.72,
+          "Avg_Tokens": 104.79,
+          "Avg_Latency_ms": 4798.17,
+          "Avg_Retrieval_Calls": 1.99,
+          "Avg_Reranker_Calls": 1.99,
+          "No_Answer_Rate_Percent": 73.67
+        }
+      ],
+      "artifacts": {
+        "matrix": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_real_llm_300.json",
+        "report": "/root/home/ZJU-RAG-Thesis-Turing/data/results/automated_ablation_real_llm_300_report_20260508_025858.json"
+      }
     }
   ],
   "plan": [

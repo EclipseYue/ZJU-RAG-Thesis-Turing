@@ -1,0 +1,5020 @@
+{
+  "run_info": {
+    "timestamp": "2026-05-08T05:25:14",
+    "preset": "/root/home/ZJU-RAG-Thesis-Turing/experiments/presets/route_a_hybridqa.json",
+    "dataset": "hybridqa",
+    "split": "validation",
+    "samples": 50,
+    "generator_backend": "deepseek",
+    "generator_model": "deepseek-v4-flash",
+    "answer_mode": "concise",
+    "uses_real_api": true
+  },
+  "matrix": [
+    {
+      "Config": "llamaindex_hybridqa",
+      "Route": "A",
+      "Stage": "A3_real_heterogeneous",
+      "Dataset": "hybridqa",
+      "GeneratorBackend": "deepseek",
+      "GeneratorModel": "deepseek-v4-flash",
+      "AnswerMode": "concise",
+      "Samples": 50,
+      "SupportRecall@K": 33.49,
+      "SupportAllHit@K": 0.0,
+      "ExactMatch": 0.0,
+      "F1_Score": 2.51,
+      "Avg_Latency_ms": 17.97
+    }
+  ],
+  "details": [
+    {
+      "id": "00153f694413a536",
+      "query": "What is the middle name of the player with the second most National Football League career rushing yards ?",
+      "answer": "Jerry",
+      "predicted_answer": "Passage about Walter Payton: Walter Payton",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.8,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Walter Payton",
+        "San Francisco 49ers",
+        "Denver Broncos",
+        "Emmitt Smith",
+        "2019 NBA draft"
+      ],
+      "supporting_titles": [
+        "Denver Broncos",
+        "Emmitt Smith",
+        "List_of_National_Football_League_rushing_yards_leaders_0",
+        "San Francisco 49ers",
+        "Walter Payton"
+      ],
+      "latency_ms": 19.379994000701117,
+      "retrieved": [
+        {
+          "text": "Passage about Walter Payton: Walter Payton",
+          "score": 0.4510901082305268,
+          "metadata": {
+            "source": "text",
+            "title": "Walter Payton",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Football_League_rushing_yards_leaders_0",
+            "cell_text": "Walter Payton",
+            "wiki_link": "/wiki/Walter_Payton",
+            "node_type": "passage",
+            "example_id": "00153f694413a536"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about San Francisco 49ers: San Francisco 49ers",
+          "score": 0.438851498508182,
+          "metadata": {
+            "source": "text",
+            "title": "San Francisco 49ers",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Football_League_rushing_yards_leaders_0",
+            "cell_text": "San Francisco 49ers",
+            "wiki_link": "/wiki/San_Francisco_49ers",
+            "node_type": "passage",
+            "example_id": "00153f694413a536"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Denver Broncos: Denver Broncos",
+          "score": 0.42641095012614094,
+          "metadata": {
+            "source": "text",
+            "title": "Denver Broncos",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Football_League_rushing_yards_leaders_0",
+            "cell_text": "Denver Broncos",
+            "wiki_link": "/wiki/Denver_Broncos",
+            "node_type": "passage",
+            "example_id": "00153f694413a536"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Emmitt Smith: Emmitt Smith",
+          "score": 0.39923696682686877,
+          "metadata": {
+            "source": "text",
+            "title": "Emmitt Smith",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Football_League_rushing_yards_leaders_0",
+            "cell_text": "Emmitt Smith",
+            "wiki_link": "/wiki/Emmitt_Smith",
+            "node_type": "passage",
+            "example_id": "00153f694413a536"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.3007017911184684,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "001a9923f31d6a91",
+      "query": "What was the nickname of the gold medal winner in the men 's heavyweight greco-roman wrestling event of the 1932 Summer Olympics ?",
+      "answer": "Starke Rudolf",
+      "predicted_answer": "Passage about Alpine skiing at the 1992 Winter Olympics – Women's downhill:",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Winter Olympics",
+        "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+        "Rudolf Svensson",
+        "Battle of Badgam",
+        "Michael Schumacher"
+      ],
+      "supporting_titles": [
+        "Rudolf Svensson",
+        "Sweden_at_the_1932_Summer_Olympics_0"
+      ],
+      "latency_ms": 18.10488999944937,
+      "retrieved": [
+        {
+          "text": "Passage about Winter Olympics: Winter Olympics",
+          "score": 0.19327975987772159,
+          "metadata": {
+            "source": "text",
+            "title": "Winter Olympics",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Pi_Kappa_Alpha_brothers_5",
+            "cell_text": "Winter Olympics",
+            "wiki_link": "/wiki/Winter_Olympics",
+            "node_type": "passage",
+            "example_id": "036a6e84e2d25443"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Alpine skiing at the 1992 Winter Olympics – Women's downhill: Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+          "score": 0.15455392724862876,
+          "metadata": {
+            "source": "text",
+            "title": "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+            "wiki_link": "/wiki/Alpine_skiing_at_the_1992_Winter_Olympics_–_Women's_downhill",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Rudolf Svensson: Rudolf Svensson",
+          "score": 0.13716471461508153,
+          "metadata": {
+            "source": "text",
+            "title": "Rudolf Svensson",
+            "dataset": "hybridqa",
+            "table_id": "Sweden_at_the_1932_Summer_Olympics_0",
+            "cell_text": "Rudolf Svensson",
+            "wiki_link": "/wiki/Rudolf_Svensson",
+            "node_type": "passage",
+            "example_id": "001a9923f31d6a91"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Battle of Badgam: Battle of Badgam",
+          "score": 0.11564064004540117,
+          "metadata": {
+            "source": "text",
+            "title": "Battle of Badgam",
+            "dataset": "hybridqa",
+            "table_id": "Param_Vir_Chakra_0",
+            "cell_text": "Battle of Badgam",
+            "wiki_link": "/wiki/Battle_of_Badgam",
+            "node_type": "passage",
+            "example_id": "02bcd829bff0be92"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Michael Schumacher: Michael Schumacher",
+          "score": 0.11404758920335345,
+          "metadata": {
+            "source": "text",
+            "title": "Michael Schumacher",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Michael Schumacher",
+            "wiki_link": "/wiki/Michael_Schumacher",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0035c791af3d9666",
+      "query": "The driver who finished in position 4 in the 2004 United States Grand Prix was of what nationality ?",
+      "answer": "British",
+      "predicted_answer": "Passage about Williams Grand Prix Engineering: Williams Grand Prix Engineering",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.25,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Michael Schumacher",
+        "Williams Grand Prix Engineering",
+        "Williams Grand Prix Engineering",
+        "British American Racing",
+        "British American Racing"
+      ],
+      "supporting_titles": [
+        "2004_United_States_Grand_Prix_0",
+        "British American Racing",
+        "Cosworth",
+        "David Coulthard",
+        "Honda in Formula One",
+        "Jenson Button",
+        "Juan Pablo Montoya",
+        "Mark Webber",
+        "McLaren",
+        "Mercedes AMG High Performance Powertrains",
+        "Michael Schumacher",
+        "Williams Grand Prix Engineering"
+      ],
+      "latency_ms": 17.171382000015,
+      "retrieved": [
+        {
+          "text": "Passage about Michael Schumacher: Michael Schumacher",
+          "score": 0.3478681323492193,
+          "metadata": {
+            "source": "text",
+            "title": "Michael Schumacher",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Michael Schumacher",
+            "wiki_link": "/wiki/Michael_Schumacher",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Williams Grand Prix Engineering: Williams Grand Prix Engineering",
+          "score": 0.34100088678187046,
+          "metadata": {
+            "source": "text",
+            "title": "Williams Grand Prix Engineering",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Williams Grand Prix Engineering",
+            "wiki_link": "/wiki/Williams_Grand_Prix_Engineering",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Williams Grand Prix Engineering: Williams Grand Prix Engineering",
+          "score": 0.34100088678187046,
+          "metadata": {
+            "source": "text",
+            "title": "Williams Grand Prix Engineering",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Williams Grand Prix Engineering",
+            "wiki_link": "/wiki/Williams_Grand_Prix_Engineering",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about British American Racing: British American Racing",
+          "score": 0.3150489721450955,
+          "metadata": {
+            "source": "text",
+            "title": "British American Racing",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "British American Racing",
+            "wiki_link": "/wiki/British_American_Racing",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about British American Racing: British American Racing",
+          "score": 0.3150489721450955,
+          "metadata": {
+            "source": "text",
+            "title": "British American Racing",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "British American Racing",
+            "wiki_link": "/wiki/British_American_Racing",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "005eb7c003961d8c",
+      "query": "What is that address of the museum located in a Victorian House in an area whose Architectural styles within the district include Craftsman Bungalow , Queen Anne , Stick style , Folk Victorian , Colonial Revival , American Foursquare and Neoclassical Revival ?",
+      "answer": "503 Peeples Street SW",
+      "predicted_answer": "Passage about Hammonds House Museum: Hammonds House Museum",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Hammonds House Museum",
+        "Richland Farm (Clarksville, Maryland)",
+        "Santa Clara Hotel",
+        "Newbury Park tube station",
+        "Campion Academy"
+      ],
+      "supporting_titles": [
+        "Hammonds House Museum",
+        "List_of_museums_in_Atlanta_0"
+      ],
+      "latency_ms": 20.158315999651677,
+      "retrieved": [
+        {
+          "text": "Passage about Hammonds House Museum: Hammonds House Museum",
+          "score": 0.3598583344463305,
+          "metadata": {
+            "source": "text",
+            "title": "Hammonds House Museum",
+            "dataset": "hybridqa",
+            "table_id": "List_of_museums_in_Atlanta_0",
+            "cell_text": "Hammonds House Museum",
+            "wiki_link": "/wiki/Hammonds_House_Museum",
+            "node_type": "passage",
+            "example_id": "005eb7c003961d8c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.25946704439459384,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Santa Clara Hotel: Santa Clara Hotel",
+          "score": 0.25200478183974323,
+          "metadata": {
+            "source": "text",
+            "title": "Santa Clara Hotel",
+            "dataset": "hybridqa",
+            "table_id": "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+            "cell_text": "Santa Clara Hotel",
+            "wiki_link": "/wiki/Santa_Clara_Hotel",
+            "node_type": "passage",
+            "example_id": "03b74593d042dc96"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Newbury Park tube station: Newbury Park tube station",
+          "score": 0.19011385301992148,
+          "metadata": {
+            "source": "text",
+            "title": "Newbury Park tube station",
+            "dataset": "hybridqa",
+            "table_id": "London_Borough_of_Redbridge_3",
+            "cell_text": "Newbury Park tube station",
+            "wiki_link": "/wiki/Newbury_Park_tube_station",
+            "node_type": "passage",
+            "example_id": "025a87b6ad09bdd5"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Campion Academy: Campion Academy",
+          "score": 0.18085254225119257,
+          "metadata": {
+            "source": "text",
+            "title": "Campion Academy",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Seventh-day_Adventist_secondary_schools_0",
+            "cell_text": "Campion Academy",
+            "wiki_link": "/wiki/Campion_Academy",
+            "node_type": "passage",
+            "example_id": "0348aa3363f36515"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "006f88e5b2adf06c",
+      "query": "What place was achieved by the person who finished the Berlin marathon in 2:13.32 in 2011 the first time he competed in a marathon ?",
+      "answer": "sixth",
+      "predicted_answer": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.6666666666666666,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Ricardo Serrano (athlete)",
+        "Spain",
+        "Spain",
+        "British American Racing",
+        "British American Racing"
+      ],
+      "supporting_titles": [
+        "2011_Berlin_Marathon_0",
+        "Ricardo Serrano (athlete)",
+        "Spain"
+      ],
+      "latency_ms": 18.31674599998223,
+      "retrieved": [
+        {
+          "text": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+          "score": 0.33735972787707297,
+          "metadata": {
+            "source": "text",
+            "title": "Ricardo Serrano (athlete)",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Ricardo Serrano (athlete)",
+            "wiki_link": "/wiki/Ricardo_Serrano_(athlete)",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Spain: Spain",
+          "score": 0.2898076358647368,
+          "metadata": {
+            "source": "text",
+            "title": "Spain",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Spain",
+            "wiki_link": "/wiki/Spain",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Spain: Spain",
+          "score": 0.2898076358647368,
+          "metadata": {
+            "source": "text",
+            "title": "Spain",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Spain",
+            "wiki_link": "/wiki/Spain",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about British American Racing: British American Racing",
+          "score": 0.2871595840501097,
+          "metadata": {
+            "source": "text",
+            "title": "British American Racing",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "British American Racing",
+            "wiki_link": "/wiki/British_American_Racing",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about British American Racing: British American Racing",
+          "score": 0.2871595840501097,
+          "metadata": {
+            "source": "text",
+            "title": "British American Racing",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "British American Racing",
+            "wiki_link": "/wiki/British_American_Racing",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0070e6a224260f56",
+      "query": "How many Primera División titles has the team that plays in the biggest arena won ?",
+      "answer": "32",
+      "predicted_answer": "Passage about Paraguay national football team: Paraguay national football team",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.6666666666666666,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Paraguay national football team",
+        "Cerro Porteño",
+        "Juan Pablo Montoya",
+        "Spain",
+        "Spain"
+      ],
+      "supporting_titles": [
+        "Cerro Porteño",
+        "List_of_football_stadiums_in_Paraguay_0",
+        "Paraguay national football team"
+      ],
+      "latency_ms": 25.08936100093706,
+      "retrieved": [
+        {
+          "text": "Passage about Paraguay national football team: Paraguay national football team",
+          "score": 0.2883933244717902,
+          "metadata": {
+            "source": "text",
+            "title": "Paraguay national football team",
+            "dataset": "hybridqa",
+            "table_id": "List_of_football_stadiums_in_Paraguay_0",
+            "cell_text": "Paraguay national football team",
+            "wiki_link": "/wiki/Paraguay_national_football_team",
+            "node_type": "passage",
+            "example_id": "0070e6a224260f56"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Cerro Porteño: Cerro Porteño",
+          "score": 0.24546370661627862,
+          "metadata": {
+            "source": "text",
+            "title": "Cerro Porteño",
+            "dataset": "hybridqa",
+            "table_id": "List_of_football_stadiums_in_Paraguay_0",
+            "cell_text": "Cerro Porteño",
+            "wiki_link": "/wiki/Cerro_Porteño",
+            "node_type": "passage",
+            "example_id": "0070e6a224260f56"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Juan Pablo Montoya: Juan Pablo Montoya",
+          "score": 0.23313512509728482,
+          "metadata": {
+            "source": "text",
+            "title": "Juan Pablo Montoya",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Juan Pablo Montoya",
+            "wiki_link": "/wiki/Juan_Pablo_Montoya",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Spain: Spain",
+          "score": 0.21569465846503008,
+          "metadata": {
+            "source": "text",
+            "title": "Spain",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Spain",
+            "wiki_link": "/wiki/Spain",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Spain: Spain",
+          "score": 0.21569465846503008,
+          "metadata": {
+            "source": "text",
+            "title": "Spain",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Spain",
+            "wiki_link": "/wiki/Spain",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "00975ac1f229684b",
+      "query": "How many years was the Mexican billionaire Slim ranked as the richest person in the world by the Forbes business magazine ?",
+      "answer": "3",
+      "predicted_answer": "Passage about Cheung Kong Group: Cheung Kong Group",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.3333333333333333,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Cheung Kong Group",
+        "Juan Pablo Montoya",
+        "Ricardo Serrano (athlete)",
+        "Karim Bencherifa",
+        "Karim Bencherifa"
+      ],
+      "supporting_titles": [
+        "Cheung Kong Group",
+        "Hutchison Whampoa",
+        "List_of_wealthiest_non-inflated_historical_figures_13"
+      ],
+      "latency_ms": 18.27779300037946,
+      "retrieved": [
+        {
+          "text": "Passage about Cheung Kong Group: Cheung Kong Group",
+          "score": 0.4133068622360532,
+          "metadata": {
+            "source": "text",
+            "title": "Cheung Kong Group",
+            "dataset": "hybridqa",
+            "table_id": "List_of_wealthiest_non-inflated_historical_figures_13",
+            "cell_text": "Cheung Kong Group",
+            "wiki_link": "/wiki/Cheung_Kong_Group",
+            "node_type": "passage",
+            "example_id": "00975ac1f229684b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Juan Pablo Montoya: Juan Pablo Montoya",
+          "score": 0.31827344548171793,
+          "metadata": {
+            "source": "text",
+            "title": "Juan Pablo Montoya",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Juan Pablo Montoya",
+            "wiki_link": "/wiki/Juan_Pablo_Montoya",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+          "score": 0.30529724642584893,
+          "metadata": {
+            "source": "text",
+            "title": "Ricardo Serrano (athlete)",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Ricardo Serrano (athlete)",
+            "wiki_link": "/wiki/Ricardo_Serrano_(athlete)",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Karim Bencherifa: Karim Bencherifa",
+          "score": 0.2933052332286697,
+          "metadata": {
+            "source": "text",
+            "title": "Karim Bencherifa",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Mohun_Bagan_A.C._managers_0",
+            "cell_text": "Karim Bencherifa",
+            "wiki_link": "/wiki/Karim_Bencherifa",
+            "node_type": "passage",
+            "example_id": "00c4fbc89bffe739"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Karim Bencherifa: Karim Bencherifa",
+          "score": 0.29330523184814034,
+          "metadata": {
+            "source": "text",
+            "title": "Karim Bencherifa",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Mohun_Bagan_A.C._managers_0",
+            "cell_text": "Karim Bencherifa",
+            "wiki_link": "/wiki/Karim_Bencherifa",
+            "node_type": "passage",
+            "example_id": "00c4fbc89bffe739"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "00a85279869ca866",
+      "query": "What is the difference in time between José Reliegos of Spain and the person born 5 September 1892 who competed at the 1928 Olympics ?",
+      "answer": "0:06",
+      "predicted_answer": "Passage about Spain: Spain",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Spain",
+        "Spain",
+        "Ricardo Serrano (athlete)",
+        "Juan Pablo Montoya",
+        "Alpine skiing at the 1992 Winter Olympics – Women's downhill"
+      ],
+      "supporting_titles": [
+        "1929_International_Cross_Country_Championships_0"
+      ],
+      "latency_ms": 18.610674000228755,
+      "retrieved": [
+        {
+          "text": "Passage about Spain: Spain",
+          "score": 0.2621773803333223,
+          "metadata": {
+            "source": "text",
+            "title": "Spain",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Spain",
+            "wiki_link": "/wiki/Spain",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Spain: Spain",
+          "score": 0.2621773803333223,
+          "metadata": {
+            "source": "text",
+            "title": "Spain",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Spain",
+            "wiki_link": "/wiki/Spain",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+          "score": 0.22159819619842402,
+          "metadata": {
+            "source": "text",
+            "title": "Ricardo Serrano (athlete)",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Ricardo Serrano (athlete)",
+            "wiki_link": "/wiki/Ricardo_Serrano_(athlete)",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Juan Pablo Montoya: Juan Pablo Montoya",
+          "score": 0.20631286937248372,
+          "metadata": {
+            "source": "text",
+            "title": "Juan Pablo Montoya",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Juan Pablo Montoya",
+            "wiki_link": "/wiki/Juan_Pablo_Montoya",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Alpine skiing at the 1992 Winter Olympics – Women's downhill: Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+          "score": 0.1827605184138068,
+          "metadata": {
+            "source": "text",
+            "title": "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+            "wiki_link": "/wiki/Alpine_skiing_at_the_1992_Winter_Olympics_–_Women's_downhill",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "00ad8c3df9fa9da0",
+      "query": "Which gulf is north of the Somalian city with 550,000 residents ?",
+      "answer": "Gulf of Aden",
+      "predicted_answer": "Passage about Awdal: Awdal",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.6666666666666666,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Awdal",
+        "Bosaso",
+        "St Mary's Church, Goring-by-Sea",
+        "Bayezid II",
+        "United States"
+      ],
+      "supporting_titles": [
+        "Awdal",
+        "Bosaso",
+        "List_of_Somali_cities_by_population_0"
+      ],
+      "latency_ms": 16.789713999969536,
+      "retrieved": [
+        {
+          "text": "Passage about Awdal: Awdal",
+          "score": 0.3468168574729385,
+          "metadata": {
+            "source": "text",
+            "title": "Awdal",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Somali_cities_by_population_0",
+            "cell_text": "Awdal",
+            "wiki_link": "/wiki/Awdal",
+            "node_type": "passage",
+            "example_id": "00ad8c3df9fa9da0"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Bosaso: Bosaso",
+          "score": 0.3465429502669413,
+          "metadata": {
+            "source": "text",
+            "title": "Bosaso",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Somali_cities_by_population_0",
+            "cell_text": "Bosaso",
+            "wiki_link": "/wiki/Bosaso",
+            "node_type": "passage",
+            "example_id": "00ad8c3df9fa9da0"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about St Mary's Church, Goring-by-Sea: St Mary's Church, Goring-by-Sea",
+          "score": 0.19436561918387377,
+          "metadata": {
+            "source": "text",
+            "title": "St Mary's Church, Goring-by-Sea",
+            "dataset": "hybridqa",
+            "table_id": "List_of_places_of_worship_in_Worthing_0",
+            "cell_text": "St Mary's Church, Goring-by-Sea",
+            "wiki_link": "/wiki/St_Mary's_Church,_Goring-by-Sea",
+            "node_type": "passage",
+            "example_id": "03c009db09f4dc99"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Bayezid II: Bayezid II",
+          "score": 0.18555459206553568,
+          "metadata": {
+            "source": "text",
+            "title": "Bayezid II",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Bayezid II",
+            "wiki_link": "/wiki/Bayezid_II",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about United States: United States",
+          "score": 0.1842433867610396,
+          "metadata": {
+            "source": "text",
+            "title": "United States",
+            "dataset": "hybridqa",
+            "table_id": "Columbus_Crew_0",
+            "cell_text": "United States",
+            "wiki_link": "/wiki/United_States",
+            "node_type": "passage",
+            "example_id": "039f9dec5dd66ab1"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "00b634aaa122d729",
+      "query": "What is the area of the national park whose terrain is extremely rugged and consists of sandstone peaks , narrow gorges , ravines and dense forests ?",
+      "answer": "524 km",
+      "predicted_answer": "Passage about Cerro Porteño: Cerro Porteño",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Cerro Porteño",
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa",
+        "Richland Farm (Clarksville, Maryland)"
+      ],
+      "supporting_titles": [
+        "Flora_and_fauna_of_Madhya_Pradesh_0"
+      ],
+      "latency_ms": 18.00677300161624,
+      "retrieved": [
+        {
+          "text": "Passage about Cerro Porteño: Cerro Porteño",
+          "score": 0.28525109698873885,
+          "metadata": {
+            "source": "text",
+            "title": "Cerro Porteño",
+            "dataset": "hybridqa",
+            "table_id": "List_of_football_stadiums_in_Paraguay_0",
+            "cell_text": "Cerro Porteño",
+            "wiki_link": "/wiki/Cerro_Porteño",
+            "node_type": "passage",
+            "example_id": "0070e6a224260f56"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.21990471187646002,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.21990471187646002,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.21990471187646002,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.18324560990380045,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "00c4fbc89bffe739",
+      "query": "What is the nationality of the manager who was born on 15 February 1968 ?",
+      "answer": "Morocco",
+      "predicted_answer": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.3333333333333333,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Ricardo Serrano (athlete)",
+        "Karim Bencherifa",
+        "Karim Bencherifa",
+        "Jenson Button",
+        "Michael Schumacher"
+      ],
+      "supporting_titles": [
+        "Karim Bencherifa",
+        "List_of_Mohun_Bagan_A.C._managers_0",
+        "Spain"
+      ],
+      "latency_ms": 16.605462000370608,
+      "retrieved": [
+        {
+          "text": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+          "score": 0.257938009257437,
+          "metadata": {
+            "source": "text",
+            "title": "Ricardo Serrano (athlete)",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Ricardo Serrano (athlete)",
+            "wiki_link": "/wiki/Ricardo_Serrano_(athlete)",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Karim Bencherifa: Karim Bencherifa",
+          "score": 0.23806271608103707,
+          "metadata": {
+            "source": "text",
+            "title": "Karim Bencherifa",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Mohun_Bagan_A.C._managers_0",
+            "cell_text": "Karim Bencherifa",
+            "wiki_link": "/wiki/Karim_Bencherifa",
+            "node_type": "passage",
+            "example_id": "00c4fbc89bffe739"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Karim Bencherifa: Karim Bencherifa",
+          "score": 0.23806269537412783,
+          "metadata": {
+            "source": "text",
+            "title": "Karim Bencherifa",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Mohun_Bagan_A.C._managers_0",
+            "cell_text": "Karim Bencherifa",
+            "wiki_link": "/wiki/Karim_Bencherifa",
+            "node_type": "passage",
+            "example_id": "00c4fbc89bffe739"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Jenson Button: Jenson Button",
+          "score": 0.2263376804930331,
+          "metadata": {
+            "source": "text",
+            "title": "Jenson Button",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Jenson Button",
+            "wiki_link": "/wiki/Jenson_Button",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Michael Schumacher: Michael Schumacher",
+          "score": 0.18159208033956253,
+          "metadata": {
+            "source": "text",
+            "title": "Michael Schumacher",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Michael Schumacher",
+            "wiki_link": "/wiki/Michael_Schumacher",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "00c882d1bfbc8aa3",
+      "query": "What is the description if the dish that is a localised version of Indian Achaar ?",
+      "answer": "Various chopped vegetables in vinegar",
+      "predicted_answer": "Passage about Emine Gülbahar Hatun: Emine Gülbahar Hatun",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Emine Gülbahar Hatun",
+        "Bosaso",
+        "Somnath Sharma",
+        "Pandorum",
+        "Spain"
+      ],
+      "supporting_titles": [
+        "List_of_Indonesian_dishes_3"
+      ],
+      "latency_ms": 17.678115998933208,
+      "retrieved": [
+        {
+          "text": "Passage about Emine Gülbahar Hatun: Emine Gülbahar Hatun",
+          "score": 0.3195450783738577,
+          "metadata": {
+            "source": "text",
+            "title": "Emine Gülbahar Hatun",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Emine Gülbahar Hatun",
+            "wiki_link": "/wiki/Emine_Gülbahar_Hatun",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Bosaso: Bosaso",
+          "score": 0.26646745507236413,
+          "metadata": {
+            "source": "text",
+            "title": "Bosaso",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Somali_cities_by_population_0",
+            "cell_text": "Bosaso",
+            "wiki_link": "/wiki/Bosaso",
+            "node_type": "passage",
+            "example_id": "00ad8c3df9fa9da0"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Somnath Sharma: Somnath Sharma",
+          "score": 0.2661063928659273,
+          "metadata": {
+            "source": "text",
+            "title": "Somnath Sharma",
+            "dataset": "hybridqa",
+            "table_id": "Param_Vir_Chakra_0",
+            "cell_text": "Somnath Sharma",
+            "wiki_link": "/wiki/Somnath_Sharma",
+            "node_type": "passage",
+            "example_id": "02bcd829bff0be92"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Pandorum: Pandorum",
+          "score": 0.2577045722351608,
+          "metadata": {
+            "source": "text",
+            "title": "Pandorum",
+            "dataset": "hybridqa",
+            "table_id": "Ben_Foster_(actor)_0",
+            "cell_text": "Pandorum",
+            "wiki_link": "/wiki/Pandorum",
+            "node_type": "passage",
+            "example_id": "013a6efae39d468f"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Spain: Spain",
+          "score": 0.25112081391028046,
+          "metadata": {
+            "source": "text",
+            "title": "Spain",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Mohun_Bagan_A.C._managers_0",
+            "cell_text": "Spain",
+            "wiki_link": "/wiki/Spain",
+            "node_type": "passage",
+            "example_id": "00c4fbc89bffe739"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0101cac31f98bd1d",
+      "query": "Who translated the German book published in 1979 that sold 16 million copies into English ?",
+      "answer": "Ralph Manheim",
+      "predicted_answer": "Passage about The Neverending Story: The Neverending Story",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "The Neverending Story",
+        "Jean-Luc Godard",
+        "A Very Polish Practice",
+        "Rudolf Svensson",
+        "A City of Sadness"
+      ],
+      "supporting_titles": [
+        "List_of_best-selling_books_4",
+        "The Neverending Story"
+      ],
+      "latency_ms": 16.723717999411747,
+      "retrieved": [
+        {
+          "text": "Passage about The Neverending Story: The Neverending Story",
+          "score": 0.2613778919271641,
+          "metadata": {
+            "source": "text",
+            "title": "The Neverending Story",
+            "dataset": "hybridqa",
+            "table_id": "List_of_best-selling_books_4",
+            "cell_text": "The Neverending Story",
+            "wiki_link": "/wiki/The_Neverending_Story",
+            "node_type": "passage",
+            "example_id": "0101cac31f98bd1d"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Jean-Luc Godard: Jean-Luc Godard",
+          "score": 0.25140364332301,
+          "metadata": {
+            "source": "text",
+            "title": "Jean-Luc Godard",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Jean-Luc Godard",
+            "wiki_link": "/wiki/Jean-Luc_Godard",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about A Very Polish Practice: A Very Polish Practice",
+          "score": 0.22756537944040148,
+          "metadata": {
+            "source": "text",
+            "title": "A Very Polish Practice",
+            "dataset": "hybridqa",
+            "table_id": "Peter_Davison_0",
+            "cell_text": "A Very Polish Practice",
+            "wiki_link": "/wiki/A_Very_Polish_Practice",
+            "node_type": "passage",
+            "example_id": "020b2e99a5cfd1ae"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Rudolf Svensson: Rudolf Svensson",
+          "score": 0.22195417138943363,
+          "metadata": {
+            "source": "text",
+            "title": "Rudolf Svensson",
+            "dataset": "hybridqa",
+            "table_id": "Sweden_at_the_1932_Summer_Olympics_0",
+            "cell_text": "Rudolf Svensson",
+            "wiki_link": "/wiki/Rudolf_Svensson",
+            "node_type": "passage",
+            "example_id": "001a9923f31d6a91"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about A City of Sadness: A City of Sadness",
+          "score": 0.1867297608659554,
+          "metadata": {
+            "source": "text",
+            "title": "A City of Sadness",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Taiwanese_submissions_for_the_Academy_Award_for_Best_Foreign_Language_Film_0",
+            "cell_text": "A City of Sadness",
+            "wiki_link": "/wiki/A_City_of_Sadness",
+            "node_type": "passage",
+            "example_id": "021fd26ee829ad33"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "011e8cb7de5d5cdf",
+      "query": "What is the use of the building whose location is the second-most populous county in Maryland ?",
+      "answer": "Spring house",
+      "predicted_answer": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Richland Farm (Clarksville, Maryland)",
+        "Santa Clara Hotel",
+        "Hammonds House Museum",
+        "St Mary's Church, Goring-by-Sea",
+        "Knoxville, Tennessee"
+      ],
+      "supporting_titles": [
+        "List_of_the_oldest_buildings_in_Maryland_0",
+        "Richland Farm (Clarksville, Maryland)"
+      ],
+      "latency_ms": 16.94224000129907,
+      "retrieved": [
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.4195898904763065,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Santa Clara Hotel: Santa Clara Hotel",
+          "score": 0.23645435710950552,
+          "metadata": {
+            "source": "text",
+            "title": "Santa Clara Hotel",
+            "dataset": "hybridqa",
+            "table_id": "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+            "cell_text": "Santa Clara Hotel",
+            "wiki_link": "/wiki/Santa_Clara_Hotel",
+            "node_type": "passage",
+            "example_id": "03b74593d042dc96"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Hammonds House Museum: Hammonds House Museum",
+          "score": 0.2348326567344597,
+          "metadata": {
+            "source": "text",
+            "title": "Hammonds House Museum",
+            "dataset": "hybridqa",
+            "table_id": "List_of_museums_in_Atlanta_0",
+            "cell_text": "Hammonds House Museum",
+            "wiki_link": "/wiki/Hammonds_House_Museum",
+            "node_type": "passage",
+            "example_id": "005eb7c003961d8c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about St Mary's Church, Goring-by-Sea: St Mary's Church, Goring-by-Sea",
+          "score": 0.20134980133976355,
+          "metadata": {
+            "source": "text",
+            "title": "St Mary's Church, Goring-by-Sea",
+            "dataset": "hybridqa",
+            "table_id": "List_of_places_of_worship_in_Worthing_0",
+            "cell_text": "St Mary's Church, Goring-by-Sea",
+            "wiki_link": "/wiki/St_Mary's_Church,_Goring-by-Sea",
+            "node_type": "passage",
+            "example_id": "03c009db09f4dc99"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Knoxville, Tennessee: Knoxville, Tennessee",
+          "score": 0.16629716289828084,
+          "metadata": {
+            "source": "text",
+            "title": "Knoxville, Tennessee",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Knoxville, Tennessee",
+            "wiki_link": "/wiki/Knoxville,_Tennessee",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0130a31694fda105",
+      "query": "Who was the husband of the mother of Ottoman sultan Suleiman I ?",
+      "answer": "Selim I",
+      "predicted_answer": "Passage about Hafsa Sultan (wife of Selim I): Hafsa Sultan (wife of",
+      "exact_match": 0.0,
+      "f1_score": 0.2857142857142857,
+      "support_recall": 0.4,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Hafsa Sultan (wife of Selim I)",
+        "Valide Sultan",
+        "Valide Sultan",
+        "Valide Sultan",
+        "Valide Sultan"
+      ],
+      "supporting_titles": [
+        "Bayezid II",
+        "Emine Gülbahar Hatun",
+        "Hafsa Sultan (wife of Selim I)",
+        "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+        "Valide Sultan"
+      ],
+      "latency_ms": 17.2442349994526,
+      "retrieved": [
+        {
+          "text": "Passage about Hafsa Sultan (wife of Selim I): Hafsa Sultan (wife of Selim I)",
+          "score": 0.37783645844496777,
+          "metadata": {
+            "source": "text",
+            "title": "Hafsa Sultan (wife of Selim I)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Hafsa Sultan (wife of Selim I)",
+            "wiki_link": "/wiki/Hafsa_Sultan_(wife_of_Selim_I)",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Valide Sultan: Valide Sultan",
+          "score": 0.34637152829459317,
+          "metadata": {
+            "source": "text",
+            "title": "Valide Sultan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Valide Sultan",
+            "wiki_link": "/wiki/Valide_Sultan",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Valide Sultan: Valide Sultan",
+          "score": 0.34637152829459317,
+          "metadata": {
+            "source": "text",
+            "title": "Valide Sultan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Valide Sultan",
+            "wiki_link": "/wiki/Valide_Sultan",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Valide Sultan: Valide Sultan",
+          "score": 0.34637152829459317,
+          "metadata": {
+            "source": "text",
+            "title": "Valide Sultan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Valide Sultan",
+            "wiki_link": "/wiki/Valide_Sultan",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Valide Sultan: Valide Sultan",
+          "score": 0.34637152829459317,
+          "metadata": {
+            "source": "text",
+            "title": "Valide Sultan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Valide Sultan",
+            "wiki_link": "/wiki/Valide_Sultan",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "013a6efae39d468f",
+      "query": "What are the symptoms of the titular syndrome in his 2009 movie ?",
+      "answer": "severe paranoia , delirium , and nosebleeding",
+      "predicted_answer": "Passage about Charlize Theron: Charlize Theron",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Charlize Theron",
+        "A Very Peculiar Practice",
+        "Hollywood Ending",
+        "Jean-Luc Godard",
+        "A City of Sadness"
+      ],
+      "supporting_titles": [
+        "Ben_Foster_(actor)_0",
+        "Pandorum"
+      ],
+      "latency_ms": 16.643812999973306,
+      "retrieved": [
+        {
+          "text": "Passage about Charlize Theron: Charlize Theron",
+          "score": 0.13502974955969957,
+          "metadata": {
+            "source": "text",
+            "title": "Charlize Theron",
+            "dataset": "hybridqa",
+            "table_id": "Ebertfest:_Roger_Ebert's_Film_Festival_3",
+            "cell_text": "Charlize Theron",
+            "wiki_link": "/wiki/Charlize_Theron",
+            "node_type": "passage",
+            "example_id": "0369473ad8aed2bf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about A Very Peculiar Practice: A Very Peculiar Practice",
+          "score": 0.1289158644047692,
+          "metadata": {
+            "source": "text",
+            "title": "A Very Peculiar Practice",
+            "dataset": "hybridqa",
+            "table_id": "Peter_Davison_0",
+            "cell_text": "A Very Peculiar Practice",
+            "wiki_link": "/wiki/A_Very_Peculiar_Practice",
+            "node_type": "passage",
+            "example_id": "020b2e99a5cfd1ae"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Hollywood Ending: Hollywood Ending",
+          "score": 0.12557849057175308,
+          "metadata": {
+            "source": "text",
+            "title": "Hollywood Ending",
+            "dataset": "hybridqa",
+            "table_id": "Debra_Messing_0",
+            "cell_text": "Hollywood Ending",
+            "wiki_link": "/wiki/Hollywood_Ending",
+            "node_type": "passage",
+            "example_id": "0413b71b8cf428b7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Jean-Luc Godard: Jean-Luc Godard",
+          "score": 0.12408891930514031,
+          "metadata": {
+            "source": "text",
+            "title": "Jean-Luc Godard",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Jean-Luc Godard",
+            "wiki_link": "/wiki/Jean-Luc_Godard",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about A City of Sadness: A City of Sadness",
+          "score": 0.12094521885076687,
+          "metadata": {
+            "source": "text",
+            "title": "A City of Sadness",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Taiwanese_submissions_for_the_Academy_Award_for_Best_Foreign_Language_Film_0",
+            "cell_text": "A City of Sadness",
+            "wiki_link": "/wiki/A_City_of_Sadness",
+            "node_type": "passage",
+            "example_id": "021fd26ee829ad33"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "016665beb450ca4e",
+      "query": "What organization was started by the bronze medal-winning martial artist that is the heavier of the two ?",
+      "answer": "Instituto Reação",
+      "predicted_answer": "Passage about Battle of Badgam: Battle of Badgam",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Winter Olympics",
+        "Ricardo Serrano (athlete)",
+        "Battle of Badgam",
+        "Cheung Kong Group",
+        "Zion Williamson"
+      ],
+      "supporting_titles": [
+        "Brazil_at_the_2004_Summer_Olympics_0",
+        "Flávio Canto"
+      ],
+      "latency_ms": 17.191415001434507,
+      "retrieved": [
+        {
+          "text": "Passage about Winter Olympics: Winter Olympics",
+          "score": 0.2573769469404979,
+          "metadata": {
+            "source": "text",
+            "title": "Winter Olympics",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Pi_Kappa_Alpha_brothers_5",
+            "cell_text": "Winter Olympics",
+            "wiki_link": "/wiki/Winter_Olympics",
+            "node_type": "passage",
+            "example_id": "036a6e84e2d25443"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+          "score": 0.21045788534401302,
+          "metadata": {
+            "source": "text",
+            "title": "Ricardo Serrano (athlete)",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Ricardo Serrano (athlete)",
+            "wiki_link": "/wiki/Ricardo_Serrano_(athlete)",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Battle of Badgam: Battle of Badgam",
+          "score": 0.2028271846384524,
+          "metadata": {
+            "source": "text",
+            "title": "Battle of Badgam",
+            "dataset": "hybridqa",
+            "table_id": "Param_Vir_Chakra_0",
+            "cell_text": "Battle of Badgam",
+            "wiki_link": "/wiki/Battle_of_Badgam",
+            "node_type": "passage",
+            "example_id": "02bcd829bff0be92"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Cheung Kong Group: Cheung Kong Group",
+          "score": 0.19760381772302169,
+          "metadata": {
+            "source": "text",
+            "title": "Cheung Kong Group",
+            "dataset": "hybridqa",
+            "table_id": "List_of_wealthiest_non-inflated_historical_figures_13",
+            "cell_text": "Cheung Kong Group",
+            "wiki_link": "/wiki/Cheung_Kong_Group",
+            "node_type": "passage",
+            "example_id": "00975ac1f229684b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Zion Williamson: Zion Williamson",
+          "score": 0.196866045379131,
+          "metadata": {
+            "source": "text",
+            "title": "Zion Williamson",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "Zion Williamson",
+            "wiki_link": "/wiki/Zion_Williamson",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0171bb0fbb6697b5",
+      "query": "In which year was this skier become an elected politician who won a medal at the Olympics Games that had 2,176 athletes from 72 nations ?",
+      "answer": "2019",
+      "predicted_answer": "Passage about Alpine skiing at the 1992 Winter Olympics – Women's downhill:",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+        "Winter Olympics",
+        "Nancy Kerrigan",
+        "Ricardo Serrano (athlete)",
+        "Cathy Turner"
+      ],
+      "supporting_titles": [
+        "Australia_at_the_Winter_Olympics_1",
+        "Zali Steggall"
+      ],
+      "latency_ms": 18.582652999612037,
+      "retrieved": [
+        {
+          "text": "Passage about Alpine skiing at the 1992 Winter Olympics – Women's downhill: Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+          "score": 0.34663450672298474,
+          "metadata": {
+            "source": "text",
+            "title": "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+            "wiki_link": "/wiki/Alpine_skiing_at_the_1992_Winter_Olympics_–_Women's_downhill",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Winter Olympics: Winter Olympics",
+          "score": 0.31117803546068,
+          "metadata": {
+            "source": "text",
+            "title": "Winter Olympics",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Pi_Kappa_Alpha_brothers_5",
+            "cell_text": "Winter Olympics",
+            "wiki_link": "/wiki/Winter_Olympics",
+            "node_type": "passage",
+            "example_id": "036a6e84e2d25443"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nancy Kerrigan: Nancy Kerrigan",
+          "score": 0.23048429586079144,
+          "metadata": {
+            "source": "text",
+            "title": "Nancy Kerrigan",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Nancy Kerrigan",
+            "wiki_link": "/wiki/Nancy_Kerrigan",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+          "score": 0.22254784446015582,
+          "metadata": {
+            "source": "text",
+            "title": "Ricardo Serrano (athlete)",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Ricardo Serrano (athlete)",
+            "wiki_link": "/wiki/Ricardo_Serrano_(athlete)",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Cathy Turner: Cathy Turner",
+          "score": 0.21965647641228586,
+          "metadata": {
+            "source": "text",
+            "title": "Cathy Turner",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Cathy Turner",
+            "wiki_link": "/wiki/Cathy_Turner",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "017260bdc99b711c",
+      "query": "How many successors were born in the month of August ?",
+      "answer": "2",
+      "predicted_answer": "Passage about Jaxson Hayes: Jaxson Hayes",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Jaxson Hayes",
+        "Zion Williamson",
+        "2019 NBA draft",
+        "2019 NBA draft",
+        "2019 NBA draft"
+      ],
+      "supporting_titles": [
+        "129th_Ohio_General_Assembly_2"
+      ],
+      "latency_ms": 16.588747999776388,
+      "retrieved": [
+        {
+          "text": "Passage about Jaxson Hayes: Jaxson Hayes",
+          "score": 0.11780908556818714,
+          "metadata": {
+            "source": "text",
+            "title": "Jaxson Hayes",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "Jaxson Hayes",
+            "wiki_link": "/wiki/Jaxson_Hayes",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Zion Williamson: Zion Williamson",
+          "score": 0.09784481743779351,
+          "metadata": {
+            "source": "text",
+            "title": "Zion Williamson",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "Zion Williamson",
+            "wiki_link": "/wiki/Zion_Williamson",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.09456233502221345,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.09456233502221345,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.09456233502221345,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0187a50391979e38",
+      "query": "Mario Kart Advance was released by a company who had a market value of more than what , in 2018 ?",
+      "answer": "$ 37 billion",
+      "predicted_answer": "Passage about Nintendo: Nintendo",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Nintendo",
+        "Nintendo",
+        "Nintendo",
+        "Nintendo",
+        "Nintendo"
+      ],
+      "supporting_titles": [
+        "List_of_Virtual_Console_games_for_Nintendo_3DS_(Japan)_10",
+        "Nintendo"
+      ],
+      "latency_ms": 17.02635800029384,
+      "retrieved": [
+        {
+          "text": "Passage about Nintendo: Nintendo",
+          "score": 0.3359795107851803,
+          "metadata": {
+            "source": "text",
+            "title": "Nintendo",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Virtual_Console_games_for_Nintendo_3DS_(Japan)_10",
+            "cell_text": "Nintendo",
+            "wiki_link": "/wiki/Nintendo",
+            "node_type": "passage",
+            "example_id": "0187a50391979e38"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nintendo: Nintendo",
+          "score": 0.33597948710706005,
+          "metadata": {
+            "source": "text",
+            "title": "Nintendo",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Virtual_Console_games_for_Nintendo_3DS_(Japan)_10",
+            "cell_text": "Nintendo",
+            "wiki_link": "/wiki/Nintendo",
+            "node_type": "passage",
+            "example_id": "0187a50391979e38"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nintendo: Nintendo",
+          "score": 0.33597948710706005,
+          "metadata": {
+            "source": "text",
+            "title": "Nintendo",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Virtual_Console_games_for_Nintendo_3DS_(Japan)_10",
+            "cell_text": "Nintendo",
+            "wiki_link": "/wiki/Nintendo",
+            "node_type": "passage",
+            "example_id": "0187a50391979e38"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nintendo: Nintendo",
+          "score": 0.33597948710706005,
+          "metadata": {
+            "source": "text",
+            "title": "Nintendo",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Virtual_Console_games_for_Nintendo_3DS_(Japan)_10",
+            "cell_text": "Nintendo",
+            "wiki_link": "/wiki/Nintendo",
+            "node_type": "passage",
+            "example_id": "0187a50391979e38"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nintendo: Nintendo",
+          "score": 0.33597948710706005,
+          "metadata": {
+            "source": "text",
+            "title": "Nintendo",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Virtual_Console_games_for_Nintendo_3DS_(Japan)_10",
+            "cell_text": "Nintendo",
+            "wiki_link": "/wiki/Nintendo",
+            "node_type": "passage",
+            "example_id": "0187a50391979e38"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "018c2df00229d160",
+      "query": "Which team of the Cornwall League 1 comes from a town that is known for its tin mining ?",
+      "answer": "Veor",
+      "predicted_answer": "Passage about British American Racing: British American Racing",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "British American Racing",
+        "British American Racing",
+        "Drew Storen",
+        "Zion Williamson",
+        "Paraguay national football team"
+      ],
+      "supporting_titles": [
+        "Cornwall_League_1_4"
+      ],
+      "latency_ms": 16.928531000303337,
+      "retrieved": [
+        {
+          "text": "Passage about British American Racing: British American Racing",
+          "score": 0.22159956502885497,
+          "metadata": {
+            "source": "text",
+            "title": "British American Racing",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "British American Racing",
+            "wiki_link": "/wiki/British_American_Racing",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about British American Racing: British American Racing",
+          "score": 0.22159956502885497,
+          "metadata": {
+            "source": "text",
+            "title": "British American Racing",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "British American Racing",
+            "wiki_link": "/wiki/British_American_Racing",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Drew Storen: Drew Storen",
+          "score": 0.22079460679957533,
+          "metadata": {
+            "source": "text",
+            "title": "Drew Storen",
+            "dataset": "hybridqa",
+            "table_id": "2009_Major_League_Baseball_Draft_0",
+            "cell_text": "Drew Storen",
+            "wiki_link": "/wiki/Drew_Storen",
+            "node_type": "passage",
+            "example_id": "0283f451c1c4819c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Zion Williamson: Zion Williamson",
+          "score": 0.2159727936002724,
+          "metadata": {
+            "source": "text",
+            "title": "Zion Williamson",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "Zion Williamson",
+            "wiki_link": "/wiki/Zion_Williamson",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Paraguay national football team: Paraguay national football team",
+          "score": 0.21015918967006603,
+          "metadata": {
+            "source": "text",
+            "title": "Paraguay national football team",
+            "dataset": "hybridqa",
+            "table_id": "List_of_football_stadiums_in_Paraguay_0",
+            "cell_text": "Paraguay national football team",
+            "wiki_link": "/wiki/Paraguay_national_football_team",
+            "node_type": "passage",
+            "example_id": "0070e6a224260f56"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "019987cf5cda18be",
+      "query": "What was the English title of the sixth highest grossing Indian film ?",
+      "answer": "The outburst",
+      "predicted_answer": "Passage about Vietnam, Vietnam (film): Vietnam, Vietnam (film)",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Hellaro",
+        "Vietnam, Vietnam (film)",
+        "Hollywood Ending",
+        "A City of Sadness",
+        "Vietnam"
+      ],
+      "supporting_titles": [
+        "Bollywood_highest_grossing_films_by_month_3",
+        "Hellaro"
+      ],
+      "latency_ms": 16.46350800001528,
+      "retrieved": [
+        {
+          "text": "Passage about Hellaro: Hellaro",
+          "score": 0.36131226468365507,
+          "metadata": {
+            "source": "text",
+            "title": "Hellaro",
+            "dataset": "hybridqa",
+            "table_id": "Bollywood_highest_grossing_films_by_month_3",
+            "cell_text": "Hellaro",
+            "wiki_link": "/wiki/Hellaro",
+            "node_type": "passage",
+            "example_id": "019987cf5cda18be"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Vietnam, Vietnam (film): Vietnam, Vietnam (film)",
+          "score": 0.31916209004718593,
+          "metadata": {
+            "source": "text",
+            "title": "Vietnam, Vietnam (film)",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Vietnam, Vietnam (film)",
+            "wiki_link": "/wiki/Vietnam,_Vietnam_(film)",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Hollywood Ending: Hollywood Ending",
+          "score": 0.2858643168647319,
+          "metadata": {
+            "source": "text",
+            "title": "Hollywood Ending",
+            "dataset": "hybridqa",
+            "table_id": "Debra_Messing_0",
+            "cell_text": "Hollywood Ending",
+            "wiki_link": "/wiki/Hollywood_Ending",
+            "node_type": "passage",
+            "example_id": "0413b71b8cf428b7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about A City of Sadness: A City of Sadness",
+          "score": 0.27957125050437426,
+          "metadata": {
+            "source": "text",
+            "title": "A City of Sadness",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Taiwanese_submissions_for_the_Academy_Award_for_Best_Foreign_Language_Film_0",
+            "cell_text": "A City of Sadness",
+            "wiki_link": "/wiki/A_City_of_Sadness",
+            "node_type": "passage",
+            "example_id": "021fd26ee829ad33"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Vietnam: Vietnam",
+          "score": 0.27297134768182846,
+          "metadata": {
+            "source": "text",
+            "title": "Vietnam",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Vietnam",
+            "wiki_link": "/wiki/Vietnam",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "01a0c3f14151b9a1",
+      "query": "What year does Orson Scott Card 's 1986 novel take place ?",
+      "answer": "5270",
+      "predicted_answer": "Passage about Speaker for the Dead: Speaker for the Dead",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Speaker for the Dead",
+        "Speaker for the Dead",
+        "Jean-Luc Godard",
+        "The Neverending Story",
+        "Juan Pablo Montoya"
+      ],
+      "supporting_titles": [
+        "Orson_Scott_Card_bibliography_0",
+        "Speaker for the Dead"
+      ],
+      "latency_ms": 16.480652000609552,
+      "retrieved": [
+        {
+          "text": "Passage about Speaker for the Dead: Speaker for the Dead",
+          "score": 0.2459892791334806,
+          "metadata": {
+            "source": "text",
+            "title": "Speaker for the Dead",
+            "dataset": "hybridqa",
+            "table_id": "Orson_Scott_Card_bibliography_0",
+            "cell_text": "Speaker for the Dead",
+            "wiki_link": "/wiki/Speaker_for_the_Dead",
+            "node_type": "passage",
+            "example_id": "01a0c3f14151b9a1"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Speaker for the Dead: Speaker for the Dead",
+          "score": 0.2459892791334806,
+          "metadata": {
+            "source": "text",
+            "title": "Speaker for the Dead",
+            "dataset": "hybridqa",
+            "table_id": "Orson_Scott_Card_bibliography_0",
+            "cell_text": "Speaker for the Dead",
+            "wiki_link": "/wiki/Speaker_for_the_Dead",
+            "node_type": "passage",
+            "example_id": "01a0c3f14151b9a1"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Jean-Luc Godard: Jean-Luc Godard",
+          "score": 0.2068557538337352,
+          "metadata": {
+            "source": "text",
+            "title": "Jean-Luc Godard",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Jean-Luc Godard",
+            "wiki_link": "/wiki/Jean-Luc_Godard",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about The Neverending Story: The Neverending Story",
+          "score": 0.1914195000474034,
+          "metadata": {
+            "source": "text",
+            "title": "The Neverending Story",
+            "dataset": "hybridqa",
+            "table_id": "List_of_best-selling_books_4",
+            "cell_text": "The Neverending Story",
+            "wiki_link": "/wiki/The_Neverending_Story",
+            "node_type": "passage",
+            "example_id": "0101cac31f98bd1d"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Juan Pablo Montoya: Juan Pablo Montoya",
+          "score": 0.17677049951437196,
+          "metadata": {
+            "source": "text",
+            "title": "Juan Pablo Montoya",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Juan Pablo Montoya",
+            "wiki_link": "/wiki/Juan_Pablo_Montoya",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "01ee1bfecd753a7e",
+      "query": "How many people performed on the most recent song to win ?",
+      "answer": "five",
+      "predicted_answer": "Passage about 24th Grammy Awards: 24th Grammy Awards",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.6666666666666666,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "24th Grammy Awards",
+        "Mark Murphy (singer)",
+        "Mark Murphy (singer)",
+        "Mark Murphy (singer)",
+        "Mark Murphy (singer)"
+      ],
+      "supporting_titles": [
+        "24th Grammy Awards",
+        "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+        "Mark Murphy (singer)"
+      ],
+      "latency_ms": 17.358651999529684,
+      "retrieved": [
+        {
+          "text": "Passage about 24th Grammy Awards: 24th Grammy Awards",
+          "score": 0.3341830807924905,
+          "metadata": {
+            "source": "text",
+            "title": "24th Grammy Awards",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "24th Grammy Awards",
+            "wiki_link": "/wiki/24th_Grammy_Awards",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.30202306172440346,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.30202306172440346,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.30202306172440346,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.30202306172440346,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "020b2e99a5cfd1ae",
+      "query": "Where did the writer of the series in which Peter Davison played Dr Stephen Daker in 1992 serve as lecturer ?",
+      "answer": "University of Warwick",
+      "predicted_answer": "Passage about A Very Peculiar Practice: A Very Peculiar Practice",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.6666666666666666,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "A Very Peculiar Practice",
+        "Jean-Luc Godard",
+        "A Very Polish Practice",
+        "Walter Payton",
+        "David Coulthard"
+      ],
+      "supporting_titles": [
+        "A Very Peculiar Practice",
+        "A Very Polish Practice",
+        "Peter_Davison_0"
+      ],
+      "latency_ms": 17.589364000741625,
+      "retrieved": [
+        {
+          "text": "Passage about A Very Peculiar Practice: A Very Peculiar Practice",
+          "score": 0.14951563899993217,
+          "metadata": {
+            "source": "text",
+            "title": "A Very Peculiar Practice",
+            "dataset": "hybridqa",
+            "table_id": "Peter_Davison_0",
+            "cell_text": "A Very Peculiar Practice",
+            "wiki_link": "/wiki/A_Very_Peculiar_Practice",
+            "node_type": "passage",
+            "example_id": "020b2e99a5cfd1ae"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Jean-Luc Godard: Jean-Luc Godard",
+          "score": 0.10472608089119453,
+          "metadata": {
+            "source": "text",
+            "title": "Jean-Luc Godard",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Jean-Luc Godard",
+            "wiki_link": "/wiki/Jean-Luc_Godard",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about A Very Polish Practice: A Very Polish Practice",
+          "score": 0.09783925101791728,
+          "metadata": {
+            "source": "text",
+            "title": "A Very Polish Practice",
+            "dataset": "hybridqa",
+            "table_id": "Peter_Davison_0",
+            "cell_text": "A Very Polish Practice",
+            "wiki_link": "/wiki/A_Very_Polish_Practice",
+            "node_type": "passage",
+            "example_id": "020b2e99a5cfd1ae"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Walter Payton: Walter Payton",
+          "score": 0.09358332639876027,
+          "metadata": {
+            "source": "text",
+            "title": "Walter Payton",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Football_League_rushing_yards_leaders_0",
+            "cell_text": "Walter Payton",
+            "wiki_link": "/wiki/Walter_Payton",
+            "node_type": "passage",
+            "example_id": "00153f694413a536"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about David Coulthard: David Coulthard",
+          "score": 0.09102705703166965,
+          "metadata": {
+            "source": "text",
+            "title": "David Coulthard",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "David Coulthard",
+            "wiki_link": "/wiki/David_Coulthard",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "021fd26ee829ad33",
+      "query": "The 1989 Taiwanese submission for the Academy Award for Best International Feature Film was about the White Terror inflicted by what party ?",
+      "answer": "Kuomintang",
+      "predicted_answer": "Passage about Vietnam, Vietnam (film): Vietnam, Vietnam (film)",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "A City of Sadness",
+        "Vietnam, Vietnam (film)",
+        "Vietnam",
+        "The Anderson Platoon",
+        "Jean-Luc Godard"
+      ],
+      "supporting_titles": [
+        "A City of Sadness",
+        "List_of_Taiwanese_submissions_for_the_Academy_Award_for_Best_Foreign_Language_Film_0"
+      ],
+      "latency_ms": 17.413772000509198,
+      "retrieved": [
+        {
+          "text": "Passage about A City of Sadness: A City of Sadness",
+          "score": 0.4422770162730431,
+          "metadata": {
+            "source": "text",
+            "title": "A City of Sadness",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Taiwanese_submissions_for_the_Academy_Award_for_Best_Foreign_Language_Film_0",
+            "cell_text": "A City of Sadness",
+            "wiki_link": "/wiki/A_City_of_Sadness",
+            "node_type": "passage",
+            "example_id": "021fd26ee829ad33"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Vietnam, Vietnam (film): Vietnam, Vietnam (film)",
+          "score": 0.39664156152117236,
+          "metadata": {
+            "source": "text",
+            "title": "Vietnam, Vietnam (film)",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Vietnam, Vietnam (film)",
+            "wiki_link": "/wiki/Vietnam,_Vietnam_(film)",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Vietnam: Vietnam",
+          "score": 0.37903452020983897,
+          "metadata": {
+            "source": "text",
+            "title": "Vietnam",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Vietnam",
+            "wiki_link": "/wiki/Vietnam",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about The Anderson Platoon: The Anderson Platoon",
+          "score": 0.2998161634125189,
+          "metadata": {
+            "source": "text",
+            "title": "The Anderson Platoon",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "The Anderson Platoon",
+            "wiki_link": "/wiki/The_Anderson_Platoon",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Jean-Luc Godard: Jean-Luc Godard",
+          "score": 0.286879427718335,
+          "metadata": {
+            "source": "text",
+            "title": "Jean-Luc Godard",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Jean-Luc Godard",
+            "wiki_link": "/wiki/Jean-Luc_Godard",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "022928ff8393dc45",
+      "query": "How many purchases of albums by the musician with the record Call Me Irresponsible have occurred ?",
+      "answer": "75 million",
+      "predicted_answer": "Passage about 24th Grammy Awards: 24th Grammy Awards",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "24th Grammy Awards",
+        "Michael Bublé",
+        "Mark Murphy (singer)",
+        "Mark Murphy (singer)",
+        "Mark Murphy (singer)"
+      ],
+      "supporting_titles": [
+        "2007_in_Canadian_music_0",
+        "Michael Bublé"
+      ],
+      "latency_ms": 17.143780998594593,
+      "retrieved": [
+        {
+          "text": "Passage about 24th Grammy Awards: 24th Grammy Awards",
+          "score": 0.31147698988905603,
+          "metadata": {
+            "source": "text",
+            "title": "24th Grammy Awards",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "24th Grammy Awards",
+            "wiki_link": "/wiki/24th_Grammy_Awards",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Michael Bublé: Michael Bublé",
+          "score": 0.266213869680985,
+          "metadata": {
+            "source": "text",
+            "title": "Michael Bublé",
+            "dataset": "hybridqa",
+            "table_id": "2007_in_Canadian_music_0",
+            "cell_text": "Michael Bublé",
+            "wiki_link": "/wiki/Michael_Bublé",
+            "node_type": "passage",
+            "example_id": "022928ff8393dc45"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.23755189344356822,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.23755189344356822,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.23755189344356822,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "023ec412b2365278",
+      "query": "In which year did this physician and researcher publish the description of a disease regarding progressive damage to nerve cells in the brain ?",
+      "answer": "1931",
+      "predicted_answer": "Passage about A Very Peculiar Practice: A Very Peculiar Practice",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "A Very Peculiar Practice",
+        "A Very Polish Practice",
+        "Michael Schumacher",
+        "David Coulthard",
+        "Ricardo Serrano (athlete)"
+      ],
+      "supporting_titles": [
+        "List_of_Drexel_University_alumni_4",
+        "Myrtelle Canavan"
+      ],
+      "latency_ms": 17.852433998996275,
+      "retrieved": [
+        {
+          "text": "Passage about A Very Peculiar Practice: A Very Peculiar Practice",
+          "score": 0.23894674420362352,
+          "metadata": {
+            "source": "text",
+            "title": "A Very Peculiar Practice",
+            "dataset": "hybridqa",
+            "table_id": "Peter_Davison_0",
+            "cell_text": "A Very Peculiar Practice",
+            "wiki_link": "/wiki/A_Very_Peculiar_Practice",
+            "node_type": "passage",
+            "example_id": "020b2e99a5cfd1ae"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about A Very Polish Practice: A Very Polish Practice",
+          "score": 0.22594760259994695,
+          "metadata": {
+            "source": "text",
+            "title": "A Very Polish Practice",
+            "dataset": "hybridqa",
+            "table_id": "Peter_Davison_0",
+            "cell_text": "A Very Polish Practice",
+            "wiki_link": "/wiki/A_Very_Polish_Practice",
+            "node_type": "passage",
+            "example_id": "020b2e99a5cfd1ae"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Michael Schumacher: Michael Schumacher",
+          "score": 0.20905671129107026,
+          "metadata": {
+            "source": "text",
+            "title": "Michael Schumacher",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Michael Schumacher",
+            "wiki_link": "/wiki/Michael_Schumacher",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about David Coulthard: David Coulthard",
+          "score": 0.20868474418902744,
+          "metadata": {
+            "source": "text",
+            "title": "David Coulthard",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "David Coulthard",
+            "wiki_link": "/wiki/David_Coulthard",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+          "score": 0.20443102457597012,
+          "metadata": {
+            "source": "text",
+            "title": "Ricardo Serrano (athlete)",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Ricardo Serrano (athlete)",
+            "wiki_link": "/wiki/Ricardo_Serrano_(athlete)",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "025a87b6ad09bdd5",
+      "query": "What date did the station open that is home to one of the three Central line depots ?",
+      "answer": "31 May 1948",
+      "predicted_answer": "Passage about Newbury Park tube station: Newbury Park tube station",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Newbury Park tube station",
+        "Santa Clara Hotel",
+        "Richland Farm (Clarksville, Maryland)",
+        "United States",
+        "United States"
+      ],
+      "supporting_titles": [
+        "London_Borough_of_Redbridge_3",
+        "Newbury Park tube station"
+      ],
+      "latency_ms": 17.165098999612383,
+      "retrieved": [
+        {
+          "text": "Passage about Newbury Park tube station: Newbury Park tube station",
+          "score": 0.323511245938085,
+          "metadata": {
+            "source": "text",
+            "title": "Newbury Park tube station",
+            "dataset": "hybridqa",
+            "table_id": "London_Borough_of_Redbridge_3",
+            "cell_text": "Newbury Park tube station",
+            "wiki_link": "/wiki/Newbury_Park_tube_station",
+            "node_type": "passage",
+            "example_id": "025a87b6ad09bdd5"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Santa Clara Hotel: Santa Clara Hotel",
+          "score": 0.2817092581945137,
+          "metadata": {
+            "source": "text",
+            "title": "Santa Clara Hotel",
+            "dataset": "hybridqa",
+            "table_id": "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+            "cell_text": "Santa Clara Hotel",
+            "wiki_link": "/wiki/Santa_Clara_Hotel",
+            "node_type": "passage",
+            "example_id": "03b74593d042dc96"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.2569846433146158,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about United States: United States",
+          "score": 0.2244370850933344,
+          "metadata": {
+            "source": "text",
+            "title": "United States",
+            "dataset": "hybridqa",
+            "table_id": "Columbus_Crew_0",
+            "cell_text": "United States",
+            "wiki_link": "/wiki/United_States",
+            "node_type": "passage",
+            "example_id": "039f9dec5dd66ab1"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about United States: United States",
+          "score": 0.2244370850933344,
+          "metadata": {
+            "source": "text",
+            "title": "United States",
+            "dataset": "hybridqa",
+            "table_id": "Columbus_Crew_0",
+            "cell_text": "United States",
+            "wiki_link": "/wiki/United_States",
+            "node_type": "passage",
+            "example_id": "039f9dec5dd66ab1"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0283f451c1c4819c",
+      "query": "Which team did the player picked 6th in the 2009 Major League Baseball draft sign with after the 2019 season ?",
+      "answer": "Philadelphia",
+      "predicted_answer": "Passage about 2019 NBA draft: 2019 NBA draft",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "2019 NBA draft",
+        "2019 NBA draft",
+        "2019 NBA draft",
+        "2019 NBA draft",
+        "2019 NBA draft"
+      ],
+      "supporting_titles": [
+        "2009_Major_League_Baseball_Draft_0",
+        "Drew Storen",
+        "Oakland Athletics",
+        "San Diego Padres",
+        "Zack Wheeler"
+      ],
+      "latency_ms": 17.880350000268663,
+      "retrieved": [
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.4277575979985311,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.4277575979985311,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.4277575979985311,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.4277575979985311,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.4277575979985311,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "02a6b86e122395b6",
+      "query": "What is the country of the film of which nearly 9 % of American households watched the initial episode ?",
+      "answer": "US",
+      "predicted_answer": "Passage about Vietnam, Vietnam (film): Vietnam, Vietnam (film)",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.4,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Vietnam, Vietnam (film)",
+        "Vietnam",
+        "Hollywood Ending",
+        "United States",
+        "United States"
+      ],
+      "supporting_titles": [
+        "Jean-Luc Godard",
+        "The Anderson Platoon",
+        "Vietnam",
+        "Vietnam, Vietnam (film)",
+        "Vietnam_War_in_film_8"
+      ],
+      "latency_ms": 17.69667799999297,
+      "retrieved": [
+        {
+          "text": "Passage about Vietnam, Vietnam (film): Vietnam, Vietnam (film)",
+          "score": 0.35270035217034806,
+          "metadata": {
+            "source": "text",
+            "title": "Vietnam, Vietnam (film)",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Vietnam, Vietnam (film)",
+            "wiki_link": "/wiki/Vietnam,_Vietnam_(film)",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Vietnam: Vietnam",
+          "score": 0.30126511239143,
+          "metadata": {
+            "source": "text",
+            "title": "Vietnam",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Vietnam",
+            "wiki_link": "/wiki/Vietnam",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Hollywood Ending: Hollywood Ending",
+          "score": 0.2746528032757295,
+          "metadata": {
+            "source": "text",
+            "title": "Hollywood Ending",
+            "dataset": "hybridqa",
+            "table_id": "Debra_Messing_0",
+            "cell_text": "Hollywood Ending",
+            "wiki_link": "/wiki/Hollywood_Ending",
+            "node_type": "passage",
+            "example_id": "0413b71b8cf428b7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about United States: United States",
+          "score": 0.256760501652899,
+          "metadata": {
+            "source": "text",
+            "title": "United States",
+            "dataset": "hybridqa",
+            "table_id": "Columbus_Crew_0",
+            "cell_text": "United States",
+            "wiki_link": "/wiki/United_States",
+            "node_type": "passage",
+            "example_id": "039f9dec5dd66ab1"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about United States: United States",
+          "score": 0.256760501652899,
+          "metadata": {
+            "source": "text",
+            "title": "United States",
+            "dataset": "hybridqa",
+            "table_id": "Columbus_Crew_0",
+            "cell_text": "United States",
+            "wiki_link": "/wiki/United_States",
+            "node_type": "passage",
+            "example_id": "039f9dec5dd66ab1"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "02a9539a76c4873a",
+      "query": "What is the Registry of the ship whose type was seen as fast and maneuverable and were used as both naval warships and merchant vessels ?",
+      "answer": "United States",
+      "predicted_answer": "Passage about United States: United States",
+      "exact_match": 0.0,
+      "f1_score": 0.5,
+      "support_recall": 0.75,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "United States",
+        "Canada",
+        "Haida people",
+        "Bayezid II",
+        "St Mary's Church, Goring-by-Sea"
+      ],
+      "supporting_titles": [
+        "Canada",
+        "Haida people",
+        "List_of_historical_ships_in_British_Columbia_17",
+        "United States"
+      ],
+      "latency_ms": 17.813466000006883,
+      "retrieved": [
+        {
+          "text": "Passage about United States: United States",
+          "score": 0.4043442110472883,
+          "metadata": {
+            "source": "text",
+            "title": "United States",
+            "dataset": "hybridqa",
+            "table_id": "List_of_historical_ships_in_British_Columbia_17",
+            "cell_text": "United States",
+            "wiki_link": "/wiki/United_States",
+            "node_type": "passage",
+            "example_id": "02a9539a76c4873a"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Canada: Canada",
+          "score": 0.35242412989550503,
+          "metadata": {
+            "source": "text",
+            "title": "Canada",
+            "dataset": "hybridqa",
+            "table_id": "List_of_historical_ships_in_British_Columbia_17",
+            "cell_text": "Canada",
+            "wiki_link": "/wiki/Canada",
+            "node_type": "passage",
+            "example_id": "02a9539a76c4873a"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Haida people: Haida people",
+          "score": 0.2905880174257594,
+          "metadata": {
+            "source": "text",
+            "title": "Haida people",
+            "dataset": "hybridqa",
+            "table_id": "List_of_historical_ships_in_British_Columbia_17",
+            "cell_text": "Haida people",
+            "wiki_link": "/wiki/Haida_people",
+            "node_type": "passage",
+            "example_id": "02a9539a76c4873a"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Bayezid II: Bayezid II",
+          "score": 0.2736546534502425,
+          "metadata": {
+            "source": "text",
+            "title": "Bayezid II",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Bayezid II",
+            "wiki_link": "/wiki/Bayezid_II",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about St Mary's Church, Goring-by-Sea: St Mary's Church, Goring-by-Sea",
+          "score": 0.23916262234602717,
+          "metadata": {
+            "source": "text",
+            "title": "St Mary's Church, Goring-by-Sea",
+            "dataset": "hybridqa",
+            "table_id": "List_of_places_of_worship_in_Worthing_0",
+            "cell_text": "St Mary's Church, Goring-by-Sea",
+            "wiki_link": "/wiki/St_Mary's_Church,_Goring-by-Sea",
+            "node_type": "passage",
+            "example_id": "03c009db09f4dc99"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "02b6448b566066f0",
+      "query": "What was the year of completion for the church that is a Grade II listed building ?",
+      "answer": "1860",
+      "predicted_answer": "Passage about St Mary's Church, Goring-by-Sea: St Mary's Church, Goring-by-Sea",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Campion Academy",
+        "Richland Farm (Clarksville, Maryland)",
+        "St Mary's Church, Goring-by-Sea",
+        "Hammonds House Museum",
+        "Santa Clara Hotel"
+      ],
+      "supporting_titles": [
+        "List_of_churches_in_Greater_Manchester_0"
+      ],
+      "latency_ms": 17.170319000797463,
+      "retrieved": [
+        {
+          "text": "Passage about Campion Academy: Campion Academy",
+          "score": 0.3363564903904352,
+          "metadata": {
+            "source": "text",
+            "title": "Campion Academy",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Seventh-day_Adventist_secondary_schools_0",
+            "cell_text": "Campion Academy",
+            "wiki_link": "/wiki/Campion_Academy",
+            "node_type": "passage",
+            "example_id": "0348aa3363f36515"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.31684139728817234,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about St Mary's Church, Goring-by-Sea: St Mary's Church, Goring-by-Sea",
+          "score": 0.26806290357103185,
+          "metadata": {
+            "source": "text",
+            "title": "St Mary's Church, Goring-by-Sea",
+            "dataset": "hybridqa",
+            "table_id": "List_of_places_of_worship_in_Worthing_0",
+            "cell_text": "St Mary's Church, Goring-by-Sea",
+            "wiki_link": "/wiki/St_Mary's_Church,_Goring-by-Sea",
+            "node_type": "passage",
+            "example_id": "03c009db09f4dc99"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Hammonds House Museum: Hammonds House Museum",
+          "score": 0.26576789294161757,
+          "metadata": {
+            "source": "text",
+            "title": "Hammonds House Museum",
+            "dataset": "hybridqa",
+            "table_id": "List_of_museums_in_Atlanta_0",
+            "cell_text": "Hammonds House Museum",
+            "wiki_link": "/wiki/Hammonds_House_Museum",
+            "node_type": "passage",
+            "example_id": "005eb7c003961d8c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Santa Clara Hotel: Santa Clara Hotel",
+          "score": 0.21820299706044372,
+          "metadata": {
+            "source": "text",
+            "title": "Santa Clara Hotel",
+            "dataset": "hybridqa",
+            "table_id": "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+            "cell_text": "Santa Clara Hotel",
+            "wiki_link": "/wiki/Santa_Clara_Hotel",
+            "node_type": "passage",
+            "example_id": "03b74593d042dc96"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "02bcd829bff0be92",
+      "query": "For the army that conflicted with the `` lashkars '' , what year did its soldier die ?",
+      "answer": "3 November 1947",
+      "predicted_answer": "Passage about Speaker for the Dead: Speaker for the Dead",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.3333333333333333,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Battle of Badgam",
+        "The Anderson Platoon",
+        "Speaker for the Dead",
+        "Speaker for the Dead",
+        "Emine Gülbahar Hatun"
+      ],
+      "supporting_titles": [
+        "Battle of Badgam",
+        "Param_Vir_Chakra_0",
+        "Somnath Sharma"
+      ],
+      "latency_ms": 17.453041999033303,
+      "retrieved": [
+        {
+          "text": "Passage about Battle of Badgam: Battle of Badgam",
+          "score": 0.2283331232976446,
+          "metadata": {
+            "source": "text",
+            "title": "Battle of Badgam",
+            "dataset": "hybridqa",
+            "table_id": "Param_Vir_Chakra_0",
+            "cell_text": "Battle of Badgam",
+            "wiki_link": "/wiki/Battle_of_Badgam",
+            "node_type": "passage",
+            "example_id": "02bcd829bff0be92"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about The Anderson Platoon: The Anderson Platoon",
+          "score": 0.21296426895316617,
+          "metadata": {
+            "source": "text",
+            "title": "The Anderson Platoon",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "The Anderson Platoon",
+            "wiki_link": "/wiki/The_Anderson_Platoon",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Speaker for the Dead: Speaker for the Dead",
+          "score": 0.16946908750502312,
+          "metadata": {
+            "source": "text",
+            "title": "Speaker for the Dead",
+            "dataset": "hybridqa",
+            "table_id": "Orson_Scott_Card_bibliography_0",
+            "cell_text": "Speaker for the Dead",
+            "wiki_link": "/wiki/Speaker_for_the_Dead",
+            "node_type": "passage",
+            "example_id": "01a0c3f14151b9a1"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Speaker for the Dead: Speaker for the Dead",
+          "score": 0.16946908750502312,
+          "metadata": {
+            "source": "text",
+            "title": "Speaker for the Dead",
+            "dataset": "hybridqa",
+            "table_id": "Orson_Scott_Card_bibliography_0",
+            "cell_text": "Speaker for the Dead",
+            "wiki_link": "/wiki/Speaker_for_the_Dead",
+            "node_type": "passage",
+            "example_id": "01a0c3f14151b9a1"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Emine Gülbahar Hatun: Emine Gülbahar Hatun",
+          "score": 0.16260350146703806,
+          "metadata": {
+            "source": "text",
+            "title": "Emine Gülbahar Hatun",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Emine Gülbahar Hatun",
+            "wiki_link": "/wiki/Emine_Gülbahar_Hatun",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "02e3ebd215153d9b",
+      "query": "What is the name of the actor in the top three listed on the chart and was born 1951 , in Bombay , India ?",
+      "answer": "Shahid Kapoor",
+      "predicted_answer": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Mark Murphy (singer)",
+        "Mark Murphy (singer)",
+        "Mark Murphy (singer)",
+        "Mark Murphy (singer)",
+        "Ricardo Serrano (athlete)"
+      ],
+      "supporting_titles": [
+        "Indian_Television_Academy_Awards_1"
+      ],
+      "latency_ms": 17.645407999225426,
+      "retrieved": [
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.29270189210746794,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.29270189210746794,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.29270189210746794,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Murphy (singer): Mark Murphy (singer)",
+          "score": 0.29270189210746794,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Murphy (singer)",
+            "dataset": "hybridqa",
+            "table_id": "Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male_0",
+            "cell_text": "Mark Murphy (singer)",
+            "wiki_link": "/wiki/Mark_Murphy_(singer)",
+            "node_type": "passage",
+            "example_id": "01ee1bfecd753a7e"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Ricardo Serrano (athlete): Ricardo Serrano (athlete)",
+          "score": 0.260817446070433,
+          "metadata": {
+            "source": "text",
+            "title": "Ricardo Serrano (athlete)",
+            "dataset": "hybridqa",
+            "table_id": "2011_Berlin_Marathon_0",
+            "cell_text": "Ricardo Serrano (athlete)",
+            "wiki_link": "/wiki/Ricardo_Serrano_(athlete)",
+            "node_type": "passage",
+            "example_id": "006f88e5b2adf06c"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0348aa3363f36515",
+      "query": "What kind of enrollment courses are offered by the Seventh-day Adventist school that is located in the same state as the K-9 Seventh-day Adventist school in the city that is the county seat of Adams County ?",
+      "answer": "Dual",
+      "predicted_answer": "Passage about Campion Academy: Campion Academy",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Campion Academy",
+        "Richland Farm (Clarksville, Maryland)",
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa"
+      ],
+      "supporting_titles": [
+        "Campion Academy",
+        "List_of_Seventh-day_Adventist_secondary_schools_0"
+      ],
+      "latency_ms": 19.59991399962746,
+      "retrieved": [
+        {
+          "text": "Passage about Campion Academy: Campion Academy",
+          "score": 0.3565702933338243,
+          "metadata": {
+            "source": "text",
+            "title": "Campion Academy",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Seventh-day_Adventist_secondary_schools_0",
+            "cell_text": "Campion Academy",
+            "wiki_link": "/wiki/Campion_Academy",
+            "node_type": "passage",
+            "example_id": "0348aa3363f36515"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.16445659103185806,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.16314248745088086,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.16314248745088086,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.16314248745088086,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "03516021b9a02cfc",
+      "query": "How big is the surface area of the district containing Zakimi Castle in square kilometers ?",
+      "answer": "139.25",
+      "predicted_answer": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa",
+        "Santa Clara Hotel",
+        "Cerro Porteño"
+      ],
+      "supporting_titles": [
+        "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+        "Nakagami District, Okinawa"
+      ],
+      "latency_ms": 17.144764999102335,
+      "retrieved": [
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.2499254953263651,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.2499254953263651,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.2499254953263651,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Santa Clara Hotel: Santa Clara Hotel",
+          "score": 0.14925525536753373,
+          "metadata": {
+            "source": "text",
+            "title": "Santa Clara Hotel",
+            "dataset": "hybridqa",
+            "table_id": "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+            "cell_text": "Santa Clara Hotel",
+            "wiki_link": "/wiki/Santa_Clara_Hotel",
+            "node_type": "passage",
+            "example_id": "03b74593d042dc96"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Cerro Porteño: Cerro Porteño",
+          "score": 0.14649550874346415,
+          "metadata": {
+            "source": "text",
+            "title": "Cerro Porteño",
+            "dataset": "hybridqa",
+            "table_id": "List_of_football_stadiums_in_Paraguay_0",
+            "cell_text": "Cerro Porteño",
+            "wiki_link": "/wiki/Cerro_Porteño",
+            "node_type": "passage",
+            "example_id": "0070e6a224260f56"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0369473ad8aed2bf",
+      "query": "What was the first film that brought the lead actress of the film whose screenplay was written by Diablo Cody to prominence ?",
+      "answer": "The Devil 's Advocate",
+      "predicted_answer": "Passage about The Neverending Story: The Neverending Story",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Hollywood Ending",
+        "Hellaro",
+        "Charlize Theron",
+        "The Neverending Story",
+        "Shelly Moore"
+      ],
+      "supporting_titles": [
+        "Charlize Theron",
+        "Ebertfest:_Roger_Ebert's_Film_Festival_3"
+      ],
+      "latency_ms": 17.513128999780747,
+      "retrieved": [
+        {
+          "text": "Passage about Hollywood Ending: Hollywood Ending",
+          "score": 0.1829433311863223,
+          "metadata": {
+            "source": "text",
+            "title": "Hollywood Ending",
+            "dataset": "hybridqa",
+            "table_id": "Debra_Messing_0",
+            "cell_text": "Hollywood Ending",
+            "wiki_link": "/wiki/Hollywood_Ending",
+            "node_type": "passage",
+            "example_id": "0413b71b8cf428b7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Hellaro: Hellaro",
+          "score": 0.17541091633103634,
+          "metadata": {
+            "source": "text",
+            "title": "Hellaro",
+            "dataset": "hybridqa",
+            "table_id": "Bollywood_highest_grossing_films_by_month_3",
+            "cell_text": "Hellaro",
+            "wiki_link": "/wiki/Hellaro",
+            "node_type": "passage",
+            "example_id": "019987cf5cda18be"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Charlize Theron: Charlize Theron",
+          "score": 0.16651736321148103,
+          "metadata": {
+            "source": "text",
+            "title": "Charlize Theron",
+            "dataset": "hybridqa",
+            "table_id": "Ebertfest:_Roger_Ebert's_Film_Festival_3",
+            "cell_text": "Charlize Theron",
+            "wiki_link": "/wiki/Charlize_Theron",
+            "node_type": "passage",
+            "example_id": "0369473ad8aed2bf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about The Neverending Story: The Neverending Story",
+          "score": 0.16143327705645408,
+          "metadata": {
+            "source": "text",
+            "title": "The Neverending Story",
+            "dataset": "hybridqa",
+            "table_id": "List_of_best-selling_books_4",
+            "cell_text": "The Neverending Story",
+            "wiki_link": "/wiki/The_Neverending_Story",
+            "node_type": "passage",
+            "example_id": "0101cac31f98bd1d"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Shelly Moore: Shelly Moore",
+          "score": 0.15897395739532275,
+          "metadata": {
+            "source": "text",
+            "title": "Shelly Moore",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Shelly Moore",
+            "wiki_link": "/wiki/Shelly_Moore",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "036a6e84e2d25443",
+      "query": "What year was the brother from Beta Omicron born ?",
+      "answer": "1944",
+      "predicted_answer": "Passage about Charlize Theron: Charlize Theron",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.3333333333333333,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Charlize Theron",
+        "Pat Bowlen",
+        "Myrtelle Canavan",
+        "Michael Schumacher",
+        "Rudolf Svensson"
+      ],
+      "supporting_titles": [
+        "List_of_Pi_Kappa_Alpha_brothers_5",
+        "Pat Bowlen",
+        "Winter Olympics"
+      ],
+      "latency_ms": 16.541578999749618,
+      "retrieved": [
+        {
+          "text": "Passage about Charlize Theron: Charlize Theron",
+          "score": 0.24569146601537023,
+          "metadata": {
+            "source": "text",
+            "title": "Charlize Theron",
+            "dataset": "hybridqa",
+            "table_id": "Ebertfest:_Roger_Ebert's_Film_Festival_3",
+            "cell_text": "Charlize Theron",
+            "wiki_link": "/wiki/Charlize_Theron",
+            "node_type": "passage",
+            "example_id": "0369473ad8aed2bf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Pat Bowlen: Pat Bowlen",
+          "score": 0.2261975326456091,
+          "metadata": {
+            "source": "text",
+            "title": "Pat Bowlen",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Pi_Kappa_Alpha_brothers_5",
+            "cell_text": "Pat Bowlen",
+            "wiki_link": "/wiki/Pat_Bowlen",
+            "node_type": "passage",
+            "example_id": "036a6e84e2d25443"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Myrtelle Canavan: Myrtelle Canavan",
+          "score": 0.21465786509948456,
+          "metadata": {
+            "source": "text",
+            "title": "Myrtelle Canavan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Drexel_University_alumni_4",
+            "cell_text": "Myrtelle Canavan",
+            "wiki_link": "/wiki/Myrtelle_Canavan",
+            "node_type": "passage",
+            "example_id": "023ec412b2365278"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Michael Schumacher: Michael Schumacher",
+          "score": 0.21245164988863846,
+          "metadata": {
+            "source": "text",
+            "title": "Michael Schumacher",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Michael Schumacher",
+            "wiki_link": "/wiki/Michael_Schumacher",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Rudolf Svensson: Rudolf Svensson",
+          "score": 0.20969111369454455,
+          "metadata": {
+            "source": "text",
+            "title": "Rudolf Svensson",
+            "dataset": "hybridqa",
+            "table_id": "Sweden_at_the_1932_Summer_Olympics_0",
+            "cell_text": "Rudolf Svensson",
+            "wiki_link": "/wiki/Rudolf_Svensson",
+            "node_type": "passage",
+            "example_id": "001a9923f31d6a91"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "039f9dec5dd66ab1",
+      "query": "What is the most populous city of the country whose player spent the first seven seasons of his career with the Portland Timbers ?",
+      "answer": "New York City",
+      "predicted_answer": "Passage about San Diego Padres: San Diego Padres",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "San Diego Padres",
+        "Zion Williamson",
+        "Oakland Athletics",
+        "2019 NBA draft",
+        "2019 NBA draft"
+      ],
+      "supporting_titles": [
+        "Columbus_Crew_0",
+        "United States"
+      ],
+      "latency_ms": 17.494609999630484,
+      "retrieved": [
+        {
+          "text": "Passage about San Diego Padres: San Diego Padres",
+          "score": 0.27750497970867377,
+          "metadata": {
+            "source": "text",
+            "title": "San Diego Padres",
+            "dataset": "hybridqa",
+            "table_id": "2009_Major_League_Baseball_Draft_0",
+            "cell_text": "San Diego Padres",
+            "wiki_link": "/wiki/San_Diego_Padres",
+            "node_type": "passage",
+            "example_id": "0283f451c1c4819c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Zion Williamson: Zion Williamson",
+          "score": 0.2463629991087922,
+          "metadata": {
+            "source": "text",
+            "title": "Zion Williamson",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "Zion Williamson",
+            "wiki_link": "/wiki/Zion_Williamson",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Oakland Athletics: Oakland Athletics",
+          "score": 0.2400028793014787,
+          "metadata": {
+            "source": "text",
+            "title": "Oakland Athletics",
+            "dataset": "hybridqa",
+            "table_id": "2009_Major_League_Baseball_Draft_0",
+            "cell_text": "Oakland Athletics",
+            "wiki_link": "/wiki/Oakland_Athletics",
+            "node_type": "passage",
+            "example_id": "0283f451c1c4819c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.23823506841228453,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.23823506841228453,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "03b74593d042dc96",
+      "query": "In the village that was previously an isolated ranch that housed four families , what was the historic place also known as ?",
+      "answer": "Chamblis Hotel",
+      "predicted_answer": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Richland Farm (Clarksville, Maryland)",
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa",
+        "Santa Clara Hotel"
+      ],
+      "supporting_titles": [
+        "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+        "Santa Clara Hotel"
+      ],
+      "latency_ms": 18.081332998917787,
+      "retrieved": [
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.3183863294143421,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.28920666295429864,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.28920666295429864,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.28920666295429864,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Santa Clara Hotel: Santa Clara Hotel",
+          "score": 0.2349429900297692,
+          "metadata": {
+            "source": "text",
+            "title": "Santa Clara Hotel",
+            "dataset": "hybridqa",
+            "table_id": "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+            "cell_text": "Santa Clara Hotel",
+            "wiki_link": "/wiki/Santa_Clara_Hotel",
+            "node_type": "passage",
+            "example_id": "03b74593d042dc96"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "03c009db09f4dc99",
+      "query": "What is the location of the church that has a mural by the artist Hans Feibusch from Germany ?",
+      "answer": "Goring-by-Sea",
+      "predicted_answer": "Passage about St Mary's Church, Goring-by-Sea: St Mary's Church, Goring-by-Sea",
+      "exact_match": 0.0,
+      "f1_score": 0.3157894736842105,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Santa Clara Hotel",
+        "Hammonds House Museum",
+        "St Mary's Church, Goring-by-Sea",
+        "Richland Farm (Clarksville, Maryland)",
+        "Nakagami District, Okinawa"
+      ],
+      "supporting_titles": [
+        "List_of_places_of_worship_in_Worthing_0",
+        "St Mary's Church, Goring-by-Sea"
+      ],
+      "latency_ms": 17.13781000034942,
+      "retrieved": [
+        {
+          "text": "Passage about Santa Clara Hotel: Santa Clara Hotel",
+          "score": 0.2426000698913383,
+          "metadata": {
+            "source": "text",
+            "title": "Santa Clara Hotel",
+            "dataset": "hybridqa",
+            "table_id": "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+            "cell_text": "Santa Clara Hotel",
+            "wiki_link": "/wiki/Santa_Clara_Hotel",
+            "node_type": "passage",
+            "example_id": "03b74593d042dc96"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Hammonds House Museum: Hammonds House Museum",
+          "score": 0.21570827641956108,
+          "metadata": {
+            "source": "text",
+            "title": "Hammonds House Museum",
+            "dataset": "hybridqa",
+            "table_id": "List_of_museums_in_Atlanta_0",
+            "cell_text": "Hammonds House Museum",
+            "wiki_link": "/wiki/Hammonds_House_Museum",
+            "node_type": "passage",
+            "example_id": "005eb7c003961d8c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about St Mary's Church, Goring-by-Sea: St Mary's Church, Goring-by-Sea",
+          "score": 0.21004245384525846,
+          "metadata": {
+            "source": "text",
+            "title": "St Mary's Church, Goring-by-Sea",
+            "dataset": "hybridqa",
+            "table_id": "List_of_places_of_worship_in_Worthing_0",
+            "cell_text": "St Mary's Church, Goring-by-Sea",
+            "wiki_link": "/wiki/St_Mary's_Church,_Goring-by-Sea",
+            "node_type": "passage",
+            "example_id": "03c009db09f4dc99"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.16856150194391173,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.16754948746561155,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "03c35ed66f2cbb69",
+      "query": "what was the medal won by the Olympian born July 12 , 1971 ?",
+      "answer": "Gold",
+      "predicted_answer": "Passage about Winter Olympics: Winter Olympics",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.42857142857142855,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Winter Olympics",
+        "Cathy Turner",
+        "Cathy Turner",
+        "Nancy Kerrigan",
+        "Alpine skiing at the 1992 Winter Olympics – Women's downhill"
+      ],
+      "supporting_titles": [
+        "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+        "Bonnie Blair",
+        "Cathy Turner",
+        "Diann Roffe",
+        "Donna Weinbrecht",
+        "Nancy Kerrigan",
+        "United_States_at_the_1992_Winter_Olympics_0"
+      ],
+      "latency_ms": 16.89301999977033,
+      "retrieved": [
+        {
+          "text": "Passage about Winter Olympics: Winter Olympics",
+          "score": 0.3083238032973418,
+          "metadata": {
+            "source": "text",
+            "title": "Winter Olympics",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Pi_Kappa_Alpha_brothers_5",
+            "cell_text": "Winter Olympics",
+            "wiki_link": "/wiki/Winter_Olympics",
+            "node_type": "passage",
+            "example_id": "036a6e84e2d25443"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Cathy Turner: Cathy Turner",
+          "score": 0.23788650541618941,
+          "metadata": {
+            "source": "text",
+            "title": "Cathy Turner",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Cathy Turner",
+            "wiki_link": "/wiki/Cathy_Turner",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Cathy Turner: Cathy Turner",
+          "score": 0.23788650541618941,
+          "metadata": {
+            "source": "text",
+            "title": "Cathy Turner",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Cathy Turner",
+            "wiki_link": "/wiki/Cathy_Turner",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nancy Kerrigan: Nancy Kerrigan",
+          "score": 0.23708172369035174,
+          "metadata": {
+            "source": "text",
+            "title": "Nancy Kerrigan",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Nancy Kerrigan",
+            "wiki_link": "/wiki/Nancy_Kerrigan",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Alpine skiing at the 1992 Winter Olympics – Women's downhill: Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+          "score": 0.23366386575630896,
+          "metadata": {
+            "source": "text",
+            "title": "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+            "dataset": "hybridqa",
+            "table_id": "United_States_at_the_1992_Winter_Olympics_0",
+            "cell_text": "Alpine skiing at the 1992 Winter Olympics – Women's downhill",
+            "wiki_link": "/wiki/Alpine_skiing_at_the_1992_Winter_Olympics_–_Women's_downhill",
+            "node_type": "passage",
+            "example_id": "03c35ed66f2cbb69"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "03c97345742b1d85",
+      "query": "What is the percentage of the religious ethnicity often affiliated with Nahdlatul Ulama , a moderate Indonesian Muslim organization ?",
+      "answer": "3.37",
+      "predicted_answer": "Passage about Emine Gülbahar Hatun: Emine Gülbahar Hatun",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Emine Gülbahar Hatun",
+        "Valide Sultan",
+        "Valide Sultan",
+        "Valide Sultan",
+        "Valide Sultan"
+      ],
+      "supporting_titles": [
+        "Ethnic_groups_in_Indonesia_1"
+      ],
+      "latency_ms": 17.51363999937894,
+      "retrieved": [
+        {
+          "text": "Passage about Emine Gülbahar Hatun: Emine Gülbahar Hatun",
+          "score": 0.2939324655588092,
+          "metadata": {
+            "source": "text",
+            "title": "Emine Gülbahar Hatun",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Emine Gülbahar Hatun",
+            "wiki_link": "/wiki/Emine_Gülbahar_Hatun",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Valide Sultan: Valide Sultan",
+          "score": 0.27471726831542803,
+          "metadata": {
+            "source": "text",
+            "title": "Valide Sultan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Valide Sultan",
+            "wiki_link": "/wiki/Valide_Sultan",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Valide Sultan: Valide Sultan",
+          "score": 0.27471726831542803,
+          "metadata": {
+            "source": "text",
+            "title": "Valide Sultan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Valide Sultan",
+            "wiki_link": "/wiki/Valide_Sultan",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Valide Sultan: Valide Sultan",
+          "score": 0.27471726831542803,
+          "metadata": {
+            "source": "text",
+            "title": "Valide Sultan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Valide Sultan",
+            "wiki_link": "/wiki/Valide_Sultan",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Valide Sultan: Valide Sultan",
+          "score": 0.27471726831542803,
+          "metadata": {
+            "source": "text",
+            "title": "Valide Sultan",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_mothers_of_the_Ottoman_Sultans_0",
+            "cell_text": "Valide Sultan",
+            "wiki_link": "/wiki/Valide_Sultan",
+            "node_type": "passage",
+            "example_id": "0130a31694fda105"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "03e960bb373a4c7b",
+      "query": "What team drafted this player from Salisbury , North Carolina ?",
+      "answer": "New Orleans Pelicans",
+      "predicted_answer": "Passage about 2019 NBA draft: 2019 NBA draft",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.25,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "2019 NBA draft",
+        "2019 NBA draft",
+        "2019 NBA draft",
+        "2019 NBA draft",
+        "2019 NBA draft"
+      ],
+      "supporting_titles": [
+        "2019 NBA draft",
+        "Jaxson Hayes",
+        "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+        "Zion Williamson"
+      ],
+      "latency_ms": 17.03647900103533,
+      "retrieved": [
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.3105107062381396,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.3105107062381396,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.3105107062381396,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.3105107062381396,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about 2019 NBA draft: 2019 NBA draft",
+          "score": 0.3105107062381396,
+          "metadata": {
+            "source": "text",
+            "title": "2019 NBA draft",
+            "dataset": "hybridqa",
+            "table_id": "List_of_oldest_and_youngest_National_Basketball_Association_players_3",
+            "cell_text": "2019 NBA draft",
+            "wiki_link": "/wiki/2019_NBA_draft",
+            "node_type": "passage",
+            "example_id": "03e960bb373a4c7b"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "03f0b21f92ee77b2",
+      "query": "What is the state represented by the teen whose home town is one of the gateways to the Great Smoky Mountains National Park ?",
+      "answer": "Tennessee",
+      "predicted_answer": "Passage about Miss Mississippi Teen USA: Miss Mississippi Teen USA",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.3,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Knoxville, Tennessee",
+        "Miss Mississippi Teen USA",
+        "Miss Oregon Teen USA",
+        "Miss Oregon Teen USA",
+        "Richland Farm (Clarksville, Maryland)"
+      ],
+      "supporting_titles": [
+        "Jillian Parry",
+        "Knoxville, Tennessee",
+        "Miss Mississippi Teen USA",
+        "Miss Oregon Teen USA",
+        "Miss Teen USA 1984",
+        "Miss Teen USA 1997",
+        "Miss Teen USA 1998",
+        "Miss Teen USA 2002",
+        "Miss_Teen_USA_special_awards_1",
+        "Shelly Moore"
+      ],
+      "latency_ms": 17.81498200034548,
+      "retrieved": [
+        {
+          "text": "Passage about Knoxville, Tennessee: Knoxville, Tennessee",
+          "score": 0.31465609811625755,
+          "metadata": {
+            "source": "text",
+            "title": "Knoxville, Tennessee",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Knoxville, Tennessee",
+            "wiki_link": "/wiki/Knoxville,_Tennessee",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Miss Mississippi Teen USA: Miss Mississippi Teen USA",
+          "score": 0.2628158019946469,
+          "metadata": {
+            "source": "text",
+            "title": "Miss Mississippi Teen USA",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Miss Mississippi Teen USA",
+            "wiki_link": "/wiki/Miss_Mississippi_Teen_USA",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Miss Oregon Teen USA: Miss Oregon Teen USA",
+          "score": 0.25289661048993894,
+          "metadata": {
+            "source": "text",
+            "title": "Miss Oregon Teen USA",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Miss Oregon Teen USA",
+            "wiki_link": "/wiki/Miss_Oregon_Teen_USA",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Miss Oregon Teen USA: Miss Oregon Teen USA",
+          "score": 0.25289661048993894,
+          "metadata": {
+            "source": "text",
+            "title": "Miss Oregon Teen USA",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Miss Oregon Teen USA",
+            "wiki_link": "/wiki/Miss_Oregon_Teen_USA",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.2520507852825875,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "04066ae60c7e6eb7",
+      "query": "What city is the at the end of an E-Road whose route is a city built on seven hills ?",
+      "answer": "Ostrov",
+      "predicted_answer": "Passage about European route E262: European route E262",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "European route E262",
+        "European route E262",
+        "European route E262",
+        "European route E262",
+        "European route E262"
+      ],
+      "supporting_titles": [
+        "European route E262",
+        "List_of_National_Roads_in_Latvia_0"
+      ],
+      "latency_ms": 18.919968999398407,
+      "retrieved": [
+        {
+          "text": "Passage about European route E262: European route E262",
+          "score": 0.3205202280739652,
+          "metadata": {
+            "source": "text",
+            "title": "European route E262",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Roads_in_Latvia_0",
+            "cell_text": "European route E262",
+            "wiki_link": "/wiki/European_route_E262",
+            "node_type": "passage",
+            "example_id": "04066ae60c7e6eb7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about European route E262: European route E262",
+          "score": 0.3205202280739652,
+          "metadata": {
+            "source": "text",
+            "title": "European route E262",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Roads_in_Latvia_0",
+            "cell_text": "European route E262",
+            "wiki_link": "/wiki/European_route_E262",
+            "node_type": "passage",
+            "example_id": "04066ae60c7e6eb7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about European route E262: European route E262",
+          "score": 0.32052012214426073,
+          "metadata": {
+            "source": "text",
+            "title": "European route E262",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Roads_in_Latvia_0",
+            "cell_text": "European route E262",
+            "wiki_link": "/wiki/European_route_E262",
+            "node_type": "passage",
+            "example_id": "04066ae60c7e6eb7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about European route E262: European route E262",
+          "score": 0.32052012214426073,
+          "metadata": {
+            "source": "text",
+            "title": "European route E262",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Roads_in_Latvia_0",
+            "cell_text": "European route E262",
+            "wiki_link": "/wiki/European_route_E262",
+            "node_type": "passage",
+            "example_id": "04066ae60c7e6eb7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about European route E262: European route E262",
+          "score": 0.32052012214426073,
+          "metadata": {
+            "source": "text",
+            "title": "European route E262",
+            "dataset": "hybridqa",
+            "table_id": "List_of_National_Roads_in_Latvia_0",
+            "cell_text": "European route E262",
+            "wiki_link": "/wiki/European_route_E262",
+            "node_type": "passage",
+            "example_id": "04066ae60c7e6eb7"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "0413b71b8cf428b7",
+      "query": "What affliction is the focus of the 2002 movie in which Debra Messing played Lori ?",
+      "answer": "blindness",
+      "predicted_answer": "Passage about Miss Teen USA 2002: Miss Teen USA 2002",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.5,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Hollywood Ending",
+        "Miss Teen USA 2002",
+        "Jillian Parry",
+        "Vietnam, Vietnam (film)",
+        "Shelly Moore"
+      ],
+      "supporting_titles": [
+        "Debra_Messing_0",
+        "Hollywood Ending"
+      ],
+      "latency_ms": 20.41575700059184,
+      "retrieved": [
+        {
+          "text": "Passage about Hollywood Ending: Hollywood Ending",
+          "score": 0.28123262212103806,
+          "metadata": {
+            "source": "text",
+            "title": "Hollywood Ending",
+            "dataset": "hybridqa",
+            "table_id": "Debra_Messing_0",
+            "cell_text": "Hollywood Ending",
+            "wiki_link": "/wiki/Hollywood_Ending",
+            "node_type": "passage",
+            "example_id": "0413b71b8cf428b7"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Miss Teen USA 2002: Miss Teen USA 2002",
+          "score": 0.1799504843993708,
+          "metadata": {
+            "source": "text",
+            "title": "Miss Teen USA 2002",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Miss Teen USA 2002",
+            "wiki_link": "/wiki/Miss_Teen_USA_2002",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Jillian Parry: Jillian Parry",
+          "score": 0.17294987522050934,
+          "metadata": {
+            "source": "text",
+            "title": "Jillian Parry",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Jillian Parry",
+            "wiki_link": "/wiki/Jillian_Parry",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Vietnam, Vietnam (film): Vietnam, Vietnam (film)",
+          "score": 0.17217372087547717,
+          "metadata": {
+            "source": "text",
+            "title": "Vietnam, Vietnam (film)",
+            "dataset": "hybridqa",
+            "table_id": "Vietnam_War_in_film_8",
+            "cell_text": "Vietnam, Vietnam (film)",
+            "wiki_link": "/wiki/Vietnam,_Vietnam_(film)",
+            "node_type": "passage",
+            "example_id": "02a6b86e122395b6"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Shelly Moore: Shelly Moore",
+          "score": 0.14822682821753436,
+          "metadata": {
+            "source": "text",
+            "title": "Shelly Moore",
+            "dataset": "hybridqa",
+            "table_id": "Miss_Teen_USA_special_awards_1",
+            "cell_text": "Shelly Moore",
+            "wiki_link": "/wiki/Shelly_Moore",
+            "node_type": "passage",
+            "example_id": "03f0b21f92ee77b2"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "042148b7abf2c368",
+      "query": "What is the rank of the company whose performance in 2012 made it the company with the world 's 12th-largest revenue ( turnover ) ?",
+      "answer": "9",
+      "predicted_answer": "Passage about Cheung Kong Group: Cheung Kong Group",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Cheung Kong Group",
+        "Hellaro",
+        "Karim Bencherifa",
+        "Karim Bencherifa",
+        "Mark Webber"
+      ],
+      "supporting_titles": [
+        "List_of_corporations_by_market_capitalization_2"
+      ],
+      "latency_ms": 27.58076799909759,
+      "retrieved": [
+        {
+          "text": "Passage about Cheung Kong Group: Cheung Kong Group",
+          "score": 0.31109139912745415,
+          "metadata": {
+            "source": "text",
+            "title": "Cheung Kong Group",
+            "dataset": "hybridqa",
+            "table_id": "List_of_wealthiest_non-inflated_historical_figures_13",
+            "cell_text": "Cheung Kong Group",
+            "wiki_link": "/wiki/Cheung_Kong_Group",
+            "node_type": "passage",
+            "example_id": "00975ac1f229684b"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Hellaro: Hellaro",
+          "score": 0.24475090670441202,
+          "metadata": {
+            "source": "text",
+            "title": "Hellaro",
+            "dataset": "hybridqa",
+            "table_id": "Bollywood_highest_grossing_films_by_month_3",
+            "cell_text": "Hellaro",
+            "wiki_link": "/wiki/Hellaro",
+            "node_type": "passage",
+            "example_id": "019987cf5cda18be"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Karim Bencherifa: Karim Bencherifa",
+          "score": 0.23330032095086087,
+          "metadata": {
+            "source": "text",
+            "title": "Karim Bencherifa",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Mohun_Bagan_A.C._managers_0",
+            "cell_text": "Karim Bencherifa",
+            "wiki_link": "/wiki/Karim_Bencherifa",
+            "node_type": "passage",
+            "example_id": "00c4fbc89bffe739"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Karim Bencherifa: Karim Bencherifa",
+          "score": 0.23330030707090083,
+          "metadata": {
+            "source": "text",
+            "title": "Karim Bencherifa",
+            "dataset": "hybridqa",
+            "table_id": "List_of_Mohun_Bagan_A.C._managers_0",
+            "cell_text": "Karim Bencherifa",
+            "wiki_link": "/wiki/Karim_Bencherifa",
+            "node_type": "passage",
+            "example_id": "00c4fbc89bffe739"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Mark Webber: Mark Webber",
+          "score": 0.20803242917922296,
+          "metadata": {
+            "source": "text",
+            "title": "Mark Webber",
+            "dataset": "hybridqa",
+            "table_id": "2004_United_States_Grand_Prix_0",
+            "cell_text": "Mark Webber",
+            "wiki_link": "/wiki/Mark_Webber",
+            "node_type": "passage",
+            "example_id": "0035c791af3d9666"
+          },
+          "source": "text"
+        }
+      ]
+    },
+    {
+      "id": "043e4ce38525d8ea",
+      "query": "What is the name of the museum whose region is a metropolitan area located in the Red River Valley ?",
+      "answer": "Royal Winnipeg Rifles Regimental Museum",
+      "predicted_answer": "Passage about Hammonds House Museum: Hammonds House Museum",
+      "exact_match": 0.0,
+      "f1_score": 0.15384615384615385,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [
+        "Hammonds House Museum",
+        "Richland Farm (Clarksville, Maryland)",
+        "Santa Clara Hotel",
+        "Nakagami District, Okinawa",
+        "Nakagami District, Okinawa"
+      ],
+      "supporting_titles": [
+        "Land_Force_Western_Area_0"
+      ],
+      "latency_ms": 17.404823000106262,
+      "retrieved": [
+        {
+          "text": "Passage about Hammonds House Museum: Hammonds House Museum",
+          "score": 0.2712908849096097,
+          "metadata": {
+            "source": "text",
+            "title": "Hammonds House Museum",
+            "dataset": "hybridqa",
+            "table_id": "List_of_museums_in_Atlanta_0",
+            "cell_text": "Hammonds House Museum",
+            "wiki_link": "/wiki/Hammonds_House_Museum",
+            "node_type": "passage",
+            "example_id": "005eb7c003961d8c"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Richland Farm (Clarksville, Maryland): Richland Farm (Clarksville, Maryland)",
+          "score": 0.1643913614229432,
+          "metadata": {
+            "source": "text",
+            "title": "Richland Farm (Clarksville, Maryland)",
+            "dataset": "hybridqa",
+            "table_id": "List_of_the_oldest_buildings_in_Maryland_0",
+            "cell_text": "Richland Farm (Clarksville, Maryland)",
+            "wiki_link": "/wiki/Richland_Farm_(Clarksville,_Maryland)",
+            "node_type": "passage",
+            "example_id": "011e8cb7de5d5cdf"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Santa Clara Hotel: Santa Clara Hotel",
+          "score": 0.1499802079594582,
+          "metadata": {
+            "source": "text",
+            "title": "Santa Clara Hotel",
+            "dataset": "hybridqa",
+            "table_id": "National_Register_of_Historic_Places_listings_in_Mora_County,_New_Mexico_0",
+            "cell_text": "Santa Clara Hotel",
+            "wiki_link": "/wiki/Santa_Clara_Hotel",
+            "node_type": "passage",
+            "example_id": "03b74593d042dc96"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.1396570225467442,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        },
+        {
+          "text": "Passage about Nakagami District, Okinawa: Nakagami District, Okinawa",
+          "score": 0.1396570225467442,
+          "metadata": {
+            "source": "text",
+            "title": "Nakagami District, Okinawa",
+            "dataset": "hybridqa",
+            "table_id": "Gusuku_Sites_and_Related_Properties_of_the_Kingdom_of_Ryukyu_0",
+            "cell_text": "Nakagami District, Okinawa",
+            "wiki_link": "/wiki/Nakagami_District,_Okinawa",
+            "node_type": "passage",
+            "example_id": "03516021b9a02cfc"
+          },
+          "source": "text"
+        }
+      ]
+    }
+  ]
+}

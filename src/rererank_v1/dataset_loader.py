@@ -18,6 +18,118 @@ from .hetero_data import EvidenceUnit
 from .paths import data_dir, repo_root
 
 
+def _build_hybridqa_corpus(
+    sampled: List[Dict[str, Any]],
+    dataset_name: str,
+) -> Dict[str, Any]:
+    queries = []
+    corpus: List[EvidenceUnit] = []
+    doc_ids = set()
+
+    for item in sampled:
+        qid = item.get("question_id", item.get("id", ""))
+        answer_text = item.get("answer-text", item.get("answer", ""))
+        table_id = item.get("table_id", "unknown_table")
+
+        answer_nodes = item.get("answer-node", [])
+        supporting_titles = set()
+        supporting_titles.add(table_id)
+        for node in answer_nodes:
+            if isinstance(node, list) and len(node) >= 4:
+                wiki_link = node[2]
+                if wiki_link:
+                    entity = wiki_link.split("/wiki/")[-1].replace("_", " ")
+                    supporting_titles.add(entity)
+
+        queries.append({
+            "id": qid,
+            "query": item["question"],
+            "answer": answer_text,
+            "type": "hybridqa",
+            "supporting_facts": {"title": sorted(supporting_titles)},
+            "supporting_titles": sorted(supporting_titles),
+            "table_id": table_id,
+            "dataset": dataset_name,
+        })
+
+        header = item.get("table", {}).get("header", [])
+        rows = item.get("table", {}).get("rows", [])
+
+        if header and rows:
+            for row_idx, row in enumerate(rows):
+                doc_key = f"{dataset_name}::{table_id}::row{row_idx}"
+                if doc_key in doc_ids:
+                    continue
+                doc_ids.add(doc_key)
+                cells = ", ".join(f"{h}: {c}" for h, c in zip(header, row))
+                content = f"Table: {table_id} | Row {row_idx} | {cells}"
+                corpus.append(EvidenceUnit(
+                    content=content,
+                    source="table",
+                    metadata={
+                        "title": table_id,
+                        "dataset": dataset_name,
+                        "table_id": table_id,
+                        "row_idx": row_idx,
+                        "example_id": qid,
+                    },
+                ))
+
+        for node in answer_nodes:
+            if not isinstance(node, list) or len(node) < 4:
+                continue
+            cell_text = str(node[0])
+            row_col = node[1]
+            wiki_link = node[2]
+            node_type = node[3]
+
+            entity = ""
+            if wiki_link:
+                entity = wiki_link.split("/wiki/")[-1].replace("_", " ")
+
+            if isinstance(row_col, list) and len(row_col) == 2:
+                doc_key = f"{dataset_name}::{table_id}::r{row_col[0]}c{row_col[1]}"
+            else:
+                doc_key = f"{dataset_name}::{table_id}::{cell_text}"
+
+            if doc_key in doc_ids:
+                continue
+            doc_ids.add(doc_key)
+
+            if node_type == "passage" and entity:
+                content = f"Passage about {entity}: {cell_text}"
+                source = "text"
+                title = entity
+            else:
+                r, c = (row_col if isinstance(row_col, list) and len(row_col) == 2 else [0, 0])
+                col_name = header[c] if header and c < len(header) else f"col{c}"
+                content = f"Table: {table_id} | {col_name}: {cell_text}"
+                source = "table"
+                title = table_id
+
+            corpus.append(EvidenceUnit(
+                content=content,
+                source=source,
+                metadata={
+                    "title": title,
+                    "dataset": dataset_name,
+                    "table_id": table_id,
+                    "cell_text": cell_text,
+                    "wiki_link": wiki_link or "",
+                    "node_type": node_type,
+                    "example_id": qid,
+                },
+            ))
+
+    logger.info(
+        "Loaded %s queries and %s evidence units from %s.",
+        len(queries),
+        len(corpus),
+        dataset_name,
+    )
+    return {"queries": queries, "corpus": corpus}
+
+
 def _build_text_corpus_from_context(
     sampled,
     dataset_name: str,
@@ -142,6 +254,8 @@ def _dataset_aliases(dataset_name: str) -> List[str]:
         "hotpot_qa": ["hotpotqa", "hotpot_qa"],
         "2wiki": ["2wiki", "2wikimultihopqa", "2wiki_multihopqa"],
         "2wikimultihopqa": ["2wiki", "2wikimultihopqa", "2wiki_multihopqa"],
+        "hybridqa": ["hybridqa", "hybrid_qa"],
+        "hybrid_qa": ["hybridqa", "hybrid_qa"],
     }
     return aliases.get(normalized, [normalized])
 
@@ -324,6 +438,57 @@ def load_2wiki_sample(
     return _build_text_corpus_from_context(sampled, dataset_name="2wikimultihopqa")
 
 
+def load_hybridqa_sample(
+    split: str = "validation",
+    num_samples: int = 100,
+    use_hetero: bool = False,
+    local_data_dir: Optional[str] = None,
+    hf_cache_dir: Optional[str] = None,
+    offline: Optional[bool] = None,
+) -> Dict[str, Any]:
+    local_bundle = _load_local_hybridqa(
+        split=split,
+        num_samples=num_samples,
+        local_data_dir=local_data_dir,
+    )
+    if local_bundle is not None:
+        return local_bundle
+
+    if not HF_DATASETS_AVAILABLE:
+        raise ImportError("Please install `datasets` via `pip install datasets`")
+
+    offline_mode = bool(
+        os.getenv("HF_DATASETS_OFFLINE") == "1"
+        or os.getenv("HF_HUB_OFFLINE") == "1"
+        or offline
+    )
+    logger.info(
+        "Loading %s samples from HybridQA (%s split)%s...",
+        num_samples,
+        split,
+        " [offline]" if offline_mode else "",
+    )
+    dataset = _load_hf_split("hybrid_qa", None, split, cache_dir=hf_cache_dir, offline=offline_mode)
+    sampled = dataset.shuffle(seed=42).select(range(min(num_samples, len(dataset))))
+    return _build_hybridqa_corpus(sampled, dataset_name="hybridqa")
+
+
+def _load_local_hybridqa(
+    split: str,
+    num_samples: int,
+    local_data_dir: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
+    for base_dir in _candidate_local_data_dirs(local_data_dir):
+        for alias in ("hybridqa", "hybrid_qa"):
+            for ext in (".json", ".jsonl"):
+                path = base_dir / alias / f"{split}{ext}"
+                if path.exists():
+                    logger.info("Loading %s HybridQA samples from local file: %s", num_samples, path)
+                    records = _load_json_records(path)[:num_samples]
+                    return _build_hybridqa_corpus(records, dataset_name="hybridqa")
+    return None
+
+
 def load_multihop_sample(
     dataset_name: str,
     split: str = "validation",
@@ -342,6 +507,8 @@ def load_multihop_sample(
         "hotpot_qa": load_hotpotqa_sample,
         "2wiki": load_2wiki_sample,
         "2wikimultihopqa": load_2wiki_sample,
+        "hybridqa": load_hybridqa_sample,
+        "hybrid_qa": load_hybridqa_sample,
     }
 
     loader = loaders.get(normalized)

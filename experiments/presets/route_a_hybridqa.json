@@ -8,6 +8,7 @@
   "offline": true,
   "baseline": {
     "name": "llamaindex_hybridqa",
+    "embed_model": "sentence-transformers/all-MiniLM-L6-v2",
     "text_top_k": 5,
     "table_top_k": 5,
     "fusion": "late_fusion"

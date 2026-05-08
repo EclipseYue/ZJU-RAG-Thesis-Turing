@@ -53,17 +53,19 @@ class LlamaIndexTextBaseline:
         except ImportError as exc:
             raise ImportError(self.dependency_hint()) from exc
 
-        cache_dir = self.config.cache_dir
-        if cache_dir == "auto":
-            hf_hub_cache = Path.home() / ".cache" / "huggingface" / "hub"
-            cache_dir = str(hf_hub_cache if hf_hub_cache.exists() else repo_root() / "config" / "cache" / "llama_index")
-        elif cache_dir is None:
-            cache_dir = str(repo_root() / "config" / "cache" / "llama_index")
-        elif not Path(cache_dir).is_absolute():
-            cache_dir = str((repo_root() / cache_dir).resolve())
+        model_name = self.config.embed_model.replace("local:", "")
+
+        if self.config.local_files_only:
+            try:
+                from huggingface_hub import try_to_load_from_cache
+                cached = try_to_load_from_cache(model_name, "config.json")
+                if isinstance(cached, str) and Path(cached).exists():
+                    model_name = str(Path(cached).parent)
+            except Exception:
+                pass
+
         Settings.embed_model = HuggingFaceEmbedding(
-            model_name=self.config.embed_model.replace("local:", ""),
-            cache_folder=cache_dir,
+            model_name=model_name,
             local_files_only=self.config.local_files_only,
         )
         Settings.node_parser = SentenceSplitter(
