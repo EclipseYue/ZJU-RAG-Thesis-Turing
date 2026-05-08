@@ -1,0 +1,40 @@
+\section{研究背景}
+
+\begin{frame}{研究背景：信用风险预警需要从“静态”走向“动态”}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.55\textwidth}
+    \begin{itemize}
+      \item 信用风险评估直接关系到 \hlb{金融稳定、资源配置效率与投资者保护}。
+      \item 传统模型多依赖单期截面数据，难以刻画企业风险的 \hl{渐进恶化过程}。
+      \item 企业经营、市场环境与监管规则持续变化，风险呈现明显的 \hlt{时间序列特征}。
+      \item 研究问题转向：如何用多期历史数据构建更敏锐、更前瞻的风险预警机制。
+    \end{itemize}
+
+    \begin{block}{本文切入点}
+      利用 2007--2022 年 A 股上市公司面板数据，
+      对比静态模型与时序模型在 \hlb{区分能力、风险覆盖与业务可用性} 上的差异。
+    \end{block}
+
+    \column{0.4\textwidth}
+    \begin{exampleblock}{现实痛点}
+      \begin{itemize}
+        \item 只看当期报表，预警容易滞后
+        \item 只追求高精度，可能漏掉真实风险
+        \item 只追求高召回，又会带来大量误报
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{研究目标：回答三个核心问题}
+  \begin{enumerate}
+    \item 引入多期时序信息后，\hlb{LSTM 是否比 Logistic 回归更能识别风险公司}？
+    \item 两类模型在 \hl{精确率与召回率} 之间呈现怎样的权衡关系？
+    \item 能否通过 \hlt{“LSTM 初筛 + Logistic 复核”} 构建更适合业务落地的混合体系？
+  \end{enumerate}
+
+  \vspace{0.6em}
+  \begin{alertblock}{答辩主线}
+    背景提出问题，方法比较模型，结果验证优势，最后回到风控业务场景给出可实施方案。
+  \end{alertblock}
+\end{frame}

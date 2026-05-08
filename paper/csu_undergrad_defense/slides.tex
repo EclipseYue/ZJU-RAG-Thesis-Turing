@@ -1,0 +1,117 @@
+% !TEX program = xelatex
+\PassOptionsToPackage{fontset=none}{ctex}
+\documentclass[aspectratio=169,10.5pt,xcolor={dvipsnames,svgnames}]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[UTF8,scheme=plain]{ctex}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs,array,tabularx}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{hyperref}
+\usepackage{appendixnumberbeamer}
+
+\IfFontExistsTF{PingFang SC}{\setCJKmainfont{PingFang SC}}{\IfFontExistsTF{Songti SC}{\setCJKmainfont{Songti SC}}{\setCJKmainfont{FandolSong-Regular}}}
+\IfFontExistsTF{PingFang SC}{\setCJKsansfont{PingFang SC}}{\IfFontExistsTF{Heiti SC}{\setCJKsansfont{Heiti SC}}{\setCJKsansfont{FandolHei-Regular}}}
+\IfFontExistsTF{Kaiti SC}{\setCJKfamilyfont{zhkai}{Kaiti SC}}{\IfFontExistsTF{STKaiti}{\setCJKfamilyfont{zhkai}{STKaiti}}{}}
+
+\definecolor{CsuBlue}{RGB}{20,69,120}
+\definecolor{CsuTeal}{RGB}{13,113,133}
+\definecolor{CsuGold}{RGB}{180,143,64}
+\definecolor{SoftGray}{RGB}{88,88,88}
+\definecolor{PanelGray}{RGB}{245,247,250}
+
+\setbeamercolor{palette primary}{bg=CsuBlue,fg=white}
+\setbeamercolor{palette secondary}{bg=CsuBlue!85,fg=white}
+\setbeamercolor{palette tertiary}{bg=CsuBlue!75,fg=white}
+\setbeamercolor{palette quaternary}{bg=CsuBlue!70,fg=white}
+\setbeamercolor{structure}{fg=CsuBlue}
+\setbeamercolor{frametitle}{bg=CsuBlue,fg=white}
+\setbeamercolor{title}{fg=CsuBlue}
+\setbeamercolor{subtitle}{fg=CsuTeal}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{block title}{bg=CsuBlue!92,fg=white}
+\setbeamercolor{block body}{bg=PanelGray,fg=black}
+\setbeamercolor{block title example}{bg=CsuTeal!92,fg=white}
+\setbeamercolor{block body example}{bg=CsuTeal!7,fg=black}
+\setbeamercolor{block title alerted}{bg=CsuGold!92,fg=white}
+\setbeamercolor{block body alerted}{bg=CsuGold!10,fg=black}
+\setbeamercolor{item projected}{bg=CsuBlue,fg=white}
+
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{subtitle}{size=\large,series=\bfseries}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\small}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{normal text}{size=\small}
+
+\setbeamertemplate{itemize item}{\color{CsuBlue}\large\textbullet}
+\setbeamertemplate{itemize subitem}{\color{CsuTeal}\small\textbullet}
+\setlength{\leftmargini}{1.3em}
+\setlength{\leftmarginii}{1.1em}
+\setlength{\parskip}{0.25em}
+\linespread{1.08}
+
+\newcommand{\hl}[1]{\textcolor{CsuGold!80!black}{\textbf{#1}}}
+\newcommand{\hlb}[1]{\textcolor{CsuBlue}{\textbf{#1}}}
+\newcommand{\hlt}[1]{\textcolor{CsuTeal}{\textbf{#1}}}
+\newcommand{\metric}[2]{\textbf{#1}\,{\small #2}}
+
+\title[公司信用风险动态评估]{基于时间序列分析的公司信用风险动态评估研究}
+\subtitle{中南大学本科毕业设计（论文）答辩}
+\author[齐博恒]{答辩人：齐博恒 \quad 指导教师：张炜}
+\institute[CSU]{中南大学 数学与统计学院 \quad 统计2202}
+\date{2026年6月}
+
+\begin{document}
+
+\begin{frame}[plain,noframenumbering]
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[CsuBlue] (current page.north west) rectangle ([yshift=-2.15cm]current page.north east);
+    \fill[CsuGold] ([yshift=-2.15cm]current page.north west) rectangle ([yshift=-2.3cm]current page.north east);
+  \end{tikzpicture}
+  \vspace{0.8cm}
+
+  {\usebeamerfont{title}\color{CsuBlue}\inserttitle\par}
+  \vspace{0.4cm}
+  {\usebeamerfont{subtitle}\color{CsuTeal}\insertsubtitle\par}
+  \vspace{1.0cm}
+
+  \begin{block}{研究聚焦}
+    面向A股上市公司信用风险预警，比较 \hlb{Logistic回归静态模型} 与 \hlb{LSTM时序模型}，
+    并进一步验证 \hl{两阶段混合风控体系} 的业务价值。
+  \end{block}
+
+  \vfill
+  \begin{tabular}{@{}ll@{}}
+    答辩人： & 齐博恒 \\
+    指导教师： & 张炜 \\
+    学院专业： & 数学与统计学院，统计2202 \\
+    学校： & 中南大学
+  \end{tabular}
+  \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{汇报提纲}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\input{sections/01_background.tex}
+\input{sections/02_problem.tex}
+\input{sections/03_method.tex}
+\input{sections/05_experiment.tex}
+\input{sections/06_results.tex}
+\input{sections/07_analysis.tex}
+\input{sections/08_conclusion.tex}
+\input{sections/09_qa.tex}
+
+\end{document}

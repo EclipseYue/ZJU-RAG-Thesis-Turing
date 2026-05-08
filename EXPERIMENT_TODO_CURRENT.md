@@ -594,6 +594,24 @@ python3 experiments/plot_results.py
   --output-name automated_ablation_real_llm_300.json
 ```
 
+当前状态：
+
+- 已跑出 `data/results/automated_ablation_real_llm_300.json`，但该批次 `MockMode=true`。
+- 该文件中的 EM/F1/覆盖率由 `run_all.py` 的 mock fallback 生成，不能作为真实实验结果回填论文。
+- 已修改 `experiments/run_all.py`：若未显式传入 `--mock` 却回退到 mock mode，脚本会直接报错，避免再次写入合成指标。
+
+复跑前检查：
+
+```bash
+.venv/bin/python -c "from sentence_transformers import SentenceTransformer, CrossEncoder; SentenceTransformer('all-MiniLM-L6-v2'); CrossEncoder('BAAI/bge-reranker-base'); print('models ok')"
+```
+
+复跑通过标准：
+
+- 输出矩阵中所有配置的 `MockMode` 必须为 `false`。
+- 日志中不能出现 `Switching to MOCK MODE`。
+- 若仍回退 mock，先修本地 HF cache / `sentence-transformers` / reranker 权重，不要继续跑。
+
 ### P0：VAR 真实 CoVe 扩样本
 
 目标：
@@ -610,6 +628,25 @@ python3 experiments/plot_results.py
   --real-cove \
   --output-name verification_feedback_study_hotpotqa_300_real_cove.json
 ```
+
+当前状态：
+
+- 已跑出 `data/results/verification_feedback_study_hotpotqa_300_real_cove.json`，但结果异常：四个策略 F1 均为 `0.59`、拒答率均为 `0`、反馈触发率均为 `0`。
+- 该批次延迟只有个位毫秒，且样本中出现明显 heuristic fallback 输出，说明真实生成/验证链没有按预期生效。
+- 因此该 N=300 VAR 批次暂不进入论文，只保留 N=50 repeated-run 与 N=100 真实 LLM 复核作为有效结论。
+
+复跑前检查：
+
+```bash
+.venv/bin/python -c "from src.rererank_v1.llm_generator import generate_answer; print('llm generator import ok')"
+grep -n "LLM generation failed\\|Falling back to heuristic\\|LLM verification failed" logs/*.log
+```
+
+复跑通过标准：
+
+- 四个策略之间必须出现拒答率或反馈触发率差异。
+- `verification_feedback` / `targeted_feedback` 的 `Feedback_Rate_Percent` 不应为 0。
+- 平均延迟不应只有个位毫秒，否则大概率没有真实调用 API。
 
 ### P1：verifier 阈值对比扩样本
 
@@ -628,6 +665,11 @@ python3 experiments/plot_results.py
   --output-name verifier_comparison_real_cove_500.json
 ```
 
+当前状态：
+
+- 尚未发现 `verifier_comparison_real_cove_500.json`。
+- 当前论文继续使用已验证的 N=200 批次：`data/results/batches/2026-04-30-real-cove-followup/verifier_comparison_real_cove_200.json`。
+
 ### P1：Route A 文本基线扩样本
 
 目标：
@@ -643,6 +685,12 @@ python3 experiments/plot_results.py
   --samples 300 \
   --output-name route_a_hotpotqa_realapi_300.json
 ```
+
+当前状态：
+
+- 已完成 `data/results/route_a_hotpotqa_realapi_300.json`。
+- 结果：`SupportRecall@K=72.83`，`SupportAllHit@K=48.67`，`EM=1.33`，`F1=6.19`。
+- 论文已回填该结果，并将其解释为“检索仍有一定覆盖，但答案 span 抽取/答案格式成为主要瓶颈”。
 
 ### P2：真实表格与图谱数据 smoke
 
@@ -660,6 +708,12 @@ python3 experiments/plot_results.py
   --samples 50 \
   --output-name route_a_hybridqa_text_table_smoke_50.json
 ```
+
+当前状态：
+
+- 已完成 HybridQA text-table smoke：`data/results/route_a_hybridqa_text_table_smoke_50.json`。
+- 结果：`SupportRecall@K=33.49`，`SupportAllHit@K=0.00`，`EM=0.00`，`F1=2.51`。
+- 论文已将其写作真实表格异构接入的边界实验，而不是替代 HotpotQA 主线。
 
 当前论文写法注意：
 

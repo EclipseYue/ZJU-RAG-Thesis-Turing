@@ -31,9 +31,14 @@ GPU 服务器迁移与真实 API 运行细则见：
 - 已完成：补充 2026-04-30 真实 LLM A/A2/A3/B/C/D 消融复核，确认 Adaptive 小增益、CoVe 高拒答和异构序列化噪声趋势在 \texttt{deepseek-v4-flash} 条件下仍然存在。
 - 已完成：补充 100 样本真实 LLM 反馈闭环复核，确认 feedback 能将 hard reject 的 48.0\% 拒答率降至 18.0\%/15.0\%。
 - 已完成：根据评阅注释补充第 4 章导读、1.2 与题目的衔接说明、英文摘要短答案实验结论，以及小样本实验的边界表述。
+- 已完成：Route A 文本基线扩展到 N=300，并将 `F1=6.19` 的结果回填为答案抽取瓶颈证据。
+- 已完成：HybridQA text-table N=50 smoke，并将其回填为真实表格异构接入的边界实验。
+- 已完成：为 `run_all.py` 增加 mock fallback 防护，避免非 `--mock` 实验继续写入合成指标。
 - 待做：若继续提升 F1，设计候选答案抽取器或 span reranker，避免继续只靠 prompt 压缩。
-- 待做：按评阅意见优先扩展关键小样本实验：真实 LLM 核心消融 N=300、VAR 真实 CoVe N=300、verifier 阈值对比 N=500、Route A baseline N=300。
-- 待做：规划真实表格/图谱数据小样本补充实验，优先用静态数据文件，谨慎引入 Neo4j 服务依赖。
+- 待做：真实 LLM 核心消融 N=300 需要在 `MockMode=false` 条件下复跑，当前 `automated_ablation_real_llm_300.json` 不可用于论文。
+- 待做：VAR 真实 CoVe N=300 需要排查真实 API fallback 后复跑，当前批次四策略同分且反馈率为 0，不可用于论文。
+- 待做：verifier 阈值对比 N=500 尚未完成，当前论文继续使用有效的 N=200 批次。
+- 待做：规划真实图谱数据小样本补充实验，优先用静态 JSONL 三元组，谨慎引入 Neo4j 服务依赖。
 
 ## P1 强烈建议
 

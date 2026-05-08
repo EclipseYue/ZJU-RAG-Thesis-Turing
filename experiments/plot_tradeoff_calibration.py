@@ -129,8 +129,13 @@ def plot_calibration() -> Path | None:
 
 
 def plot_verifier_threshold_tradeoff() -> Path | None:
-    path = RESULTS / "verifier_comparison_hotpotqa.json"
-    if not path.exists():
+    preferred = [
+        RESULTS / "batches" / "2026-04-30-real-cove-followup" / "verifier_comparison_real_cove_200.json",
+        RESULTS / "verifier_comparison_real_cove_500.json",
+        RESULTS / "verifier_comparison_hotpotqa.json",
+    ]
+    path = next((candidate for candidate in preferred if candidate.exists()), None)
+    if path is None:
         return None
     data = json.loads(path.read_text(encoding="utf-8"))
     rows = []

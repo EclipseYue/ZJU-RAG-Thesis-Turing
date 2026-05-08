@@ -26,11 +26,18 @@ def _load_rows(path: Path) -> list[dict]:
 
 def load_ablation_rows() -> list[dict]:
     rows: list[dict] = []
-    for path in [
+    expanded_path = RESULTS / "automated_ablation_real_llm_300.json"
+    expanded_rows = _load_rows(expanded_path)
+    if expanded_rows and not any(row.get("MockMode", False) for row in expanded_rows):
+        rows.extend(expanded_rows)
+        title_suffix = "N=300"
+    else:
+        title_suffix = "N=100"
+    for path in ([] if rows else [
         RESULTS / "real_llm_text_ablation_100.json",
         RESULTS / "real_llm_hetero_ablation_100.json",
         RESULTS / "real_llm_full_cove_100.json",
-    ]:
+    ]):
         rows.extend(_load_rows(path))
     label_map = {
         "A_Baseline": "A Text",
@@ -40,7 +47,7 @@ def load_ablation_rows() -> list[dict]:
         "C_Adaptive": "C Hetero+Adaptive",
         "D_CoVe_Full": "D Full",
     }
-    return [{**row, "Label": label_map.get(row.get("Config", ""), row.get("Config", ""))} for row in rows]
+    return [{**row, "Label": label_map.get(row.get("Config", ""), row.get("Config", "")), "_title_suffix": title_suffix} for row in rows]
 
 
 def load_feedback_rows() -> list[dict]:
@@ -79,7 +86,8 @@ def plot_real_llm_ablation(rows: list[dict]) -> Path | None:
     handles1, labels1 = ax1.get_legend_handles_labels()
     handles2, labels2 = ax2.get_legend_handles_labels()
     ax1.legend(handles1 + handles2, labels1 + labels2, loc="upper left")
-    ax1.set_title("Real LLM Ablation Follow-up (HotpotQA, N=100)")
+    suffix = rows[0].get("_title_suffix", "N=100")
+    ax1.set_title(f"Real LLM Ablation Follow-up (HotpotQA, {suffix})")
     fig.tight_layout()
     target = FIGURES / "real_llm_ablation_followup.png"
     fig.savefig(target, dpi=300, bbox_inches="tight")

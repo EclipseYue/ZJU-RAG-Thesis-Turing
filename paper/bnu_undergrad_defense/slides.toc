@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{研究背景}{3}{0}{1}
+\beamer@sectionintoc {2}{理论与假设}{5}{0}{2}
+\beamer@sectionintoc {3}{研究设计}{7}{0}{3}
+\beamer@sectionintoc {4}{实证结果}{9}{0}{4}
+\beamer@sectionintoc {5}{区域异质性}{11}{0}{5}
+\beamer@sectionintoc {6}{政策启示}{13}{0}{6}
+\beamer@sectionintoc {7}{结论展望}{15}{0}{7}
+\beamer@sectionintoc {8}{答辩致谢}{17}{0}{8}

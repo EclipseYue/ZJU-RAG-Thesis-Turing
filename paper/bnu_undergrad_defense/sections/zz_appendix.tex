@@ -1,0 +1,104 @@
+% =============================================================
+%  Appendix: 备用 slides（应对答辩追问）
+% =============================================================
+% \section*{附\quad 录}  % 已由 \appendix 标记，注释以避 calc 溢出% ---- A.1 RRF 公式细节 -------------------------------------------
+\begin{frame}{附录 A：Reciprocal Rank Fusion 形式化}
+  \footnotesize
+  给定首轮排序 $r_q$ 与扩展轮排序 $r_{q'}$，文档 $d$ 的最终分数为：
+  \[
+    \text{Score}_{\text{RRF}}(d) \;=\; \sum_{r \in \{r_q,\, r_{q'}\}} \frac{1}{k + r(d)}
+  \]
+  其中 $k = 60$（Cormack et al., 2009 经典取值），$r(d)$ 为文档在该排序中的位次（从 1 开始）。
+
+  \begin{block}{为何选 RRF 而非加权和？}
+    \begin{itemize}
+      \item RRF 对\hlb{绝对分数无依赖}，天然兼容稠密相似度与 CrossEncoder logit 的不同尺度。
+      \item 对位次单调，\hl{不易被极端高分文档拉偏}。
+      \item 经验上在 TREC / BEIR 上稳定优于 weighted sum。
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% ---- A.2 启发式 CoVe 形式化 -------------------------------------
+\begin{frame}{附录 B：启发式 CoVe 支持度计算}
+  \footnotesize
+  对每个声明 $c_i$ 与证据集 $\mathcal{E} = \{e_1, \ldots, e_m\}$：
+  \[
+    s(c_i, \mathcal{E}) \;=\; \max_{e_j \in \mathcal{E}}
+      \left[\, \alpha \cdot \text{Overlap}(c_i, e_j) \;+\; \beta \cdot \text{RerankSim}(c_i, e_j) \,\right]
+  \]
+  判决规则：
+  \[
+    \text{Verdict} =
+    \begin{cases}
+      \text{Accepted} & \text{if } \min_i s(c_i, \mathcal{E}) \ge \tau_{\text{cove}} \\
+      \text{Rejected} & \text{otherwise}
+    \end{cases}
+  \]
+
+  \begin{block}{在 \texttt{--real-cove} 模式下}
+    \footnotesize
+    上式被替换为 \hlb{LLM NLI prompt}：返回 \texttt{\{Supported / Insufficient / Contradicted, confidence\}}，
+    判决基于 \texttt{confidence} 软阈值。
+  \end{block}
+\end{frame}
+
+% ---- A.3 完整指标定义 -------------------------------------------
+\begin{frame}{附录 C：评测指标精确定义}
+  \footnotesize
+  \begin{tabular}{@{}lp{0.7\linewidth}@{}}
+    \toprule
+    \textbf{指标} & \textbf{定义} \\ \midrule
+    EM & 预测答案与任一标准答案完全相等的比例。 \\
+    F1 & token-level F1，HotpotQA 标准实现（去停用词 + 大小写归一）。 \\
+    SupportAllHit@5 & Top-5 是否\hl{全部}覆盖标注 supporting facts 中的句子。 \\
+    SupportRecall@5 & Top-5 中命中的 supporting fact 数 / 总 supporting fact 数。 \\
+    NAR & No-Answer 输出的样本数 / 总样本数。 \\
+    FRR & 标准答案正确但被 CoVe 拒答的样本数 / 应答对样本数。 \\
+    Unsafe Accept & 答案错误但被 Accept 的样本数 / 总错误样本数。 \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+% ---- A.4 实验脚本入口 -------------------------------------------
+\begin{frame}[fragile]{附录 D：可复现命令一览}
+  \footnotesize
+  \begin{lstlisting}[style=shellstyle, basicstyle=\ttfamily\scriptsize]
+# 主消融（HotpotQA dev 全量）
+python experiments/run_all.py \
+    --config configs/ablation_with_controls.json
+
+# 验证器对比（N=200）
+python experiments/run_verifier_comparison.py --n 200
+
+# 分桶增益分析
+python experiments/run_bucket_gain_study.py
+
+# Pareto 前沿
+python experiments/run_pareto.py
+
+# 阈值扫描
+python experiments/run_threshold_sweep.py --tau 0.7,0.8,0.9,0.95
+
+# 切真实 LLM CoVe
+python experiments/run_all.py --real-cove --provider deepseek
+
+# 出图 + 自动回填到 LaTeX
+python experiments/plot_results.py
+python experiments/update_tex.py
+  \end{lstlisting}
+\end{frame}
+
+% ---- A.5 致谢的开源工作 -----------------------------------------
+\begin{frame}{附录 E：致谢的开源工作}
+  \footnotesize
+  本工作建立在以下开源生态之上，特此致谢：
+  \begin{itemize}
+    \item \hlb{HuggingFace Transformers / Sentence-Transformers}：模型加载与推理
+    \item \hlb{BAAI / BGE} 系列：CrossEncoder 重排模型权重
+    \item \hlb{Microsoft MiniLM}：稠密编码器
+    \item \hlb{HotpotQA} (Yang et al., 2018)、\hlb{2WikiMultihopQA} (Ho et al., 2020)：评测数据集
+    \item \hlb{ZJUThesis} 模板：论文与本 slides 排版基础
+    \item \hlb{Beamer + metropolis} 主题
+  \end{itemize}
+\end{frame}

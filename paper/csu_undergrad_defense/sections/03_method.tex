@@ -1,0 +1,88 @@
+\section{模型方法}
+
+\begin{frame}{动态评估框架：用历史轨迹预测下一期风险}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \begin{block}{静态评估}
+      \[
+      x_t \rightarrow \hat{y}_{t+1}
+      \]
+      \begin{itemize}
+        \item 输入：单期截面特征
+        \item 优点：结构简单、解释清晰
+        \item 局限：忽略风险演化路径
+      \end{itemize}
+    \end{block}
+
+    \column{0.48\textwidth}
+    \begin{exampleblock}{动态评估}
+      \[
+      (x_{t-2},x_{t-1},x_t) \rightarrow \hat{y}_{t+1}
+      \]
+      \begin{itemize}
+        \item 输入：连续三期财务序列
+        \item 优点：可捕捉趋势与阶段性恶化
+        \item 目标：提高前瞻预警能力
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+
+  \begin{alertblock}{核心假设}
+    企业信用风险不是瞬时发生的，而是沿着 \hl{盈利下滑、杠杆上升、成长放缓} 等轨迹逐步暴露。
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{模型设计：Logistic 回归 vs LSTM}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.49\textwidth}
+    \begin{block}{Logistic 回归}
+      \[
+      P(y_{t+1}=1|x_t)=\sigma(w^\top x_t+b)
+      \]
+      \begin{itemize}
+        \item 以当期特征为输入
+        \item 作为 \hlb{静态基准模型}
+        \item 可解释性强，适合合规审计
+      \end{itemize}
+    \end{block}
+
+    \column{0.49\textwidth}
+    \begin{exampleblock}{LSTM}
+      \begin{itemize}
+        \item 通过门控机制处理长序列依赖
+        \item 自动学习风险变化的 \hl{时序模式}
+        \item 适合发现早期、微弱但连续的恶化信号
+      \end{itemize}
+      \[
+      h_t = o_t \odot \tanh(C_t)
+      \]
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{两阶段混合风控体系：先广谱预警，再精准核实}
+  \centering
+  \begin{tikzpicture}[
+    node distance=0.9cm,
+    box/.style={draw=CsuBlue,rounded corners,fill=CsuBlue!6,minimum width=3.2cm,minimum height=1.05cm,align=center,font=\small},
+    alertbox/.style={draw=CsuGold!80!black,rounded corners,fill=CsuGold!10,minimum width=3.4cm,minimum height=1.05cm,align=center,font=\small},
+    arr/.style={-{Stealth[length=2.5mm]},thick,CsuBlue}
+  ]
+    \node[box] (all) {全量企业样本};
+    \node[box,right=of all] (lstm) {LSTM 初筛\\阈值 $T_1=0.3$};
+    \node[alertbox,right=of lstm] (pool) {风险池\\尽量提高召回率};
+    \node[box,right=of pool] (lr) {Logistic 复核\\阈值 $T_2=0.9855$};
+    \node[alertbox,below=0.95cm of pool] (final) {最终预警名单\\兼顾准确性与效率};
+
+    \draw[arr] (all) -- (lstm);
+    \draw[arr] (lstm) -- (pool);
+    \draw[arr] (pool) -- (lr);
+    \draw[arr] (lr) |- (final);
+  \end{tikzpicture}
+
+  \vspace{0.8em}
+  \begin{itemize}
+    \item 第一步用 LSTM 放大对时序风险信号的敏感度。
+    \item 第二步用 Logistic 回归提纯预警结果，并提供特征级解释。
+  \end{itemize}
+\end{frame}

@@ -1,0 +1,64 @@
+\section{实验设计}
+
+\begin{frame}{数据与样本设计}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.54\textwidth}
+    \begin{block}{数据设置}
+      \begin{itemize}
+        \item 研究对象：A股上市公司
+        \item 时间范围：\hlb{2007--2022 年}
+        \item 标签定义：下一年是否被 ST
+        \item 特征维度：10 个标准化财务变量
+      \end{itemize}
+    \end{block}
+
+    \begin{exampleblock}{样本规模}
+      \begin{tabular}{@{}lrr@{}}
+        \toprule
+        数据集 & 样本数 & 说明 \\
+        \midrule
+        训练集 & 17,437 & 模型拟合 \\
+        验证集 & 7,568 & 调参与早停 \\
+        测试集 & 6,175 & 一次性样本外评估 \\
+        \bottomrule
+      \end{tabular}
+    \end{exampleblock}
+
+    \column{0.42\textwidth}
+    \begin{alertblock}{数据特点}
+      \begin{itemize}
+        \item 类别极度不平衡
+        \item 测试集中 ST 占比仅约 \hl{0.63\%}
+        \item 更接近真实预警场景，也更考验模型质量
+      \end{itemize}
+    \end{alertblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{实验流程与评价指标}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.50\textwidth}
+    \begin{block}{实验流程}
+      \begin{itemize}
+        \item 用 $t-2,t-1,t$ 三期序列预测 $t+1$ 年状态
+        \item 采用 \hlb{时间顺序严格分割}，避免未来信息泄露
+        \item LSTM 以验证集 AUC 进行早停，最佳轮次回滚
+      \end{itemize}
+    \end{block}
+
+    \column{0.46\textwidth}
+    \begin{exampleblock}{评价指标}
+      \begin{itemize}
+        \item \metric{AUC}{区分能力}
+        \item \metric{KS}{排序与分离度}
+        \item \metric{Precision}{预警可靠性}
+        \item \metric{Recall}{风险覆盖率}
+        \item \metric{F1}{综合平衡}
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+
+  \begin{alertblock}{为什么不用准确率}
+    在极度不平衡数据中，简单准确率会掩盖少数类识别能力，因此本文以 \hl{AUC 和 F1} 为核心指标。
+  \end{alertblock}
+\end{frame}

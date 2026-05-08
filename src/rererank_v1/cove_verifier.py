@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import List, Dict, Any, Tuple
 import re
 import json
@@ -11,6 +12,10 @@ from .llm_backends import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _allow_llm_fallback() -> bool:
+    return os.getenv("RERERANK_ALLOW_LLM_FALLBACK", "0") == "1"
 
 class CoVeVerifier:
     """
@@ -106,14 +111,23 @@ class CoVeVerifier:
             base_url=self.base_url,
         )
         if not config:
-            logger.warning("Verifier backend is not configured. Falling back to heuristic verification.")
-            return self._verify_claim_heuristic(claim, evidence_chain)
+            message = (
+                f"Verifier backend is not configured for backend={self.backend} model={self.model}. "
+                "Set the provider API key/base URL via environment variables or "
+                "experiments/configs/local_api_overrides.json."
+            )
+            if _allow_llm_fallback():
+                logger.warning("%s Falling back to heuristic verification because RERERANK_ALLOW_LLM_FALLBACK=1.", message)
+                return self._verify_claim_heuristic(claim, evidence_chain)
+            raise RuntimeError(message)
 
         try:
             client = build_openai_compat_client(config)
         except RuntimeError as exc:
-            logger.error(str(exc))
-            return self._verify_claim_heuristic(claim, evidence_chain)
+            if _allow_llm_fallback():
+                logger.error("%s Falling back to heuristic verification because RERERANK_ALLOW_LLM_FALLBACK=1.", exc)
+                return self._verify_claim_heuristic(claim, evidence_chain)
+            raise
 
         evidence_text = "\n".join(f"- {text}" for text in self._flatten_evidence(evidence_chain)[:20])
         prompt = (
@@ -149,13 +163,15 @@ class CoVeVerifier:
             support_confidence = confidence if label == "SUPPORTED" else max(0.0, 1.0 - confidence)
             return label == "SUPPORTED" and support_confidence >= self.threshold, support_confidence
         except Exception as exc:
-            logger.warning(
-                "LLM verification parse/call failed via provider=%s model=%s: %s. Falling back to heuristic verification.",
-                config.provider,
-                config.model,
-                exc,
-            )
-            return self._verify_claim_heuristic(claim, evidence_chain)
+            if _allow_llm_fallback():
+                logger.warning(
+                    "LLM verification parse/call failed via provider=%s model=%s: %s. Falling back to heuristic verification because RERERANK_ALLOW_LLM_FALLBACK=1.",
+                    config.provider,
+                    config.model,
+                    exc,
+                )
+                return self._verify_claim_heuristic(claim, evidence_chain)
+            raise
 
     def _verify_claim_heuristic(self, claim: str, evidence_chain: List[Dict[str, Any]]) -> Tuple[bool, float]:
         evidence_texts = self._flatten_evidence(evidence_chain)

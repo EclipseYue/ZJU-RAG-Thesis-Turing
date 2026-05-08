@@ -1,0 +1,36 @@
+\section{结果分析}
+
+\begin{frame}{为什么会出现“LSTM 高召回，Logistic 高精度”}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \begin{block}{LSTM 更擅长发现早期风险}
+      \begin{itemize}
+        \item 能学习连续三期的财务变化路径
+        \item 对“盈利持续下滑”“负债阶梯式上升”等模式更敏感
+        \item 因而更早发出预警，但也带来更多误报
+      \end{itemize}
+    \end{block}
+
+    \column{0.48\textwidth}
+    \begin{exampleblock}{Logistic 更擅长给出稳健判断}
+      \begin{itemize}
+        \item 决策边界简单，阈值更高
+        \item 倾向于在证据很强时才报警
+        \item 因而误报更少，但可能漏掉边缘风险样本
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{实践启示：模型不是“谁更好”，而是“谁更适合什么场景”}
+  \begin{itemize}
+    \item \hlb{内部风控监测}：适合采用 LSTM 做全量扫描，优先提升召回率。
+    \item \hlb{监管报送或实质性处置}：更适合采用 Logistic 或更高阈值策略，保证精确率。
+    \item \hlb{实际部署}：推荐“机器扫描 + 模型复核 + 人工研判”的混合流程。
+    \item \hlb{后续可解释性增强}：可结合 SHAP、LIME 等方法解释 LSTM 的单次预测。
+  \end{itemize}
+
+  \begin{block}{一句话总结}
+    时序模型提供 \hl{前瞻性}，静态模型提供 \hl{可靠性}，混合体系把两者转化为更高的业务效率。
+  \end{block}
+\end{frame}

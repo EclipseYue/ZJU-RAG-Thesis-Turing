@@ -1,0 +1,50 @@
+\section{研究设计}
+
+\begin{frame}{数据与模型设计}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.50\textwidth}
+    \begin{block}{样本与变量}
+      \begin{itemize}
+        \item 样本：2013--2022 年中国 31 个省级行政区
+        \item 被解释变量：\hlb{碳排放强度}（对数）
+        \item 核心解释变量：\hlb{绿色金融发展指数}（对数）
+        \item 控制变量：人均 GDP、第二产业占比、煤炭消费占比等
+      \end{itemize}
+    \end{block}
+
+    \column{0.46\textwidth}
+    \begin{exampleblock}{模型方法}
+      \begin{itemize}
+        \item 双向固定效应模型
+        \item 控制省份固定效应
+        \item 控制年份固定效应
+        \item 后续加入工具变量与稳健性检验
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{识别策略：从基准回归到稳健性与异质性}
+  \centering
+  \begin{tikzpicture}[
+    node distance=0.55cm,
+    box/.style={draw=CsuBlue,rounded corners,fill=CsuBlue!6,minimum width=2.55cm,minimum height=0.95cm,align=center,font=\small},
+    arr/.style={-{Stealth[length=2.2mm]},thick,CsuBlue}
+  ]
+    \node[box] (base) {基准回归\\双向固定效应};
+    \node[box,right=of base] (iv) {内生性处理\\工具变量法};
+    \node[box,right=of iv] (robust) {稳健性检验\\三种替换方案};
+    \node[box,right=of robust] (hetero) {异质性分析\\东中西部分组};
+
+    \draw[arr] (base) -- (iv);
+    \draw[arr] (iv) -- (robust);
+    \draw[arr] (robust) -- (hetero);
+  \end{tikzpicture}
+
+  \vspace{0.8em}
+  \begin{itemize}
+    \item 工具变量：\hl{滞后一期绿色金融发展指数}
+    \item 稳健性：滞后一期、替换碳排放总量、剔除直辖市
+    \item 异质性：比较东部、中部、西部地区的减排效果差异
+  \end{itemize}
+\end{frame}

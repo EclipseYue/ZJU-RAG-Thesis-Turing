@@ -1,0 +1,104 @@
+% =============================================================
+%  Section 04: 关键实现细节
+% =============================================================
+\section{关键实现}
+
+% ---- 4.1 工程结构 -----------------------------------------------
+\begin{frame}[fragile]{工程结构与可复现实验设计}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.52\textwidth}
+    \begin{block}{代码组织}
+      \footnotesize
+      \begin{lstlisting}[style=shellstyle, basicstyle=\ttfamily\tiny]
+src/rererank_v1/
+  rag_pipeline.py    # 主流程：检索/重排/PRF/RRF
+  real_reranker.py   # CrossEncoder + Mock 兜底
+experiments/
+  run_all.py                    # 主消融
+  run_verifier_comparison.py    # 验证器对比
+  run_bucket_gain_study.py      # 分桶增益
+  run_pareto.py                 # Pareto 前沿
+  plot_results.py               # 出图
+  update_tex.py                 # 自动回填 LaTeX
+configs/
+  ablation_with_controls.json   # 消融配置
+      \end{lstlisting}
+    \end{block}
+
+    \column{0.48\textwidth}
+    \begin{exampleblock}{\faCogs\ 设计原则}
+      \footnotesize
+      \begin{itemize}
+        \item \hlb{配置驱动}：每组实验对应一个 JSON，six 组消融可\hl{一键复现}。
+        \item \hlb{模块开关}：\texttt{--hetero}、\texttt{--adaptive}、\texttt{--cove}、\texttt{--real-cove} 独立可切。
+        \item \hlb{兜底机制}：模型下载失败时自动切 Mock，保证流程联调可走通。
+        \item \hlb{论文联动}：脚本产出的 \texttt{.tex} 表与 PNG 图\hl{直接被论文 \texttt{\textbackslash input}}。
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+% ---- 4.2 异构数据构造 -------------------------------------------
+\begin{frame}{异构证据数据：诚实地说明"伴生构造"}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \begin{block}{为什么是"伴生"}
+      \footnotesize
+      HotpotQA / 2WikiMultihopQA \hl{原生只有文本段落}，没有真实独立的表格库或知识图谱。\\[0.4em]
+      \hlb{解决方案}：用规则 + LLM 从原文抽取结构化片段（表格行、三元组），
+      作为\hl{格式接入测试}的伴生数据，而非"真正的异构知识库"。
+    \end{block}
+
+    \column{0.5\textwidth}
+    \begin{alertblock}{\faExclamationTriangle\ 边界声明}
+      \footnotesize
+      \begin{itemize}
+        \item 异构 = \hl{格式异构}（同源不同表示），\\
+              而非\hl{知识源异构}。
+        \item 这意味着结果中"异构带来 F1 下降"应理解为
+              \hlb{格式噪声}的影响，而非异构本身无用。
+        \item 论文与本汇报均\hl{显式标注}这一限制，避免过度推广结论。
+      \end{itemize}
+    \end{alertblock}
+  \end{columns}
+
+  \vspace{0.4em}
+  \begin{exampleblock}{格式噪声量化（N=1000+1000）}
+    \footnotesize
+    \centering
+    \begin{tabular}{@{}lcc@{}}
+      \toprule
+      数据形态 & 平均字符长度 & 特殊符号比例 \\ \midrule
+      纯文本 chunk      & 600.97 & 0.47\% \\
+      异构序列化        & \hl{53.07}  & \hl{8.78\%} \quad ($\approx 18\times$) \\
+      \bottomrule
+    \end{tabular}
+  \end{exampleblock}
+\end{frame}
+
+% ---- 4.3 关键超参表 ---------------------------------------------
+\begin{frame}{关键模型与超参}
+  \footnotesize
+  \centering
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    \rowcolor{ZjuBlue!10}
+    \textbf{角色} & \textbf{选型 / 取值} & \textbf{说明} \\ \midrule
+    嵌入模型     & \texttt{all-MiniLM-L6-v2} (384d) & 轻量，CPU 即可推理 \\
+    重排模型     & \texttt{BAAI/bge-reranker-base}  & CrossEncoder \\
+    向量库       & numpy + cos-sim (论文中讨论 FAISS) & 规模可控 \\
+    生成后端     & 默认 Heuristic；可切 OpenAI / DeepSeek / Kimi & \hl{控制变量} \\
+    验证后端     & 默认启发式 CoVe；\texttt{--real-cove} 切 LLM-NLI & 可对照 \\ \midrule
+    RRF $k$           & 60        & 经典取值 \\
+    Adaptive $\tau$   & \{0.7, 0.8, 0.9, 0.95\}（默认 0.8） & 阈值扫描 \\
+    CoVe 软阈值       & 0.50      & 与 strict (0.90) 对照 \\
+    Max seq length    & 512 tokens & \\
+    Batch size        & 8 docs    & \\
+    Python / PyTorch  & 3.10 / $\ge$ 2.5 (CUDA 12.1) & \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{0.6em}
+  \footnotesize\color{SoftGray}
+  API 限速（真实 LLM 实验）：\texttt{MIN\_INTERVAL=3.5s}, retries=8, backoff $\in [8, 90]$s。
+\end{frame}

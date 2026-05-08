@@ -14,6 +14,10 @@ from .llm_backends import (
 logger = logging.getLogger(__name__)
 
 
+def _allow_llm_fallback() -> bool:
+    return os.getenv("RERERANK_ALLOW_LLM_FALLBACK", "0") == "1"
+
+
 def _postprocess_answer(query: str, answer: str, answer_mode: str = "concise") -> str:
     text = (answer or "").strip()
     if not text:
@@ -140,14 +144,23 @@ def llm_generate_answer(
     )
 
     if not config:
-        logger.info("LLM backend is not configured. Falling back to heuristic generator.")
-        return heuristic_generate_answer(query, results)
+        message = (
+            f"LLM backend is not configured for backend={backend} model={model}. "
+            "Set the provider API key/base URL via environment variables or "
+            "experiments/configs/local_api_overrides.json."
+        )
+        if _allow_llm_fallback():
+            logger.warning("%s Falling back to heuristic generator because RERERANK_ALLOW_LLM_FALLBACK=1.", message)
+            return heuristic_generate_answer(query, results)
+        raise RuntimeError(message)
 
     try:
         client = build_openai_compat_client(config)
     except RuntimeError as exc:
-        logger.error(str(exc))
-        return heuristic_generate_answer(query, results)
+        if _allow_llm_fallback():
+            logger.error("%s Falling back to heuristic generator because RERERANK_ALLOW_LLM_FALLBACK=1.", exc)
+            return heuristic_generate_answer(query, results)
+        raise
 
     # Build the context from retrieved evidence
     context_str = ""
@@ -211,17 +224,25 @@ def llm_generate_answer(
 
         if not answer:
             finish_reason = getattr(choice, "finish_reason", None) if choice is not None else None
-            logger.warning(
-                "LLM returned empty content via provider=%s model=%s finish_reason=%s. Falling back to heuristic generator.",
-                config.provider,
-                config.model,
-                finish_reason,
+            message = (
+                f"LLM returned empty content via provider={config.provider} "
+                f"model={config.model} finish_reason={finish_reason}."
             )
-            fallback_answer = heuristic_generate_answer(query, results).strip()
-            return fallback_answer if fallback_answer else "No-Answer"
+            if _allow_llm_fallback():
+                logger.warning("%s Falling back to heuristic generator because RERERANK_ALLOW_LLM_FALLBACK=1.", message)
+                fallback_answer = heuristic_generate_answer(query, results).strip()
+                return fallback_answer if fallback_answer else "No-Answer"
+            raise RuntimeError(message)
 
         return _postprocess_answer(query, answer, answer_mode=answer_mode)
     except Exception as e:
-        logger.error("LLM API call failed via provider=%s model=%s: %s", config.provider, config.model, e)
-        fallback_answer = heuristic_generate_answer(query, results).strip()
-        return fallback_answer if fallback_answer else "No-Answer"
+        if _allow_llm_fallback():
+            logger.error(
+                "LLM API call failed via provider=%s model=%s: %s. Falling back to heuristic generator because RERERANK_ALLOW_LLM_FALLBACK=1.",
+                config.provider,
+                config.model,
+                e,
+            )
+            fallback_answer = heuristic_generate_answer(query, results).strip()
+            return fallback_answer if fallback_answer else "No-Answer"
+        raise

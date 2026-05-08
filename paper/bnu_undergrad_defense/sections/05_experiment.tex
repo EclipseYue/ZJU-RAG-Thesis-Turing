@@ -1,0 +1,54 @@
+\section{实证结果}
+
+\begin{frame}{基准回归结果：绿色金融对碳排放强度有显著抑制作用}
+  \begin{table}
+    \centering
+    \small
+    \begin{tabular}{@{}lccc@{}}
+      \toprule
+      模型列 & (1) & (2) & (3) \\
+      \midrule
+      绿色金融发展指数 & 负 & 负 & \textbf{-2.363*} \\
+      经济发展水平控制 & 否 & 是 & 是 \\
+      全部控制变量 & 否 & 否 & 是 \\
+      固定效应 & 双向 & 双向 & 双向 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  \begin{alertblock}{核心发现}
+    在纳入全部控制变量后，绿色金融发展指数系数为 \hl{-2.363}，`p=0.057`，
+    表明绿色金融发展水平每提高 1\%，碳排放强度平均下降约 \hl{2.36\%}。
+  \end{alertblock}
+
+  \begin{itemize}
+    \item 人均 GDP 系数显著为负，说明经济发展水平提升有助于降低碳排放强度。
+    \item 第二产业占比与煤炭消费占比方向符合预期，但在省级层面统计上不够稳定。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{内生性与稳健性：核心结论保持稳定}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \begin{block}{工具变量检验}
+      \begin{itemize}
+        \item 工具变量：滞后一期绿色金融发展指数
+        \item 第一阶段 F 统计量约为 \hlb{$2.2\times10^4$}
+        \item 第二阶段系数：\hl{-2.307***}
+      \end{itemize}
+    \end{block}
+
+    \column{0.48\textwidth}
+    \begin{exampleblock}{稳健性检验}
+      \begin{itemize}
+        \item 滞后一期解释变量：\hl{-2.242*}
+        \item 替换为碳排放总量：\hl{-1.035**}
+        \item 剔除直辖市样本：\hl{-3.668***}
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+
+  \begin{alertblock}{结论}
+    无论从内生性处理还是多种稳健性检验看，绿色金融对碳排放的抑制效应都没有消失。
+  \end{alertblock}
+\end{frame}

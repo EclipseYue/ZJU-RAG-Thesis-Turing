@@ -229,6 +229,14 @@ MPLCONFIGDIR=/tmp/mpl .venv/bin/python experiments/plot_real_llm_followup.py
 - P1：Route A 文本基线从 N=100 扩展到 N=300，检查“检索稳定但答案表达受限”的误差归因是否稳定。
 - P2：HybridQA text-table 与 Neo4j/Wikidata JSONL graph 只作为独立 smoke，不覆盖当前 HotpotQA 主线。
 
+当前执行状态：
+
+- Route A N=300 已完成并回填论文：`F1=6.19`，`SupportRecall@K=72.83`，说明答案抽取瓶颈比 N=100 更明显。
+- HybridQA text-table N=50 已完成并回填论文：`F1=2.51`，`SupportAllHit@K=0.00`，只作为真实异构接入边界实验。
+- `automated_ablation_real_llm_300.json` 已生成但 `MockMode=true`，属于无效批次，不能用于论文；`run_all.py` 已增加保护，后续非 `--mock` 情况下回退 mock 会直接报错。
+- `verification_feedback_study_hotpotqa_300_real_cove.json` 已生成但四个策略完全同分、反馈率为 0、延迟异常低，判断为真实 API/验证链未生效，暂不进入论文。
+- `verifier_comparison_real_cove_500.json` 尚未发现，论文继续使用已验证的 N=200 阈值批次。
+
 完整命令见：
 
 - [当前实验待办清单](/Users/eclipse/code/RAG/Rererank_v1/EXPERIMENT_TODO_CURRENT.md)

@@ -1,0 +1,37 @@
+\section{结论展望}
+
+\begin{frame}{研究结论}
+  \begin{enumerate}
+    \item 构建了面向企业信用风险预警的 \hlb{动态评估框架}。
+    \item 实证结果表明：LSTM 在 \hl{AUC、KS、召回率} 上优于 Logistic 回归。
+    \item Logistic 回归在 \hl{精确率、可解释性、审计友好性} 上仍有明显优势。
+    \item “LSTM 初筛 + Logistic 复核”的混合体系，为本科论文提出了 \hlt{可落地的业务方案}。
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{局限与未来展望}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \begin{block}{研究局限}
+      \begin{itemize}
+        \item 主要使用结构化财务指标
+        \item 仅比较 LSTM 与 Logistic 两类代表模型
+        \item 当前聚焦 1 年期预警任务
+      \end{itemize}
+    \end{block}
+
+    \column{0.48\textwidth}
+    \begin{exampleblock}{未来方向}
+      \begin{itemize}
+        \item 融合市场、文本等多模态数据
+        \item 引入更前沿的时序模型与集成学习
+        \item 推进在线学习、滚动预测与可解释性研究
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+
+  \vspace{0.6em}
+  \begin{alertblock}{结束语}
+    本研究说明：\hl{时序信息确实有价值，但真正可用的风控系统往往来自模型协同，而不是单模型崇拜。}
+  \end{alertblock}
+\end{frame}

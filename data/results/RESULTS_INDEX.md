@@ -139,6 +139,23 @@
 - [real_llm_full_cove_100.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-30-real-llm-ablation/real_llm_full_cove_100.json)
 - [real_llm_verification_feedback_100.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-30-real-llm-ablation/real_llm_verification_feedback_100.json)
 
+### Batch H: 2026-05-08 评阅注释后补充实验
+
+用途：
+
+- 回应“部分样本量偏小”的评阅意见。
+- 补充 Route A N=300、HybridQA text-table smoke，并记录无效批次，防止误引用。
+
+推荐引用文件：
+
+- [route_a_hotpotqa_realapi_300.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/route_a_hotpotqa_realapi_300.json)
+- [route_a_hybridqa_text_table_smoke_50.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/route_a_hybridqa_text_table_smoke_50.json)
+
+不建议引用文件：
+
+- [automated_ablation_real_llm_300.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/automated_ablation_real_llm_300.json)：矩阵中 `MockMode=true`，属于 mock fallback 后的合成指标。
+- [verification_feedback_study_hotpotqa_300_real_cove.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/verification_feedback_study_hotpotqa_300_real_cove.json)：四个策略完全同分、反馈率为 0、延迟异常低，判断真实 API/验证链未按预期生效。
+
 ## 2. 当前结果摘要
 
 ### 2.1 Route A 服务器批次
@@ -169,11 +186,19 @@
 - `ExactMatch = 8.0`
 - `F1 = 21.12`
 
+300 样本真实 API：
+
+- `SupportRecall@K = 72.83`
+- `SupportAllHit@K = 48.67`
+- `ExactMatch = 1.33`
+- `F1 = 6.19`
+
 结论：
 
 - 检索侧基本稳定
 - 真实 API 生成链已打通
 - 当前 `deepseek-v4-flash` 生成质量仍明显偏弱，尚不足以直接当作最终正式 baseline
+- N=300 进一步显示主要瓶颈在答案 span 抽取和答案格式，而不是单纯检索不可用
 
 ### 2.2 旧消融服务器批次
 

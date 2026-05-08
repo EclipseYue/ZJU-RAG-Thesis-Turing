@@ -26,6 +26,7 @@ def plot_route_a_quality():
         ("Heuristic-20", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_heuristic_smoke_matrix.json"),
         ("RealAPI-20", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_realapi_smoke_latest_matrix.json"),
         ("RealAPI-100", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_realapi_100_matrix.json"),
+        ("RealAPI-300", ROOT / "data" / "results" / "route_a_hotpotqa_realapi_300.json"),
     ]
     labels, ems, f1s, recalls, hits = [], [], [], [], []
     for label, path in files:
@@ -75,6 +76,8 @@ def plot_current_batch_comparison():
         ("RouteA\nHeuristic-20", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_heuristic_smoke_matrix.json"),
         ("RouteA\nRealAPI-20", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_realapi_smoke_latest_matrix.json"),
         ("RouteA\nRealAPI-100", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_realapi_100_matrix.json"),
+        ("RouteA\nRealAPI-300", ROOT / "data" / "results" / "route_a_hotpotqa_realapi_300.json"),
+        ("HybridQA\nTable-50", ROOT / "data" / "results" / "route_a_hybridqa_text_table_smoke_50.json"),
         ("Legacy A\nSmoke-20", BATCH_ROOT / "2026-04-28-legacy-server-smoke" / "legacy_a_baseline_smoke_matrix.json"),
         ("Legacy A3\nCoVe-20", BATCH_ROOT / "2026-04-28-legacy-server-smoke" / "legacy_a3_cove_smoke_matrix.json"),
     ]
@@ -110,6 +113,8 @@ def plot_latency_noanswer():
         ("RouteA\nHeuristic-20", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_heuristic_smoke_matrix.json"),
         ("RouteA\nRealAPI-20", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_realapi_smoke_latest_matrix.json"),
         ("RouteA\nRealAPI-100", BATCH_ROOT / "2026-04-28-route-a-server" / "route_a_hotpotqa_realapi_100_matrix.json"),
+        ("RouteA\nRealAPI-300", ROOT / "data" / "results" / "route_a_hotpotqa_realapi_300.json"),
+        ("HybridQA\nTable-50", ROOT / "data" / "results" / "route_a_hybridqa_text_table_smoke_50.json"),
         ("Legacy A\nSmoke-20", BATCH_ROOT / "2026-04-28-legacy-server-smoke" / "legacy_a_baseline_smoke_matrix.json"),
         ("Legacy A3\nCoVe-20", BATCH_ROOT / "2026-04-28-legacy-server-smoke" / "legacy_a3_cove_smoke_matrix.json"),
     ]

@@ -526,6 +526,13 @@ def run_automated_ablation_with_tracking(
 
         logger.info("Running config=%s", config["name"])
         rag = RAGPipeline(device=device, use_v6_reranker=not force_mock)
+        if getattr(rag, "mock_mode", False) and not force_mock:
+            raise RuntimeError(
+                "RAGPipeline fell back to mock mode although --mock was not requested. "
+                "Refusing to write synthetic ablation metrics. Check local embedding/reranker "
+                "model availability, HF cache paths, and sentence-transformers dependencies; "
+                "or rerun intentionally with --mock."
+            )
 
         if config["hetero"]:
             rag.add_evidence_units(hetero_bundle["corpus"])

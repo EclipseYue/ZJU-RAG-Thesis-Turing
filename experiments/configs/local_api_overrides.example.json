@@ -1,0 +1,11 @@
+{
+  "generator_backend": "deepseek",
+  "generator_model": "deepseek-v4-flash",
+  "generator_api_key": "REPLACE_WITH_DEEPSEEK_API_KEY",
+  "generator_base_url": "https://api.deepseek.com",
+  "verifier_backend": "deepseek",
+  "verifier_model": "deepseek-v4-flash",
+  "verifier_api_key": "REPLACE_WITH_DEEPSEEK_API_KEY",
+  "verifier_base_url": "https://api.deepseek.com",
+  "real_cove": false
+}

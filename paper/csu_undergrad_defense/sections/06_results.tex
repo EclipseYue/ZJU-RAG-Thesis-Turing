@@ -1,0 +1,57 @@
+\section{实验结果}
+
+\begin{frame}{核心结果：LSTM 更敏锐，Logistic 更稳健}
+  \begin{table}
+    \centering
+    \small
+    \begin{tabular}{@{}lcccccc@{}}
+      \toprule
+      模型 & AUC & F1 & Precision & Recall & KS & 阈值 \\
+      \midrule
+      Logistic 回归 & 0.8319 & 0.1414 & 0.1167 & 0.1795 & 0.5361 & 0.9855 \\
+      LSTM & \textbf{0.8521} & 0.1047 & 0.0677 & \textbf{0.2308} & \textbf{0.5919} & 0.3712 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \begin{block}{LSTM 的优势}
+      \begin{itemize}
+        \item AUC、KS 更高
+        \item 能识别更多潜在 ST 公司
+        \item 更适合 \hl{早筛、广谱预警}
+      \end{itemize}
+    \end{block}
+
+    \column{0.48\textwidth}
+    \begin{exampleblock}{Logistic 的优势}
+      \begin{itemize}
+        \item 精确率与 F1 更高
+        \item 输出逻辑透明、解释清晰
+        \item 更适合 \hl{高置信触发与审计复核}
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{混合体系验证：兼顾覆盖率、准确性与核查效率}
+  \begin{table}
+    \centering
+    \small
+    \begin{tabular}{@{}lccccc@{}}
+      \toprule
+      模型 & Precision & Recall & F1 & 预警样本数 & TP \\
+      \midrule
+      Logistic 回归 & 0.1167 & 0.1795 & \textbf{0.1414} & 60 & 7 \\
+      LSTM 初筛 & 0.0606 & \textbf{0.2051} & 0.0936 & 132 & 8 \\
+      混合模型最终输出 & \textbf{0.1200} & 0.1538 & 0.1348 & \textbf{50} & 6 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  \begin{alertblock}{业务含义}
+    混合模型在仅需核查 \hl{50 家} 企业的情况下，实现了与单独 Logistic 相近的风险捕捉能力，
+    同时把最终预警精确率提升到 \hl{12.00\%}，约为随机水平的 20 倍。
+  \end{alertblock}
+\end{frame}

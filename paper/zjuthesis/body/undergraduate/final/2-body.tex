@@ -393,6 +393,8 @@ Route A + \texttt{deepseek-v4-flash} & 20 & 75.0 & 50.0 & 15.0 & 23.82 \\
 \hline
 Route A + \texttt{deepseek-v4-flash} & 100 & 75.5 & 53.0 & 8.0 & 21.12 \\
 \hline
+Route A + \texttt{deepseek-v4-flash} & 300 & 72.83 & 48.67 & 1.33 & 6.19 \\
+\hline
 Legacy A Baseline & 20 & 80.0 & 60.0 & 15.0 & 28.24 \\
 \hline
 Legacy A3 + CoVe & 20 & 75.0 & 50.0 & 15.0 & 15.00 \\
@@ -408,7 +410,7 @@ Legacy A3 + CoVe & 20 & 75.0 & 50.0 & 15.0 & 15.00 \\
     \label{fig:route_a_quality}
 \end{figure}
 
-表\ref{tab:route_a_server_results}和图\ref{fig:route_a_quality}显示，Route A 的检索侧已经较为稳定：真实 API 100 条样本下 SupportRecall@K 为 75.5\%，SupportAllHit@K 为 53.0\%。这说明成熟框架底座能够稳定召回相当比例的支撑标题，至少已经排除了“检索链完全失效”的解释。与此同时，真实 API 相比启发式生成确实带来明显提升，20 条 smoke 中 F1 从 10.08 提升到 23.82；但当样本扩展到 100 条时，F1 只有 21.12，仍未达到一个理想的强基线水平。因此，Route A 的结果把问题进一步收缩到生成与答案格式层：证据已经被召回，但生成器没有稳定输出 HotpotQA 所需的短答案。
+表\ref{tab:route_a_server_results}和图\ref{fig:route_a_quality}显示，Route A 的检索侧相对稳定：真实 API 100 条样本下 SupportRecall@K 为 75.5\%，SupportAllHit@K 为 53.0\%；扩展到 300 条样本后，两项指标仍分别保持在 72.83\% 和 48.67\%。这说明成熟框架底座能够召回相当比例的支撑标题，至少已经排除了“检索链完全失效”的解释。与此同时，端到端答案质量随样本扩大明显下降：20 条 smoke 中 F1 为 23.82，100 条样本为 21.12，而 300 条样本仅为 6.19。样本检查显示，模型经常输出第一跳实体、证据标题或证据句片段，而不是 HotpotQA 评测所需的最终短答案。因此，Route A 的扩样本结果把问题进一步收缩到生成与答案抽取层：证据并非完全召回失败，但生成器没有稳定完成从证据链到答案 span 的最后一步。
 
 为了进一步回应“启发式消融结论是否能外推到真实 LLM 条件”这一问题，本文补充了一组 \texttt{deepseek-v4-flash} 小样本消融复核。该实验不再追求 7405 条全量规模，而是在相同样本规模和相同真实生成/验证后端下复核 A/A2/A3/B/C/D 的关键趋势。结果如表\ref{tab:real_llm_ablation_followup}与图\ref{fig:real_llm_ablation_followup}所示。
 
@@ -486,6 +488,23 @@ Yes/No 格式错误 & 1 & 1.0\% & 是非题没有稳定输出 Yes/No \\
 这个统计给出了一个比单纯 F1 更有用的结论：Route A 当前不是主要输在“找不到证据”，而是输在“不会按评测口径交付答案”。100 条样本中有 74 条被归为冗长推理式输出，典型回答类似“\texttt{We need to find the series based on the description...}”，这类文本从语义上可能已经走向正确方向，但在 HotpotQA 的 EM/F1 评测中会被严重惩罚。另有 11 条 No-Answer 样本全部只命中了部分支撑标题，没有任何一条同时命中全部支撑标题，说明拒答并非完全无依据，而是与多跳证据链不完整有关。相比之下，完全正确的 8 条大多来自是非题或答案形式较短的实体题。
 
 因此，Route A 的错误主要集中在“答案表达层”，而非“证据获取层”。这一点对后续优化方向具有直接约束：继续提高召回率仍然有价值，但若没有显式答案抽取、答案规范化或生成格式约束，新增证据并不会自动转化为更高的 EM/F1。该结果表明，在当前 RAG 系统中，生成与答案表达已成为独立于检索能力之外的关键瓶颈。
+
+此外，为回应真实异构数据接入问题，本文补充了一组 HybridQA text-table smoke。该实验使用 Route A 的 LlamaIndex 底座与 \texttt{deepseek-v4-flash} 生成后端，在 50 条样本上评估真实表格问答场景。结果如表\ref{tab:hybridqa_smoke}所示：SupportRecall@K 为 33.49\%，SupportAllHit@K 为 0，F1 仅为 2.51。该结果不用于替代前文 HotpotQA 主线，而是说明真实表格任务需要单独的数据适配、字段对齐和答案抽取设计；如果只把表格行直接序列化进文本索引，系统很难稳定恢复跨表格与文本的支撑链。
+
+\begin{table}[!htbp]
+\centering
+\caption{真实 text-table 异构任务 smoke（HybridQA, N=50）}
+\label{tab:hybridqa_smoke}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccc}
+\hline
+\textbf{配置} & \textbf{数据集} & \textbf{SupportRecall@K} & \textbf{SupportAllHit@K} & \textbf{EM} & \textbf{F1} \\
+\hline
+Route A + HybridQA text-table & HybridQA & 33.49 & 0.00 & 0.00 & 2.51 \\
+\hline
+\end{tabular}
+}
+\end{table}
 
 在确认 VAR 能够降低拒答率后，本文进一步补充了三次 repeated-run 稳定性实验。结果如表\ref{tab:feedback_repeated_runs}所示。可以看到，硬拒答策略的平均 F1 仅为 11.77，拒答率保持在 42.67\%；软接受策略能带来一定改善，但拒答率波动较大；而 VAR 在三次运行中稳定取得最高 F1，平均为 23.51，拒答率降至 12.67\%。这说明把验证失败直接转化为最终拒答并不是唯一选择，VAR 已经能够缓解 verification collapse。不过，定向构造查询的 Targeted VAR 未能超过更朴素的失败声明拼接策略，说明更复杂的补检索查询并不必然更有效。
 
