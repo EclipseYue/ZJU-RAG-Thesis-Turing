@@ -83,12 +83,27 @@ python3 -m venv .venv
 ls experiments/configs/local_api_overrides.json
 ```
 
+如果出现 `Torch not compiled with CUDA enabled`：
+
+- 说明当前 `.venv` 中是 CPU 版 PyTorch，但配置文件/命令使用了 `device=cuda`。
+- 本阶段改为 GPU 模式，因此不要再用 `--device cpu` 兜底。
+- 解决方式：重装 CUDA 版 PyTorch，再确认 `torch.cuda.is_available()` 为 `True`。
+
+CUDA 版 PyTorch 示例（按服务器 CUDA 版本选择，下面以 cu121 为例）：
+
+```bash
+.venv/bin/pip uninstall -y torch torchvision torchaudio
+.venv/bin/pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
+.venv/bin/python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available(), torch.cuda.device_count())"
+```
+
 通过标准：
 
 - `.venv` 可用
 - `llama_index` 可导入
 - `local_api_overrides.json` 存在
 - 离线数据目录存在
+- 若使用 `--device cuda`，`torch.cuda.is_available()` 必须为 `True`
 
 ### 2. Route A 检索 smoke
 
@@ -575,6 +590,18 @@ python3 experiments/plot_results.py
 
 本节对应 2026-05-07 评阅意见中的“部分样本量偏小”问题。原则上不建议把所有历史实验都盲目扩到大样本，而应优先扩展直接支撑核心结论的配置。
 
+通用前置检查：
+
+```bash
+cd /root/home/ZJU-RAG-Thesis-Turing
+git pull
+ls experiments/configs/local_api_overrides.json
+.venv/bin/python -c "import sys; sys.path.insert(0, 'src'); from rererank_v1.llm_backends import resolve_openai_compat_config; c=resolve_openai_compat_config(model='deepseek-v4-flash', provider='deepseek'); print(c.provider, c.model, c.base_url)"
+.venv/bin/python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available(), torch.cuda.device_count())"
+```
+
+本阶段统一使用 GPU 模式。只有当 `torch.cuda.is_available()` 输出 `True` 时才继续运行下面命令；如果为 `False`，先重装 CUDA 版 PyTorch，不要改用 CPU 兜底。
+
 ### P0：真实 LLM 核心消融扩样本
 
 目标：
@@ -588,10 +615,11 @@ python3 experiments/plot_results.py
 .venv/bin/python experiments/run_all.py \
   --config experiments/configs/ablation_with_controls.json \
   --samples 300 \
+  --device cuda \
   --real-cove \
   --only-configs A_Baseline A2_Baseline_Adaptive A3_Baseline_CoVe B_Hetero C_Hetero_Adaptive D_CoVe_Full \
   --checkpoint-every 5 \
-  --output-name automated_ablation_real_llm_300.json
+  --output-name automated_ablation_real_llm_300_rerun.json
 ```
 
 当前状态：
@@ -603,7 +631,7 @@ python3 experiments/plot_results.py
 复跑前检查：
 
 ```bash
-.venv/bin/python -c "from sentence_transformers import SentenceTransformer, CrossEncoder; SentenceTransformer('all-MiniLM-L6-v2'); CrossEncoder('BAAI/bge-reranker-base'); print('models ok')"
+.venv/bin/python -c "from sentence_transformers import SentenceTransformer, CrossEncoder; SentenceTransformer('all-MiniLM-L6-v2', device='cuda'); CrossEncoder('BAAI/bge-reranker-base', device='cuda'); print('models cuda ok')"
 ```
 
 复跑通过标准：
@@ -625,8 +653,9 @@ python3 experiments/plot_results.py
 .venv/bin/python experiments/run_verification_feedback_study.py \
   --config experiments/configs/verification_feedback_study.json \
   --samples 300 \
+  --device cuda \
   --real-cove \
-  --output-name verification_feedback_study_hotpotqa_300_real_cove.json
+  --output-name verification_feedback_study_hotpotqa_300_real_cove_rerun.json
 ```
 
 当前状态：
@@ -638,7 +667,7 @@ python3 experiments/plot_results.py
 复跑前检查：
 
 ```bash
-.venv/bin/python -c "from src.rererank_v1.llm_generator import generate_answer; print('llm generator import ok')"
+.venv/bin/python -c "import sys; sys.path.insert(0, 'src'); from rererank_v1.llm_generator import generate_answer; print('llm generator import ok')"
 grep -n "LLM generation failed\\|Falling back to heuristic\\|LLM verification failed" logs/*.log
 ```
 
@@ -661,6 +690,7 @@ grep -n "LLM generation failed\\|Falling back to heuristic\\|LLM verification fa
 .venv/bin/python experiments/run_verifier_comparison.py \
   --config experiments/configs/verifier_comparison.json \
   --samples 500 \
+  --device cuda \
   --real-cove \
   --output-name verifier_comparison_real_cove_500.json
 ```
@@ -708,6 +738,64 @@ grep -n "LLM generation failed\\|Falling back to heuristic\\|LLM verification fa
   --samples 50 \
   --output-name route_a_hybridqa_text_table_smoke_50.json
 ```
+
+完成 50 条 smoke 后，若 API 预算允许，建议扩到 100 条作为论文附录/答辩备用结果：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hybridqa.json \
+  --samples 100 \
+  --output-name route_a_hybridqa_text_table_100.json
+```
+
+### P2：Neo4j/Wikidata JSONL graph smoke
+
+目标：
+
+- 先不直接依赖在线 Neo4j 服务。
+- 将 Wikidata/Neo4j 导出的图谱三元组保存为静态 JSONL，再通过 `EvidenceUnit` 接口接入。
+- smoke 规模先定为 N=50，重点看图谱证据能否被稳定检索，而不是追求 F1。
+
+建议数据格式：
+
+```json
+{
+  "id": "graph_001",
+  "question": "Which country is the birthplace of the founder of entity X?",
+  "answer": "target_answer",
+  "triples": [
+    {"head": "entity X", "relation": "founded_by", "tail": "person Y", "source": "wikidata", "qid": "Q..."},
+    {"head": "person Y", "relation": "place_of_birth", "tail": "city Z", "source": "wikidata", "qid": "Q..."},
+    {"head": "city Z", "relation": "country", "tail": "target_answer", "source": "wikidata", "qid": "Q..."}
+  ],
+  "supporting_triples": [0, 1, 2]
+}
+```
+
+建议执行顺序：
+
+```bash
+# 1. 先生成或同步静态图谱问答文件
+ls data/datasets/wikidata_graph/validation.jsonl
+
+# 2. 先做 50 条 smoke
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_wikidata_graph.json \
+  --samples 50 \
+  --output-name route_a_wikidata_graph_smoke_50.json
+
+# 3. 若 smoke 能跑通且结果文件中 Dataset=wikidata_graph，再扩到 100 条
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_wikidata_graph.json \
+  --samples 100 \
+  --output-name route_a_wikidata_graph_100.json
+```
+
+当前状态：
+
+- HybridQA text-table smoke 已完成。
+- 已补 `experiments/presets/route_a_wikidata_graph.json` 与本地 JSONL loader。
+- Neo4j/Wikidata JSONL graph smoke 还需要先补 `data/datasets/wikidata_graph/validation.jsonl`，暂不建议直接开在线数据库实验。
 
 当前状态：
 

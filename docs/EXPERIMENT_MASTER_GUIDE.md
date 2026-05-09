@@ -191,22 +191,21 @@ experiments/configs/verification_feedback_study.json
 
 目的：
 - 检查旧启发式消融得到的模块趋势能否在真实 LLM 生成/验证后端下复现。
-- 不追求全量 7405 样本，而是用 N=100 验证方向性结论。
-- 支撑论文中的分层实验设计：大规模启发式诊断负责定位机制，小规模真实 LLM 复核负责排除后端伪影。
+- 不追求全量 7405 样本，而是用 N=300 验证方向性结论。
+- 支撑论文中的分层实验设计：大规模启发式诊断负责定位机制，真实 LLM 复核负责排除后端伪影。
 
 已完成批次：
 
 ```text
-data/results/batches/2026-04-30-real-llm-ablation/
+data/results/automated_ablation_real_llm_300.json
 ```
 
 关键结果：
-- A Text：`F1=21.28`，`No_Answer_Rate=0.0`
-- A2 Text+Adaptive：`F1=22.17`，`No_Answer_Rate=0.0`
-- A3 Text+CoVe：`F1=16.22`，`No_Answer_Rate=50.0`
-- B Hetero：`F1=19.94`，`SupportAllHit@K=49.0`
-- C Hetero+Adaptive：`F1=19.45`，`SupportAllHit@K=49.0`
-- D Full：`F1=12.71`，`No_Answer_Rate=57.0`
+- A Text：`F1=18.40`，`No_Answer_Rate=0.0`
+- A2 Text+Adaptive：`F1=19.70`，`No_Answer_Rate=0.0`
+- A3 Text+CoVe：`F1=9.61`，`No_Answer_Rate=57.0`
+- B Hetero：`F1=16.51`，`SupportAllHit@K=47.0`
+- D Full：`F1=9.56`，`No_Answer_Rate=61.33`
 
 结论：
 - Adaptive 在真实 LLM 条件下仍主要表现为小幅增益，不能写成强端到端优化器。
@@ -232,10 +231,11 @@ MPLCONFIGDIR=/tmp/mpl .venv/bin/python experiments/plot_real_llm_followup.py
 当前执行状态：
 
 - Route A N=300 已完成并回填论文：`F1=6.19`，`SupportRecall@K=72.83`，说明答案抽取瓶颈比 N=100 更明显。
+- 真实 LLM 核心消融 N=300 已完成有效批次：A/A2/A3/B/D 均为 `MockMode=false`，其中 A2 相比 A 仅提升 `1.30` F1，A3/D 拒答率分别为 `57.0%` 和 `61.33%`。
+- VAR 真实 CoVe N=300 已完成有效批次：VAR 将 hard reject 的 `39.67%` 拒答率降至 `14.33%`，F1 从 `12.48` 提升到 `18.15`。
 - HybridQA text-table N=50 已完成并回填论文：`F1=2.51`，`SupportAllHit@K=0.00`，只作为真实异构接入边界实验。
-- `automated_ablation_real_llm_300.json` 已生成但 `MockMode=true`，属于无效批次，不能用于论文；`run_all.py` 已增加保护，后续非 `--mock` 情况下回退 mock 会直接报错。
-- `verification_feedback_study_hotpotqa_300_real_cove.json` 已生成但四个策略完全同分、反馈率为 0、延迟异常低，判断为真实 API/验证链未生效，暂不进入论文。
-- `verifier_comparison_real_cove_500.json` 尚未发现，论文继续使用已验证的 N=200 阈值批次。
+- verifier threshold N=200 已更新：CoVe-strict 将不安全接受率降至 `13.0%`，但拒答率升至 `59.5%`。
+- Neo4j/Wikidata graph smoke 已补本地 JSONL loader 与 preset，仍需准备 `data/datasets/wikidata_graph/validation.jsonl`。
 
 完整命令见：
 
@@ -286,8 +286,33 @@ Feedback 短答案命令：
 
 当前建议：
 - 不在最后阶段把 Neo4j 服务作为正式实验硬依赖。
-- 若需要图谱实验，优先把 Neo4j/Wikidata 结果导出为静态 JSONL 三元组，保证可复现。
+- 若需要图谱实验，优先把 Neo4j/Wikidata 结果导出为静态 JSONL 图谱问答文件，保证可复现。
 - 若需要表格实验，优先选择 `HybridQA` 或 `OTT-QA` 小样本 smoke。
+
+表格 smoke 命令：
+
+```bash
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_hybridqa.json \
+  --samples 100 \
+  --output-name route_a_hybridqa_text_table_100.json
+```
+
+图谱 smoke 数据格式：
+
+```json
+{"id":"graph_001","question":"...","answer":"...","triples":[{"head":"...","relation":"...","tail":"...","source":"wikidata","qid":"Q..."}],"supporting_triples":[0]}
+```
+
+图谱 smoke 命令：
+
+```bash
+ls data/datasets/wikidata_graph/validation.jsonl
+.venv/bin/python experiments/run_route_a_baseline.py \
+  --preset experiments/presets/route_a_wikidata_graph.json \
+  --samples 50 \
+  --output-name route_a_wikidata_graph_smoke_50.json
+```
 
 推荐定位：
 - 作为“真实异构数据接入的可行性补充实验”。
@@ -296,7 +321,7 @@ Feedback 短答案命令：
 写作约束：
 - 当前论文已完成的 B/C/D 异构实验是伴生式序列化异构证据，不是真实 HybridQA/Neo4j 实验。
 - 这些结果只能支持“当前序列化接入方案存在格式噪声”，不能写成“真实异构知识无效”。
-- 若后续加入 Neo4j，正式结果建议使用导出的静态 JSONL 三元组，避免在线服务影响可复现性。
+- 若后续加入 Neo4j，正式结果建议使用导出的静态 JSONL 图谱问答文件，避免在线服务影响可复现性。
 
 ### 2.9 权衡曲线与校准图入口
 

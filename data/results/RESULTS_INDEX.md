@@ -128,9 +128,9 @@
 
 用途：
 
-- 在 \texttt{deepseek-v4-flash} 真实生成/验证条件下复核 A/A2/A3/B/C/D 的核心消融趋势。
-- 将真实 LLM 反馈闭环扩展到 N=100，检查 hard reject、soft accept、verification feedback 与 targeted feedback 的方向是否稳定。
-- 支撑论文中的“大规模启发式诊断 + 小规模真实 LLM 复核”分层实验设计。
+- 在 \texttt{deepseek-v4-flash} 真实生成/验证条件下复核 A/A2/A3/B/D 的核心消融趋势。
+- 将真实 LLM 反馈闭环扩展到 N=300，检查 hard reject、soft accept、verification feedback 与 targeted feedback 的方向是否稳定。
+- 支撑论文中的“大规模启发式诊断 + 真实 LLM 复核”分层实验设计。
 
 推荐引用文件：
 
@@ -138,6 +138,8 @@
 - [real_llm_hetero_ablation_100.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-30-real-llm-ablation/real_llm_hetero_ablation_100.json)
 - [real_llm_full_cove_100.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-30-real-llm-ablation/real_llm_full_cove_100.json)
 - [real_llm_verification_feedback_100.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/batches/2026-04-30-real-llm-ablation/real_llm_verification_feedback_100.json)
+- [automated_ablation_real_llm_300.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/automated_ablation_real_llm_300.json)
+- [verification_feedback_study_hotpotqa_300_real_cove_rerun.json](/Users/eclipse/code/RAG/Rererank_v1/data/results/verification_feedback_study_hotpotqa_300_real_cove_rerun.json)
 
 ### Batch H: 2026-05-08 评阅注释后补充实验
 
@@ -366,26 +368,26 @@
 
 `cove_soft`：
 
-- `F1 = 16.78`
-- `No_Answer_Rate / FRR = 26.5`
-- `Unsafe_Accept_Rate = 35.0`
+- `F1 = 15.05`
+- `No_Answer_Rate / FRR = 29.5`
+- `Unsafe_Accept_Rate = 33.0`
 
 `cove_standard`：
 
-- `F1 = 11.19`
-- `No_Answer_Rate / FRR = 40.5`
-- `Unsafe_Accept_Rate = 28.5`
+- `F1 = 15.23`
+- `No_Answer_Rate / FRR = 28.0`
+- `Unsafe_Accept_Rate = 33.0`
 
 `cove_strict`：
 
-- `F1 = 7.02`
-- `No_Answer_Rate / FRR = 62.5`
-- `Unsafe_Accept_Rate = 17.0`
+- `F1 = 12.01`
+- `No_Answer_Rate / FRR = 59.5`
+- `Unsafe_Accept_Rate = 13.0`
 
 `overlap_soft`：
 
-- `F1 = 12.02`
-- `No_Answer_Rate / FRR = 60.5`
+- `F1 = 12.23`
+- `No_Answer_Rate / FRR = 59.5`
 - `Unsafe_Accept_Rate = 15.5`
 
 结论：
@@ -423,55 +425,47 @@
 
 ### 2.6 Real LLM Ablation 复核批次
 
-#### A/A2/A3/B/C/D 核心消融（N=100）
+#### A/A2/A3/B/D 核心消融（N=300）
 
 `A Text`：
 
-- `ExactMatch = 9.0`
-- `F1 = 21.28`
-- `SupportRecall@K = 78.5`
-- `SupportAllHit@K = 58.0`
+- `ExactMatch = 6.0`
+- `F1 = 18.40`
+- `SupportRecall@K = 76.5`
+- `SupportAllHit@K = 56.0`
 - `No_Answer_Rate = 0.0`
 
 `A2 Text+Adaptive`：
 
-- `ExactMatch = 9.0`
-- `F1 = 22.17`
-- `SupportRecall@K = 78.5`
-- `SupportAllHit@K = 58.0`
+- `ExactMatch = 6.0`
+- `F1 = 19.70`
+- `SupportRecall@K = 76.5`
+- `SupportAllHit@K = 56.0`
 - `No_Answer_Rate = 0.0`
 
 `A3 Text+CoVe`：
 
-- `ExactMatch = 7.0`
-- `F1 = 16.22`
-- `SupportRecall@K = 76.0`
-- `SupportAllHit@K = 53.0`
-- `No_Answer_Rate = 50.0`
+- `ExactMatch = 2.0`
+- `F1 = 9.61`
+- `SupportRecall@K = 73.83`
+- `SupportAllHit@K = 50.67`
+- `No_Answer_Rate = 57.0`
 
 `B Hetero`：
 
-- `ExactMatch = 9.0`
-- `F1 = 19.94`
-- `SupportRecall@K = 72.5`
-- `SupportAllHit@K = 49.0`
-- `No_Answer_Rate = 0.0`
-
-`C Hetero+Adaptive`：
-
-- `ExactMatch = 9.0`
-- `F1 = 19.45`
-- `SupportRecall@K = 73.0`
-- `SupportAllHit@K = 49.0`
+- `ExactMatch = 5.33`
+- `F1 = 16.51`
+- `SupportRecall@K = 70.83`
+- `SupportAllHit@K = 47.0`
 - `No_Answer_Rate = 0.0`
 
 `D Full`：
 
-- `ExactMatch = 5.0`
-- `F1 = 12.71`
-- `SupportRecall@K = 73.0`
-- `SupportAllHit@K = 49.0`
-- `No_Answer_Rate = 57.0`
+- `ExactMatch = 2.33`
+- `F1 = 9.56`
+- `SupportRecall@K = 71.33`
+- `SupportAllHit@K = 47.33`
+- `No_Answer_Rate = 61.33`
 
 结论：
 
@@ -479,41 +473,41 @@
 - CoVe hard reject 在 A3/D 中继续显著推高拒答率，验证崩溃不是启发式后端独有现象。
 - 当前伴生式异构序列化仍低于纯文本配置，论文应将其定位为格式噪声诊断，而非真实异构知识收益证明。
 
-#### 真实 LLM 反馈闭环（N=100）
+#### 真实 LLM 反馈闭环（N=300）
 
 `hard_reject`：
 
-- `ExactMatch = 0.0`
-- `F1 = 9.33`
-- `No_Answer_Rate = 48.0`
+- `ExactMatch = 1.0`
+- `F1 = 12.48`
+- `No_Answer_Rate = 39.67`
 - `Feedback_Rate = 0.0`
 
 `soft_accept`：
 
-- `ExactMatch = 6.0`
-- `F1 = 16.66`
-- `No_Answer_Rate = 32.0`
+- `ExactMatch = 3.33`
+- `F1 = 15.05`
+- `No_Answer_Rate = 27.67`
 - `Feedback_Rate = 0.0`
 
 `verification_feedback`：
 
-- `ExactMatch = 6.0`
-- `F1 = 18.80`
-- `No_Answer_Rate = 18.0`
-- `Feedback_Rate = 30.0`
-- `SupportAllHit@K = 61.0`
+- `ExactMatch = 4.67`
+- `F1 = 18.15`
+- `No_Answer_Rate = 14.33`
+- `Feedback_Rate = 24.67`
+- `SupportAllHit@K = 56.67`
 
 `targeted_feedback`：
 
-- `ExactMatch = 6.0`
-- `F1 = 18.60`
-- `No_Answer_Rate = 15.0`
-- `Feedback_Rate = 28.0`
-- `SupportAllHit@K = 59.0`
+- `ExactMatch = 4.67`
+- `F1 = 17.56`
+- `No_Answer_Rate = 14.67`
+- `Feedback_Rate = 28.33`
+- `SupportAllHit@K = 56.67`
 
 结论：
 
-- 反馈闭环在 N=100 上继续显著降低 hard reject 的过度拒答。
+- 反馈闭环在 N=300 上继续显著降低 hard reject 的过度拒答。
 - 普通反馈与定向反馈效果接近，前者 F1 略高，后者拒答率略低。
 - 反馈闭环的作用应表述为“缓解验证崩溃”，而不是“超过无验证纯生成配置”。
 
@@ -521,15 +515,16 @@
 
 如果你现在要继续实验或写文档，建议按以下优先级引用结果：
 
-1. Real LLM Ablation 复核批次
-2. Route A 服务器 `realapi_100`
-3. Real-CoVe Follow-up 批次
-4. Verification Feedback repeated-run `hotpotqa_50_v3/run2/run3`
-5. Short-answer Constraint 批次
-6. Route A 服务器 `realapi_smoke_latest`
-7. Route A 服务器 `heuristic_smoke`
-8. 旧消融服务器 `legacy_a_baseline_smoke`
-9. 旧消融服务器 `legacy_a3_cove_smoke`
+1. Real LLM Ablation N=300 复核批次：`automated_ablation_real_llm_300.json`
+2. VAR Real-CoVe N=300 扩样本批次：`verification_feedback_study_hotpotqa_300_real_cove_rerun.json`
+3. Route A 服务器 `realapi_300`
+4. HybridQA text-table smoke `route_a_hybridqa_text_table_smoke_50`
+5. Verifier threshold N=200：`verifier_comparison_hotpotqa.json`
+6. Verification Feedback repeated-run `hotpotqa_50_v3/run2/run3`
+7. Short-answer Constraint 批次
+8. Route A 服务器 `realapi_smoke_latest`
+9. 旧消融服务器 `legacy_a_baseline_smoke`
+10. 旧消融服务器 `legacy_a3_cove_smoke`
 
 ## 3.1 当前批次对比图
 
@@ -565,11 +560,11 @@
 - `short_answer_ablation.png`
   展示严格短答案约束带来的退化，用于支撑答案抽取瓶颈分析
 - `real_llm_ablation_followup.png`
-  展示真实 LLM 条件下 A/A2/A3/B/C/D 的 F1、覆盖率与拒答率复核
+  展示真实 LLM 条件下 A/A2/A3/B/D 的 N=300 F1、覆盖率与拒答率复核
 - `real_llm_feedback_followup.png`
-  展示真实 LLM 反馈闭环在 F1、拒答率与证据覆盖率上的变化
+  展示 N=300 真实 LLM 反馈闭环在 F1、拒答率与证据覆盖率上的变化
 
-当前 `experiments/plot_tradeoff_calibration.py` 会优先读取 `verification_feedback_real_cove_100.json`，若不存在则回退到 `verification_feedback_study_hotpotqa_50_v3.json` / `v2`，避免误用修复前的污染版结果。注意该 real-cove 文件内部实际 `samples=50`。
+当前 `experiments/plot_tradeoff_calibration.py` 会优先读取 `verification_feedback_study_hotpotqa_300_real_cove_rerun.json` 和 `verifier_comparison_hotpotqa.json`，用于生成最新权衡曲线与校准图。
 
 ## 4. 命名规范
 
@@ -592,4 +587,4 @@
 - Route A 继续做误差分析和模型对照，而不是立刻扩更大样本。
 - 旧消融壳只保留诊断角色，不再作为后续主线的主要结果来源。
 - repeated-run 与短答案约束实验已完成；下一步若继续实验，应实现候选答案抽取器或 span reranker。
-- 真实异构数据可以补充，但应作为独立 smoke：表格优先 HybridQA/OTT-QA，图谱优先静态 JSONL 三元组，不建议正式实验依赖在线 Neo4j 服务。
+- 真实异构数据可以补充，但应作为独立 smoke：表格优先 HybridQA/OTT-QA，图谱优先静态 JSONL 图谱问答文件，不建议正式实验依赖在线 Neo4j 服务。

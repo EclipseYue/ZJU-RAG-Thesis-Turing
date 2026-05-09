@@ -92,6 +92,16 @@ python3 -m venv .venv
 .venv/bin/python -c "import torch; print(torch.cuda.is_available(), torch.cuda.device_count())"
 ```
 
+如果输出为 `False 0`，或者运行时报 `Torch not compiled with CUDA enabled`，说明当前环境安装的是 CPU 版 PyTorch。评阅注释后的补充实验统一采用 GPU 模式，此时不要临时改用 `--device cpu`，而应先重装 CUDA 版 PyTorch：
+
+```bash
+.venv/bin/pip uninstall -y torch torchvision torchaudio
+.venv/bin/pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
+.venv/bin/python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.is_available(), torch.cuda.device_count())"
+```
+
+只有当 `torch.cuda.is_available()` 为 `True` 时，才建议使用 `--device cuda` 或配置文件中的 `"device": "cuda"`。否则脚本会因为 mock fallback 防护直接中止，避免写入合成结果。
+
 检查 LlamaIndex：
 
 ```bash

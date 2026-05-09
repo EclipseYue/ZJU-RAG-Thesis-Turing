@@ -26,11 +26,15 @@ def _load_rows(path: Path) -> list[dict]:
 
 def load_ablation_rows() -> list[dict]:
     rows: list[dict] = []
-    expanded_path = RESULTS / "automated_ablation_real_llm_300.json"
-    expanded_rows = _load_rows(expanded_path)
-    if expanded_rows and not any(row.get("MockMode", False) for row in expanded_rows):
-        rows.extend(expanded_rows)
-        title_suffix = "N=300"
+    for expanded_path in [
+        RESULTS / "automated_ablation_real_llm_300.json",
+        RESULTS / "automated_ablation_real_llm_300_rerun.json",
+    ]:
+        expanded_rows = _load_rows(expanded_path)
+        if expanded_rows and not any(row.get("MockMode", False) for row in expanded_rows):
+            rows.extend(expanded_rows)
+            title_suffix = "N=300"
+            break
     else:
         title_suffix = "N=100"
     for path in ([] if rows else [
@@ -45,20 +49,31 @@ def load_ablation_rows() -> list[dict]:
         "A3_Baseline_CoVe": "A3 Text+CoVe",
         "B_Hetero": "B Hetero",
         "C_Adaptive": "C Hetero+Adaptive",
+        "C_Hetero_Adaptive": "C Hetero+Adaptive",
         "D_CoVe_Full": "D Full",
     }
     return [{**row, "Label": label_map.get(row.get("Config", ""), row.get("Config", "")), "_title_suffix": title_suffix} for row in rows]
 
 
 def load_feedback_rows() -> list[dict]:
-    path = RESULTS / "real_llm_verification_feedback_100.json"
-    if not path.exists():
+    path = next(
+        (
+            candidate
+            for candidate in [
+                RESULTS / "verification_feedback_study_hotpotqa_300_real_cove_rerun.json",
+                RESULTS / "real_llm_verification_feedback_100.json",
+            ]
+            if candidate.exists()
+        ),
+        None,
+    )
+    if path is None:
         return []
     data = json.loads(path.read_text(encoding="utf-8"))
     rows = []
     for name, payload in data.get("variants", {}).items():
         summary = payload.get("summary", {})
-        rows.append({"Label": name.replace("_", " "), **summary})
+        rows.append({"Label": name.replace("_", " "), "_samples": summary.get("Samples", 0), **summary})
     return rows
 
 
@@ -110,7 +125,8 @@ def plot_feedback(rows: list[dict]) -> Path | None:
     ax.set_xticks(list(x))
     ax.set_xticklabels(labels, rotation=18, ha="right")
     ax.legend()
-    ax.set_title("Real LLM Verification Feedback (HotpotQA, N=100)")
+    samples = rows[0].get("_samples", 100)
+    ax.set_title(f"Real LLM Verification Feedback (HotpotQA, N={samples})")
     fig.tight_layout()
     target = FIGURES / "real_llm_feedback_followup.png"
     fig.savefig(target, dpi=300, bbox_inches="tight")

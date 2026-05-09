@@ -130,6 +130,85 @@ def _build_hybridqa_corpus(
     return {"queries": queries, "corpus": corpus}
 
 
+def _graph_triple_title(triple: Dict[str, Any]) -> str:
+    head = str(triple.get("head", "")).strip()
+    relation = str(triple.get("relation", triple.get("predicate", ""))).strip()
+    tail = str(triple.get("tail", "")).strip()
+    return f"{head} --{relation}-> {tail}"
+
+
+def _build_graphqa_corpus(
+    sampled: List[Dict[str, Any]],
+    dataset_name: str,
+) -> Dict[str, Any]:
+    queries = []
+    corpus: List[EvidenceUnit] = []
+    doc_ids = set()
+
+    for item_idx, item in enumerate(sampled):
+        qid = str(item.get("id", item.get("question_id", f"graph_{item_idx}")))
+        triples = item.get("triples", item.get("graph", []))
+        if not isinstance(triples, list):
+            triples = []
+
+        triple_titles = [_graph_triple_title(triple) for triple in triples if isinstance(triple, dict)]
+        supporting_titles = item.get("supporting_titles")
+        if not supporting_titles:
+            supporting_indices = item.get("supporting_triples", item.get("supporting_indices", []))
+            if isinstance(supporting_indices, list) and supporting_indices:
+                supporting_titles = [
+                    triple_titles[idx]
+                    for idx in supporting_indices
+                    if isinstance(idx, int) and 0 <= idx < len(triple_titles)
+                ]
+            else:
+                supporting_titles = triple_titles
+
+        queries.append({
+            "id": qid,
+            "query": item.get("question", item.get("query", "")),
+            "answer": item.get("answer", ""),
+            "type": "graphqa",
+            "supporting_facts": {"title": supporting_titles},
+            "supporting_titles": supporting_titles,
+            "dataset": dataset_name,
+        })
+
+        for triple_idx, triple in enumerate(triples):
+            if not isinstance(triple, dict):
+                continue
+            title = _graph_triple_title(triple)
+            doc_key = f"{dataset_name}::{qid}::{triple_idx}::{title}"
+            if doc_key in doc_ids:
+                continue
+            doc_ids.add(doc_key)
+            source = str(triple.get("source", dataset_name))
+            qid_value = str(triple.get("qid", triple.get("id", "")))
+            content = f"[Graph Fact] {title}"
+            corpus.append(EvidenceUnit(
+                content=content,
+                source="graph",
+                metadata={
+                    "title": title,
+                    "dataset": dataset_name,
+                    "example_id": qid,
+                    "head": str(triple.get("head", "")),
+                    "relation": str(triple.get("relation", triple.get("predicate", ""))),
+                    "tail": str(triple.get("tail", "")),
+                    "source": source,
+                    "qid": qid_value,
+                },
+            ))
+
+    logger.info(
+        "Loaded %s queries and %s graph evidence units from %s.",
+        len(queries),
+        len(corpus),
+        dataset_name,
+    )
+    return {"queries": queries, "corpus": corpus}
+
+
 def _build_text_corpus_from_context(
     sampled,
     dataset_name: str,
@@ -489,6 +568,47 @@ def _load_local_hybridqa(
     return None
 
 
+def _load_local_graphqa(
+    split: str,
+    num_samples: int,
+    local_data_dir: Optional[str] = None,
+    dataset_name: str = "wikidata_graph",
+) -> Optional[Dict[str, Any]]:
+    aliases = (dataset_name, "wikidata_graph", "neo4j_graph", "graphqa")
+    for base_dir in _candidate_local_data_dirs(local_data_dir):
+        for alias in aliases:
+            for ext in (".jsonl", ".json"):
+                path = base_dir / alias / f"{split}{ext}"
+                if path.exists():
+                    logger.info("Loading %s graph QA samples from local file: %s", num_samples, path)
+                    records = _load_json_records(path)[:num_samples]
+                    return _build_graphqa_corpus(records, dataset_name=dataset_name)
+    return None
+
+
+def load_wikidata_graph_sample(
+    split: str = "validation",
+    num_samples: int = 100,
+    use_hetero: bool = False,
+    local_data_dir: Optional[str] = None,
+    hf_cache_dir: Optional[str] = None,
+    offline: Optional[bool] = None,
+) -> Dict[str, Any]:
+    local_bundle = _load_local_graphqa(
+        split=split,
+        num_samples=num_samples,
+        local_data_dir=local_data_dir,
+        dataset_name="wikidata_graph",
+    )
+    if local_bundle is not None:
+        return local_bundle
+    raise FileNotFoundError(
+        "Wikidata/Neo4j graph smoke requires a local JSON/JSONL file at "
+        "data/datasets/wikidata_graph/validation.jsonl. "
+        "Each record should include question, answer, and triples."
+    )
+
+
 def load_multihop_sample(
     dataset_name: str,
     split: str = "validation",
@@ -509,6 +629,9 @@ def load_multihop_sample(
         "2wikimultihopqa": load_2wiki_sample,
         "hybridqa": load_hybridqa_sample,
         "hybrid_qa": load_hybridqa_sample,
+        "wikidata_graph": load_wikidata_graph_sample,
+        "neo4j_graph": load_wikidata_graph_sample,
+        "graphqa": load_wikidata_graph_sample,
     }
 
     loader = loaders.get(normalized)

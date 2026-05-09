@@ -14,6 +14,7 @@ FIGURES = ROOT / "paper" / "zjuthesis" / "figures"
 
 def find_feedback_result() -> Path | None:
     preferred = [
+        RESULTS / "verification_feedback_study_hotpotqa_300_real_cove_rerun.json",
         RESULTS / "verification_feedback_real_cove_100.json",
         RESULTS / "verification_feedback_study_hotpotqa_50_v3.json",
         RESULTS / "verification_feedback_study_hotpotqa_50_v2.json",
@@ -34,16 +35,23 @@ def find_feedback_result() -> Path | None:
 def load_matrix_rows() -> list[dict]:
     rows = []
     candidates = [
-        ("RouteA RealAPI-100", RESULTS / "batches" / "2026-04-28-route-a-server" / "route_a_hotpotqa_realapi_100_matrix.json"),
-        ("Legacy A", RESULTS / "batches" / "2026-04-28-legacy-server-smoke" / "legacy_a_baseline_smoke_matrix.json"),
-        ("Legacy A3 CoVe", RESULTS / "batches" / "2026-04-28-legacy-server-smoke" / "legacy_a3_cove_smoke_matrix.json"),
+        ("RouteA RealAPI-300", RESULTS / "route_a_hotpotqa_realapi_300.json"),
+        ("RealLLM A-300", RESULTS / "automated_ablation_real_llm_300.json"),
+        ("RealLLM A3 CoVe-300", RESULTS / "automated_ablation_real_llm_300.json"),
     ]
     feedback_path = find_feedback_result()
     for label, path in candidates:
         if not path.exists():
             continue
         data = json.loads(path.read_text(encoding="utf-8"))
-        row = data[0] if isinstance(data, list) else data["matrix"][0]
+        if isinstance(data, list) and "A3" in label:
+            matches = [item for item in data if item.get("Config") == "A3_Baseline_CoVe"]
+            row = matches[0] if matches else data[0]
+        elif isinstance(data, list) and "A-300" in label:
+            matches = [item for item in data if item.get("Config") == "A_Baseline"]
+            row = matches[0] if matches else data[0]
+        else:
+            row = data[0] if isinstance(data, list) else data["matrix"][0]
         rows.append({"label": label, **row})
     if feedback_path.exists():
         data = json.loads(feedback_path.read_text(encoding="utf-8"))
@@ -130,9 +138,9 @@ def plot_calibration() -> Path | None:
 
 def plot_verifier_threshold_tradeoff() -> Path | None:
     preferred = [
-        RESULTS / "batches" / "2026-04-30-real-cove-followup" / "verifier_comparison_real_cove_200.json",
         RESULTS / "verifier_comparison_real_cove_500.json",
         RESULTS / "verifier_comparison_hotpotqa.json",
+        RESULTS / "batches" / "2026-04-30-real-cove-followup" / "verifier_comparison_real_cove_200.json",
     ]
     path = next((candidate for candidate in preferred if candidate.exists()), None)
     if path is None:

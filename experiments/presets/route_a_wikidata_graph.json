@@ -1,0 +1,25 @@
+{
+  "route": "A",
+  "stage": "A4_real_graph_smoke",
+  "dataset": "wikidata_graph",
+  "split": "validation",
+  "samples": 50,
+  "local_data_dir": "data/datasets",
+  "offline": true,
+  "baseline": {
+    "name": "llamaindex_wikidata_graph",
+    "embed_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "top_k": 5,
+    "chunk_size": 512,
+    "chunk_overlap": 64,
+    "local_files_only": true
+  },
+  "metrics": [
+    "exact_match",
+    "f1",
+    "support_recall_at_k",
+    "support_all_hit_at_k",
+    "latency_ms"
+  ],
+  "notes": "Route A static Wikidata/Neo4j graph smoke. Requires data/datasets/wikidata_graph/validation.jsonl with question, answer, and triples fields."
+}
