@@ -53700,18 +53700,5 @@
         }
       ]
     }
-  ],
-  "progress": {
-    "status": "completed",
-    "current_config": null,
-    "completed_configs": [
-      "A_Baseline",
-      "A2_Baseline_Adaptive",
-      "A3_Baseline_CoVe",
-      "B_Hetero",
-      "D_CoVe_Full"
-    ],
-    "completed_queries_in_current_config": 0,
-    "total_queries_in_current_config": 0
-  }
+  ]
 }

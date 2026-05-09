@@ -67,7 +67,10 @@ class CoVeVerifier:
         start = text.find("{")
         end = text.rfind("}")
         if 0 <= start < end:
-            return json.loads(text[start : end + 1])
+            try:
+                return json.loads(text[start : end + 1])
+            except json.JSONDecodeError:
+                pass
 
         label_match = re.search(r"\b(SUPPORTED|INSUFFICIENT|CONTRADICTED)\b", text, flags=re.IGNORECASE)
         confidence_match = re.search(r"(?:confidence|score)\D{0,20}([01](?:\.\d+)?)", text, flags=re.IGNORECASE)
@@ -78,7 +81,14 @@ class CoVeVerifier:
                 "reason": text[:240],
             }
 
-        raise ValueError(f"cannot parse verifier response: {text[:120]}")
+        lower = text.lower()
+        if any(w in lower for w in ("contradict", "false", "incorrect", "not support", "doesn't support", "conflict")):
+            return {"label": "CONTRADICTED", "confidence": 0.6, "reason": text[:240]}
+        if any(w in lower for w in ("support", "confirm", "verify", "correct", "match", "agree", "consistent")):
+            return {"label": "SUPPORTED", "confidence": 0.6, "reason": text[:240]}
+
+        logger.warning("Verifier returned unparsable response, defaulting to INSUFFICIENT: %s", text[:120])
+        return {"label": "INSUFFICIENT", "confidence": 0.3, "reason": text[:240]}
 
     def extract_claims(self, generated_answer: str) -> List[str]:
         """

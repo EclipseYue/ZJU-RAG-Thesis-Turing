@@ -272,6 +272,7 @@ def build_argparser() -> argparse.ArgumentParser:
     parser.add_argument("--samples", type=int, default=None)
     parser.add_argument("--output-name", default=None)
     parser.add_argument("--real-cove", action="store_true")
+    parser.add_argument("--device", default=None, help="Torch device, e.g. cuda or cpu")
     return parser
 
 
@@ -287,6 +288,8 @@ def load_config(args: argparse.Namespace) -> Dict[str, Any]:
         config["output_name"] = args.output_name
     if args.real_cove:
         config["real_cove"] = True
+    if args.device is not None:
+        config["device"] = args.device
     return config
 
 

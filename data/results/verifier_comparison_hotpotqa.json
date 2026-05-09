@@ -37,11 +37,11 @@
       "threshold": 0.35,
       "summary": {
         "samples": 200,
-        "F1": 0.31,
-        "No_Answer_Rate": 0.0,
-        "False_Rejection_Rate": 0.0,
-        "Unsafe_Accept_Rate": 98.0,
-        "Avg_Verify_Confidence": 0.7317
+        "F1": 15.05,
+        "No_Answer_Rate": 29.5,
+        "False_Rejection_Rate": 29.5,
+        "Unsafe_Accept_Rate": 33.0,
+        "Avg_Verify_Confidence": 0.5553
       }
     },
     "cove_standard": {
@@ -49,11 +49,11 @@
       "threshold": 0.5,
       "summary": {
         "samples": 200,
-        "F1": 0.31,
-        "No_Answer_Rate": 0.0,
-        "False_Rejection_Rate": 0.0,
-        "Unsafe_Accept_Rate": 98.0,
-        "Avg_Verify_Confidence": 0.7317
+        "F1": 15.23,
+        "No_Answer_Rate": 28.0,
+        "False_Rejection_Rate": 28.0,
+        "Unsafe_Accept_Rate": 33.0,
+        "Avg_Verify_Confidence": 0.5635
       }
     },
     "cove_strict": {
@@ -61,11 +61,11 @@
       "threshold": 0.9,
       "summary": {
         "samples": 200,
-        "F1": 0.0,
-        "No_Answer_Rate": 91.0,
-        "False_Rejection_Rate": 91.0,
-        "Unsafe_Accept_Rate": 9.0,
-        "Avg_Verify_Confidence": 0.7317
+        "F1": 12.01,
+        "No_Answer_Rate": 59.5,
+        "False_Rejection_Rate": 59.5,
+        "Unsafe_Accept_Rate": 13.0,
+        "Avg_Verify_Confidence": 0.5577
       }
     },
     "overlap_soft": {
@@ -73,11 +73,11 @@
       "threshold": 0.35,
       "summary": {
         "samples": 200,
-        "F1": 0.0,
-        "No_Answer_Rate": 58.5,
-        "False_Rejection_Rate": 58.5,
-        "Unsafe_Accept_Rate": 41.5,
-        "Avg_Verify_Confidence": 0.413
+        "F1": 12.23,
+        "No_Answer_Rate": 59.5,
+        "False_Rejection_Rate": 59.5,
+        "Unsafe_Accept_Rate": 15.5,
+        "Avg_Verify_Confidence": 0.3136
       }
     }
   }
