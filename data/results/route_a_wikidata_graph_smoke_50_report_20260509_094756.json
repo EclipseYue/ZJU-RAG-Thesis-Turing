@@ -1,0 +1,910 @@
+{
+  "run_info": {
+    "timestamp": "2026-05-09T09:47:56",
+    "preset": "/root/home/ZJU-RAG-Thesis-Turing/experiments/presets/route_a_wikidata_graph.json",
+    "dataset": "wikidata_graph",
+    "split": "validation",
+    "samples": 50,
+    "generator_backend": "deepseek",
+    "generator_model": "deepseek-v4-flash",
+    "answer_mode": "concise",
+    "uses_real_api": true
+  },
+  "matrix": [
+    {
+      "Config": "llamaindex_wikidata_graph",
+      "Route": "A",
+      "Stage": "A4_real_graph_smoke",
+      "Dataset": "wikidata_graph",
+      "GeneratorBackend": "deepseek",
+      "GeneratorModel": "deepseek-v4-flash",
+      "AnswerMode": "concise",
+      "Samples": 50,
+      "SupportRecall@K": 0.0,
+      "SupportAllHit@K": 0.0,
+      "ExactMatch": 0.0,
+      "F1_Score": 2.67,
+      "Avg_Latency_ms": 3186.59
+    }
+  ],
+  "details": [
+    {
+      "id": "8813f87c0bdd11eba7f7acde48001122",
+      "query": "Who is the mother of the director of film Polish-Russian War (Film)?",
+      "answer": "Małgorzata Braunek",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Polish-Russian War --director-> Xawery Żuławski",
+        "Xawery Żuławski --mother-> Małgorzata Braunek"
+      ],
+      "latency_ms": 3142.446854006266,
+      "retrieved": []
+    },
+    {
+      "id": "61a46987092f11ebbdaeac1f6bf848b6",
+      "query": "Which film came out first, Blind Shaft or The Mask Of Fu Manchu?",
+      "answer": "The Mask Of Fu Manchu",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Blind Shaft --publication date-> 2003",
+        "The Mask of Fu Manchu --publication date-> 1932"
+      ],
+      "latency_ms": 2496.7945480020717,
+      "retrieved": []
+    },
+    {
+      "id": "e2a3bf2a0bdd11eba7f7acde48001122",
+      "query": "When did John V, Prince Of Anhalt-Zerbst's father die?",
+      "answer": "12 June 1516",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Ernest I, Prince of Anhalt-Dessau --date of death-> 12 June 1516",
+        "John V of Anhalt-Zerbst --father-> Ernest I, Prince of Anhalt-Dessau"
+      ],
+      "latency_ms": 3180.089122004574,
+      "retrieved": []
+    },
+    {
+      "id": "0cd3bdea0bde11eba7f7acde48001122",
+      "query": "What is the award that the director of film Wearing Velvet Slippers Under A Golden Umbrella won?",
+      "answer": "Myanmar Motion Picture Academy Awards",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Wearing Velvet Slippers under a Golden Umbrella --director-> Wunna",
+        "Wunna --award received-> Myanmar Motion Picture Academy Awards"
+      ],
+      "latency_ms": 3560.4032760020345,
+      "retrieved": []
+    },
+    {
+      "id": "f9dcb4a60bda11eba7f7acde48001122",
+      "query": "Where was the director of film Ronnie Rocket born?",
+      "answer": "Missoula, Montana",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "David Lynch --place of birth-> Missoula, Montana",
+        "Ronnie Rocket --director-> David Lynch"
+      ],
+      "latency_ms": 2899.3001979979454,
+      "retrieved": []
+    },
+    {
+      "id": "8981e1ce0bb011ebab90acde48001122",
+      "query": "Who is Charles Bretagne Marie De La Trémoille's paternal grandfather?",
+      "answer": "Charles Armand René de La Trémoille",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Charles Bretagne Marie de La Trémoille --father-> Jean Bretagne Charles de La Trémoille",
+        "Jean Bretagne Charles de La Trémoille --father-> Charles Armand René de La Trémoille"
+      ],
+      "latency_ms": 3626.2481870071497,
+      "retrieved": []
+    },
+    {
+      "id": "019bed300bde11eba7f7acde48001122",
+      "query": "Where was the father of Ștefan I. Nenițescu born?",
+      "answer": "Galați",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Ioan S. Nenițescu --place of birth-> Galați",
+        "Ștefan I. Nenițescu --father-> Ioan S. Nenițescu"
+      ],
+      "latency_ms": 2670.1921979984036,
+      "retrieved": []
+    },
+    {
+      "id": "a7b9672009c311ebbdb0ac1f6bf848b6",
+      "query": "Are North Marion High School (Oregon) and Seoul High School both located in the same country?",
+      "answer": "no",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.6666666666666666,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "North Marion High School (Oregon) --country-> United States",
+        "Seoul High School --country-> South Korea"
+      ],
+      "latency_ms": 3296.3973049918422,
+      "retrieved": []
+    },
+    {
+      "id": "298f23b8088a11ebbd6eac1f6bf848b6",
+      "query": "Which film has the director who was born later, El Extraño Viaje or Love In Pawn?",
+      "answer": "El Extraño Viaje",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Charles Saunders (director) --date of birth-> 8 April 1904",
+        "El extraño viaje --director-> Fernando Fernán Gómez",
+        "Fernando Fernán Gómez --date of birth-> 28 August 1921",
+        "Love in Pawn --director-> Charles Saunders"
+      ],
+      "latency_ms": 3402.271674000076,
+      "retrieved": []
+    },
+    {
+      "id": "2ec440560bb011ebab90acde48001122",
+      "query": "Who is the maternal grandfather of Antiochus X Eusebes?",
+      "answer": "Ptolemy IX Lathyros",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Antiochus X Eusebes --mother-> Cleopatra IV",
+        "Cleopatra IV --father-> Ptolemy IX Lathyros"
+      ],
+      "latency_ms": 2989.5011089975014,
+      "retrieved": []
+    },
+    {
+      "id": "05f8a691087b11ebbd67ac1f6bf848b6",
+      "query": "Which film has the director died first, Crimen A Las Tres or The Working Class Goes To Heaven?",
+      "answer": "The Working Class Goes To Heaven",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Crimen a las tres --director-> Luis Saslavsky",
+        "Elio Petri --date of death-> 10 November 1982",
+        "Luis Saslavsky --date of death-> March 20, 1995",
+        "The Working Class Goes to Heaven --director-> Elio Petri"
+      ],
+      "latency_ms": 3353.097157989396,
+      "retrieved": []
+    },
+    {
+      "id": "645c9a5a08c311ebbd8dac1f6bf848b6",
+      "query": "Which film has the director born first, Once A Gentleman or The Girl In White?",
+      "answer": "Once A Gentleman",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "James Cruze --date of birth-> March 27, 1884",
+        "John Sturges --date of birth-> January 3, 1910",
+        "Once a Gentleman --director-> James Cruze",
+        "The Girl in White --director-> John Sturges"
+      ],
+      "latency_ms": 3041.8102589901537,
+      "retrieved": []
+    },
+    {
+      "id": "5bec3cd408a711ebbd7fac1f6bf848b6",
+      "query": "Which film has the director who died earlier, Il Seduttore or The Trial Of Joan Of Arc?",
+      "answer": "The Trial Of Joan Of Arc",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Franco Rossi (director) --date of death-> 5 June 2000",
+        "Il seduttore --director-> Franco Rossi",
+        "Robert Bresson --date of death-> 18 December 1999",
+        "The Trial of Joan of Arc --director-> Robert Bresson"
+      ],
+      "latency_ms": 3272.1379729919136,
+      "retrieved": []
+    },
+    {
+      "id": "464cfa460bd911eba7f7acde48001122",
+      "query": "Where was the director of film Thomas Jefferson (Film) born?",
+      "answer": "Brooklyn",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Ken Burns --place of birth-> Brooklyn",
+        "Thomas Jefferson --director-> Ken Burns"
+      ],
+      "latency_ms": 3086.619776993757,
+      "retrieved": []
+    },
+    {
+      "id": "c05e16a40bdd11eba7f7acde48001122",
+      "query": "Why did Grand Duke Kirill Vladimirovich Of Russia's wife die?",
+      "answer": "stroke",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Grand Duke Kirill Vladimirovich of Russia --spouse-> Princess Victoria Melita of Saxe-Coburg and Gotha",
+        "Princess Victoria Melita of Saxe-Coburg and Gotha --cause of death-> stroke"
+      ],
+      "latency_ms": 3337.1640109980945,
+      "retrieved": []
+    },
+    {
+      "id": "2935f1640bda11eba7f7acde48001122",
+      "query": "Where was the place of death of the director of film Beat Girl?",
+      "answer": "Nice",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Beat Girl --director-> Edmond T. Gréville",
+        "Edmond T. Gréville --place of death-> Nice"
+      ],
+      "latency_ms": 3388.4566969936714,
+      "retrieved": []
+    },
+    {
+      "id": "ada1b358085211ebbd58ac1f6bf848b6",
+      "query": "Who died first, Fleetwood Sheppard or George William Whitaker?",
+      "answer": "Fleetwood Sheppard",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Fleetwood Sheppard --date of death-> 25 August 1698",
+        "George William Whitaker --date of death-> March 6, 1916"
+      ],
+      "latency_ms": 3489.6372700022766,
+      "retrieved": []
+    },
+    {
+      "id": "3f857208086c11ebbd61ac1f6bf848b6",
+      "query": "Which film has the director born first, The Raven'S Dance or Keïta! L'Héritage Du Griot?",
+      "answer": "The Raven'S Dance",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Dani Kouyaté --date of birth-> June 4, 1961",
+        "Keïta! l'Héritage du griot --director-> Dani Kouyaté",
+        "Markku Lehmuskallio --date of birth-> 31 December 1938",
+        "The Raven's Dance --director-> Markku Lehmuskallio"
+      ],
+      "latency_ms": 2586.427153990371,
+      "retrieved": []
+    },
+    {
+      "id": "dfe93efe0bdd11eba7f7acde48001122",
+      "query": "When did Jean Martin (Singer)'s husband die?",
+      "answer": "1983",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Jean Martin --spouse-> William Black",
+        "William Black --date of death-> 1983"
+      ],
+      "latency_ms": 3390.2249759994447,
+      "retrieved": []
+    },
+    {
+      "id": "1d890623088711ebbd6dac1f6bf848b6",
+      "query": "Which film has the director who died earlier, Tangled Destinies or The Daltons' Women?",
+      "answer": "Tangled Destinies",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Frank R. Strayer --date of death-> February 3, 1964",
+        "Tangled Destinies --director-> Frank R. Strayer",
+        "The Daltons' Women --director-> Thomas Carr",
+        "Thomas Carr (director) --date of death-> April 23, 1997"
+      ],
+      "latency_ms": 3686.718903001747,
+      "retrieved": []
+    },
+    {
+      "id": "d8c36503097411ebbdb0ac1f6bf848b6",
+      "query": "Which film was released earlier, Moment Of Danger or The Ballad Of Josie?",
+      "answer": "Moment Of Danger",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Moment of Danger --publication date-> 1960",
+        "The Ballad of Josie --publication date-> 1967"
+      ],
+      "latency_ms": 2587.355588999344,
+      "retrieved": []
+    },
+    {
+      "id": "2207e9060bda11eba7f7acde48001122",
+      "query": "What nationality is the director of film World And Time Enough?",
+      "answer": "United States",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Eric Mueller --country of citizenship-> United States",
+        "World and Time Enough --director-> Eric Mueller"
+      ],
+      "latency_ms": 4114.190995009267,
+      "retrieved": []
+    },
+    {
+      "id": "7abc1e3008d511ebbd98ac1f6bf848b6",
+      "query": "Which film has the director died earlier, Poker In Bed or The Machine To Kill Bad People?",
+      "answer": "The Machine To Kill Bad People",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Giuliano Carnimeo --date of death-> 10 September 2016",
+        "Poker in Bed --director-> Giuliano Carnimeo",
+        "Roberto Rossellini --date of death-> 3 June 1977",
+        "The Machine to Kill Bad People --director-> Roberto Rossellini"
+      ],
+      "latency_ms": 2509.0552479960024,
+      "retrieved": []
+    },
+    {
+      "id": "ae331827088b11ebbd6fac1f6bf848b6",
+      "query": "Which film whose director is younger, Heads I Win, Tails You Lose or The Incredible Sarah?",
+      "answer": "Heads I Win, Tails You Lose",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Heads I Win, Tails You Lose --director-> Nanni Loy",
+        "Nanni Loy --date of birth-> 23 October 1925",
+        "Richard Fleischer --date of birth-> December 8, 1916",
+        "The Incredible Sarah --director-> Richard Fleischer"
+      ],
+      "latency_ms": 2917.8663519996917,
+      "retrieved": []
+    },
+    {
+      "id": "2002bf0c0bb011ebab90acde48001122",
+      "query": "Who is Catherine Of Pomerania, Countess Palatine Of Neumarkt's father-in-law?",
+      "answer": "Rupert",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Catherine of Pomerania, Countess Palatine of Neumarkt --spouse-> John",
+        "John --father-> Rupert"
+      ],
+      "latency_ms": 3598.872268994455,
+      "retrieved": []
+    },
+    {
+      "id": "c531e7560baf11ebab90acde48001122",
+      "query": "Who is Marie Zéphyrine Of France's paternal grandmother?",
+      "answer": "Marie Leszczyńska",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Louis, Dauphin of France --mother-> Marie Leszczyńska",
+        "Marie Zéphyrine of France --father-> Louis, Dauphin of France"
+      ],
+      "latency_ms": 2791.055621986743,
+      "retrieved": []
+    },
+    {
+      "id": "4d982dc308c111ebbd8bac1f6bf848b6",
+      "query": "Which film has the director died earlier, Condemned Women or Faces In The Dark?",
+      "answer": "Condemned Women",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Condemned Women --director-> Lew Landers",
+        "David Eady (film director) --date of death-> April 5, 2009",
+        "Faces in the Dark --director-> David Eady",
+        "Lew Landers --date of death-> December 16, 1962"
+      ],
+      "latency_ms": 3344.6927039913135,
+      "retrieved": []
+    },
+    {
+      "id": "a9cc5f240bdb11eba7f7acde48001122",
+      "query": "Who is the spouse of the director of film Eden And After?",
+      "answer": "Catherine Robbe-Grillet",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Alain Robbe-Grillet --spouse-> Catherine Robbe-Grillet",
+        "Eden and After --director-> Alain Robbe-Grillet"
+      ],
+      "latency_ms": 3191.256294012419,
+      "retrieved": []
+    },
+    {
+      "id": "6ebe05740bde11eba7f7acde48001122",
+      "query": "Where was the place of death of Anastasia Of Serbia's husband?",
+      "answer": "Hilandar",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Anastasia of Serbia --spouse-> Stefan Nemanja",
+        "Stefan Nemanja --place of death-> Hilandar"
+      ],
+      "latency_ms": 3103.2386980077717,
+      "retrieved": []
+    },
+    {
+      "id": "a0065fe9085f11ebbd5dac1f6bf848b6",
+      "query": "Are Fire In Hell and The Tiger: An Old Hunter'S Tale from the same country?",
+      "answer": "yes",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Fire in Hell --country of origin-> South Korea",
+        "The Tiger: An Old Hunter's Tale --country of origin-> South Korea"
+      ],
+      "latency_ms": 3688.5286350006936,
+      "retrieved": []
+    },
+    {
+      "id": "7c490349090311ebbdadac1f6bf848b6",
+      "query": "Which film was released more recently, Lo Zappatore or Placer Sangriento?",
+      "answer": "Placer Sangriento",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Lo Zappatore --publication date-> 1950",
+        "Placer sangriento --publication date-> 1967"
+      ],
+      "latency_ms": 3031.8367879954167,
+      "retrieved": []
+    },
+    {
+      "id": "8d2382e0085811ebbd5aac1f6bf848b6",
+      "query": "Was Şemsettin Baş or Gwenc'Hlan Le Scouëzec born first?",
+      "answer": "Gwenc'Hlan Le Scouëzec",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Gwenc'hlan Le Scouëzec --date of birth-> 11 November 1929",
+        "Şemsettin Baş --date of birth-> January 4, 1973"
+      ],
+      "latency_ms": 3468.0755640001735,
+      "retrieved": []
+    },
+    {
+      "id": "1a114c5e088f11ebbd71ac1f6bf848b6",
+      "query": "Which film has the director born later, Bhoomiyude Avakashikal or The Majesty Of The Law?",
+      "answer": "Bhoomiyude Avakashikal",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Bhoomiyude Avakashikal --director-> T. V. Chandran",
+        "Julia Crawford Ivers --date of birth-> October 3, 1869",
+        "T. V. Chandran --date of birth-> 23 November 1950",
+        "The Majesty of the Law --director-> Julia Crawford"
+      ],
+      "latency_ms": 2598.981511007878,
+      "retrieved": []
+    },
+    {
+      "id": "7a1d9d7c0bb011ebab90acde48001122",
+      "query": "Who is Cornelia (Wife Of Caesar)'s child-in-law?",
+      "answer": "Pompey",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Cornelia --child-> Julia",
+        "Julia --spouse-> Pompey"
+      ],
+      "latency_ms": 3506.949415008421,
+      "retrieved": []
+    },
+    {
+      "id": "0bedb7e80bdc11eba7f7acde48001122",
+      "query": "Why did John Middleton Murry's wife die?",
+      "answer": "tuberculosis",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "John Middleton Murry --spouse-> Katherine Mansfield",
+        "Katherine Mansfield --cause of death-> tuberculosis"
+      ],
+      "latency_ms": 3475.047966989223,
+      "retrieved": []
+    },
+    {
+      "id": "1869092c0bb011ebab90acde48001122",
+      "query": "Who is the paternal grandfather of Taj Al-Dawla?",
+      "answer": "Rukn al-Dawla",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "'Adud al-Dawla --father-> Rukn al-Dawla",
+        "Taj al-Dawla --father-> 'Adud al-Dawla"
+      ],
+      "latency_ms": 2847.76785899885,
+      "retrieved": []
+    },
+    {
+      "id": "9980b1ed089d11ebbd78ac1f6bf848b6",
+      "query": "Do both films Payment On Demand and My Cousin From Warsaw have the directors from the same country?",
+      "answer": "yes",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Carl Boese --country of citizenship-> German",
+        "Curtis Bernhardt --country of citizenship-> German",
+        "My Cousin from Warsaw --director-> Carl Boese",
+        "Payment on Demand --director-> Curtis Bernhardt"
+      ],
+      "latency_ms": 3354.088310006773,
+      "retrieved": []
+    },
+    {
+      "id": "c19b72520bdb11eba7f7acde48001122",
+      "query": "What is the place of birth of the director of film And The Spring Comes?",
+      "answer": "Xi'an",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "And the Spring Comes --director-> Gu Changwei",
+        "Gu Changwei --place of birth-> Xi'an"
+      ],
+      "latency_ms": 3064.2180959985126,
+      "retrieved": []
+    },
+    {
+      "id": "3a84baaf088311ebbd6dac1f6bf848b6",
+      "query": "Who died first, Madame Pasca or James A. Donohoe?",
+      "answer": "Madame Pasca",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "James A. Donohoe --date of death-> February 26, 1956",
+        "Madame Pasca --date of death-> May 25, 1914"
+      ],
+      "latency_ms": 3402.0549209963065,
+      "retrieved": []
+    },
+    {
+      "id": "633132f008b711ebbd88ac1f6bf848b6",
+      "query": "Who was born later, D'Arcy Coulson or Thomas William Adams?",
+      "answer": "D'Arcy Coulson",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "D'Arcy Coulson --date of birth-> February 17, 1908",
+        "Thomas William Adams --date of birth-> 24 June 1842"
+      ],
+      "latency_ms": 3070.6878719938686,
+      "retrieved": []
+    },
+    {
+      "id": "9aee006a09c211ebbdb0ac1f6bf848b6",
+      "query": "Are Simonds Catholic College and Saginaw High School (Texas) both located in the same country?",
+      "answer": "no",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.6666666666666666,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Saginaw High School (Texas) --country-> United States",
+        "Simonds Catholic College --country-> Australian"
+      ],
+      "latency_ms": 3323.419158012257,
+      "retrieved": []
+    },
+    {
+      "id": "b3110a5e0bda11eba7f7acde48001122",
+      "query": "Which country Prince Nikolaus Wilhelm Of Nassau's mother is from?",
+      "answer": "German",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Prince Nikolaus Wilhelm of Nassau --mother-> Princess Pauline of Württemberg",
+        "Princess Pauline of Württemberg --country of citizenship-> German"
+      ],
+      "latency_ms": 2782.268932001898,
+      "retrieved": []
+    },
+    {
+      "id": "5b6b8c02089711ebbd77ac1f6bf848b6",
+      "query": "Which film whose director was born first, 45 Fathers or The Intended?",
+      "answer": "45 Fathers",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "45 Fathers --director-> James Tinling",
+        "James Tinling --date of birth-> May 8, 1889",
+        "Kristian Levring --date of birth-> May 9, 1957",
+        "The Intended --director-> Kristian Levring"
+      ],
+      "latency_ms": 3894.3186620017514,
+      "retrieved": []
+    },
+    {
+      "id": "3705552a0bb011ebab90acde48001122",
+      "query": "Who is the paternal grandfather of Alexandre Berthier, 3Rd Prince Of Wagram?",
+      "answer": "Louis-Alexandre Berthier",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Alexandre Berthier, 3rd Prince of Wagram --father-> Napoléon Alexandre Berthier",
+        "Napoléon Alexandre Berthier --father-> Louis-Alexandre Berthier"
+      ],
+      "latency_ms": 2340.031272993656,
+      "retrieved": []
+    },
+    {
+      "id": "07e964920bde11eba7f7acde48001122",
+      "query": "Where was the husband of Caterina Visconti born?",
+      "answer": "Pavia",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Caterina Visconti --spouse-> Gian Galeazzo Visconti",
+        "Gian Galeazzo Visconti --place of birth-> Pavia"
+      ],
+      "latency_ms": 3139.2184590076795,
+      "retrieved": []
+    },
+    {
+      "id": "f7c4fdf2087611ebbd67ac1f6bf848b6",
+      "query": "Which film has the director who was born later, A Quiet Place In The Country or When Were You Born?",
+      "answer": "A Quiet Place In The Country",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "A Quiet Place in the Country --director-> Elio Petri",
+        "Elio Petri --date of birth-> 29 January 1929",
+        "When Were You Born --director-> William C. McGann",
+        "William C. McGann --date of birth-> April 15, 1893"
+      ],
+      "latency_ms": 3488.823940992006,
+      "retrieved": []
+    },
+    {
+      "id": "db19bf4c086e11ebbd62ac1f6bf848b6",
+      "query": "Who was born first, John Beach or Gordon Persons?",
+      "answer": "John Beach",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Gordon Persons --date of birth-> February 5, 1902",
+        "John Beach --date of birth-> January 1, 1812"
+      ],
+      "latency_ms": 3271.046720998129,
+      "retrieved": []
+    },
+    {
+      "id": "9e6d7bdc08a111ebbd79ac1f6bf848b6",
+      "query": "Which film has the director born earlier, The House By The Cemetery or Charlie Chan In Honolulu?",
+      "answer": "Charlie Chan In Honolulu",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Charlie Chan in Honolulu --director-> H. Bruce Humberstone",
+        "H. Bruce Humberstone --date of birth-> November 18, 1901",
+        "Lucio Fulci --date of birth-> 17 June 1927",
+        "The House by the Cemetery --director-> Lucio Fulci"
+      ],
+      "latency_ms": 3279.062289991998,
+      "retrieved": []
+    },
+    {
+      "id": "c3c94d0a0bdc11eba7f7acde48001122",
+      "query": "Who is the child of the director of film La Leona (Film)?",
+      "answer": "Víctor Bó",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Armando Bó --child-> Víctor Bó",
+        "La Leona --director-> Armando Bo"
+      ],
+      "latency_ms": 3114.315339989844,
+      "retrieved": []
+    },
+    {
+      "id": "96fb4aee0baf11ebab90acde48001122",
+      "query": "Who is Blanche Of Portugal (1259–1321)'s paternal grandmother?",
+      "answer": "Urraca of Castile",
+      "predicted_answer": "No-Answer",
+      "exact_match": 0.0,
+      "f1_score": 0.0,
+      "support_recall": 0.0,
+      "support_all_hit": 0.0,
+      "predicted_titles": [],
+      "supporting_titles": [
+        "Afonso III of Portugal --mother-> Urraca of Castile",
+        "Blanche of Portugal --father-> Afonso III of Portugal"
+      ],
+      "latency_ms": 3135.1886819902575,
+      "retrieved": []
+    }
+  ]
+}

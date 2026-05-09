@@ -1,0 +1,17 @@
+[
+  {
+    "Config": "llamaindex_hybridqa",
+    "Route": "A",
+    "Stage": "A3_real_heterogeneous",
+    "Dataset": "hybridqa",
+    "GeneratorBackend": "deepseek",
+    "GeneratorModel": "deepseek-v4-flash",
+    "AnswerMode": "concise",
+    "Samples": 100,
+    "SupportRecall@K": 23.27,
+    "SupportAllHit@K": 0.0,
+    "ExactMatch": 0.0,
+    "F1_Score": 0.81,
+    "Avg_Latency_ms": 3359.07
+  }
+]

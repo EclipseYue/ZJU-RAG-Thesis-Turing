@@ -1,0 +1,17 @@
+[
+  {
+    "Config": "llamaindex_wikidata_graph",
+    "Route": "A",
+    "Stage": "A4_real_graph_smoke",
+    "Dataset": "wikidata_graph",
+    "GeneratorBackend": "deepseek",
+    "GeneratorModel": "deepseek-v4-flash",
+    "AnswerMode": "concise",
+    "Samples": 50,
+    "SupportRecall@K": 0.0,
+    "SupportAllHit@K": 0.0,
+    "ExactMatch": 0.0,
+    "F1_Score": 2.67,
+    "Avg_Latency_ms": 3186.59
+  }
+]
