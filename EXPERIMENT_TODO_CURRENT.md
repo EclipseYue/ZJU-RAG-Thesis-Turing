@@ -795,7 +795,8 @@ ls data/datasets/wikidata_graph/validation.jsonl
 
 - HybridQA text-table smoke 已完成。
 - 已补 `experiments/presets/route_a_wikidata_graph.json` 与本地 JSONL loader。
-- Neo4j/Wikidata JSONL graph smoke 还需要先补 `data/datasets/wikidata_graph/validation.jsonl`，暂不建议直接开在线数据库实验。
+- 已生成 `data/datasets/wikidata_graph/validation.jsonl`，共 12576 条，由本地 2WikiMultihopQA 证据三元组转写为 Wikidata-style 静态图谱问答数据。
+- 下一步可以直接同步该目录到服务器并运行 graph smoke；仍不建议直接开在线数据库实验。
 
 当前状态：
 

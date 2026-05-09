@@ -235,7 +235,7 @@ MPLCONFIGDIR=/tmp/mpl .venv/bin/python experiments/plot_real_llm_followup.py
 - VAR 真实 CoVe N=300 已完成有效批次：VAR 将 hard reject 的 `39.67%` 拒答率降至 `14.33%`，F1 从 `12.48` 提升到 `18.15`。
 - HybridQA text-table N=50 已完成并回填论文：`F1=2.51`，`SupportAllHit@K=0.00`，只作为真实异构接入边界实验。
 - verifier threshold N=200 已更新：CoVe-strict 将不安全接受率降至 `13.0%`，但拒答率升至 `59.5%`。
-- Neo4j/Wikidata graph smoke 已补本地 JSONL loader 与 preset，仍需准备 `data/datasets/wikidata_graph/validation.jsonl`。
+- Neo4j/Wikidata graph smoke 已补本地 JSONL loader、preset 与 `data/datasets/wikidata_graph/validation.jsonl`；该文件由 2WikiMultihopQA 证据三元组转写为 Wikidata-style 静态图谱问答数据。
 
 完整命令见：
 
